@@ -1,0 +1,80 @@
+<div class="col-lg-9" data-th-fragment="admin-car-type-content">
+    <div class="col-1g-12 col-md-12">
+
+        <div class="login-form single-popular-car">
+            <div class="alert alert-success" th:if="${successmessage}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+                <strong th:text="${successmessage}"></strong>
+            </div>
+            <div class="alert alert-warning" th:if="${errormessage}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+                <strong th:text="${errormessage}"></strong>
+            </div>
+            <form action="#" th:action="@{${isAdd}?'/admin/car/type':'/admin/car/type'}" th:object="${carTypeDto}" th:method="@{${isAdd}?'post':'put'}" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="hidden" th:field="*{id}" th:value="@{${isAdd}?'':'${carTypeDto.id}'}">
+
+                        <label for="formGroupExampleInput">Car type name</label>
+                        <input type="text" class="form-control" id="type" placeholder="car type name" th:field="*{type}">
+                    </div>
+
+                </div>
+                <div class="input-submit">
+                    <button type="submit" class="btn-primary" th:text="${isAdd}?'Save':'Update'">Submit</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="modal fade" id="carModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="myModalBody">
+                        <p>Do you want to delete thhis (<span id="modal-name"> </span>) record?</p>
+                    </div>
+                    <div class="modal-footer">
+                                                                             <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="carModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="myModalBody">
+
+                        Do you want to delete thhis (
+                        <span id="modal-name"> </span>) record?
+                    </div>
+                    <div class="modal-footer">
+
+                                  <form name="idModalLink" id="idModalLink">
+                                                                                <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                            </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row popular-car-gird">
+        <div class="col-lg-6 col-md-6 " th:each="carType : ${carTypes}" th:attrappend="class=${carType.type}"  th:attr="data-single-item=${carType.id}">
+            <div class="single-popular-car">
+                <div class="p-car-content">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <a href="#" th:text="${carType.type}" style="font-size: 16px;"></a>
+
+                        </div>
+                        <div class="col-md-3">
+                            <a th:href="@{'/admin/car/type/'+${carType.id}}"> <i class="fa fa-edit" style="font-size:21px;"></i></a>
+                            <a href="javascript:void(0)" class="confirm-delete" th:attr="data-id=${carType.id}, data-name=${carType.type}, data-path='/admin/car/type/'+${carType.id}"> <i class="fa fa-trash" style="font-size:21px; color: red;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

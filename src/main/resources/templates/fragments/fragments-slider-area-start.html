@@ -1,0 +1,76 @@
+<section id="slider-area" data-th-fragment="slider-area-start">
+    <!--== slide Item One ==-->
+    <div class="single-slide-item overlay">
+        <div class="container">
+        <div class="alert alert-warning" role="alert" th:if="${errormessage}" style="margin-top: 70px;margin-bottom: -70px;">
+           <strong th:text="${errormessage}"></strong>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+          This content is only shown to authenticated users.
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+          This content is only shown to administrators.
+        </div>
+        <div sec:authorize="hasRole('ROLE_USER')">
+          This content is only shown to users.
+        </div>1
+              <div class="row">
+                <div class="col-lg-5">
+                    <div class="book-a-car">
+                        <form th:action="@{/car}" method="get" th:object="${booking}">
+
+                            <!--== Pick Up Location ==-->
+                            <div class="pickup-location book-item">
+                                <h4>PICK-UP LOCATION:</h4>
+                                <select th:field="*{cityId}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option th:each="city : ${allCity}" th:value="${city.id}" th:text="${city.city}">Wireframe</option>
+                                </select>
+                            </div>
+                            <!--== Pick Up Location ==-->
+
+                            <!--== Pick Up Date ==-->
+                            <div class="pick-up-date book-item">
+                                <h4>PICK-UP DATE:</h4>
+                                <input th:field="*{startDate}" id="startDate" placeholder="Pick Up Date" />
+                                <input th:field="*{startTime}" id="startTime" width="100" value="15:00" />
+
+                                <div class="return-car">
+                                    <h4>Return DATE:</h4>
+                                    <input th:field="*{endDate}" id="endDate" placeholder="Return Date" />
+                                    <input th:field="*{endTime}" id="endTime" width="100" value="15:00" />
+                                </div>
+                                <input type="hidden" th:name="minDoor" id="minDoor" th:value="1" />
+                                <input type="hidden" th:name="maxDoor" id="maxDoor" th:value="6" />
+                                <input type="hidden" th:name="minSeat" id="minSeat" th:value="1" />
+                                <input type="hidden" th:name="maxSeat" id="maxSeat" th:value="6" />
+                                <input type="hidden" th:name="minLargeBag" id="minLargeBag" th:value="1" />
+                                <input type="hidden" th:name="maxLargeBag" id="maxLargeBag" th:value="6" />
+                                <input type="hidden" th:name="minSmallBag" id="minSmallBag" th:value="1" />
+                                <input type="hidden" th:name="maxSmallBag" id="maxSmallBag" th:value="6" />
+
+                            </div>
+                            <!--== Pick Up Location ==-->
+
+                            <div class="book-button text-center">
+                                <button type="submit" class="book-now-btn">Book Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 text-right">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="slider-right-text">
+                                <h1>BOOK A CAR TODAY!</h1>
+                                <p>FOR AS LOW AS $10 A DAY PLUS 15% DISCOUNT
+                                    <br> FOR OUR RETURNING CUSTOMERS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--== slide Item One ==-->
+</section>

@@ -1,0 +1,446 @@
+<div class="row" data-th-fragment="booking-confirmation">
+         <div class="col-lg-4">
+           <div class="sidebar-content-wrap">
+               <div class="single-sidebar">
+                   <h3>Change booking</h3>
+                   <div class="sidebar-body">
+                       <div class="book-a-car">
+                           <form th:action="@{/booking}" method="get">
+
+                               <!--== Pick Up Location ==-->
+                               <div class="pickup-location book-item">
+                                   <h4>PICK-UP LOCATION:</h4>
+                                   <select th:name="cityId" class="custom-select mr-sm-4" id="cityId">
+                                       <option th:each="city : ${allCity}" th:value="${city.id}" th:text="${city.city}">Wireframe</option>
+                                   </select>
+                               </div>
+                               <!--== Pick Up Location ==-->
+
+                               <!--== Pick Up Date ==-->
+                               <div class="pick-up-date book-item">
+                                   <h4>PICK-UP DATE:</h4>
+                                   <input th:name="startDate" id="startDate" placeholder="Pick Up Date" />
+                                   <input th:name="startTime" id="startTime" width="100" value="15:00" />
+
+                                   <div class="return-car">
+                                       <h4>Return DATE:</h4>
+                                       <input th:name="endDate" id="endDate" placeholder="Return Date" />
+                                       <input th:name="endTime" id="endTime" width="100" value="15:00" />
+                                   </div>
+
+                               </div>
+                               <!--== Pick Up Location ==-->
+
+                               <div class="book-button text-center">
+                                   <button type="submit" class="book-now-btn">Search</button>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div id="tooltip" class="col-lg-8">
+           <div class="car-list-content m-t-50">
+               <div class="single-car-wrap margin-bottom-15">
+                   <div class="booking">
+                       <div class="row">
+                           <div class="col-lg-4">
+                               <div class="car-list-thumb car-thumb-3" th:style="'background-image: url(' + ${car.fileNamePath} +')'"></div>
+                           </div>
+                           <div class="col-lg-5">
+                               <div class="p-car-feature">
+                                   <div class="car-list-info">
+                                       <h4 th:text="${car.brand} + ' ' +${car.model}"></h4>
+                                       <h5 th:text="'$' + ${car.price} + '  Rent /per a day'"></h5>
+                                   </div>
+                                   <div class="row">
+                                       <div class="col-md-2">
+                                           <img src="/img/icon/seat.svg" class="image" alt="seat">
+                                       </div>
+                                       <div class="col-md-4" th:text="${car.seatsNumber + ' seats'}"></div>
+                                       <div class="col-md-2">
+                                           <img src="/img/icon/door.svg" class="image" alt="seat">
+                                       </div>
+                                       <div class="col-md-4" th:text="${car.doorsNumber +' doors'}"></div>
+                                       <div class="col-md-2">
+                                           <img src="/img/icon/big-bag.svg" class="image" alt="seat">
+                                       </div>
+                                       <div class="col-md-4" th:text="${car.bigBags + ' large bags'}"></div>
+                                       <div class="col-md-2">
+                                           <img src="/img/icon/small-bag.svg" class="image" alt="seat">
+                                       </div>
+                                       <div class="col-md-4" th:text="${car.smallBags + ' small bags'}"></div>
+                                       <th:block th:if="${car.transmissionIsAutomatic}">
+                                           <div class="col-md-2">
+                                               <img src="/img/icon/air-conditioning.svg" class="image" alt="seat">
+                                           </div>
+                                           <div class="col-md-4"> Air conditioning</div>
+                                       </th:block>
+                                       <th:block th:if="${car.transmissionIsAutomatic}">
+                                           <div class="col-md-2">
+                                               <img src="/img/icon/gears-automatic.svg" class="image" alt="gearbox">
+                                           </div>
+                                           <div class="col-md-4">Automatic gearbox</div>
+                                       </th:block>
+                                       <th:block th:unless="${car.transmissionIsAutomatic}">
+                                           <div class="col-md-2">
+                                               <img src="/img/icon/car-gears.svg" class="image" alt="gearbox">
+                                           </div>
+                                           <div class="col-md-4">Manual gearbox</div>
+                                       </th:block>
+                                   </div>
+                                   <div class="row">
+                                       <div class="col-md-12">
+                                           <div class="row">
+                                               <div class="col-md-12 car-list-info included">
+                                                   <h5>Included in the price:</h5>
+                                               </div>
+                                               <div class="col-md-6">
+                                                   <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="See full Terms and Conditions">
+                                                       <i class="fa fa-check" aria-hidden="true"></i> Amendments
+
+                                                   </button>
+                                               </div>
+                                               <div class="col-md-6">
+                                                   <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="If the car is stolen, all you'll pay is the theft excess - not the full cost of the car.">
+                                                       <i class="fa fa-check" aria-hidden="true"></i> Theft Protection
+                                                   </button>
+                                               </div>
+                                               <div class="col-md-6">
+                                                   <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="If the car's bodywork gets damaged, the most you 'll pay is  the damage excess.">
+                                                       <i class="fa fa-check" aria-hidden="true"></i> Collision Damage Waive
+                                                   </button>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-lg-3">
+                               <div class="display-table">
+                                   <div class="display-table-cell">
+                                       <div class="car-list-info">
+                                           <div class="rating">
+                                                      <span th:if="${daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${daysOfRent} +' DAYS:'"></span>
+                                                       <span th:unless="${daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${daysOfRent} +' DAY:'"></span>
+                                                                                        <h4 class="review-comment" th:text="'PLN'+${daysOfRent}*${car.price}"></h4>
+                                               <p class="rating">
+
+                                                   <i class="fa fa-star"></i>
+                                                   <i class="fa fa-star"></i>
+                                                   <i class="fa fa-star"></i>
+                                                   <i class="fa fa-star"></i>
+                                                   <i class="fa fa-star unmark"></i>
+                                               </p>
+                                               <div id="Review_Vote" class="carResultRow_OfferInfo_SupplierReview_Vote">
+                                                   <span class="carResultRow_OfferInfo_SupplierReview_VoteNum">8,7
+   																												<small>/&nbsp;10</small>
+   																											</span>
+                                                   <span class="carResultRow_OfferInfo_SupplierReview_VoteComment">
+   																												<h4 class="review-comment">Excellent</h4>
+   																												<a>(100+ reviews)</a>
+   																											</span>
+                                               </div>
+
+                                               <div class="carResultRow_OfferInfo_SupplierReview_Vote margin-left-left margin-bottom-15">
+                                                   <span class="carResultRow_OfferInfo_SupplierReview">
+   																													<img src="/img/icon/solid--mileage.png" class="image" alt="seat">
+   																												</span>
+                                                   <span class="carResultRow_OfferInfo_SupplierReview2">
+   																												 <span class="H_1">Mileage</span>
+                                                   <span class="H_1">Unlimited</span>
+                                                   </span>
+                                               </div>
+                                               <div class="carResultRow_OfferInfo_SupplierReview_Vote margin-left-left margin-bottom-15">
+                                                   <span class="carResultRow_OfferInfo_SupplierReview">
+   																												<img src="/img/icon/ico-fuel-full-to-full.png" class="image" alt="seat">
+   																												</span>
+                                                   <span class="carResultRow_OfferInfo_SupplierReview2">
+   																													<span id="H_1">Fuel Policy</span>
+                                                   <span id="H_1">Full to Full</span>
+                                                   </span>
+                                               </div>
+
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+       <div class="py-5 text-center">
+
+           <h2>Checkout form</h2>
+
+         </div>
+
+         <div class="row">
+           <div class="col-md-4 order-md-2 mb-4">
+             <h4 class="d-flex justify-content-between align-items-center mb-3">
+               <span class="text-muted">Your cart</span>
+               <span class="badge badge-secondary badge-pill">3</span>
+             </h4>
+             <ul class="list-group mb-3">
+               <li class="list-group-item d-flex justify-content-between lh-condensed">
+                 <div>
+                   <h6 class="my-0">Product name</h6>
+                   <small class="text-muted">Brief description</small>
+                 </div>
+                 <span class="text-muted">$12</span>
+               </li>
+               <li class="list-group-item d-flex justify-content-between lh-condensed">
+                 <div>
+                   <h6 class="my-0">Second product</h6>
+                   <small class="text-muted">Brief description</small>
+                 </div>
+                 <span class="text-muted">$8</span>
+               </li>
+               <li class="list-group-item d-flex justify-content-between lh-condensed">
+                 <div>
+                   <h6 class="my-0">Third item</h6>
+                   <small class="text-muted">Brief description</small>
+                 </div>
+                 <span class="text-muted">$5</span>
+               </li>
+               <li class="list-group-item d-flex justify-content-between bg-light">
+                 <div class="text-success">
+                   <h6 class="my-0">Promo code</h6>
+                   <small>EXAMPLECODE</small>
+                 </div>
+                 <span class="text-success">-$5</span>
+               </li>
+               <li class="list-group-item d-flex justify-content-between">
+                 <span>Total (USD)</span>
+                 <strong>$20</strong>
+               </li>
+             </ul>
+
+             <form class="card p-2">
+               <div class="input-group">
+                 <input type="text" class="form-control" placeholder="Promo code">
+                 <div class="input-group-append">
+                   <button type="submit" class="btn btn-secondary">Redeem</button>
+                 </div>
+               </div>
+             </form>
+           </div>
+           <div class="col-md-8 order-md-1">
+             <h4 class="mb-3">Billing address</h4>
+             <form class="needs-validation" novalidate="">
+               <div class="row">
+                 <div class="col-md-6 mb-3">
+                   <label for="firstName">First name</label>
+                   <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                   <div class="invalid-feedback">
+                     Valid first name is required.
+                   </div>
+                 </div>
+                 <div class="col-md-6 mb-3">
+                   <label for="lastName">Last name</label>
+                   <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                   <div class="invalid-feedback">
+                     Valid last name is required.
+                   </div>
+                 </div>
+               </div>
+
+               <div class="mb-3">
+                 <label for="username">Username</label>
+                 <div class="input-group">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text">@</span>
+                   </div>
+                   <input type="text" class="form-control" id="username" placeholder="Username" required="">
+                   <div class="invalid-feedback" style="width: 100%;">
+                     Your username is required.
+                   </div>
+                 </div>
+               </div>
+
+               <div class="mb-3">
+                 <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                 <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                 <div class="invalid-feedback">
+                   Please enter a valid email address for shipping updates.
+                 </div>
+               </div>
+
+               <div class="mb-3">
+                 <label for="address">Address</label>
+                 <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                 <div class="invalid-feedback">
+                   Please enter your shipping address.
+                 </div>
+               </div>
+
+               <div class="mb-3">
+                 <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                 <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+               </div>
+
+               <div class="row">
+                 <div class="col-md-5 mb-3">
+                   <label for="country">Country</label>
+                   <select class="custom-select d-block w-100" id="country" required="">
+                     <option value="">Choose...</option>
+                     <option>United States</option>
+                   </select>
+                   <div class="invalid-feedback">
+                     Please select a valid country.
+                   </div>
+                 </div>
+                 <div class="col-md-4 mb-3">
+                   <label for="state">State</label>
+                   <select class="custom-select d-block w-100" id="state" required="">
+                     <option value="">Choose...</option>
+                     <option>California</option>
+                   </select>
+                   <div class="invalid-feedback">
+                     Please provide a valid state.
+                   </div>
+                 </div>
+                 <div class="col-md-3 mb-3">
+                   <label for="zip">Zip</label>
+                   <input type="text" class="form-control" id="zip" placeholder="" required="">
+                   <div class="invalid-feedback">
+                     Zip code required.
+                   </div>
+                 </div>
+               </div>
+               <hr class="mb-4">
+               <div class="custom-control custom-checkbox">
+                 <input type="checkbox" class="custom-control-input" id="same-address">
+                 <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+               </div>
+               <div class="custom-control custom-checkbox">
+                 <input type="checkbox" class="custom-control-input" id="save-info">
+                 <label class="custom-control-label" for="save-info">Save this information for next time</label>
+               </div>
+               <hr class="mb-4">
+
+               <h4 class="mb-3">Payment</h4>
+
+               <div class="d-block my-3">
+                 <div class="custom-control custom-radio">
+                   <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                   <label class="custom-control-label" for="credit">Credit card</label>
+                 </div>
+                 <div class="custom-control custom-radio">
+                   <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                   <label class="custom-control-label" for="debit">Debit card</label>
+                 </div>
+                 <div class="custom-control custom-radio">
+                   <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                   <label class="custom-control-label" for="paypal">Paypal</label>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-md-6 mb-3">
+                   <label for="cc-name">Name on card</label>
+                   <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                   <small class="text-muted">Full name as displayed on card</small>
+                   <div class="invalid-feedback">
+                     Name on card is required
+                   </div>
+                 </div>
+                 <div class="col-md-6 mb-3">
+                   <label for="cc-number">Credit card number</label>
+                   <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                   <div class="invalid-feedback">
+                     Credit card number is required
+                   </div>
+                 </div>
+               </div>
+               <div class="row">
+                 <div class="col-md-3 mb-3">
+                   <label for="cc-expiration">Expiration</label>
+                   <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                   <div class="invalid-feedback">
+                     Expiration date required
+                   </div>
+                 </div>
+                 <div class="col-md-3 mb-3">
+                   <label for="cc-expiration">CVV</label>
+                   <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                   <div class="invalid-feedback">
+                     Security code required
+                   </div>
+                 </div>
+               </div>
+               <hr class="mb-4">
+               <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+             </form>
+
+
+               <div class="single-car-wrap booking">
+                   <div class="booking">
+                       <div class="row">
+                           <div class="col-md-7">
+                               <div class="p-car-feature">
+                                   <div class="display-table">
+                                       <div class="display-table-cell">
+                                           <div class="article-body">
+
+                                               <div class="article-meta">
+
+                                               </div>
+                                               <h5><p th:text="${location.locationName}"></p></h5>
+                                               <p>
+
+                                                  <span th:text="${location.addressLine2}"></span>
+                                                   <br> <span th:text="|${location.city}, ${location.country}, ${location.postalCode}|"> </span>
+                                               </p>
+                                               <h5><p>Opening hours</p></h5>
+                                               <p th:text="${location.openingHours}">
+
+                                               </p>
+                                               <h5><p>Pick-up instructions</p></h5>
+                                               <p th:text="${location.pickUpInstructions}">
+                                                   The desk is located in the Arrival Hall in car rental zone. Served by GT-Cars.
+
+                                               </p>
+                                               <div class="article-meta">
+
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                           </div>
+                           <div class="col-md-5">
+                               <div class="mapouter">
+                                   <div class="gmap_canvas">
+                                       <iframe width="287" height="320" id="gmap_canvas" th:src="'https://maps.google.com/maps?q=' + ${location.city}  + ' ' + ${location.postalCode} + ' ' + ${location.addressLine} + '&t=&z=17&ie=UTF8&iwloc=&output=embed'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.utilitysavingexpert.com">Utility Saving Expert</a></div>
+                                   <style>
+                                       .mapouter {
+                                           position: relative;
+                                           text-align: right;
+                                           height: 320px;
+                                           width: 287px;
+                                       }
+
+                                       .gmap_canvas {
+                                           overflow: hidden;
+                                           background: none!important;
+                                           height: 320px;
+                                           width: 287px;
+                                       }
+                                   </style>
+                               </div>
+                           </div>
+
+                       </div>
+
+                   </div>
+               </div>
+
+           </div>
+       </div>
+   </div>
+   </div>
+
+</div>

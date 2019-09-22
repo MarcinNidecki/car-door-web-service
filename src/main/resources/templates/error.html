@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--=== Favicon ===-->
+      <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+      <title>Cardoor - Car Rental HTML Template</title>
+      <!--=== Bootstrap CSS ===-->
+      <link href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+      <!--=== Slicknav CSS ===-->
+      <link href="/webjars/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+      <!--=== Animate CSS ===-->
+      <link href="/css/plugins/animate.css" rel="stylesheet">
+      <!--=== Vegas Min CSS ===-->
+      <link href="/css/plugins/vegas.min.css" rel="stylesheet">
+      <!--=== Slicknav CSS ===-->
+      <link href="/css/plugins/slicknav.min.css" rel="stylesheet">
+      <!--=== Magnific Popup CSS ===-->
+      <link href="/css/plugins/magnific-popup.css" rel="stylesheet">
+      <!--=== Owl Carousel CSS ===-->
+      <link href="/css/plugins/owl.carousel.min.css" rel="stylesheet">
+      <!--=== Magnific Popup CSS ===-->
+      <link href="/css/plugins/magnific-popup.css" rel="stylesheet">
+      <!--=== Owl Carousel CSS ===-->
+      <link href="/css/plugins/owl.carousel.min.css" rel="stylesheet">
+      <!--=== Gijgo CSS ===-->
+      <link href="/css/plugins/gijgo.css" rel="stylesheet">
+      <!--=== FontAwesome CSS ===-->
+
+      <!--=== Theme Reset CSS ===-->
+      <link href="/css/reset.css" rel="stylesheet">
+      <!--=== Main Style CSS ===-->
+      <link href="/css/style.css" rel="stylesheet">
+      <!--=== Responsive CSS ===-->
+      <link href="/css/responsive.css" rel="stylesheet">
+      <!--[if lt IE 9]>
+      <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http:///oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="loader-active"  th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+      <!--== Preloader Area Start ==-->
+      <div data-th-replace="fragments/fragments-preloader-area-start :: preloader-area-start"></div>
+      <!--== Preloader Area End ==-->
+      <!--== Header Area Start ==-->
+      <header data-th-replace="fragments/fragments-header-area :: header-area"></header>
+      <!--== Header Area End ==-->
+      <!--== Slider Area Start ==-->
+      <section data-th-replace="fragments/fragments-error :: error"></section>
+      <!--== Slider Area End ==-->
+
+      <!--== Partner Area Start ==-->
+      <div data-th-replace="fragments/fragments-partner-area-start :: partner-area-start"></div>
+      <!--== Partner Area End ==-->
+      <!--== Fun Fact Area Start ==-->
+      <section data-th-replace="fragments/fragments-fun-fact-area-start :: fun-fact-area-start"></section>
+      <!--== Fun Fact Area End ==-->
+      <!--== Footer Area Start ==-->
+      <section data-th-replace="fragments/fragments-footer-area-start :: footer-area-start"></section>
+      <!--== Footer Area End ==-->
+      <!--== Scroll Top Area Start ==-->
+      <div data-th-replace="fragments/fragments-scroll-top-area-start :: scroll-top-area-start"></div>
+      <!--== Scroll Top Area End ==-->
+      <!--=======================Javascript============================-->
+      <!--=== Jquery Min Js ===-->/webjars/jquery/
+      <script src="/js/jquery-3.2.1.min.js"></script>
+      <!--=== Jquery Migrate Min Js ===-->
+      <script src="/js/jquery-migrate.min.js"></script>
+      <!--=== Popper Min Js ===-->
+      <script src="/js/popper.min.js"></script>
+      <!--=== Bootstrap Min Js ===-->
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/plugins/gijgo.js"></script>
+      <!--=== Vegas Min Js ===-->
+      <script src="/js/plugins/vegas.min.js"></script>
+      <!--=== Isotope Min Js ===-->
+      <script src="/js/plugins/isotope.min.js"></script>
+      <!--=== Owl Caousel Min Js ===-->
+      <script src="/js/plugins/owl.carousel.min.js"></script>
+      <!--=== Waypoint Min Js ===-->
+      <script src="/js/plugins/waypoints.min.js"></script>
+      <!--=== CounTotop Min Js ===-->
+      <script src="/js/plugins/counterup.min.js"></script>
+      <!--=== YtPlayer Min Js ===-->
+      <script src="/js/plugins/mb.YTPlayer.js"></script>
+      <!--=== Magnific Popup Min Js ===-->
+      <script src="/js/plugins/magnific-popup.min.js"></script>
+      <!--=== Slicknav Min Js ===-->
+      <script src="/js/plugins/slicknav.min.js"></script>
+      <!--=== Mian Js ===-->
+      <script src="/js/main.js"></script>
+   </body>
+</html>

@@ -1,0 +1,30 @@
+<section id="page-404-wrap" class="section-padding overlay" data-th-fragment="error">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="page-404-content">
+                    	<div class="number">
+                        	<div class="two" th:if="${#strings.substring(httpStatus,0,1)} == 0"><img src="/img/404.png" alt="JSOFT"></div>
+							<div class="two" th:unless="${#strings.substring(httpStatus,0,1)} == 0" th:text="${#strings.substring(httpStatus,0,1)}">2</div>
+
+							<div class="zero" th:if="${#strings.substring(httpStatus,1,2)} == 0" >
+								<img src="/img/404.png" alt="JSOFT">
+							</div>
+
+					<div class="zero" th:unless="${#strings.substring(httpStatus,1,2)} == 0" th:text="${#strings.substring(httpStatus,1,2)}">
+                            </div>
+
+                         <div class="four" th:if="${#strings.substring(httpStatus,2,3)} == 0" ><img src="/img/404.png" alt="JSOFT"></div>
+                    <div class="four" th:unless="${#strings.substring(httpStatus,2,3)} == 0" th:text="${#strings.substring(httpStatus,2,3)}">4</div>
+                    	</div>
+                    	<h4>PAGE NOT FOUND !</h4>
+                    	<p>SORRY, WE COULDN'T FIND THE PAGE <br> YOU'RE LOOKING.</p>
+                    	<h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+                                <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+
+                    	<a href="/" class="btn-404-home"><i class="fa fa-home"></i>Go to Home</a>
+                    </div>
+                </div>
+        	</div>
+        </div>
+    </section>

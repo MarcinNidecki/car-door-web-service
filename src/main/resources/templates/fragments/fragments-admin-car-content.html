@@ -1,0 +1,319 @@
+<div class="col-lg-9" data-th-fragment="admin-car-content">
+    <div class="col-1g-12 col-md-12">
+        <div class="login-form single-popular-car">
+            <div class="alert alert-success" th:if="${successmessage}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+                <strong th:text="${successmessage}"></strong>
+            </div>
+            <div class="alert alert-warning" th:if="${errormessage}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
+                <strong th:text="${errormessage}"></strong>
+            </div>
+            <form th:action="@{${isAdd}?'/admin/car':'/admin/car'}" th:object="${carDto}" th:method="@{${isAdd}?'put':'post'}">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="brand">Brand</label>
+                            </div>
+                            <div class="col-md-8">
+
+                                <select th:if="${isAdd}" th:value="143" class="custom-select mr-sm-4" id="brand" name="brand">
+                                    <option th:if="${isAdd}" th:value="*{brandId}" disabled="disabled" th:selected="true" th:text="*{brand}"></option>
+
+                                                                                                   </select>
+
+                                <select th:unless="${isAdd}" th:value="143" class="brand custom-select mr-sm-4" id="brand" name="brand">
+
+                                                                           <option th:value="*{brandId}" disabled="disabled" th:selected="true">select brand</option>
+                                                                      <option th:each="brand : ${allBrand}" th:selected="false" th:value="${brand.id}" th:text="${brand.brand}"></option>
+                                                                   </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label3" for="inlineFormCustomSelect">Model</label>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="text text-danger" th:if="${#fields.hasErrors('modelId')}" th:errors="*{modelId}"></div>
+                                <select th:if="${isAdd}" th:field="*{modelId}" class="custom-select mr-sm-4" id="model" name="model">
+                                   <option th:value="*{modelId}" disabled="disabled" th:selected="true" th:text="*{model}"></option>
+
+                                </select>
+
+                                <select th:unless="${isAdd}" th:field="*{modelId}" class="model custom-select mr-sm-4" id="model" name="model">
+
+
+                                      <option th:value="*{modelId}" disabled="disabled" th:selected="true">select model</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="inlineFormCustomSelect">Picture</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select  th:field="*{carPictureId}" class="picture custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option th:value="0"  disabled="disabled" selected="selected">select picture</option>
+                                    <option th:each="picture : ${allCarPicture}" th:value="${picture.id}" th:text="${picture.descriptions}">Wireframe</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="inlineFormCustomSelect">Status</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select th:field="*{vehicleStatus}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="rdy">READY</option>
+                                    <option value="res">RESERVED</option>
+                                    <option value="rent">RENTED</option>
+                                    <option value="rep">IN REPAIR</option>
+                                    <option value="cln">IN CLEANING</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="inlineFormCustomSelect">Type</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select th:field="*{carTypeId}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option th:each="type : ${allType}" th:value="${type.id}" th:text="${type.type}">Wireframe</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="inlineFormCustomSelect">Fuel</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select th:field="*{fuelType}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="ON">ON</option>
+                                    <option value="PB">PB</option>
+                                    <option value="LPG">LPG</option>
+                                    <option value="ELECTRIC">ELECTRIC</option>
+                                    <option value="HYBRID">HYBRID</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="custom-control-label" for="inlineFormCustomSelect">Location</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select th:field="*{cityId}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option th:each="city : ${allCity}" th:value="${city.id}" th:text="${city.city}">Wireframe</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineFormCustomSelect">Big bags</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select th:field="*{bigBags}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineFormCustomSelect">Small bags</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select th:field="*{smallBags}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineFormCustomSelect">Door numbers</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select th:field="*{doorsNumber}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineFormCustomSelect">Seats number</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select th:field="*{seatsNumber}" class="custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineCheckbox1">Automatic Transmission</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="checkbox" name="transmissionIsAutomatic" style="margin-top: 40px;" th:checked="*{transmissionIsAutomatic}" />
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineCheckbox2">Air Condition</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="checkbox" name="airConditioning" th:checked="*{airConditioning}" />
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="mr-sm-3" for="inlineCheckbox2">AllWheel Drive</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="checkbox" name="allWheelDrive" th:checked="*{allWheelDrive}" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <div class="text text-danger" th:if="${#fields.hasErrors('registration')}" th:errors="*{registration}"></div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="registration" placeholder="registration" th:field="*{registration}">
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="text text-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="year" placeholder="year" th:field="*{year}">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="text text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="price" placeholder="price" th:field="*{price}">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="text text-danger" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="color" placeholder="color" th:field="*{color}">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="hidden" th:field="*{id}" th:value="@{${isAdd}?'${carDto.id}':''}">
+                            <input th:if="${isAdd}" type="hidden" th:field="*{modelId}" th:value="*{modelId}">
+                            <input type="hidden" th:field="*{carParametersId}" th:value="@{${isAdd}?'${carDto.carParametersId}':''}">
+                            <input type="hidden" th:field="*{carTypeName}" th:value="@{${isAdd}?'${carDto.carTypeName}':''}">
+                            <div th:if="${not isAdd}" th:value="143" class="thumbnails col-md-12 p-car-thumbnails">
+                                <a class="car-hover" href="/img/car/unknown.jpg">
+                                <img  src="/img/car/unknown-small.jpg" style="margin-top:20px; width: 397px;" class="image" alt="JSOFT">
+
+
+                                                                                                                </a>
+                            </div>
+                            <div th:unless="${not isAdd}" th:value="143" class="thumbnails col-md-12 p-car-thumbnails">
+                                <a class="car-hover" th:href="${carDto.fileNamePath}">
+                                    <img th:src="${carDto.thumbnailsPath}" style="margin-top:20px; width: 397px;" class="image" alt="JSOFT">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="input-submit">
+                    <div class="d-flex justify-content-around bd-highlight">
+                        <button type="submit" class="btn-primary" th:text="${isAdd}?'Update':'Save'">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Choose Filtering Menu Start -->
+        <div class="popucar-menu text-center">
+            <a href="#" data-filter="*" class="active">all</a>
+            <a th:each="type : ${allType}" th:text="${type.type}" data-filter="." th:attr="data-filter='.' +${type.getType()}">
+            </a>
+        </div>
+        <!-- Choose Filtering Menu End -->
+        <!-- Car Delete popup Start -->
+        <div class="modal fade" id="carModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="myModalBody">
+                        <p>Do you want to delete thhis (<span id="modal-name"> </span>) record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="idModalLink" href="#" class="btn btn-primary">Yes</a>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row popular-car-gird">
+        <div class="col-lg-6 col-md-6 " th:each="car : ${cars}" th:attrappend="class=${car.carTypeName}">
+            <div class="single-popular-car">
+                <div class="p-car-thumbnails">
+                    <a class="car-hover" th:href="${car.fileNamePath}">
+                        <img th:src="${car.thumbnailsPath}" style="width: 397px;" class="image" alt="JSOFT">
+                    </a>
+                </div>
+                <div class="p-car-content">
+                    <h3>
+                  <a href="#" th:text="${car.brand}"></a>
+                  <a href="#" th:text="${car.model}"></a>
+                  <span class="price">
+                  <i class="fa fa-tag price">
+                  <span class="price" th:text="${#strings.append(#strings.prepend(car.price,beforePrice),afterPrice)}"></span>
+                  </i>
+                  </span>
+               </h3>
+                    <h5>
+                  <div class="p-car-feature">
+                     <a href="#" th:text="${car.carTypeName}"></a>
+                     <a href="#" th:text="${car.year}"></a>
+                     <a href="#" th:text="${car.registration}"></a>
+                  </div>
+               </h5>
+                    <div class="p-car-feature">
+                        <div class="row">
+                            <div class="col-md-2"> <img src="/img/icon/seat.svg" class="image" alt="seat"></div> <div class="col-md-4"  th:text="${car.seatsNumber + ' seats'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/door.svg" class="image" alt="seat"> </div>   <div class="col-md-4"   th:text="${car.doorsNumber +' doors'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/big-bag.svg" class="image" alt="seat"> </div> <div class="col-md-4"  th:text="${car.bigBags + ' big bags'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/small-bag.svg" class="image" alt="seat" > </div> <div class="col-md-4"  th:text="${car.smallBags + ' small bags'}"> </div>
+                            <th:block th:if="${car.transmissionIsAutomatic}">
+                            <div  class="col-md-2"> <img src="/img/icon/air-conditioning.svg" class="image" alt="seat"></div><div class="col-md-4"> Air conditioning</div></th:block>
+
+                            <th:block th:if="${car.transmissionIsAutomatic}">
+                            <div class="col-md-2"> <img src="/img/icon/gears-automatic.svg" class="image" alt="gearbox"> </div>
+                            <div class="col-md-4">Automatic gearbox</div> </th:block>
+
+                             <th:block th:unless="${car.transmissionIsAutomatic}">
+                             <div class="col-md-2"> <img src="/img/icon/car-gears.svg" class="image" alt="gearbox"> </div>
+                             <div class="col-md-4">Manual gearbox</div> </th:block>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7"> </div>
+                            <div class="col-md-4">
+                                <h5>
+                           <a th:href="@{'/admin/car/'+${car.id}}"> <i class="fa fa-edit" style ="font-size:21px;"></i></a>
+                           <a href="javascript:void(0)" class="confirm-delete" id="gallery-page-content" style="background-color: unset;" th:attr="data-id=${car.id}, data-name=${car.brand+' '+car.model}">
+                           <i class="fa fa-trash" style="font-size:21px; color: red;"></i></a>
+                        </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

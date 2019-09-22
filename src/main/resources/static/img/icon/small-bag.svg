@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard Copy 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="16" height="16"></rect>
+        <rect id="path-3" x="0" y="0" width="16" height="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-6">
+            <g id="solid--small-bag">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-path"></g>
+                <g id="Clipped" mask="url(#mask-2)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Rectangle-path"></g>
+                    <path d="M10.5,6 L10,6 L10,0.5 C10,0.223857625 9.77614237,1.69088438e-17 9.5,0 L6.5,0 C6.22385763,-1.69088438e-17 6,0.223857625 6,0.5 L6,6 L5.5,6 C4.67157288,6 4,6.67157288 4,7.5 L4,13.5 C3.99959479,13.9531397 4.20449825,14.3820673 4.55725,14.6665 C4.42449082,15.0417882 4.52696547,15.4600764 4.81816029,15.7315019 C5.10935511,16.0029274 5.5338043,16.07579 5.89884865,15.917017 C6.26389301,15.7582441 6.50000011,15.3980782 6.5,15 L9.5,15 C9.49999989,15.3980782 9.73610699,15.7582441 10.1011513,15.917017 C10.4661957,16.07579 10.8906449,16.0029274 11.1818397,15.7315019 C11.4730345,15.4600764 11.5755092,15.0417882 11.44275,14.6665 C11.7955017,14.3820673 12.0004052,13.9531397 12,13.5 L12,7.5 C12,6.67157288 11.3284271,6 10.5,6 L10.5,6 Z M7,1 L9,1 L9,2 L7,2 L7,1 Z M7,12 C7,12.2761424 6.77614237,12.5 6.5,12.5 C6.22385763,12.5 6,12.2761424 6,12 L6,9 C6,8.72385763 6.22385763,8.5 6.5,8.5 C6.77614237,8.5 7,8.72385763 7,9 L7,12 Z M7,3 L9,3 L9,6 L7,6 L7,3 Z M9,12 L9,9 C9,8.72385763 9.22385763,8.5 9.5,8.5 C9.77614237,8.5 10,8.72385763 10,9 L10,12 C10,12.2761424 9.77614237,12.5 9.5,12.5 C9.22385763,12.5 9,12.2761424 9,12 L9,12 Z" id="Shape" fill="#444444" fill-rule="nonzero" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

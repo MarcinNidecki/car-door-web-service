@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="16" height="16"></rect>
+        <rect id="path-3" x="0" y="0" width="16" height="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-2">
+            <g id="solid--car-seat">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-path"></g>
+                <g id="Clipped" mask="url(#mask-2)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Rectangle-path"></g>
+                    <path d="M14,12 L14,4.98575 C13.9998815,4.86295546 13.988416,4.74043456 13.96575,4.61975 L5.17025,12 L2.05875,12 L12.657,3.107 C12.4501179,3.03612731 12.2329351,2.99997241 12.01425,3 L12,3 L12,1.5 C12,0.671572875 11.3284271,5.07265313e-17 10.5,0 L5.48325,0 C4.65482288,-5.07265313e-17 3.98325,0.671572875 3.98325,1.5 L3.98325,3 C2.887527,3.00137948 1.99999913,3.89002613 2,4.98575 L2,12 C0.8954305,12 1.3527075e-16,12.8954305 0,14 C-1.3527075e-16,15.1045695 0.8954305,16 2,16 L14,16 C15.1045695,16 16,15.1045695 16,14 C16,12.8954305 15.1045695,12 14,12 M14,15 L2,15 C1.44771525,15 1,14.5522847 1,14 C1,13.4477153 1.44771525,13 2,13 L14,13 C14.5522847,13 15,13.4477153 15,14 C15,14.5522847 14.5522847,15 14,15" id="Shape" fill="#444444" fill-rule="nonzero" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

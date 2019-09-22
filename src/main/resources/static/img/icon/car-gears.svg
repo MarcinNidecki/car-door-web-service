@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="16" height="16"></rect>
+        <rect id="path-3" x="0" y="0" width="16" height="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy">
+            <g id="solid--car-gears">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-path"></g>
+                <g id="Clipped" mask="url(#mask-2)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Rectangle-path"></g>
+                    <path d="M8,0 C3.58175,0 0,3.58175 0,8 C0,12.41825 3.58175,16 8,16 C12.41825,16 16,12.41825 16,8 C16,3.58175 12.41825,0 8,0 M13.5,12.5 L13.5,12.5 C13.2238576,12.5 13,12.2761424 13,12 L13,9 L10,9 L10,12 C10,12.2761424 9.77614237,12.5 9.5,12.5 C9.22385763,12.5 9,12.2761424 9,12 L9,9 L6,9 L6,12 C6,12.2761424 5.77614237,12.5 5.5,12.5 C5.22385763,12.5 5,12.2761424 5,12 L5,9 L3,9 C2.44771525,9 2,8.55228475 2,8 L2,4 C2,3.72385763 2.22385763,3.5 2.5,3.5 C2.77614237,3.5 3,3.72385763 3,4 L3,8 L5,8 L5,4 C5,3.72385763 5.22385763,3.5 5.5,3.5 C5.77614237,3.5 6,3.72385763 6,4 L6,8 L9,8 L9,4 C9,3.72385763 9.22385763,3.5 9.5,3.5 C9.77614237,3.5 10,3.72385763 10,4 L10,8 L13,8 L13,4 C13,3.72385763 13.2238576,3.5 13.5,3.5 C13.7761424,3.5 14,3.72385763 14,4 L14,12 C14,12.2761424 13.7761424,12.5 13.5,12.5" id="Shape" fill="#444444" fill-rule="nonzero" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

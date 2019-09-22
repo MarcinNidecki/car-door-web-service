@@ -1,0 +1,317 @@
+<div class="row" data-th-fragment="book-a-car-content" xmlns:th="http://www.w3.org/1999/html">
+    <div class="col-lg-4">
+        <div class="sidebar-content-wrap">
+            <div class="single-sidebar">
+                <h3>Change booking</h3>
+                <div class="sidebar-body">
+                    <div class="book-a-car">
+                        <form th:action="@{/car}" method="get">
+
+                            <!--== Pick Up Location ==-->
+                            <div class="pickup-location book-item">
+                                <h4>PICK-UP LOCATION:</h4>
+                                <select th:name="cityId" class="custom-select mr-sm-4" id="cityId">
+                                    <option th:each="city : ${allCity}" th:value="${city.id}" th:text="${city.city}">Wireframe</option>
+                                </select>
+                            </div>
+                            <!--== Pick Up Location ==-->
+
+                            <!--== Pick Up Date ==-->
+                            <div class="pick-up-date book-item">
+                                <h4>PICK-UP DATE:</h4>
+                                <input th:name="startDate" id="startDate" placeholder="Pick Up Date" />
+                                <input th:name="startTime" id="startTime" width="100" value="15:00" />
+
+                                <div class="return-car">
+                                    <h4>Return DATE:</h4>
+                                    <input th:name="endDate" id="endDate" placeholder="Return Date" />
+                                    <input th:name="endTime" id="endTime" width="100" value="15:00" />
+                                </div>
+
+                            </div>
+                            <!--== Pick Up Location ==-->
+
+                            <div class="book-button text-center">
+                                <button type="submit" class="book-now-btn">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tooltip" class="col-lg-8">
+        <div class="car-list-content m-t-50">
+            <div class="single-car-wrap margin-bottom-15">
+                <div class="booking">
+                    <div class="row">
+                        <div class="col-lg-4"  th:unless="${session == null}">
+                            <div class="car-list-thumb car-thumb-3" th:style="'background-image: url(' + ${session.car.fileNamePath} +')'"></div>
+                        </div>
+                        <div class="col-lg-5"  th:unless="${session == null}">
+                            <div class="p-car-feature">
+                                <div class="car-list-info">
+                                    <h4 th:text="${session.car.brand} + ' ' +${session.car.model}"></h4>
+                                    <h5 th:text="'$' + ${session.car.price} + '  Rent /per a day'"></h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="/img/icon/seat.svg" class="image" alt="seat">
+                                    </div>
+                                    <div class="col-md-4" th:text="${session.car.seatsNumber + ' seats'}"></div>
+                                    <div class="col-md-2">
+                                        <img src="/img/icon/door.svg" class="image" alt="seat">
+                                    </div>
+                                    <div class="col-md-4" th:text="${session.car.doorsNumber +' doors'}"></div>
+                                    <div class="col-md-2">
+                                        <img src="/img/icon/big-bag.svg" class="image" alt="seat">
+                                    </div>
+                                    <div class="col-md-4" th:text="${session.car.bigBags + ' large bags'}"></div>
+                                    <div class="col-md-2">
+                                        <img src="/img/icon/small-bag.svg" class="image" alt="seat">
+                                    </div>
+                                    <div class="col-md-4" th:text="${session.car.smallBags + ' small bags'}"></div>
+                                    <th:block th:if="${session.car.transmissionIsAutomatic}">
+                                        <div class="col-md-2">
+                                            <img src="/img/icon/air-conditioning.svg" class="image" alt="seat">
+                                        </div>
+                                        <div class="col-md-4"> Air conditioning</div>
+                                    </th:block>
+                                    <th:block th:if="${session.car.transmissionIsAutomatic}">
+                                        <div class="col-md-2">
+                                            <img src="/img/icon/gears-automatic.svg" class="image" alt="gearbox">
+                                        </div>
+                                        <div class="col-md-4">Automatic gearbox</div>
+                                    </th:block>
+                                    <th:block th:unless="${session.car.transmissionIsAutomatic}">
+                                        <div class="col-md-2">
+                                            <img src="/img/icon/car-gears.svg" class="image" alt="gearbox">
+                                        </div>
+                                        <div class="col-md-4">Manual gearbox</div>
+                                    </th:block>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12 car-list-info included">
+                                                <h5>Included in the price:</h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="See full Terms and Conditions">
+                                                    <i class="fa fa-check" aria-hidden="true"></i> Amendments
+
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="If the car is stolen, all you'll pay is the theft excess - not the full cost of the car.">
+                                                    <i class="fa fa-check" aria-hidden="true"></i> Theft Protection
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-secondary button-cln" data-toggle="tooltip" data-placement="top" title="If the car's bodywork gets damaged, the most you 'll pay is  the damage excess.">
+                                                    <i class="fa fa-check" aria-hidden="true"></i> Collision Damage Waive
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="display-table">
+                                <div class="display-table-cell">
+                                    <div class="car-list-info">
+                                        <div class="rating" >
+                                      <th:block th:unless="${session == null}">
+                                                   <span th:if="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAYS:'"></span>
+                                                    <span th:unless="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAY:'"></span>
+                                                                                     <h4 class="review-comment" th:text="'PLN'+${session.daysOfRent}*${session.car.price}"></h4>
+                                                                                     </th:block>
+                                            <p class="rating">
+
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star unmark"></i>
+                                            </p>
+                                            <div id="Review_Vote" class="carResultRow_OfferInfo_SupplierReview_Vote">
+                                                <span class="carResultRow_OfferInfo_SupplierReview_VoteNum">8,7
+																												<small>/&nbsp;10</small>
+																											</span>
+                                                <span class="carResultRow_OfferInfo_SupplierReview_VoteComment">
+																												<h4 class="review-comment">Excellent</h4>
+																												<a>(100+ reviews)</a>
+																											</span>
+                                            </div>
+
+                                            <div class="carResultRow_OfferInfo_SupplierReview_Vote margin-left-left margin-bottom-15">
+                                                <span class="carResultRow_OfferInfo_SupplierReview">
+																													<img src="/img/icon/solid--mileage.png" class="image" alt="seat">
+																												</span>
+                                                <span class="carResultRow_OfferInfo_SupplierReview2">
+																												 <span class="H_1">Mileage</span>
+                                                <span class="H_1">Unlimited</span>
+                                                </span>
+                                            </div>
+                                            <div class="carResultRow_OfferInfo_SupplierReview_Vote margin-left-left margin-bottom-15">
+                                                <span class="carResultRow_OfferInfo_SupplierReview">
+																												<img src="/img/icon/ico-fuel-full-to-full.png" class="image" alt="seat">
+																												</span>
+                                                <span class="carResultRow_OfferInfo_SupplierReview2">
+																													<span id="H_1">Fuel Policy</span>
+                                                <span id="H_1">Full to Full</span>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success" role="alert">
+                <h6 class="alert-heading">Good news, Full Protection is available</h6>
+                <p>Cover any bumps or scrapes and have a hassle-free rental. Book everything in one place quickly and easily.</p>
+
+            </div>
+
+            <div class="single-car-wrap booking">
+                <div class="booking">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="p-car-feature">
+                                <div class="display-table">
+                                    <div class="display-table-cell">
+                                        <div class="article-body" th:unless="${session == null}">
+
+                                            <div class="article-meta">
+
+                                            </div>
+                                            <h5><p th:text="${session.location.locationName}"></p></h5>
+                                            <p>
+
+                                               <span th:text="${session.location.addressLine2}"></span>
+                                                <br> <span th:text="|${session.location.city}, ${session.location.country}, ${session.location.postalCode}|"> </span>
+                                            </p>
+                                            <h5><p>Opening hours</p></h5>
+                                            <p th:text="${session.location.openingHours}">
+
+                                            </p>
+                                            <h5><p>Pick-up instructions</p></h5>
+                                            <p th:text="${session.location.pickUpInstructions}">
+                                                The desk is located in the Arrival Hall in car rental zone. Served by GT-Cars.
+
+                                            </p>
+                                            <div class="article-meta">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mapouter">
+                                <div class="gmap_canvas" th:unless="${session == null}">
+                                    <iframe width="287" height="320" id="gmap_canvas" th:src="'https://maps.google.com/maps?q=' + ${session.location.city}  + ' ' + ${session.location.postalCode} + ' ' + ${session.location.addressLine} + '&t=&z=17&ie=UTF8&iwloc=&output=embed'" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.utilitysavingexpert.com">Utility Saving Expert</a></div>
+                                <style>
+                                    .mapouter {
+                                        position: relative;
+                                        text-align: right;
+                                        height: 320px;
+                                        width: 287px;
+                                    }
+
+                                    .gmap_canvas {
+                                        overflow: hidden;
+                                        background: none!important;
+                                        height: 320px;
+                                        width: 287px;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="single-car-wrap booking">
+                <div class="booking">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="article-body">
+
+                                <div class="article-meta">
+
+                                    <div class="alert alert-dark" role="alert">
+                                        <h3>Payable now</h3> If you order any of these extras, you'll pay for them right now. The extras will be ready when you pick your car up.
+                                    </div>
+                                </div>
+                                <form action="#" th:action="@{/car/{carId}/booking/checkout(carId=${session.car.id},startDate=${param.startDate},startTime=${param.startTime},endDate=${param.endDate},endTime=${param.endTime},cityId=${param.cityId})}" th:object="${bookingExtras}" method="post">
+
+                                <ul class="recent-tips">
+
+                                    <li th:each="item, itemStat : *{items}" class="single-recent-tips">
+
+                                        <div class="recent-tip-thum">
+                                            <a href="#">
+                                                <img th:src="*{items[__${itemStat.index}__].iconPath}" alt="JSOFT">
+                                            </a>
+                                        </div>
+                                        <div class="recent-tip-body col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                 <span class="text-primary" th:text="*{items[__${itemStat.index}__].name}"></span>  <span th:text="*{items[__${itemStat.index}__].price}"></span>€ each per rental
+                                                    <p th:text="*{items[__${itemStat.index}__].description}"> </p>
+                                                  </div>
+                                                <div class="col-md-5">
+
+
+                                                       <input th:field="*{items[__${itemStat.index}__].id}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].description}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].name}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].totalValue}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].price}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].iconPath}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].bookingId}"  type="hidden" />
+                                                       <input th:field="*{items[__${itemStat.index}__].bookingExtrasId}"  type="hidden" />
+                                                     <label>
+<select  th:field="*{items[__${itemStat.index}__].quantity}" class="custom-select">
+
+                <option th:value="'0'">0</option>
+                 <option th:value="'1'">1</option>
+                      <option th:value="'2'">2</option>
+                          <option th:value="'3'">3</option>
+
+
+</select>
+</label>
+                                                 </div>
+                                            </div>
+
+
+                                        </div>
+                                    </li>
+
+                                </ul>
+                                			                            <button type="submit" class="rent-btn"style="margin-left: 60%; margin-top:0px">Book it!</button>
+                                </form>
+                                <div class="article-meta">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

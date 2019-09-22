@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard Copy 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="16" height="16"></rect>
+        <rect id="path-3" x="0" y="0" width="16" height="16"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-7">
+            <g id="solid--car-door">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-path"></g>
+                <g id="Clipped" mask="url(#mask-2)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Rectangle-path"></g>
+                    <path d="M15.707,5.293 L10.707,0.293 C10.5195073,0.105450625 10.2651948,5.66374055e-05 10,-4.4408921e-15 L1.75,-4.4408921e-15 C0.783958585,0.00110215899 0.00110215899,0.783958585 1.55608859e-14,1.75 L1.55608859e-14,14.5 C1.56063837e-14,15.3284271 0.671572875,16 1.5,16 L14.5,16 C15.3284271,16 16,15.3284271 16,14.5 L16,6 C15.9999434,5.73480519 15.8945494,5.48049273 15.707,5.293 L15.707,5.293 Z M5,9.5 C5,9.77614237 4.77614237,10 4.5,10 L2.5,10 C2.22385763,10 2,9.77614237 2,9.5 C2,9.22385763 2.22385763,9 2.5,9 L4.5,9 C4.77614237,9 5,9.22385763 5,9.5 L5,9.5 Z M15,8 L1,8 L1,1.75 C1,1.33578644 1.33578644,1 1.75,1 L10,1 L15,6 L15,8 Z" id="Shape" fill="#444444" fill-rule="nonzero" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
