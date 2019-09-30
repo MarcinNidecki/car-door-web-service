@@ -17,22 +17,24 @@ public class DBCarTypeService {
         CarType unknown = carTypeRepository.findCarTypeByType("Unknown");
         if (unknown == null) {
             unknown = new CarType("Unknown");
-            saveType(unknown);
+            save(unknown);
         }
         return unknown;
     }
 
-    public List<CarType> getAllTypes() {
+    public List<CarType> findAll() {
         return carTypeRepository.findAll();
     }
 
-    public CarType getType(final Long id) {
+    public CarType getById(final Long id) {
         return carTypeRepository.findById(id).orElseGet(this::getDefaultCarType);
     }
-    public CarType saveType(final CarType carType) {
+
+    public CarType save(final CarType carType) {
         return carTypeRepository.save(carType);
     }
-    public void deleteType(final Long id) {
+
+    public void deleteById(final Long id) {
         carTypeRepository.deleteById(id);
     }
 }

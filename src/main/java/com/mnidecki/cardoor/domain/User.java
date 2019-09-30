@@ -1,6 +1,7 @@
 package com.mnidecki.cardoor.domain;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
+import com.mnidecki.cardoor.domain.car.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -66,8 +67,15 @@ public class User implements Serializable {
             mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<Booking> bookingList = new ArrayList<>();
+
+    @OneToMany(targetEntity = Comment.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Comment> commentsList = new HashSet<>();
 
     public User(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;

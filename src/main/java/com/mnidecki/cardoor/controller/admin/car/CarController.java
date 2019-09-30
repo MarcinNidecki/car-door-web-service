@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RestController
+@RestController("AdminCarController")
 @RequestMapping("/admin")
 public class CarController {
 
@@ -50,34 +50,34 @@ public class CarController {
 
     @ModelAttribute("allCity")
     public List<LocationDto> allCity() {
-        return locationMapper.mapToLocationDtoList(this.locationService.getAllLocations());
+        return locationMapper.mapToLocationDtoList(this.locationService.findAll());
     }
 
     @ModelAttribute("allType")
     public List<CarTypeDto> allType() {
-        return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.getAllTypes());
+        return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.findAll());
     }
 
     @ModelAttribute("allCar")
     public List<CarDto> allCar() {
-        return carMapper.mapToCarDtoList(this.carService.getAllCars());
+        return carMapper.mapToCarDtoList(this.carService.findAll());
     }
 
     @ModelAttribute("allCarPicture")
     public List<CarPictureDto> allCarPicture() {
-        return carPictureMapper.mapToCarPictureDtoList(this.carPictureService.getAllCarPictures());
+        return carPictureMapper.mapToCarPictureDtoList(this.carPictureService.findAll());
     }
 
     @ModelAttribute("allBrand")
     public List<CarBrandDto> allBrand() {
-        return carBrandMapper.mapToCarBrandDtoList(carBrandService.getAllBrand());
+        return carBrandMapper.mapToCarBrandDtoList(carBrandService.findAll());
     }
 
 
     @GetMapping("/car")
     public ModelAndView cars(Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        List<CarDto> cars = carMapper.mapToCarDtoList(carService.getAllCars());
+        List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
         model.addAttribute("cars", cars);
         model.addAttribute("carDto", new CarDto());
         model.addAttribute("title", "Cars");
@@ -99,8 +99,8 @@ public class CarController {
         } else {
             CarParameters carParameters = carParametersService.saveCarParameters(carMapper.mapToCarParameters(carDto));
             carDto.setCarParametersId(carParameters.getId());
-            Car car = carService.saveCar(carMapper.mapToCar(carDto));
-            if (car != null&& car.getCarParameters() !=null ) {
+            Car car = carService.save(carMapper.mapToCar(carDto));
+            if (car != null && car.getCarParameters() != null) {
                 redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
                 modelAndView.setViewName("redirect:/admin/car");
             } else {
@@ -115,8 +115,8 @@ public class CarController {
     @GetMapping(value = "/car/{id}")
     public ModelAndView getCar(@PathVariable Long id, Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        CarDto carDto = carMapper.mapToCarDto(carService.getCar(id));
-        List<CarDto> cars = carMapper.mapToCarDtoList(carService.getAllCars());
+        CarDto carDto = carMapper.mapToCarDto(carService.findById(id));
+        List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
         model.addAttribute("cars", cars);
         model.addAttribute("carDto", carDto);
         model.addAttribute("afterPrice", "/Day");
@@ -137,8 +137,8 @@ public class CarController {
         } else {
             CarParameters carParameters = carParametersService.saveCarParameters(carMapper.mapToCarParameters(carDto));
             carDto.setCarParametersId(carParameters.getId());
-            Car car = carService.saveCar(carMapper.mapToCar(carDto));
-            if (car != null&& car.getCarParameters() !=null ) {
+            Car car = carService.save(carMapper.mapToCar(carDto));
+            if (car != null && car.getCarParameters() != null) {
                 redirectAttributes.addFlashAttribute("successmessage", "Car is updated successfully");
                 modelAndView.setViewName("redirect:/admin/car");
             } else {
@@ -154,14 +154,15 @@ public class CarController {
     @GetMapping(value = "/car/delete/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        carService.deleteCar(id);
+        carService.deleteByID(id);
         redirectAttributes.addFlashAttribute("successmessage", "Car is deleted successfully");
         modelAndView.setViewName("redirect:/admin/car/");
         return modelAndView;
     }
 
     @RequestMapping(value = "/car/modelbeforePrice", method = RequestMethod.GET)
-    public @ResponseBody List<CarBrandModelDto> findAllModels(@RequestParam(value = "brandId") Long brandId) {
+    public @ResponseBody
+    List<CarBrandModelDto> findAllModels(@RequestParam(value = "brandId") Long brandId) {
         return carBrandModelMapper.mapToCarBrandModelDtoList(carBrandModelService.getAllModelByBrand_Id(brandId));
     }
 }

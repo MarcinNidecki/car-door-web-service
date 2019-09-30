@@ -22,36 +22,35 @@ public class DBCarPicture {
         if (unknown == null) {
             unknown = new CarPicture(
                     "Unknown", "unknown", "unknown-small", "/img/car/unknown.jpg", "/img/car/unknown-small.jpg", "jpg", LocalDate.now(), LocalDate.now());
-            saveCarPicture(unknown);
+            save(unknown);
         }
         return unknown;
     }
 
-    public List<CarPicture> getAllCarPictures() {
+    public List<CarPicture> findAll() {
         return carPictureRepository.findAll();
     }
 
-    public CarPicture saveCarPicture(final CarPicture carPicture) {
+    public CarPicture save(final CarPicture carPicture) {
         return carPictureRepository.save(carPicture);
     }
 
-    public CarPicture getCarPicture(final Long id) {
+    public CarPicture findById(final Long id) {
 
         return carPictureRepository.findById(id).orElseGet(this::getDefaultCarPicture);
     }
 
-    public void deleteCarPicture(final Long id) {
+    public void deleteById(final Long id) {
         Optional<CarPicture> carPicture = carPictureRepository.findById(id);
-        if(carPicture.isPresent()) {
-                carPicture.get().getCarList()
+        if (carPicture.isPresent()) {
+            carPicture.get().getCarList()
                     .forEach(carParameters -> carParameters.setCarPicture(getDefaultCarPicture()));
-            saveCarPicture(carPicture.get());
+            save(carPicture.get());
         }
 
         carPictureRepository.deleteById(id);
 
     }
-
 
 
 }

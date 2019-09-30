@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "booking_status")
-public class                                                                             BookingStatusCode {
+public class BookingStatusCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +20,7 @@ public class                                                                    
     @Column(name = "description")
     private String description;
 
-     @OneToMany(targetEntity = Booking.class,
+    @OneToMany(targetEntity = Booking.class,
             mappedBy = "bookingStatusCode",
             fetch = FetchType.EAGER)
     private List<Booking> bookingList = new ArrayList<>();

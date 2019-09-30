@@ -47,8 +47,6 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-
-
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView model = new ModelAndView();
@@ -78,8 +76,6 @@ public class AuthenticationController {
         }
         return model;
     }
-
-
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
@@ -121,5 +117,4 @@ public class AuthenticationController {
         model.setViewName("error"); // resources/template/home.html
         return model;
     }
-
 }

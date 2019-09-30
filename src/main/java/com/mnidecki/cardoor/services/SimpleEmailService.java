@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SimpleEmailService {
-    private static  Logger LOGGER = LoggerFactory.getLogger(MimeMessagePreparator.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(MimeMessagePreparator.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -24,21 +24,22 @@ public class SimpleEmailService {
     public void send(Mail mail, Booking booking) {
         LOGGER.info("Starting emial preparation...");
         try {
-                javaMailSender.send(bookingConfirmationMail(mail,booking));
+            javaMailSender.send(bookingConfirmationMail(mail, booking));
 
             LOGGER.info("Email has been sent.");
-        }catch (MailException e) {
-            LOGGER.error("Failed to process email sending: ", e.getMessage(),e);
+        } catch (MailException e) {
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
         }
     }
+
     public void send(Mail mail) {
         LOGGER.info("Starting emial preparation...");
         try {
             javaMailSender.send(createMailMessage(mail));
 
             LOGGER.info("Email has been sent.");
-        }catch (MailException e) {
-            LOGGER.error("Failed to process email sending: ", e.getMessage(),e);
+        } catch (MailException e) {
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
         }
     }
 
@@ -58,7 +59,7 @@ public class SimpleEmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.bookingConfirmation(booking),true);
+            messageHelper.setText(mailCreatorService.bookingConfirmation(booking), true);
         };
     }
 

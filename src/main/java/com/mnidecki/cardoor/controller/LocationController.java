@@ -23,17 +23,17 @@ public class LocationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getCities")
     public List<LocationDto> getLocations() {
-        return locationMapper.mapToLocationDtoList(locationService.getAllLocations());
+        return locationMapper.mapToLocationDtoList(locationService.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createCities", consumes = APPLICATION_JSON_VALUE)
     public void createCar(@RequestBody LocationDto locationDto) {
-        locationService.saveLocation(locationMapper.mapToLocation(locationDto));
+        locationService.save(locationMapper.mapToLocation(locationDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteAllCities")
-    public void deleteAllCities() {
-        locationService.deleteAllLocations();
+    public void deleteCity() {
+        locationService.deleteById();
     }
 
 }

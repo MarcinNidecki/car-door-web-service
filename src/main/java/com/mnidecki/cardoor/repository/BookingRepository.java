@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BookingRepository extends CrudRepository <Booking, Integer> {
+public interface BookingRepository extends CrudRepository<Booking, Integer> {
 
     @Override
     List<Booking> findAll();

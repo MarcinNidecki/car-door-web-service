@@ -48,13 +48,14 @@ public class DBUserService {
         return userRepository.findUserByEmail(email);
     }
 
-    public User findUserById (final Long id) { return userRepository.getUserById(id).orElse(null);}
+    public User findUserById(final Long id) {
+        return userRepository.getUserById(id).orElse(null);
+    }
 
     public boolean isUserExist(final String email) {
         Optional user = getUserByMail(email);
         return user.isPresent();
     }
-
 
     public User getUserFromAuthentication() {
         User user = new User();

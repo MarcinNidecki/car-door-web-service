@@ -39,11 +39,11 @@ public class MailCreatorService {
 
         Context context = new Context();
         BookingDto bookingDto = bookingMapper.mapToBookingDto(booking);
-        CarDto carDto = carMapper.mapToCarDto(carService.getCar(bookingDto.getCarId()));
-        List<BookingExtrasItemDto> extrasList =  bookingDto.getBookingExtrasList();
+        CarDto carDto = carMapper.mapToCarDto(carService.findById(bookingDto.getCarId()));
+        List<BookingExtrasItemDto> extrasList = bookingDto.getBookingExtrasList();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
-        long daysOfRent =  bookingService.countBookingDays(bookingDto.getStartDate(),bookingDto.getReturnDate());
+        long daysOfRent = bookingService.countBookingDays(bookingDto.getStartDate(), bookingDto.getReturnDate());
         context.setVariable("daysOfRent", daysOfRent);
         context.setVariable("booking", bookingDto);
         context.setVariable("car", carDto);

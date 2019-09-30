@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class BookingMapper {
 
@@ -26,13 +27,13 @@ public class BookingMapper {
     private BookingExtrasItemMapper bookingExtrasItemMapper;
 
     public Booking mapToBooking(BookingDto bookingDto) {
-        if (bookingDto.getUserId()!=null) {
+        if (bookingDto.getUserId() != null) {
             return new Booking(
                     bookingDto.getId(),
                     userService.findUserById(bookingDto.getUserId()),
-                    carService.getCar(bookingDto.getCarId()),
-                    statusService.getBookingStatusCode(bookingDto.getBookingStatusCodeId()),
-                    cityService.getLocation(bookingDto.getCityId()),
+                    carService.findById(bookingDto.getCarId()),
+                    statusService.findByID(bookingDto.getBookingStatusCodeId()),
+                    cityService.findById(bookingDto.getCityId()),
                     bookingDto.getTotalCost(),
                     bookingDto.getStartDate(),
                     bookingDto.getReturnDate(),
@@ -40,9 +41,9 @@ public class BookingMapper {
         } else {
             return new Booking(
                     userService.findUserById(bookingDto.getUserId()),
-                    carService.getCar(bookingDto.getCarId()),
-                    statusService.getBookingStatusCode(bookingDto.getBookingStatusCodeId()),
-                    cityService.getLocation(bookingDto.getCityId()),
+                    carService.findById(bookingDto.getCarId()),
+                    statusService.findByID(bookingDto.getBookingStatusCodeId()),
+                    cityService.findById(bookingDto.getCityId()),
                     bookingDto.getTotalCost(),
                     bookingDto.getStartDate(),
                     bookingDto.getReturnDate(),
@@ -52,8 +53,8 @@ public class BookingMapper {
     }
 
     public BookingDto mapToBookingDto(Booking booking) {
-        if (booking.getUser()!=null) {
-            return  new BookingDto(
+        if (booking.getUser() != null) {
+            return new BookingDto(
                     booking.getId(),
                     booking.getUser().getId(),
                     booking.getCar().getId(),
@@ -63,8 +64,8 @@ public class BookingMapper {
                     booking.getStartDate(),
                     booking.getReturnDate(),
                     bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()));
-        } else  {
-            return  new BookingDto(
+        } else {
+            return new BookingDto(
                     booking.getId(),
                     booking.getCar().getId(),
                     booking.getBookingStatusCode().getId(),
@@ -77,13 +78,13 @@ public class BookingMapper {
 
     }
 
-    public List<BookingDto> mapToBookingDtoList (List<Booking> bookingList) {
+    public List<BookingDto> mapToBookingDtoList(List<Booking> bookingList) {
         return bookingList.stream()
                 .map(this::mapToBookingDto)
                 .collect(Collectors.toList());
     }
 
-    public List<Booking> mapToBookingList (List<BookingDto> bookingList) {
+    public List<Booking> mapToBookingList(List<BookingDto> bookingList) {
         return bookingList.stream()
                 .map(this::mapToBooking)
                 .collect(Collectors.toList());

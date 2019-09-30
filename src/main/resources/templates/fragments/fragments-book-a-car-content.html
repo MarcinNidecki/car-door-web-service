@@ -45,10 +45,10 @@
             <div class="single-car-wrap margin-bottom-15">
                 <div class="booking">
                     <div class="row">
-                        <div class="col-lg-4"  th:unless="${session == null}">
+                        <div class="col-lg-4" th:unless="${session == null}">
                             <div class="car-list-thumb car-thumb-3" th:style="'background-image: url(' + ${session.car.fileNamePath} +')'"></div>
                         </div>
-                        <div class="col-lg-5"  th:unless="${session == null}">
+                        <div class="col-lg-5" th:unless="${session == null}">
                             <div class="p-car-feature">
                                 <div class="car-list-info">
                                     <h4 th:text="${session.car.brand} + ' ' +${session.car.model}"></h4>
@@ -121,12 +121,12 @@
                             <div class="display-table">
                                 <div class="display-table-cell">
                                     <div class="car-list-info">
-                                        <div class="rating" >
-                                      <th:block th:unless="${session == null}">
-                                                   <span th:if="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAYS:'"></span>
-                                                    <span th:unless="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAY:'"></span>
-                                                                                     <h4 class="review-comment" th:text="'PLN'+${session.daysOfRent}*${session.car.price}"></h4>
-                                                                                     </th:block>
+                                        <div class="rating">
+                                            <th:block th:unless="${session == null}">
+                                                <span th:if="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAYS:'"></span>
+                                                <span th:unless="${session.daysOfRent}>1" class="H_2" th:text="'PRICE FOR ' + ${session.daysOfRent} +' DAY:'"></span>
+                                                <h4 class="review-comment" th:text="'PLN'+${session.daysOfRent}*${session.car.price}"></h4>
+                                            </th:block>
                                             <p class="rating">
 
                                                 <i class="fa fa-star"></i>
@@ -194,7 +194,7 @@
                                             <h5><p th:text="${session.location.locationName}"></p></h5>
                                             <p>
 
-                                               <span th:text="${session.location.addressLine2}"></span>
+                                                <span th:text="${session.location.addressLine2}"></span>
                                                 <br> <span th:text="|${session.location.city}, ${session.location.country}, ${session.location.postalCode}|"> </span>
                                             </p>
                                             <h5><p>Opening hours</p></h5>
@@ -256,52 +256,49 @@
                                 </div>
                                 <form action="#" th:action="@{/car/{carId}/booking/checkout(carId=${session.car.id},startDate=${param.startDate},startTime=${param.startTime},endDate=${param.endDate},endTime=${param.endTime},cityId=${param.cityId})}" th:object="${bookingExtras}" method="post">
 
-                                <ul class="recent-tips">
+                                    <ul class="recent-tips">
 
-                                    <li th:each="item, itemStat : *{items}" class="single-recent-tips">
+                                        <li th:each="item, itemStat : *{items}" class="single-recent-tips">
 
-                                        <div class="recent-tip-thum">
-                                            <a href="#">
-                                                <img th:src="*{items[__${itemStat.index}__].iconPath}" alt="JSOFT">
-                                            </a>
-                                        </div>
-                                        <div class="recent-tip-body col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                 <span class="text-primary" th:text="*{items[__${itemStat.index}__].name}"></span>  <span th:text="*{items[__${itemStat.index}__].price}"></span>€ each per rental
-                                                    <p th:text="*{items[__${itemStat.index}__].description}"> </p>
-                                                  </div>
-                                                <div class="col-md-5">
-
-
-                                                       <input th:field="*{items[__${itemStat.index}__].id}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].description}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].name}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].totalValue}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].price}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].iconPath}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].bookingId}"  type="hidden" />
-                                                       <input th:field="*{items[__${itemStat.index}__].bookingExtrasId}"  type="hidden" />
-                                                     <label>
-<select  th:field="*{items[__${itemStat.index}__].quantity}" class="custom-select">
-
-                <option th:value="'0'">0</option>
-                 <option th:value="'1'">1</option>
-                      <option th:value="'2'">2</option>
-                          <option th:value="'3'">3</option>
-
-
-</select>
-</label>
-                                                 </div>
+                                            <div class="recent-tip-thum">
+                                                <a href="#">
+                                                    <img th:src="*{items[__${itemStat.index}__].iconPath}" alt="JSOFT">
+                                                </a>
                                             </div>
+                                            <div class="recent-tip-body col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <span class="text-primary" th:text="*{items[__${itemStat.index}__].name}"></span> <span th:text="*{items[__${itemStat.index}__].price}"></span>€ each per rental
+                                                        <p th:text="*{items[__${itemStat.index}__].description}"> </p>
+                                                    </div>
+                                                    <div class="col-md-5">
 
+                                                        <input th:field="*{items[__${itemStat.index}__].id}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].description}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].name}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].totalValue}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].price}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].iconPath}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].bookingId}" type="hidden" />
+                                                        <input th:field="*{items[__${itemStat.index}__].bookingExtrasId}" type="hidden" />
+                                                        <label>
+                                                            <select th:field="*{items[__${itemStat.index}__].quantity}" class="custom-select">
 
-                                        </div>
-                                    </li>
+                                                                <option th:value="'0'">0</option>
+                                                                <option th:value="'1'">1</option>
+                                                                <option th:value="'2'">2</option>
+                                                                <option th:value="'3'">3</option>
 
-                                </ul>
-                                			                            <button type="submit" class="rent-btn"style="margin-left: 60%; margin-top:0px">Book it!</button>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                    <button type="submit" class="rent-btn" style="margin-left: 60%; margin-top:0px">Book it!</button>
                                 </form>
                                 <div class="article-meta">
 

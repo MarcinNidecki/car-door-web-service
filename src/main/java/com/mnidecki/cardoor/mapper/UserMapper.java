@@ -17,7 +17,7 @@ public class UserMapper {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserDto maptoUserDto(User user) {
-        if(user.getAddressLine1()==null) {
+        if (user.getAddressLine1() == null) {
             return new UserDto(
                     user.getId(),
                     user.getFirstname(),
@@ -44,7 +44,7 @@ public class UserMapper {
 
     public User mapToUser(UserDto userDto) {
 
-        if (userDto.getId()!=null && userDto.getAddressLine1()!=null){
+        if (userDto.getId() != null && userDto.getAddressLine1() != null) {
             User user = userService.findUserById(userDto.getId());
             user.setFirstname(userDto.getFirstname());
             user.setLastname(userDto.getLastname());
@@ -56,7 +56,7 @@ public class UserMapper {
             user.setZipCode(userDto.getZipCode());
             return user;
 
-        } else  {
+        } else {
             return new User(
                     userDto.getFirstname(),
                     userDto.getLastname(),

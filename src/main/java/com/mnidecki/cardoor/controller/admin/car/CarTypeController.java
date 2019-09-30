@@ -21,22 +21,19 @@ public class CarTypeController {
 
     @Autowired
     private DBCarTypeService carTypeService;
-
     @Autowired
     private CarTypeMapper carTypeMapper;
-    @Autowired
-
 
     @ModelAttribute("allType")
     public List<CarTypeDto> allType() {
-        return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.getAllTypes());
+        return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.findAll());
     }
 
     @GetMapping("/type")
     public ModelAndView cars(Model model) {
         ModelAndView modelAndView = new ModelAndView();
 
-        List<CarTypeDto> carTypes = carTypeMapper.mapToCarTypeDtoList(carTypeService.getAllTypes());
+        List<CarTypeDto> carTypes = carTypeMapper.mapToCarTypeDtoList(carTypeService.findAll());
         model.addAttribute("carTypes", carTypes);
         model.addAttribute("carTypeDto", new CarTypeDto());
         model.addAttribute("title", "Cars Type");
@@ -49,7 +46,7 @@ public class CarTypeController {
     @PostMapping(value = "/type")
     public ModelAndView save(@ModelAttribute CarTypeDto carTypeDto, RedirectAttributes redirectAttributes, Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        CarType carType = carTypeService.saveType(carTypeMapper.mapToCarType(carTypeDto));
+        CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car type is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/type");
@@ -64,10 +61,10 @@ public class CarTypeController {
 
 
     @GetMapping(value = "/type/{id}")
-    public ModelAndView type(@PathVariable Long id, Model model)  {
+    public ModelAndView type(@PathVariable Long id, Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        CarTypeDto carTypeDto  = carTypeMapper.mapToCarTypeDto(carTypeService.getType(id));
-        List<CarTypeDto> carTypes = carTypeMapper.mapToCarTypeDtoList(carTypeService.getAllTypes());
+        CarTypeDto carTypeDto = carTypeMapper.mapToCarTypeDto(carTypeService.getById(id));
+        List<CarTypeDto> carTypes = carTypeMapper.mapToCarTypeDtoList(carTypeService.findAll());
         model.addAttribute("carTypes", carTypes);
         model.addAttribute("carTypeDto", carTypeDto);
         model.addAttribute("title", "Cars Type");
@@ -79,7 +76,7 @@ public class CarTypeController {
     @PutMapping(value = "/type")
     public ModelAndView update(@ModelAttribute CarTypeDto carTypeDto, RedirectAttributes redirectAttributes, Model model) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        CarType carType = carTypeService.saveType(carTypeMapper.mapToCarType(carTypeDto));
+        CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car type is updated successfully");
             modelAndView.setViewName("redirect:/admin/car/type");
@@ -90,11 +87,12 @@ public class CarTypeController {
         }
         return modelAndView;
     }
+
     @Transactional
     @DeleteMapping(value = "/type/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
         ModelAndView modelAndView = new ModelAndView();
-        carTypeService.deleteType(id);
+        carTypeService.deleteById(id);
         model.addAttribute("carTypeDto", new CarTypeDto());
         redirectAttributes.addFlashAttribute("successmessage", "Car type is deleted successfully");
         modelAndView.setViewName("carType");

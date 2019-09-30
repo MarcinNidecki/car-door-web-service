@@ -24,36 +24,35 @@
                                 <select th:if="${isAdd}" th:value="143" class="custom-select mr-sm-4" id="brand" name="brand">
                                     <option th:if="${isAdd}" th:value="*{brandId}" disabled="disabled" th:selected="true" th:text="*{brand}"></option>
 
-                                                                                                   </select>
+                                </select>
 
                                 <select th:unless="${isAdd}" th:value="143" class="brand custom-select mr-sm-4" id="brand" name="brand">
 
-                                                                           <option th:value="*{brandId}" disabled="disabled" th:selected="true">select brand</option>
-                                                                      <option th:each="brand : ${allBrand}" th:selected="false" th:value="${brand.id}" th:text="${brand.brand}"></option>
-                                                                   </select>
+                                    <option th:value="*{brandId}" disabled="disabled" th:selected="true">select brand</option>
+                                    <option th:each="brand : ${allBrand}" th:selected="false" th:value="${brand.id}" th:text="${brand.brand}"></option>
+                                </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="custom-control-label3" for="inlineFormCustomSelect">Model</label>
                             </div>
                             <div class="col-md-8">
-                              <div class="text text-danger" th:if="${#fields.hasErrors('modelId')}" th:errors="*{modelId}"></div>
+                                <div class="text text-danger" th:if="${#fields.hasErrors('modelId')}" th:errors="*{modelId}"></div>
                                 <select th:if="${isAdd}" th:field="*{modelId}" class="custom-select mr-sm-4" id="model" name="model">
-                                   <option th:value="*{modelId}" disabled="disabled" th:selected="true" th:text="*{model}"></option>
+                                    <option th:value="*{modelId}" disabled="disabled" th:selected="true" th:text="*{model}"></option>
 
                                 </select>
 
                                 <select th:unless="${isAdd}" th:field="*{modelId}" class="model custom-select mr-sm-4" id="model" name="model">
 
-
-                                      <option th:value="*{modelId}" disabled="disabled" th:selected="true">select model</option>
+                                    <option th:value="*{modelId}" disabled="disabled" th:selected="true">select model</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="custom-control-label" for="inlineFormCustomSelect">Picture</label>
                             </div>
                             <div class="col-md-8">
-                                <select  th:field="*{carPictureId}" class="picture custom-select mr-sm-4" id="inlineFormCustomSelect">
-                                    <option th:value="0"  disabled="disabled" selected="selected">select picture</option>
+                                <select th:field="*{carPictureId}" class="picture custom-select mr-sm-4" id="inlineFormCustomSelect">
+                                    <option th:value="0" disabled="disabled" selected="selected">select picture</option>
                                     <option th:each="picture : ${allCarPicture}" th:value="${picture.id}" th:text="${picture.descriptions}">Wireframe</option>
                                 </select>
                             </div>
@@ -213,10 +212,9 @@
                             <input type="hidden" th:field="*{carTypeName}" th:value="@{${isAdd}?'${carDto.carTypeName}':''}">
                             <div th:if="${not isAdd}" th:value="143" class="thumbnails col-md-12 p-car-thumbnails">
                                 <a class="car-hover" href="/img/car/unknown.jpg">
-                                <img  src="/img/car/unknown-small.jpg" style="margin-top:20px; width: 397px;" class="image" alt="JSOFT">
+                                    <img src="/img/car/unknown-small.jpg" style="margin-top:20px; width: 397px;" class="image" alt="JSOFT">
 
-
-                                                                                                                </a>
+                                </a>
                             </div>
                             <div th:unless="${not isAdd}" th:value="143" class="thumbnails col-md-12 p-car-thumbnails">
                                 <a class="car-hover" th:href="${carDto.fileNamePath}">
@@ -284,21 +282,28 @@
                </h5>
                     <div class="p-car-feature">
                         <div class="row">
-                            <div class="col-md-2"> <img src="/img/icon/seat.svg" class="image" alt="seat"></div> <div class="col-md-4"  th:text="${car.seatsNumber + ' seats'}"> </div>
-                            <div class="col-md-2"> <img src="/img/icon/door.svg" class="image" alt="seat"> </div>   <div class="col-md-4"   th:text="${car.doorsNumber +' doors'}"> </div>
-                            <div class="col-md-2"> <img src="/img/icon/big-bag.svg" class="image" alt="seat"> </div> <div class="col-md-4"  th:text="${car.bigBags + ' big bags'}"> </div>
-                            <div class="col-md-2"> <img src="/img/icon/small-bag.svg" class="image" alt="seat" > </div> <div class="col-md-4"  th:text="${car.smallBags + ' small bags'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/seat.svg" class="image" alt="seat"></div>
+                            <div class="col-md-4" th:text="${car.seatsNumber + ' seats'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/door.svg" class="image" alt="seat"> </div>
+                            <div class="col-md-4" th:text="${car.doorsNumber +' doors'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/big-bag.svg" class="image" alt="seat"> </div>
+                            <div class="col-md-4" th:text="${car.bigBags + ' big bags'}"> </div>
+                            <div class="col-md-2"> <img src="/img/icon/small-bag.svg" class="image" alt="seat"> </div>
+                            <div class="col-md-4" th:text="${car.smallBags + ' small bags'}"> </div>
                             <th:block th:if="${car.transmissionIsAutomatic}">
-                            <div  class="col-md-2"> <img src="/img/icon/air-conditioning.svg" class="image" alt="seat"></div><div class="col-md-4"> Air conditioning</div></th:block>
+                                <div class="col-md-2"> <img src="/img/icon/air-conditioning.svg" class="image" alt="seat"></div>
+                                <div class="col-md-4"> Air conditioning</div>
+                            </th:block>
 
                             <th:block th:if="${car.transmissionIsAutomatic}">
-                            <div class="col-md-2"> <img src="/img/icon/gears-automatic.svg" class="image" alt="gearbox"> </div>
-                            <div class="col-md-4">Automatic gearbox</div> </th:block>
+                                <div class="col-md-2"> <img src="/img/icon/gears-automatic.svg" class="image" alt="gearbox"> </div>
+                                <div class="col-md-4">Automatic gearbox</div>
+                            </th:block>
 
-                             <th:block th:unless="${car.transmissionIsAutomatic}">
-                             <div class="col-md-2"> <img src="/img/icon/car-gears.svg" class="image" alt="gearbox"> </div>
-                             <div class="col-md-4">Manual gearbox</div> </th:block>
-
+                            <th:block th:unless="${car.transmissionIsAutomatic}">
+                                <div class="col-md-2"> <img src="/img/icon/car-gears.svg" class="image" alt="gearbox"> </div>
+                                <div class="col-md-4">Manual gearbox</div>
+                            </th:block>
 
                         </div>
                         <div class="row">

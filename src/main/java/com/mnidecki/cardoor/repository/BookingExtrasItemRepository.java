@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
-public interface BookingExtrasItemRepository extends CrudRepository<BookingExtrasItem,Long> {
+public interface BookingExtrasItemRepository extends CrudRepository<BookingExtrasItem, Long> {
 
 
     @Override

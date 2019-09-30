@@ -5,19 +5,19 @@
             <div class="row">
                 <!--== Single HeaderTop Start ==-->
                 <div class="col-lg-3 text-left">
-                    <i class="fa fa-map-marker"></i> 802/2, Mirpur, Dhaka
+                    <i class="fa fa-map-marker"></i><span th:text="${@environment.getProperty('app.location.address')}"></span>
                 </div>
                 <!--== Single HeaderTop End ==-->
 
                 <!--== Single HeaderTop Start ==-->
                 <div class="col-lg-3 text-center">
-                    <i class="fa fa-mobile"></i> +1 800 345 678
+                    <i class="fa fa-mobile"></i> <span th:text="${@environment.getProperty('app.location.phone')}"></span>
                 </div>
                 <!--== Single HeaderTop End ==-->
 
                 <!--== Single HeaderTop Start ==-->
                 <div class="col-lg-3 text-center">
-                    <i class="fa fa-clock-o"></i> Mon-Fri 09.00 - 17.00
+                    <i class="fa fa-clock-o"></i> <span th:text="${@environment.getProperty('app.location.hour')}"></span>
                 </div>
                 <!--== Single HeaderTop End ==-->
 

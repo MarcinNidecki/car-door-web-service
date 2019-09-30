@@ -42,17 +42,19 @@ public class UserDto {
     private String country;
     @Length(min = 6, message = "The state must be at least {min} characters long")
     private String state;
-    @NotNull @Length(min = 5, message = "The zipcode must be at least {min} characters long")
+    @NotNull
+    @Length(min = 5, message = "The zipcode must be at least {min} characters long")
     private String zipCode;
     private Integer status;
 
-    public UserDto(Long id, String firstname, String lastname,  String email) {
+    public UserDto(Long id, String firstname, String lastname, String email) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
 
     }
+
     public UserDto(Long id, String firstname, String lastname, String email, String password) {
         this.id = id;
         this.firstname = firstname;
@@ -60,6 +62,7 @@ public class UserDto {
         this.email = email;
         this.password = password;
     }
+
     public UserDto(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;

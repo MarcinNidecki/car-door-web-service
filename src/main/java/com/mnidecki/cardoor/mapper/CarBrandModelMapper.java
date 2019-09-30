@@ -19,7 +19,7 @@ public class CarBrandModelMapper {
         return new CarBrandModel(
                 carBrandModelDto.getId(),
                 carBrandModelDto.getModel(),
-                carBrandService.getBrand(carBrandModelDto.getBrandId())
+                carBrandService.findByID(carBrandModelDto.getBrandId())
         );
     }
 

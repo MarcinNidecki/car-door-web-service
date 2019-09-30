@@ -30,7 +30,7 @@ public class CarDto {
     @Min(2000)
     private int year;
     @DecimalMin(value = "10.00", inclusive = false)
-    @Digits(integer=3, fraction=2)
+    @Digits(integer = 3, fraction = 2)
     private BigDecimal price;
     private boolean transmissionIsAutomatic;
     private boolean airConditioning;
@@ -39,7 +39,7 @@ public class CarDto {
     private String fuelType;
     @Min(1)
     @Max(5)
-     private Integer doorsNumber;
+    private Integer doorsNumber;
     @Min(1)
     @Max(7)
     private Integer seatsNumber;
@@ -52,12 +52,12 @@ public class CarDto {
     @NotEmpty(message = "Color must be not empty")
     private String color;
     private Long carTypeId;
+    private Float rating;
     private Long cityId;
     private Long carPictureId;
     private Long carParametersId;
     private String fileNamePath;
     private String thumbnailsPath;
-
 
 
 }

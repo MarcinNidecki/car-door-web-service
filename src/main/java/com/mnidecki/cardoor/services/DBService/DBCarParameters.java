@@ -15,11 +15,11 @@ public class DBCarParameters {
     private CarParametersRepository carParametersRepository;
 
 
-    public List<CarParameters> getAllCarParameters() {
+    public List<CarParameters> findAll() {
         return carParametersRepository.findAll();
     }
 
-    public Optional<CarParameters> getCarParameters(final Long id) {
+    public Optional<CarParameters> findById(final Long id) {
         return carParametersRepository.findById(id);
     }
 
@@ -27,14 +27,15 @@ public class DBCarParameters {
         return carParametersRepository.save(car);
     }
 
-    public void deleteCarParameters(final Long id) {
+    public void deleteById(final Long id) {
         carParametersRepository.deleteById(id);
     }
 
-    public int countCarParametersByCarPictureId(final  Long id) {
-        return  carParametersRepository.countCarParametersByCarPicture_id(id);
+    public int countCarParametersByCarPictureId(final Long id) {
+        return carParametersRepository.countCarParametersByCarPicture_id(id);
 
     }
 
 
 }
+

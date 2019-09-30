@@ -34,33 +34,33 @@
                     </div>
                     <div class="modal-footer">
 
-                                        <form name="idModalLink" id="idModalLink">
-                                                                                      <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
-                                               <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                                                  </form>
+                        <form name="idModalLink" id="idModalLink">
+                            <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-                <div class="modal fade" id="carModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body" id="myModalBody">
-                                <p>Do you want to delete thhis (<span id="modal-name"> </span>) record?</p>
-                            </div>
-                            <div class="modal-footer">
+        <div class="modal fade" id="carModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="myModalBody">
+                        <p>Do you want to delete thhis (<span id="modal-name"> </span>) record?</p>
+                    </div>
+                    <div class="modal-footer">
 
-                                        <form name="idModalLink" id="idModalLink">
-                                                                                      <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
-                                               <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                                                  </form>
-                            </div>
-                        </div>
+                        <form name="idModalLink" id="idModalLink">
+                            <button id="deleteType" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        </form>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
     <div class="row popular-car-gird">
-        <div class="col-lg-6 col-md-6 " th:each="brand : ${carBrands}"  th:attr="data-single-item=${brand.id}">
+        <div class="col-lg-6 col-md-6 " th:each="brand : ${carBrands}" th:attr="data-single-item=${brand.id}">
             <div class="single-popular-car">
 
                 <div class="p-car-content">
@@ -89,9 +89,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="row">
-                                        <div class="col-md-6">
-                                            <a th:href="@{'/admin/car/brand/'+${brand.id}+'/model/'+${model.id}}"> <i class="fa fa-edit" style ="font-size:17px;color: darkgrey;"></i></a> </div><div class="col-md-6">
-                                            <a href="javascript:void(0)" class="confirm-delete2" id="gallery-page-content" style="background-color: unset;" th:attr="data-id=${model.id}, data-name=${model.model},  data-path='/admin/car/brand/'+${brand.id}+'/model/'+${model.id}">             <i class="fa fa-trash" style="font-size:17px; color: red;"></i></a>
+                                            <div class="col-md-6">
+                                                <a th:href="@{'/admin/car/brand/'+${brand.id}+'/model/'+${model.id}}"> <i class="fa fa-edit" style="font-size:17px;color: darkgrey;"></i></a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="javascript:void(0)" class="confirm-delete2" id="gallery-page-content" style="background-color: unset;" th:attr="data-id=${model.id}, data-name=${model.model},  data-path='/admin/car/brand/'+${brand.id}+'/model/'+${model.id}"> <i class="fa fa-trash" style="font-size:17px; color: red;"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -99,45 +101,44 @@
                             </div>
 
                             <div class="col-md-12">
-                              <div class="row">
- <div class="col-md-12">
-                                <form action="#" th:if="${carBrandModelDto.brandId}==${brand.id}" th:action="@{/admin/car/brand/{brandId}/model/{modelId}(brandId=${brand.id}, modelId=${modelId})}" th:object="${carBrandModelDto}" th:method="'put'">
-<div class="row">
-
-                                        <div class="col-md-7">
-                                            <input type="hidden" th:field="*{id}" th:value="${carBrandModelDto.id}">
-                                            <input type="text" class="form-control" id="model" placeholder="model name" th:field="*{model}">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="input-submit">
-                                                <button type="submit" class="btn-primary" style="margin-top: 0px; " th:text="'Update'">Submit</button>
-                                            </div>
-                                        </div>
-</div>
-
-                                </form>
-                                </div>
-                              </div>
                                 <div class="row">
-                                 <div class="col-md-12">
-  <form action="#" th:unless="${carBrandModelDto.brandId}==${brand.id}" th:action="@{/admin/car/brand/{brandId}/model(brandId=${brand.id})}" th:object="${carBrandModelDtoEmpty}" th:method="'post'">
-<div class="row">
+                                    <div class="col-md-12">
+                                        <form action="#" th:if="${carBrandModelDto.brandId}==${brand.id}" th:action="@{/admin/car/brand/{brandId}/model/{modelId}(brandId=${brand.id}, modelId=${modelId})}" th:object="${carBrandModelDto}" th:method="'put'">
+                                            <div class="row">
 
-                                        <div class="col-md-7">
-
-
- <input type="hidden" th:field="*{id}" th:value="''">
-                                            <input type="text" class="form-control" id="model" placeholder="model name" th:field="*{model}">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="input-submit">
-                                                <button type="submit" class="btn-primary" style="margin-top: 0px;" th:text="'Add New'">Submit</button>
+                                                <div class="col-md-7">
+                                                    <input type="hidden" th:field="*{id}" th:value="${carBrandModelDto.id}">
+                                                    <input type="text" class="form-control" id="model" placeholder="model name" th:field="*{model}">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="input-submit">
+                                                        <button type="submit" class="btn-primary" style="margin-top: 0px; " th:text="'Update'">Submit</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
 
-</div>
-                                </form>
+                                        </form>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="#" th:unless="${carBrandModelDto.brandId}==${brand.id}" th:action="@{/admin/car/brand/{brandId}/model(brandId=${brand.id})}" th:object="${carBrandModelDtoEmpty}" th:method="'post'">
+                                            <div class="row">
+
+                                                <div class="col-md-7">
+
+                                                    <input type="hidden" th:field="*{id}" th:value="''">
+                                                    <input type="text" class="form-control" id="model" placeholder="model name" th:field="*{model}">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="input-submit">
+                                                        <button type="submit" class="btn-primary" style="margin-top: 0px;" th:text="'Add New'">Submit</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -147,5 +148,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

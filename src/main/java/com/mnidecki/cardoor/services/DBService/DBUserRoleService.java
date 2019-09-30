@@ -11,7 +11,7 @@ public class DBUserRoleService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    public UserRole getUserRoleByRoleName(String roleName){
+    public UserRole getUserRoleByRoleName(String roleName) {
         return userRoleRepository.getUserRoleByRoleName(roleName);
     }
 }

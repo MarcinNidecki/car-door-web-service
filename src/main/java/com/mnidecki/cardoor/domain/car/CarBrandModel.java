@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +31,16 @@ public class CarBrandModel {
 
     @OneToMany(targetEntity = Car.class,
             mappedBy = "model",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<Car> cars = new ArrayList<>();
+
+    @OneToMany(targetEntity = Comment.class,
+            mappedBy = "model",
+            fetch = FetchType.EAGER)
+    private Set<Comment> comments = new HashSet<>();
+
+    @OneToOne(mappedBy = "carBrandModel", cascade = CascadeType.ALL)
+    private Star star;
 
     public CarBrandModel(String model) {
         this.model = model;

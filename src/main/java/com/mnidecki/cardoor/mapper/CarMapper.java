@@ -23,16 +23,18 @@ public class CarMapper {
     private DBCarParameters carParametersService;
     @Autowired
     private DBCarBrandModelService carBrandModelService;
+    @Autowired
+    private DBStarService starService;
 
     public Car mapToCar(final CarDto carDto) {
         return new Car(
                 carDto.getId(),
-                carBrandModelService.getModel(carDto.getModelId()),
+                carBrandModelService.findByID(carDto.getModelId()),
                 carDto.getRegistration(),
                 carDto.getVehicleStatus(),
-                carParametersService.getCarParameters(carDto.getCarParametersId()).orElse(null),
+                carParametersService.findById(carDto.getCarParametersId()).orElse(null),
                 carDto.getPrice(),
-                cityService.getLocation(carDto.getCityId()));
+                cityService.findById(carDto.getCityId()));
     }
 
     public CarDto mapToCarDto(final Car car) {
@@ -49,7 +51,7 @@ public class CarMapper {
                 car.getCarParameters().isTransmissionIsAutomatic(),
                 car.getCarParameters().isAirConditioning(),
                 car.getCarParameters().isAllWheelDrive(),
-                typeService.getType(car.getCarParameters().getType().getId()).getType(),
+                typeService.getById(car.getCarParameters().getType().getId()).getType(),
                 car.getCarParameters().getFuelType(),
                 car.getCarParameters().getDoorsNumber(),
                 car.getCarParameters().getSeatsNumber(),
@@ -57,11 +59,12 @@ public class CarMapper {
                 car.getCarParameters().getBigBags(),
                 car.getCarParameters().getColor(),
                 car.getCarParameters().getType().getId(),
+                starService.findById(car.getModel().getId()).getRatingAverage(),
                 car.getLocation().getId(),
                 car.getCarParameters().getCarPicture().getId(),
                 car.getCarParameters().getId(),
-                carPictureService.getCarPicture(car.getCarParameters().getCarPicture().getId()).getFileNamePath(),
-                carPictureService.getCarPicture(car.getCarParameters().getCarPicture().getId()).getThumbnailsPath());
+                carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getFileNamePath(),
+                carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getThumbnailsPath());
     }
 
 
@@ -83,8 +86,8 @@ public class CarMapper {
                 carDto.getYear(),
                 carDto.isTransmissionIsAutomatic(),
                 carDto.isAirConditioning(),
-                typeService.getType(carDto.getCarTypeId()),
-                carPictureService.getCarPicture(carDto.getCarPictureId()));
+                typeService.getById(carDto.getCarTypeId()),
+                carPictureService.findById(carDto.getCarPictureId()));
     }
 
 }

@@ -12,10 +12,7 @@
                             <p>Lorem ipsum dolored is a sit ameted consectetur adipisicing elit. Nobis magni assumenda distinctio debitis, eum fuga fugiat error reiciendis.</p>
 
                             <div class="newsletter-area">
-                                <form action="index">
-                                    <input type="email" placeholder="Subscribe Our Newsletter">
-                                    <button type="submit" class="newsletter-btn"><i class="fa fa-send"></i></button>
-                                </form>
+
                             </div>
 
                         </div>
@@ -29,30 +26,14 @@
                         <h2>Recent Posts</h2>
                         <div class="widget-body">
                             <ul class="recent-post">
-                                <li>
-                                    <a href="#">
-                                        Hello Bangladesh!
-                                        <i class="fa fa-long-arrow-right"></i>
-                                    </a>
+                                <li th:each="comment : ${lastComments}">
+                                         <a href="#" th:if="*{#strings.length(comment.commentContent)>29}" th:text="*{#strings.substring(comment.commentContent,0,29)}">
+                                          </a>
+                                         <a href="#" th:unless="*{#strings.length(comment.commentContent)>29}"th:text="*{comment.commentContent}">
+                                       </a>
+ <i class="fa fa-long-arrow-right"></i>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        Lorem ipsum dolor sit amet
-                                        <i class="fa fa-long-arrow-right"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        Hello Bangladesh!
-                                        <i class="fa fa-long-arrow-right"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        consectetur adipisicing elit?
-                                        <i class="fa fa-long-arrow-right"></i>
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -67,9 +48,9 @@
                             <p>Lorem ipsum doloer sited amet, consectetur adipisicing elit. nibh auguea, scelerisque sed</p>
 
                             <ul class="get-touch">
-                                <li><i class="fa fa-map-marker"></i> 800/8, Kazipara, Dhaka</li>
-                                <li><i class="fa fa-mobile"></i> +880 01 86 25 72 43</li>
-                                <li><i class="fa fa-envelope"></i> kazukamdu83@gmail.com</li>
+                                <li><i class="fa fa-map-marker"></i> <span th:text="${@environment.getProperty('app.location.address')}"></span> </li>
+                                <li><i class="fa fa-mobile"></i><span th:text="${@environment.getProperty('app.location.phone')}"></span> </li>
+                                <li><i class="fa fa-envelope"></i> <span th:text="${@environment.getProperty('app.location.mail')}"></span> </li>
                             </ul>
                             <a href="https://goo.gl/maps/b5mt45MCaPB2" class="map-show" target="_blank">Show Location</a>
                         </div>

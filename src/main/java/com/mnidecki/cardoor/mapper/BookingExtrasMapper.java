@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class BookingExtrasMapper {
 
-    public BookingExtrasDto mapToBookingExtrasDto (BookingExtras bookingExtras) {
+    public BookingExtrasDto mapToBookingExtrasDto(BookingExtras bookingExtras) {
         return new BookingExtrasDto(
                 bookingExtras.getId(),
                 bookingExtras.getName(),
@@ -18,9 +18,9 @@ public class BookingExtrasMapper {
         );
     }
 
-    public List<BookingExtrasDto> mapToBookingExtrasDtoList (List<BookingExtras> bookingExtrasList){
-      return bookingExtrasList.stream()
-              .map(this::mapToBookingExtrasDto)
-              .collect(Collectors.toList());
+    public List<BookingExtrasDto> mapToBookingExtrasDtoList(List<BookingExtras> bookingExtrasList) {
+        return bookingExtrasList.stream()
+                .map(this::mapToBookingExtrasDto)
+                .collect(Collectors.toList());
     }
 }

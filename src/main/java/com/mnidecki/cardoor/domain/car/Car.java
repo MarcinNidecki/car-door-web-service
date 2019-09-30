@@ -48,6 +48,7 @@ public class Car {
             fetch = FetchType.EAGER)
     private Set<Booking> bookingsList;
 
+
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Location location) {
         this.id = id;
         this.model = model;

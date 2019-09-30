@@ -12,19 +12,19 @@ public class DBCarBrandService {
     @Autowired
     private CarBrandRepository carBrandRepository;
 
-    public List<CarBrand> getAllBrand() {
+    public List<CarBrand> findAll() {
         return carBrandRepository.findAll();
     }
 
-    public CarBrand getBrand(final Long id) {
+    public CarBrand findByID(final Long id) {
         return carBrandRepository.findById(id).orElseGet(null);
     }
 
-    public CarBrand saveBrand(final CarBrand carBrand) {
+    public CarBrand save(final CarBrand carBrand) {
         return carBrandRepository.save(carBrand);
     }
 
-    public void deleteBrand(final Long id) {
+    public void deleteById(final Long id) {
         carBrandRepository.deleteById(id);
     }
 

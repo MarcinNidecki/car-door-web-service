@@ -32,6 +32,7 @@ public class BookingExtrasItemDto {
         this.bookingId = bookingId;
         this.iconPath = iconPath;
     }
+
     public BookingExtrasItemDto(Long id, String name, String description, Long quantity, BigDecimal totalValue, BigDecimal price, Long bookingExtrasId, String iconPath) {
         this.id = id;
         this.name = name;

@@ -1,0 +1,239 @@
+<section id="car-list-area" class="section-padding" data-th-fragment="car-details">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8">
+                <div class="car-details-content">
+                    <h2 th:text="${carDto.brand} + ' ' + ${carDto.model}"><span class="price">Rent: <b th:text="${carDto.price} + '/per day'"></b></span></h2>
+                    <div class="owl-carousel owl-theme owl-loaded">
+
+                        <div class="owl-item cloned active" style="width: 730px; margin-right: 0px;">
+                            <div class="single-car-preview">
+                                <img th:src="${carDto.fileNamePath}" alt="JSOFT">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="car-details-info">
+                        <h4>Additional Info</h4>
+
+                        <div class="technical-info">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="tech-info-table">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Class</th>
+                                                    <td th:text="${carDto.carTypeName}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Fuel</th>
+                                                    <td th:text="${carDto.fuelType}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Doors</th>
+                                                    <td th:text="${carDto.doorsNumber}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>GearBox</th>
+                                                    <td th:if="${carDto.transmissionIsAutomatic}">Automatic</td>
+                                                    <td th:unless="${carDto.transmissionIsAutomatic}">Manual</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="tech-info-list">
+                                        <ul>
+                                            <li>ABS</li>
+                                            <li>Air Bags</li>
+                                            <li>Music</li>
+                                            <li th:if="${carDto.airConditioning}">Air Condition</li>
+                                            <li th:if="${carDto.allWheelDrive}">All Wheel Drive</li>
+                                            <li th:if="${carDto.smallBags == 1}" th:text="${carDto.smallBags} + ' small bag'"></li>
+                                            <li th:if="${carDto.smallBags > 1}" th:text="${carDto.smallBags} + ' small bags'"></li>
+                                            <li th:if="${carDto.bigBags == 1}" th:text="${carDto.bigBags} + ' big bag'"></li>
+                                            <li th:if="${carDto.bigBags > 1}" th:text="${carDto.bigBags} + ' big bags'"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-area">
+                            <h3 th:if="${#lists.isEmpty(commentDtoList)}" th:text="'Be the first to review ' + ${carDto.brand} + ' ' + ${carDto.model}" class="mb-2"></h3>
+
+                            <div class="review-form">
+                                <form action="" sec:authorize="not isAuthenticated()">
+                                    <div class="message-input">
+                                        <textarea readonly name="review" cols="30" rows="5" placeholder="You must be logged in to post comments. please login or sign up!"></textarea>
+                                    </div>
+                                    <div class="input-submit">
+                                        <button type="button" disabled>Submit</button>
+                                        <button type="reset">Clear</button>
+                                    </div>
+                                </form>
+
+                                <form action="#" th:action="@{/car/brand/{brandId}/model/{modelId}/comment(brandId = ${carDto.brandId}, modelId = ${carDto.modelId}, carId = ${carDto.id})}" th:object="${commentDto}" method="post" sec:authorize="isAuthenticated()">
+                                    <div class="rating2">
+
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="1" />
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="2" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="3" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="4" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="5" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="6" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="7" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="8" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="9" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input th:field="*{rating}" type="radio" name="stars" value="10" />
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+                                            <span class="icon">★</span>
+
+                                        </label>
+
+                                    </div>
+                                    <div class="text text-danger" th:if="${#fields.hasErrors('rating')}" th:errors="${commentDto.rating}"></div>
+                                    <div class="message-input">
+                                        <textarea name="review" cols="30" rows="5" placeholder="Write Your Feedback Here!" th:field="*{commentContent}"></textarea>
+                                        <div class="text text-danger" th:if="${#fields.hasErrors('commentContent')}" th:errors="*{commentContent}"></div>
+                                    </div>
+                                    <div class="input-submit">
+                                        <button type="submit">Submit</button>
+                                        <button type="reset">Clear</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <p class="mt-4"></p>
+                            <ul class="media-list">
+
+                                <li th:each="comment : ${commentDtoList}" class="media">
+
+                                    <div class="media-body"> <span class="text-muted pull-right"> <small class="text-muted" th:text="*{comment.creationDate}">o</small> </span>
+                                        <p class="rating">
+                                            <i><strong class="get-touch mr-2" th:text="*{comment.userFirstName}"></strong></i>
+
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 3}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 4}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 5}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 6}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 7}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 8}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 9}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 10}?unmark"></i>
+                                            <i class="fa fa-star" th:classappend="*{comment.rating < 11}?unmark"></i>
+                                        </p>
+                                        <p th:text="*{comment.commentContent}"></p>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sidebar-content-wrap m-t-50">
+
+                    <div class="single-sidebar">
+                        <h3>For More Informations</h3>
+                        <div class="sidebar-body">
+                            <p><i class="fa fa-mobile"></i> +8801816 277 243</p>
+                            <p><i class="fa fa-clock-o"></i> Mon - Sat 8.00 - 18.00</p>
+                        </div>
+                    </div>
+
+                    <div class="single-sidebar">
+                        <h3>Connect with Us</h3>
+                        <div class="sidebar-body">
+                            <div class="social-icons text-center">
+                                <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="#" target="_blank"><i class="fa fa-behance"></i></a>
+                                <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                <a href="#" target="_blank"><i class="fa fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

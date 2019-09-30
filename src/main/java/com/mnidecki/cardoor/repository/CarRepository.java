@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 @Transactional
 @Repository
 public interface CarRepository extends CrudRepository<Car, Integer> {
@@ -23,6 +24,6 @@ public interface CarRepository extends CrudRepository<Car, Integer> {
 
     List<Car> findFirst10ByPriceBefore(int price);
 
-    List<Car> findCarByLocation_Id (Long id);
+    List<Car> findCarByLocation_Id(Long id);
 
 }

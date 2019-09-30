@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--=== Favicon ===-->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
+    <title>Cardoor - Car Rental HTML Template</title>
+    <!--=== Bootstrap CSS ===-->
+    <link href="/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+    <!--=== Slicknav CSS ===-->
+    <link href="/webjars/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!--=== Animate CSS ===-->
+    <link href="/css/plugins/animate.css" rel="stylesheet">
+    <!--=== Vegas Min CSS ===-->
+    <link href="/css/plugins/vegas.min.css" rel="stylesheet">
+    <!--=== Slicknav CSS ===-->
+    <link href="/css/plugins/slicknav.min.css" rel="stylesheet">
+    <!--=== Magnific Popup CSS ===-->
+    <link href="/css/plugins/magnific-popup.css" rel="stylesheet">
+    <!--=== Owl Carousel CSS ===-->
+    <link href="/css/plugins/owl.carousel.min.css" rel="stylesheet">
+    <!--=== Magnific Popup CSS ===-->
+    <link href="/css/plugins/magnific-popup.css" rel="stylesheet">
+    <!--=== Owl Carousel CSS ===-->
+    <link href="/css/plugins/owl.carousel.min.css" rel="stylesheet">
+    <!--=== Gijgo CSS ===-->
+    <link href="/css/plugins/gijgo.css" rel="stylesheet">
+    <!--=== FontAwesome CSS ===-->
+
+    <!--=== Theme Reset CSS ===-->
+    <link href="/css/reset.css" rel="stylesheet">
+    <!--=== Main Style CSS ===-->
+    <link href="/css/style.css" rel="stylesheet">
+    <!--=== Responsive CSS ===-->
+    <link href="/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+	<script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <![endif]-->
+</head>
+
+<body class="loader-active">
+
+    <!--== Preloader Area Start ==-->
+    <div data-th-replace="fragments/fragments-preloader-area-start :: preloader-area-start"></div>
+    <!--== Preloader Area End ==-->
+
+    <!--== Header Area Start ==-->
+    <header data-th-replace="fragments/fragments-header-area :: header-area"></header>
+    <!--== Header Area End ==-->
+
+    <!--== Slider Area Start ==-->
+    <section data-th-replace="fragments/fragments-page-title-area-start :: page-title-area-start"></section>
+    <!--== Slider Area End ==-->
+
+    <!--== Choose Car Area Start ==-->
+<div class="contact-page-wrao section-padding">
+<div class="container">
+<div class="row">
+<div class="col-lg-10 m-auto">
+<div class="contact-form">
+<form action="index.html">
+<div class="row">
+<div class="col-lg-6 col-md-6">
+ <div class="name-input">
+<input type="text" placeholder="Full Name">
+</div>
+</div>
+<div class="col-lg-6 col-md-6">
+<div class="email-input">
+<input type="email" placeholder="Email Address">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6 col-md-6">
+<div class="website-input">
+<input type="url" placeholder="Website">
+</div>
+</div>
+<div class="col-lg-6 col-md-6">
+<div class="subject-input">
+<input type="text" placeholder="Subject">
+</div>
+</div>
+</div>
+<div class="message-input">
+<textarea name="review" cols="30" rows="10" placeholder="Message"></textarea>
+</div>
+<div class="input-submit">
+<button type="submit">Submit Message</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="maparea">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29213.038296132225!2d90.39150904197642!3d23.760577791538438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c783c3404f0d%3A0x76ae0d2edabc81df!2sHatir+Jheel!5e0!3m2!1sen!2sbd!4v1517941663187"></iframe>
+</div>
+    <!--== Choose Car Area End ==-->
+
+    <!--== Partner Area Start ==-->
+    <div data-th-replace="fragments/fragments-partner-area-start :: partner-area-start"></div>
+    <!--== Partner Area End ==-->
+
+    <!--== Fun Fact Area Start ==-->
+    <section data-th-replace="fragments/fragments-fun-fact-area-start :: fun-fact-area-start"></section>
+    <!--== Fun Fact Area End ==-->
+
+    <!--== Footer Area Start ==-->
+    <section data-th-replace="fragments/fragments-footer-area-start :: footer-area-start"></section>
+    <!--== Footer Area End ==-->
+
+    <!--== Scroll Top Area Start ==-->
+    <div data-th-replace="fragments/fragments-scroll-top-area-start :: scroll-top-area-start"></div>
+    <!--== Scroll Top Area End ==-->
+
+    <!--== Javascript Area Start ==-->
+    <th:block data-th-replace="fragments/fragments-javascript-area-start :: javascript-area-start"></th:block>
+    <!--== Scroll Top Area End ==-->
+<script>
+     $(':radio').change(function() {
+                    console.log('New star rating: ' + this.value);
+                });
+
+</script>
+</body>
+
+</html>

@@ -14,19 +14,19 @@ public class DBBookingStatusCodeService {
     private BookingStatusCodeRepository bookingStatusCodeRepository;
 
 
-    public List<BookingStatusCode> getAllBookingStatusCode() {
+    public List<BookingStatusCode> findAll() {
         return bookingStatusCodeRepository.findAll();
     }
 
-    public BookingStatusCode getBookingStatusCode(final Long id) {
+    public BookingStatusCode findByID(final Long id) {
         return bookingStatusCodeRepository.findById(id).orElse(null);
     }
 
-    public BookingStatusCode saveBookingStatusCode(final BookingStatusCode statusCode) {
+    public BookingStatusCode save(final BookingStatusCode statusCode) {
         return bookingStatusCodeRepository.save(statusCode);
     }
 
-    public void deleteBookingStatusCode(final Long id) {
+    public void deleteById(final Long id) {
         bookingStatusCodeRepository.deleteById(id);
     }
 

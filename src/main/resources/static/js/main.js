@@ -43,7 +43,7 @@
         });
         var dt = new Date();
         var dtToday = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
-        var dtTomorrow = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + (dt.getDate() + 1) ;
+        var dtTomorrow = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + (dt.getDate() + 1);
         var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
         $('#startDate').datepicker({
             format: 'yyyy-mm-dd',
@@ -276,7 +276,6 @@
         jQuery('body').removeClass('loader-active');
         jQuery(".popular-car-gird").isotope();
     }); //window load End
-
 
 
 }(jQuery));

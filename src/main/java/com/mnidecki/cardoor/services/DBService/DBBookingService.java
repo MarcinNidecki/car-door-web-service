@@ -23,34 +23,34 @@ public class DBBookingService {
     @Autowired
     private BookingRepository bookingRepository;
     @Autowired
-    private DBCarService carService;
+    private DBCommentService commentService;
     @Autowired
-    private  DBBookingExtrasService extrasService;
+    private DBBookingExtrasService extrasService;
     @Autowired
     private SimpleEmailService simpleEmailService;
 
 
-    public List<Booking> getAllBooking() {
+    public List<Booking> findAll() {
         return bookingRepository.findAll();
     }
 
-    public Booking getBooking(final Long id) {
+    public Booking findById(final Long id) {
         return bookingRepository.findById(id).orElseGet(null);
     }
 
-    public Booking saveBooking(final Booking booking) {
+    public Booking save(final Booking booking) {
         booking.getBookingExtrasList().forEach(bookingExtrasItem -> bookingExtrasItem.setBooking(booking));
         booking.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
         String SUBJECT = "CARDOOR - Rental reservation confirmation";
         simpleEmailService.send(new Mail(
                 booking.getUser().getEmail(),
                 SUBJECT,
-                "CARDOOR car reservation confirmation"),booking
+                "CARDOOR car reservation confirmation"), booking
         );
         return bookingRepository.save(booking);
     }
 
-    public void deleteBooking(final Long id) {
+    public void deleteById(final Long id) {
         bookingRepository.deleteById(id);
     }
 
@@ -64,7 +64,7 @@ public class DBBookingService {
         LocalDateTime endDateTime = returnDate.toLocalDateTime();
         LocalTime timeStart = startDateTime.toLocalTime();
         LocalTime timeEnd = endDateTime.toLocalTime();
-        long daysBetween = ChronoUnit.DAYS.between(startDateTime,endDateTime);
+        long daysBetween = ChronoUnit.DAYS.between(startDateTime, endDateTime);
         if (timeEnd.isAfter(timeStart)) {
             daysBetween += 1;
         }
@@ -74,7 +74,7 @@ public class DBBookingService {
     public Booking setAllBookingCostFields(Booking booking) {
 
         booking.setBookingExtrasList(booking.getBookingExtrasList().stream()
-                .filter(item -> item.getQuantity()>0)
+                .filter(item -> item.getQuantity() > 0)
                 .collect(Collectors.toList()));
         booking.getBookingExtrasList()
                 .forEach(bookingExtrasItem ->
@@ -83,7 +83,7 @@ public class DBBookingService {
         BigDecimal totalCost = booking.getBookingExtrasList().stream()
                 .map(BookingExtrasItem::getValue)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        totalCost = totalCost.add(booking.getCar().getPrice().multiply(new BigDecimal(countBookingDays(booking.getStartDate(),booking.getReturnDate()))));
+        totalCost = totalCost.add(booking.getCar().getPrice().multiply(new BigDecimal(countBookingDays(booking.getStartDate(), booking.getReturnDate()))));
         booking.setTotalCost(totalCost);
         return booking;
 
@@ -91,13 +91,19 @@ public class DBBookingService {
 
     public List<BookingExtrasItem> prepareEmptyExtrasList() {
         List<BookingExtrasItem> extrasItemList = new ArrayList<>();
-        extrasService.findAll().forEach(extras -> extrasItemList.add(new BookingExtrasItem(0L,BigDecimal.ZERO,extras)));
+        extrasService.findAll().forEach(extras -> extrasItemList.add(new BookingExtrasItem(0L, BigDecimal.ZERO, extras)));
         return extrasItemList;
     }
 
     public Timestamp timeToTimestampConverter(String date, String time) {
-        return  Timestamp.valueOf(date+ " " + time +":00");
+        return Timestamp.valueOf(date + " " + time + ":00");
     }
 
+    public int  countHappyClients() {
+        Integer unhappyClient = 0;
+        unhappyClient = commentService.countAllByRatingLessThan2();
+        int allClient = findAll().size();
+        return allClient - unhappyClient;
+    }
 }
 

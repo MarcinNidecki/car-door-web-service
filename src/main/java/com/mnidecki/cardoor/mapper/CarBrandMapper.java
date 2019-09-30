@@ -38,7 +38,7 @@ public class CarBrandMapper {
                 .map(b -> new CarBrandDto(b.getId(),
                         b.getBrand(),
                         modelMapper.mapToCarBrandModelDtoList(b.getModels())
-                        ))
+                ))
                 .collect(Collectors.toList());
     }
 
@@ -46,7 +46,7 @@ public class CarBrandMapper {
         return carBrandDtoList.stream()
                 .map(b -> new CarBrand(b.getId(),
                         b.getBrand(),
-                       modelMapper.mapToCarBrandModelList(b.getModels())))
+                        modelMapper.mapToCarBrandModelList(b.getModels())))
                 .collect(Collectors.toList());
     }
 }

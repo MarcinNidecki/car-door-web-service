@@ -1,9 +1,9 @@
 package com.mnidecki.cardoor.domain.booking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mnidecki.cardoor.domain.car.Car;
 import com.mnidecki.cardoor.domain.Location;
 import com.mnidecki.cardoor.domain.User;
+import com.mnidecki.cardoor.domain.car.Car;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -64,6 +65,10 @@ public class Booking {
             fetch = FetchType.EAGER)
     private List<BookingExtrasItem> bookingExtrasList = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "discountCodeId")
+    private DiscountCode discountCode;
+
     public Booking(Long id, User user, Car car, BookingStatusCode bookingStatusCode, Location location, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate) {
         this.id = id;
         this.user = user;
@@ -85,6 +90,7 @@ public class Booking {
         this.returnDate = returnDate;
         this.bookingExtrasList = bookingExtrasList;
     }
+
     public Booking(Long id, User user, Car car, BookingStatusCode bookingStatusCode, Location location, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate, List<BookingExtrasItem> bookingExtrasList) {
         this.id = id;
         this.user = user;
@@ -96,6 +102,7 @@ public class Booking {
         this.returnDate = returnDate;
         this.bookingExtrasList = bookingExtrasList;
     }
+
     public Booking(Car car, BookingStatusCode bookingStatusCode, Location location, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate, List<BookingExtrasItem> bookingExtrasList) {
         this.car = car;
         this.bookingStatusCode = bookingStatusCode;

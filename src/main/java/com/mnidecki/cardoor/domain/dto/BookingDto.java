@@ -35,6 +35,7 @@ public class BookingDto {
         this.returnDate = returnDate;
         this.bookingExtrasList = bookingExtrasList;
     }
+
     public BookingDto(Long carId, Long bookingStatusCodeId, Long cityId, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate, List<BookingExtrasItemDto> bookingExtrasList) {
         this.carId = carId;
         this.bookingStatusCodeId = bookingStatusCodeId;
