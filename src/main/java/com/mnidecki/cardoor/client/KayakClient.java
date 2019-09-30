@@ -40,7 +40,7 @@ public class KayakClient {
             List<KayakLocationDto> citiesResponse = Arrays.asList(objectMapper.readValue(responseBody.string(), KayakLocationDto[].class));
             LOGGER.info("KAYAK:  location founded" + citiesResponse.toString());
             return  citiesResponse.get(0).getCtid();
-        } catch (IOException | IllegalArgumentException e) {
+        } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             LOGGER.error(e.getMessage(), e);
             return "";
         }
