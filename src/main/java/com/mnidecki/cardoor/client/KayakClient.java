@@ -64,10 +64,13 @@ public class KayakClient {
 
                     ResponseBody  responseBody = client.newCall(request).execute().body();
                     KayakCarSearchResponeDto carSearchResponse =(objectMapper.readValue(responseBody.string(), KayakCarSearchResponeDto.class));
-                    double sum = Arrays.stream(carSearchResponse.getCarSet()).mapToDouble(total -> Double.parseDouble(total.getTotalPrice()))
-                            .sum();
-                    long count = carSearchResponse.getCarSet().length;
-                    return (long)sum / count;
+                    if(carSearchResponse!=null){
+                        double sum = Arrays.stream(carSearchResponse.getCarSet()).mapToDouble(total -> Double.parseDouble(total.getTotalPrice()))
+                                .sum();
+                        long count = carSearchResponse.getCarSet().length;
+                        return (long)sum / count;
+                    }
+
             } catch (IOException | IllegalArgumentException e) {
                 e.printStackTrace();
                 LOGGER.error(e.getMessage(), e);
