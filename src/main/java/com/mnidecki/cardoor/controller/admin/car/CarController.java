@@ -6,7 +6,6 @@ import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.mapper.*;
 import com.mnidecki.cardoor.services.DBService.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,17 +48,17 @@ public class CarController {
     private DBCarBrandModelService carBrandModelService;
 
     @ModelAttribute("allCity")
-    public List<LocationDto> allCity() {
+    public List<LocationDto> getAllCity() {
         return locationMapper.mapToLocationDtoList(this.locationService.findAll());
     }
 
     @ModelAttribute("allType")
-    public List<CarTypeDto> allType() {
+    public List<CarTypeDto> getAllType() {
         return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.findAll());
     }
 
     @ModelAttribute("allCar")
-    public List<CarDto> allCar() {
+    public List<CarDto> getAllCars() {
         return carMapper.mapToCarDtoList(this.carService.findAll());
     }
 
@@ -75,24 +74,23 @@ public class CarController {
 
 
     @GetMapping("/car")
-    public ModelAndView cars(Model model) {
+    public ModelAndView cars() {
         ModelAndView modelAndView = new ModelAndView();
         List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
-        model.addAttribute("cars", cars);
-        model.addAttribute("carDto", new CarDto());
-        model.addAttribute("title", "Cars");
-        model.addAttribute("afterPrice", "/Day");
-        model.addAttribute("beforePrice", " $");
-        model.addAttribute("isAdd", false);
+        modelAndView.addObject("cars", cars);
+        modelAndView.addObject("carDto", new CarDto());
+        modelAndView.addObject("afterPrice", "/Day");
+        modelAndView.addObject("beforePrice", " $");
+        modelAndView.addObject("isAdd", false);
         modelAndView.setViewName("cars");
         return modelAndView;
     }
 
 
     @PostMapping(value = "/car")
-    public ModelAndView save(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public ModelAndView save(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        model.addAttribute("isAdd", false);
+        modelAndView.addObject("isAdd", false);
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("cars");
@@ -104,8 +102,8 @@ public class CarController {
                 redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
                 modelAndView.setViewName("redirect:/admin/car");
             } else {
-                model.addAttribute("errormessage", "Car is not save, Please try again");
-                model.addAttribute("carDto", carDto);
+                modelAndView.addObject("errormessage", "Car is not save, Please try again");
+                modelAndView.addObject("carDto", carDto);
                 modelAndView.setViewName("cars");
             }
         }
@@ -113,24 +111,24 @@ public class CarController {
     }
 
     @GetMapping(value = "/car/{id}")
-    public ModelAndView getCar(@PathVariable Long id, Model model) {
+    public ModelAndView getCar(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(id));
         List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
-        model.addAttribute("cars", cars);
-        model.addAttribute("carDto", carDto);
-        model.addAttribute("afterPrice", "/Day");
-        model.addAttribute("beforePrice", " $");
-        model.addAttribute("title", "Cars");
-        model.addAttribute("isAdd", true);
+        modelAndView.addObject("cars", cars);
+        modelAndView.addObject("carDto", carDto);
+        modelAndView.addObject("afterPrice", "/Day");
+        modelAndView.addObject("beforePrice", " $");
+        modelAndView.addObject("title", "Cars");
+        modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("cars");
         return modelAndView;
     }
 
     @PutMapping(value = "/car")
-    public ModelAndView update(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public ModelAndView update(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        model.addAttribute("isAdd", true);
+        modelAndView.addObject("isAdd", true);
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("cars");
@@ -142,8 +140,8 @@ public class CarController {
                 redirectAttributes.addFlashAttribute("successmessage", "Car is updated successfully");
                 modelAndView.setViewName("redirect:/admin/car");
             } else {
-                model.addAttribute("errormessage", "Car is not updated, Please try again");
-                model.addAttribute("carDto", carDto);
+                modelAndView.addObject("errormessage", "Car is not updated, Please try again");
+                modelAndView.addObject("carDto", carDto);
                 modelAndView.setViewName("cars");
             }
         }

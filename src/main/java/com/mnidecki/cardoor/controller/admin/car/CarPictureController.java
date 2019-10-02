@@ -14,14 +14,12 @@ import com.mnidecki.cardoor.services.DBService.DBCarService;
 import com.mnidecki.cardoor.services.DBService.DBLocationService;
 import com.mnidecki.cardoor.services.FtpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -58,54 +56,54 @@ public class CarPictureController {
     }
 
     @GetMapping("/picture")
-    public ModelAndView cars(Model model) {
+    public ModelAndView cars() {
         ModelAndView modelAndView = new ModelAndView();
         List<CarPictureDto> carsPictures = carPictureMapper.mapToCarPictureDtoList(pictureService.findAll());
-        model.addAttribute("carsPictures", carsPictures);
-        model.addAttribute("carPictureDto", new CarPictureDto());
-        model.addAttribute("carParametersService", carParametersService);
-        model.addAttribute("title", "Cars Picture");
-        model.addAttribute("isAdd", true);
+        modelAndView.addObject("carsPictures", carsPictures);
+        modelAndView.addObject("carPictureDto", new CarPictureDto());
+        modelAndView.addObject("carParametersService", carParametersService);
+        modelAndView.addObject("title", "Cars Picture");
+        modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("carsPicture");
         return modelAndView;
     }
 
     @PostMapping(value = "/picture")
-    public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes, Model model) throws IOException {
+    public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        model.addAllAttributes(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
+        modelAndView.addObject(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
         CarPicture carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         if (carPicture != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/picture");
 
         } else {
-            model.addAttribute("errormessage", "Car is not save, Please try again");
-            model.addAttribute("carPictureDto", carPictureDto);
+            modelAndView.addObject("errormessage", "Car is not save, Please try again");
+            modelAndView.addObject("carPictureDto", carPictureDto);
             modelAndView.setViewName("carsPicture");
         }
         return modelAndView;
     }
 
     @GetMapping(value = "/picture/{id}")
-    public ModelAndView getPicture(@PathVariable Long id, Model model) throws IOException, SQLException {
+    public ModelAndView getPicture(@PathVariable Long id)  {
         ModelAndView modelAndView = new ModelAndView();
         CarPictureDto carPictureDto = carPictureMapper.mapToCarPictureDto(pictureService.findById(id));
         List<CarPictureDto> carsPictures = carPictureMapper.mapToCarPictureDtoList(pictureService.findAll());
-        model.addAttribute("carsPictures", carsPictures);
-        model.addAttribute("carPictureDto", carPictureDto);
-        model.addAttribute("carParametersService", carParametersService);
-        model.addAttribute("title", "Cars Picture");
-        model.addAttribute("isAdd", false);
+        modelAndView.addObject("carsPictures", carsPictures);
+        modelAndView.addObject("carPictureDto", carPictureDto);
+        modelAndView.addObject("carParametersService", carParametersService);
+        modelAndView.addObject("title", "Cars Picture");
+        modelAndView.addObject("isAdd", false);
         modelAndView.setViewName("carsPicture");
         return modelAndView;
     }
 
     @PutMapping(value = "/picture")
-    public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes, Model model) throws IOException {
+    public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         if (!carPictureDto.getFile().isEmpty()) {
-            model.addAllAttributes(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
+            modelAndView.addObject(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
         }
         CarPicture carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         if (carPicture != null) {
@@ -113,7 +111,7 @@ public class CarPictureController {
             modelAndView.setViewName("redirect:/admin/car/picture");
         } else {
             redirectAttributes.addFlashAttribute("errormessage", "Car picture is not update, Please try again");
-            model.addAttribute("cartPictureDto", carPictureDto);
+            modelAndView.addObject("cartPictureDto", carPictureDto);
             modelAndView.setViewName("redirect:/admin/car/picture");
         }
         return modelAndView;
@@ -121,18 +119,17 @@ public class CarPictureController {
 
     @Transactional
     @DeleteMapping(value = "/picture/{id}")
-    public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes, Model model) {
+    public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         pictureService.deleteById(id);
-        model.addAttribute("carPictureDto", new CarPictureDto());
+        modelAndView.addObject("carPictureDto", new CarPictureDto());
         redirectAttributes.addFlashAttribute("successmessage", "Car picture is deleted successfully");
         modelAndView.setViewName("carsPicture");
         return modelAndView;
     }
 
     @RequestMapping(value = "/picturejson", method = RequestMethod.GET)
-    public @ResponseBody
-    CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
+    public @ResponseBody CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
         if (pictureId == 0) {
             return new CarPictureDto();
         } else {

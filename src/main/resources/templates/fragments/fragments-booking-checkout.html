@@ -23,120 +23,201 @@
                         <div class="col-md-10 order-md-1">
                             <h4 class="mb-3">Billing address</h4>
 
-                            <form action="#" th:action="@{/car/{carId}/booking/(carId=${carId})}" th:object="${userDto}" method="post" enctype="multipart/form-data">
-                                <div class="row">
+                            <form sec:authorize="not isAuthenticated()" action="#" th:action="@{/car/{carId}/booking/(carId=${carId})}" th:object="${longUserDto}" method="post" enctype="multipart/form-data">
+                                                                   <div class="row">
 
-                                    <div class="col-md-6 mb-3">
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('firstname')}" th:errors="${userDto.firstname}"></div>
-                                        <label for="firstName">First name</label>
-                                        <input th:field="${userDto.firstname}" type="text" class="form-control" placeholder="" value="" required="">
-                                        <div class="invalid-feedback">
-                                            Valid first name is required.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('lastname')}" th:errors="${userDto.lastname}"></div>
-                                        <label for="lastName">Last name</label>
-                                        <input th:field="${userDto.lastname}" type="text" class="form-control" placeholder="" value="" required="">
-                                        <div class="invalid-feedback">
-                                            Valid last name is required.
-                                        </div>
-                                    </div>
-                                </div>
+                                                                       <div class="col-md-6 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('firstname')}" th:errors="${longUserDto.firstname}"></div>
+                                                                           <label for="firstName">First name</label>
+                                                                           <input th:field="${longUserDto.firstname}" type="text" class="form-control" placeholder="" value="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Valid first name is required.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-6 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('lastname')}" th:errors="${longUserDto.lastname}"></div>
+                                                                           <label for="lastName">Last name</label>
+                                                                           <input th:field="${longUserDto.lastname}" type="text" class="form-control" placeholder="" value="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Valid last name is required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
 
-                                <div class="mb-3">
-                                    <label for="username">Username</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"></span>
-                                        </div>
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="${userDto.username}"></div>
-                                        <input th:field="${userDto.username}" type="text" class="form-control" placeholder="Username" required="">
-                                        <div class="invalid-feedback" style="width: 100%;">
-                                            Your username is required.
-                                        </div>
-                                    </div>
-                                </div>
+                                                                   <div class="mb-3">
+                                                                       <label for="username">Username</label>
+                                                                       <div class="input-group">
+                                                                           <div class="input-group-prepend">
+                                                                               <span class="input-group-text"></span>
+                                                                           </div>
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="${longUserDto.username}"></div>
+                                                                           <input th:field="${longUserDto.username}" type="text" class="form-control" placeholder="Username" required="">
+                                                                           <div class="invalid-feedback" style="width: 100%;">
+                                                                               Your username is required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
 
-                                <div class="mb-3">
-                                    <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="${userDto.email}"></div>
-                                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                                    <input sec:authorize="isAuthenticated()" th:field="${userDto.email}" type="email" class="form-control" disabled>
-                                    <input sec:authorize="not isAuthenticated()" th:field="${userDto.email}" type="email" class="form-control" placeholder="you@example.com">
-                                    <div class="invalid-feedback">
-                                        Please enter a valid email address for shipping updates.
-                                    </div>
-                                </div>
-                                <div sec:authorize="not isAuthenticated()" class="mb-3">
-                                    <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="${userDto.password}"></div>
-                                    <input type="password" th:field="${userDto.password}" placeholder="Password" class="form-control" />
+                                                                   <div class="mb-3">
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="${longUserDto.email}"></div>
+                                                                       <label for="email">Email <span class="text-muted">(Optional)</span></label>
 
-                                    <div class="invalid-feedback">
-                                        Please enter a valid password.
-                                    </div>
-                                </div>
-                                <div sec:authorize="isAuthenticated()" class="mb-3">
-                                    <input type="hidden" th:field="${userDto.status}">
-                                    <input type="hidden" th:field="${userDto.id}">
-                                    <div class="invalid-feedback">
-                                        Please enter a valid password.
-                                    </div>
-                                </div>
+                                                                       <input th:field="${longUserDto.email}" type="email" class="form-control" placeholder="you@example.com">
+                                                                       <div class="invalid-feedback">
+                                                                           Please enter a valid email address for shipping updates.
+                                                                       </div>
+                                                                   </div>
+                                                                   <div  class="mb-3">
 
-                                <div class="mb-3">
-                                    <label for="address">Address</label>
-                                    <div class="text text-danger" th:if="${#fields.hasErrors('addressLine1')}" th:errors="${userDto.addressLine1}"></div>
-                                    <input th:field="${userDto.addressLine1}" type="text" class="form-control" placeholder="1234 Main St" required="">
-                                    <div class="invalid-feedback">
-                                        Please enter your shipping address.
-                                    </div>
-                                </div>
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                                                       <input type="password" th:field="${longUserDto.password}" placeholder="Password" class="form-control" />
 
-                                <div class="mb-3">
-                                    <div class="text text-danger" th:if="${#fields.hasErrors('addressLine2')}" th:errors="${userDto.addressLine2}"></div>
-                                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                                    <input th:field="${userDto.addressLine2}" type="text" class="form-control" placeholder="Apartment or suite">
-                                </div>
+                                                                   </div>
 
-                                <div class="row">
-                                    <div class="col-md-5 mb-3">
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('country')}" th:errors="${userDto.country}"></div>
-                                        <label for="country">Country</label>
-                                        <input th:field="${userDto.country}" type="text" class="form-control" placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Please select a valid country.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('state')}" th:errors="${userDto.state}"></div>
-                                        <label for="state">State</label>
-                                        <input th:field="${userDto.state}" type="text" class="form-control" placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Please provide a valid state.
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-3">
-                                        <div class="text text-danger" th:if="${#fields.hasErrors('zipCode')}" th:errors="${userDto.zipCode}"></div>
-                                        <label for="zip">Zip</label>
-                                        <input th:field="${userDto.zipCode}" type="text" class="form-control" placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Zip code required.
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="mb-4">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="same-address">
-                                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="save-info">
-                                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                                </div>
-                                <hr class="mb-4">
 
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                            </form>
+                                                                   <div class="mb-3">
+                                                                       <label for="address">Address</label>
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('addressLine1')}" th:errors="${longUserDto.addressLine1}"></div>
+                                                                       <input th:field="${longUserDto.addressLine1}" type="text" class="form-control" placeholder="1234 Main St" required="">
+
+                                                                   </div>
+
+                                                                   <div class="mb-3">
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('addressLine2')}" th:errors="${longUserDto.addressLine2}"></div>
+                                                                       <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                                                                       <input th:field="${longUserDto.addressLine2}" type="text" class="form-control" placeholder="Apartment or suite">
+                                                                   </div>
+
+                                                                   <div class="row">
+                                                                       <div class="col-md-5 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('country')}" th:errors="${longUserDto.country}"></div>
+                                                                           <label for="country">Country</label>
+                                                                           <input th:field="${longUserDto.country}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Please select a valid country.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-4 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('state')}" th:errors="${longUserDto.state}"></div>
+                                                                           <label for="state">State</label>
+                                                                           <input th:field="${longUserDto.state}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Please provide a valid state.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-3 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('zipCode')}" th:errors="${longUserDto.zipCode}"></div>
+                                                                           <label for="zip">Zip</label>
+                                                                           <input th:field="${longUserDto.zipCode}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Zip code required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <hr class="mb-4">
+                                                                   <div class="custom-control custom-checkbox">
+                                                                       <input type="checkbox" class="custom-control-input" id="same-address">
+                                                                       <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                                                   </div>
+                                                                   <div class="custom-control custom-checkbox">
+                                                                       <input type="checkbox" class="custom-control-input" id="save-info">
+                                                                       <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                                                                   </div>
+                                                                   <hr class="mb-4">
+
+                                                                   <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                                                               </form>
+
+          <form sec:authorize="isAuthenticated()" action="#" th:action="@{/car/{carId}/booking/user/{userId}(carId=${carId}, userId=${editUserDto.id})}" th:object="${editUserDto}" method="post" enctype="multipart/form-data">
+                                                                   <div class="row">
+
+                                                                       <div class="col-md-6 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('firstname')}" th:errors="${editUserDto.firstname}"></div>
+                                                                           <label for="firstName">First name</label>
+                                                                           <input th:field="${editUserDto.firstname}" type="text" class="form-control" placeholder="" value="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Valid first name is required.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-6 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('lastname')}" th:errors="${editUserDto.lastname}"></div>
+                                                                           <label for="lastName">Last name</label>
+                                                                           <input th:field="${editUserDto.lastname}" type="text" class="form-control" placeholder="" value="" required="">
+                                                                            <input th:field="${editUserDto.id}" type="hidden" class="form-control">
+                                                                           <div class="invalid-feedback">
+                                                                               Valid last name is required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+
+                                                                   <div class="mb-3">
+                                                                       <label for="username">Username</label>
+                                                                       <div class="input-group">
+                                                                           <div class="input-group-prepend">
+                                                                               <span class="input-group-text"></span>
+                                                                           </div>
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="${editUserDto.username}"></div>
+                                                                           <input th:field="${editUserDto.username}" type="text" class="form-control" placeholder="Username" required="">
+                                                                           <div class="invalid-feedback" style="width: 100%;">
+                                                                               Your username is required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+
+
+
+                                                                   <div class="mb-3">
+                                                                       <label for="address">Address</label>
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('addressLine1')}" th:errors="${editUserDto.addressLine1}"></div>
+                                                                       <input th:field="${editUserDto.addressLine1}" type="text" class="form-control" placeholder="1234 Main St" required="">
+
+                                                                   </div>
+
+                                                                   <div class="mb-3">
+                                                                       <div class="text text-danger" th:if="${#fields.hasErrors('addressLine2')}" th:errors="${editUserDto.addressLine2}"></div>
+                                                                       <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                                                                       <input th:field="${editUserDto.addressLine2}" type="text" class="form-control" placeholder="Apartment or suite">
+                                                                   </div>
+
+                                                                   <div class="row">
+                                                                       <div class="col-md-5 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('country')}" th:errors="${editUserDto.country}"></div>
+                                                                           <label for="country">Country</label>
+                                                                           <input th:field="${editUserDto.country}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Please select a valid country.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-4 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('state')}" th:errors="${editUserDto.state}"></div>
+                                                                           <label for="state">State</label>
+                                                                           <input th:field="${editUserDto.state}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Please provide a valid state.
+                                                                           </div>
+                                                                       </div>
+                                                                       <div class="col-md-3 mb-3">
+                                                                           <div class="text text-danger" th:if="${#fields.hasErrors('zipCode')}" th:errors="${editUserDto.zipCode}"></div>
+                                                                           <label for="zip">Zip</label>
+                                                                           <input th:field="${editUserDto.zipCode}" type="text" class="form-control" placeholder="" required="">
+                                                                           <div class="invalid-feedback">
+                                                                               Zip code required.
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <hr class="mb-4">
+                                                                   <div class="custom-control custom-checkbox">
+                                                                       <input type="checkbox" class="custom-control-input" id="same-address">
+                                                                       <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                                                   </div>
+                                                                   <div class="custom-control custom-checkbox">
+                                                                       <input type="checkbox" class="custom-control-input" id="save-info">
+                                                                       <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                                                                   </div>
+                                                                   <hr class="mb-4">
+
+                                                                   <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                                                               </form>
                         </div>
                     </div>
                 </div>
@@ -163,6 +244,7 @@
                                     <div>
                                         <h6 class="my-0" th:text="'$' + *{item.totalValue} + ' / ' +  *{item.quantity} + 'pcs'"></h6>
                                         <small class="text-muted" th:text="'$' + *{item.price} + '/pcs'"></small>
+                                    </div>
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">

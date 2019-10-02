@@ -9,12 +9,10 @@ import com.mnidecki.cardoor.mapper.CarBrandModelMapper;
 import com.mnidecki.cardoor.services.DBService.DBCarBrandModelService;
 import com.mnidecki.cardoor.services.DBService.DBCarBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -42,84 +40,81 @@ public class CarBrandAndModelController {
     }
 
     @GetMapping("/brand")
-    public ModelAndView models(Model model) {
+    public ModelAndView models() {
         ModelAndView modelAndView = new ModelAndView();
 
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
-        model.addAttribute("carBrandModels", carModels);
-        model.addAttribute("carBrands", carBrands);
-        model.addAttribute("carBrandModelDto", new CarBrandModelDto());
-        model.addAttribute("carBrandDto", new CarBrandDto());
-        model.addAttribute("title", "Cars Models");
-        model.addAttribute("carBrandModelDtoEmpty", new CarBrandModelDto());
-        model.addAttribute("isAdd", false);
+        modelAndView.addObject("carBrandModels", carModels);
+        modelAndView.addObject("carBrands", carBrands);
+        modelAndView.addObject("carBrandModelDto", new CarBrandModelDto());
+        modelAndView.addObject("carBrandDto", new CarBrandDto());
+        modelAndView.addObject("title", "Cars Models");
+        modelAndView.addObject("carBrandModelDtoEmpty", new CarBrandModelDto());
+        modelAndView.addObject("isAdd", false);
         modelAndView.setViewName("carBrand");
         return modelAndView;
     }
 
     @GetMapping("/brand/{brandId}")
-    public ModelAndView brand(@PathVariable Long brandId, Model model) {
+    public ModelAndView brand(@PathVariable Long brandId) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId));
-
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
-        model.addAttribute("carBrandModels", carModels);
-        model.addAttribute("carBrandModelDto", new CarBrandModelDto());
-        model.addAttribute("carBrands", carBrands);
-        model.addAttribute("carBrandModelDtoEmpty", new CarBrandModelDto());
-        model.addAttribute("carBrandDto", carBrandDto);
-        model.addAttribute("title", "Cars Models");
-        model.addAttribute("isBrandAdd", true);
-        model.addAttribute("isModelAdd", false);
+        modelAndView.addObject("carBrandModels", carModels);
+        modelAndView.addObject("carBrandModelDto", new CarBrandModelDto());
+        modelAndView.addObject("carBrands", carBrands);
+        modelAndView.addObject("carBrandModelDtoEmpty", new CarBrandModelDto());
+        modelAndView.addObject("carBrandDto", carBrandDto);
+        modelAndView.addObject("title", "Cars Models");
+        modelAndView.addObject("isBrandAdd", true);
+        modelAndView.addObject("isModelAdd", false);
         modelAndView.setViewName("carBrand");
         return modelAndView;
     }
 
     @GetMapping("/brand/{brandId}/model/{modelId}")
-    public ModelAndView model(@PathVariable Long brandId, @PathVariable Long modelId, Model model) {
+    public ModelAndView model(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandModelDto carBrandModelDto = carBrandModelMapper.mapToCarBrandModelDto(carBrandModelService.findByID(modelId));
-
         List<CarBrandDto> carBrands = allType();
-        List<CarBrandModelDto> carModels = allModel();
-        model.addAttribute("carBrands", carBrands);
-        model.addAttribute("carBrandModelDto", carBrandModelDto);
-        model.addAttribute("carBrandModelDtoEmpty", new CarBrandModelDto());
-        model.addAttribute("carBrandDto", new CarBrandDto());
-        model.addAttribute("title", "Cars Models");
-        model.addAttribute("isBrandAdd", false);
-        model.addAttribute("isModelAdd", true);
+        modelAndView.addObject("carBrands", carBrands);
+        modelAndView.addObject("carBrandModelDto", carBrandModelDto);
+        modelAndView.addObject("carBrandModelDtoEmpty", new CarBrandModelDto());
+        modelAndView.addObject("carBrandDto", new CarBrandDto());
+        modelAndView.addObject("title", "Cars Models");
+        modelAndView.addObject("isBrandAdd", false);
+        modelAndView.addObject("isModelAdd", true);
         modelAndView.setViewName("carBrand");
         return modelAndView;
     }
 
     @PostMapping(value = "/brand/{brandId}/model")
-    public ModelAndView saveModel(@PathVariable Long brandId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes, Model model) {
+    public ModelAndView saveModel(@PathVariable Long brandId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car model is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/brand");
         } else {
-            model.addAttribute("errormessage", "Car model is not save, Please try again");
-            model.addAttribute("carBrandModelDto", carBrandModelDto);
+            modelAndView.addObject("errormessage", "Car model is not save, Please try again");
+            modelAndView.addObject("carBrandModelDto", carBrandModelDto);
             modelAndView.setViewName("redirect:/admin/car/brand");
         }
         return modelAndView;
     }
 
     @PostMapping(value = "/brand")
-    public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes, Model model) {
+    public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         if (carBrand != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car brand is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/brand");
         } else {
-            model.addAttribute("errormessage", "Car brand is not save, Please try again");
-            model.addAttribute("carBrandDto", carBrandDto);
+            modelAndView.addObject("errormessage", "Car brand is not save, Please try again");
+            modelAndView.addObject("carBrandDto", carBrandDto);
             modelAndView.setViewName("carBrand");
         }
         return modelAndView;
@@ -127,22 +122,22 @@ public class CarBrandAndModelController {
 
 
     @PutMapping(value = "/brand/{brandId}/model/{modelId}")
-    public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes, Model model) throws IOException {
+    public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car model is updated successfully");
             modelAndView.setViewName("redirect:/admin/car/brand");
         } else {
-            model.addAttribute("errormessage", "Car model is not update, Please try again");
-            model.addAttribute("carBrandModelDto", carBrandModelDto);
+            modelAndView.addObject("errormessage", "Car model is not update, Please try again");
+            modelAndView.addObject("carBrandModelDto", carBrandModelDto);
             modelAndView.setViewName("carBrand");
         }
         return modelAndView;
     }
 
     @PutMapping(value = "/brand/{brandId}")
-    public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes, Model model) throws IOException {
+    public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
@@ -150,8 +145,8 @@ public class CarBrandAndModelController {
             redirectAttributes.addFlashAttribute("successmessage", "Car recrod is updated successfully");
             modelAndView.setViewName("redirect:/admin/car/brand");
         } else {
-            model.addAttribute("errormessage", "Car record is not update, Please try again");
-            model.addAttribute("carBrandDto", carBrandDto);
+            modelAndView.addObject("errormessage", "Car record is not update, Please try again");
+            modelAndView.addObject("carBrandDto", carBrandDto);
             modelAndView.setViewName("carBrand");
         }
         return modelAndView;

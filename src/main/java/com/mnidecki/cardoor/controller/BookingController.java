@@ -20,7 +20,6 @@ import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,30 +36,39 @@ import java.util.List;
 @CrossOrigin("*")
 public class BookingController {
 
+    private final DBBookingService bookingService;
+    private final BookingMapper bookingMapper;
+    private final DBCarService carService;
+    private final CarMapper carMapper;
+    private final LocationMapper locationMapper;
+    private final DBLocationService locationService;
+    private final DBLocationService cityService;
+    private final DBUserService userService;
+    private final UserMapper userMapper;
+    private final BookingExtrasItemMapper bookingExtrasItemMapper;
+    private final AccuWeatherClient accuWeatherClient;
+    private final KayakClient kayakClient;
+
     @Autowired
-    private DBBookingService bookingService;
-    @Autowired
-    private BookingMapper bookingMapper;
-    @Autowired
-    private DBCarService carService;
-    @Autowired
-    private CarMapper carMapper;
-    @Autowired
-    private LocationMapper locationMapper;
-    @Autowired
-    private DBLocationService locationService;
-    @Autowired
-    private DBLocationService cityService;
-    @Autowired
-    private DBUserService userService;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private BookingExtrasItemMapper bookingExtrasItemMapper;
-    @Autowired
-    private AccuWeatherClient accuWeatherClient;
-    @Autowired
-    private KayakClient kayakClient;
+    public BookingController(BookingMapper bookingMapper, DBBookingService bookingService, DBCarService carService,
+                             CarMapper carMapper, LocationMapper locationMapper, DBLocationService locationService,
+                             KayakClient kayakClient, DBLocationService cityService, DBUserService userService,
+                             UserMapper userMapper, BookingExtrasItemMapper bookingExtrasItemMapper, AccuWeatherClient
+                                         accuWeatherClient) {
+
+        this.bookingMapper = bookingMapper;
+        this.bookingService = bookingService;
+        this.carService = carService;
+        this.carMapper = carMapper;
+        this.locationMapper = locationMapper;
+        this.locationService = locationService;
+        this.kayakClient = kayakClient;
+        this.cityService = cityService;
+        this.userService = userService;
+        this.userMapper = userMapper;
+        this.bookingExtrasItemMapper = bookingExtrasItemMapper;
+        this.accuWeatherClient = accuWeatherClient;
+    }
 
 
     @ModelAttribute("allCity")
@@ -81,43 +89,53 @@ public class BookingController {
                     @Spec(path = "carParameters.bigBags", params = {"minLargeBag", "maxLargeBag"}, spec = Between.class),
             }) Specification<Car> carSpecification, @RequestParam(value = "startDate") String startDate,
             @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endDate") String endDate,
-            @RequestParam(value = "endTime") String endTime, @RequestParam(value = "cityId") Long cityId, Model model) {
+            @RequestParam(value = "endTime") String endTime, @RequestParam(value = "cityId") Long cityId, RedirectAttributes redirectAttributes) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        List<CarDto> carList = carMapper.mapToCarDtoList(carService.getAllAvailableCar(carSpecification, startDate, startTime, endDate, endTime, cityId));
+        if (!bookingService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
+            return redirectToHome(redirectAttributes, "Please check your date!");
+        }
+
+        List<CarDto> carList = carMapper.mapToCarDtoList(carService.getAllAvailableCar(carSpecification, startDate,
+                startTime, endDate, endTime, cityId));
         String cityName = locationService.findById(cityId).getCity();
         long averagePrice = kayakClient.getKayakAverageTotalCarPrice(cityName,startDate,startTime,endDate,endTime);
         ForecastResponseDto forecastResponseDto = accuWeatherClient.get5DayForecasts(locationService.findById(cityId));
-        model.addAttribute("weather", forecastResponseDto);
-        model.addAttribute("cars", carList);
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
-        model.addAttribute("startTime", startTime);
-        model.addAttribute("endTime", endTime);
-        model.addAttribute("cityId", cityId);
-        model.addAttribute("cityName", cityName);
-        model.addAttribute("averagePrice",averagePrice);
-        model.addAttribute("booking", new BookingSpecDto());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("weather", forecastResponseDto);
+        modelAndView.addObject("cars", carList);
+        modelAndView.addObject("startDate", startDate);
+        modelAndView.addObject("endDate", endDate);
+        modelAndView.addObject("startTime", startTime);
+        modelAndView.addObject("endTime", endTime);
+        modelAndView.addObject("cityId", cityId);
+        modelAndView.addObject("cityName", cityName);
+        modelAndView.addObject("averagePrice",averagePrice);
         modelAndView.setViewName("booking");
         return modelAndView;
     }
+
 
     @GetMapping("car/{carId}/booking")
     public ModelAndView chooseExtrasItem(
             @RequestParam(value = "startDate") String startDate, @RequestParam(value = "startTime") String startTime,
             @RequestParam(value = "endDate") String endDate, @RequestParam(value = "endTime") String endTime,
-            @RequestParam(value = "cityId") Long cityId, @PathVariable Long carId, Model model, HttpSession session) {
+            @RequestParam(value = "cityId") Long cityId, @PathVariable Long carId, HttpSession session) {
 
-        ModelAndView modelAndView = new ModelAndView();
         CarDto car = carMapper.mapToCarDto(carService.findById(carId));
         LocationDto location = locationMapper.mapToLocationDto(locationService.findById(cityId));
-        BookingItemCreationDto booking = new BookingItemCreationDto(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(bookingService.prepareEmptyExtrasList()));
-        long daysOfRent = bookingService.countBookingDays(bookingService.timeToTimestampConverter(startDate, startTime), bookingService.timeToTimestampConverter(endDate, endTime));
+        BookingItemCreationDto bookingExtras = new BookingItemCreationDto(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList
+                (bookingService.prepareEmptyExtrasList()));
+        long daysOfRent = bookingService.countBookingDays(bookingService.timeToTimestampConverter(startDate, startTime),
+                bookingService.timeToTimestampConverter(endDate, endTime));
 
+        ModelAndView modelAndView = new ModelAndView();
         session.setAttribute("car", car);
         session.setAttribute("location", location);
         session.setAttribute("daysOfRent", daysOfRent);
-        model.addAttribute("bookingExtras", booking);
+        modelAndView.addObject("longUserDto", new UserLongFormDto());
+        modelAndView.addObject("editUserDto", getUser());
+        modelAndView.addObject("bookingExtras", bookingExtras);
         modelAndView.setViewName("carBooking");
         return modelAndView;
     }
@@ -125,80 +143,121 @@ public class BookingController {
 
     @RequestMapping(value = {"car/{carId}/booking/checkout"}, method = {RequestMethod.POST},
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView bookingCheckout(@RequestParam(value = "startDate") String startDate, @RequestParam(value = "startTime") String startTime,
-                                        @RequestParam(value = "endDate") String endDate, @RequestParam(value = "endTime") String endTime,
-                                        @RequestParam(value = "cityId") Long cityId, @PathVariable(value = "carId") Long carId,
-                                        @ModelAttribute(value = "bookingExtras") BookingItemCreationDto bookingExtras, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+    public ModelAndView bookingCheckout
+            (@RequestParam(value = "startDate") String startDate, @RequestParam(value = "startTime") String startTime,
+             @RequestParam(value = "endDate") String endDate, @RequestParam(value = "endTime") String endTime,
+             @RequestParam(value = "cityId") Long cityId, @PathVariable(value = "carId") Long carId,
+             @ModelAttribute(value = "bookingExtras") BookingItemCreationDto bookingExtras,
+             RedirectAttributes redirectAttributes, HttpSession session) {
+
+        if (session.getAttribute("car") == null || session.getAttribute("daysOfRent") == null)
+            return redirectToHome(redirectAttributes, "Session Expired");
+
+
         ModelAndView modelAndView = new ModelAndView();
         session.setAttribute("isAdd", false);
-
-        if (session.getAttribute("car") == null || session.getAttribute("daysOfRent") == null) {
-            redirectAttributes.addFlashAttribute("errormessage", "Your session expired try again");
-            modelAndView.setViewName("redirect:/");
-        } else {
-            UserDto user = userMapper.maptoUserDto(userService.getUserFromAuthentication());
-            BookingDto userBooking = new BookingDto(carId, 1L, cityId,
-                    BigDecimal.ZERO, bookingService.timeToTimestampConverter(startDate, startTime), bookingService.timeToTimestampConverter(endDate, endTime), bookingExtras.getItems());
-            userBooking = bookingMapper.mapToBookingDto(bookingService.setAllBookingCostFields(bookingMapper.mapToBooking(userBooking)));
-            session.setAttribute("userBooking", userBooking);
-            model.addAttribute("userDto", user);
-            session.setAttribute("bookingExtras", bookingExtras);
-            modelAndView.setViewName("bookingCheckout");
-        }
+        BookingDto userBooking =
+                    bookingMapper.mapToBookingDto(bookingService.setAllBookingCostFields(bookingMapper.mapToBooking(
+                            new BookingDto.BookingDtoBuilder()
+                                .carId(carId)
+                                .bookingStatusCodeId(1L)
+                                .cityId(cityId)
+                                .totalCost(BigDecimal.ZERO)
+                                .startDate(bookingService.timeToTimestampConverter(startDate, startTime))
+                                .returnDate(bookingService.timeToTimestampConverter(endDate, endTime))
+                                .bookingExtrasList(bookingExtras.getItems())
+                                .build())));
+        session.setAttribute("userBooking", userBooking);
+        modelAndView.addObject("longUserDto", new UserLongFormDto());
+        modelAndView.addObject("editUserDto", getUser());
+        session.setAttribute("bookingExtras", bookingExtras);
+        modelAndView.setViewName("bookingCheckout");
         return modelAndView;
     }
 
     @RequestMapping(value = {"car/{carId}/booking/checkout"}, method = {RequestMethod.GET})
-    public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+    public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, RedirectAttributes redirectAttributes,
+                                        HttpSession session) {
+        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, "Session Expired");
         ModelAndView modelAndView = new ModelAndView();
-        if (session.getAttribute("car") == null || session.getAttribute("daysOfRent") == null) {
-            redirectAttributes.addFlashAttribute("errormessage", "Your session expired try again");
-            modelAndView.setViewName("redirect:/");
-        } else {
-            UserDto user = userMapper.maptoUserDto(userService.getUserFromAuthentication());
-            model.addAttribute("userDto", user);
+        modelAndView.setViewName("bookingCheckout");
+        modelAndView.addObject("longUserDto", new UserLongFormDto());
+        modelAndView.addObject("editUserDto", getUser());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"car/{carId}/booking/user/{userId}"}, method = {RequestMethod.POST})
+    public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
+                                           @Valid @ModelAttribute("editUserDto") UserEditFormDto userDto, BindingResult bindingResult,
+                                           RedirectAttributes redirectAttributes, HttpSession session) {
+        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, "Session Expired");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("editUserDto", userDto);
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("bookingCheckout");
+        } else {
+            saveBookingAndUser(session, userMapper.mapToUser(userDto));
+            modelAndView.addObject("errormessage", "Booking has been confirmed! ");
+            modelAndView.setViewName("index");
         }
         return modelAndView;
     }
 
-
     @RequestMapping(value = {"car/{carId}/booking/"}, method = {RequestMethod.POST})
-    public ModelAndView saveBooking(@PathVariable(value = "carId") Long carId, @Valid @ModelAttribute UserDto userDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession session) {
-        System.out.println(userDto.getAddressLine1());
-        System.out.println(userDto.getEmail());
+    public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId,
+                                           @Valid @ModelAttribute("longUserDto") UserLongFormDto longUserDto, BindingResult bindingResult,
+                                           RedirectAttributes redirectAttributes, HttpSession session) {
+        if(isSessionExpired(session)) return redirectToHome(redirectAttributes, "Session Expired");
 
         ModelAndView modelAndView = new ModelAndView();
-        if (session.getAttribute("userBooking") == null || session.getAttribute("daysOfRent") == null) {
-            redirectAttributes.addFlashAttribute("errormessage", "Your session expired try again");
-            modelAndView.setViewName("redirect:/");
-        }
-        if (userService.isUserExist(userDto.getEmail())) {
+        modelAndView.addObject("longUserDto", longUserDto);
+        if (userService.isUserExist(longUserDto.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("bookingCheckout");
         } else {
-            User user = userService.save(userMapper.mapToUser(userDto));
-            if (user.getStatus() != 1) {
-                userService.sendConfirmationToken(user);
-            }
-            Booking booking = bookingMapper.mapToBooking((BookingDto) session.getAttribute("userBooking"));
-            booking.setUser(user);
-            bookingService.save(booking);
-            modelAndView.addObject("email", user.getEmail());
-            modelAndView.addObject("msg", "User has been registered successfully");
-            modelAndView.addObject("user", new UserDto());
-            modelAndView.setViewName("register");
+            saveBookingAndUser(session, userMapper.mapToUser(longUserDto));
+            modelAndView.addObject("errormessage", "Booking has been confirmed!  Open the email, and click the link to confirm your account.");
         }
         return modelAndView;
     }
 
     @GetMapping("/")
-    public ModelAndView index(Model model) {
+    public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
-        model.addAttribute("booking", new BookingSpecDto());
+        modelAndView.addObject("booking", new BookingSpecDto());
         modelAndView.setViewName("index");
         return modelAndView;
+    }
+
+    private UserEditFormDto getUser() {
+        if(userService.getUserFromAuthentication().getEmail()!=null) {
+            return userMapper.mapToEditFormUserDto(userService.getUserFromAuthentication());
+        } else {
+            return new UserEditFormDto();
+        }
+    }
+
+    private boolean isSessionExpired( HttpSession session) {
+        return (session.getAttribute("bookingExtras") == null || session.getAttribute("userBooking") == null
+                || session.getAttribute("daysOfRent") == null);
+    }
+
+    private ModelAndView redirectToHome(RedirectAttributes redirectAttributes, String message) {
+        ModelAndView modelAndView = new ModelAndView();
+        redirectAttributes.addFlashAttribute("errormessage", message);
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
+
+    private void saveBookingAndUser(HttpSession session, User user2) {
+        User user = userService.save(user2);
+        Booking booking = bookingMapper.mapToBooking((BookingDto) session.getAttribute("userBooking"));
+        booking.setUser(user);
+        bookingService.save(booking);
     }
 }

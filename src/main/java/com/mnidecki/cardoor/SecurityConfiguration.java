@@ -27,8 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Autowired
-    private LoggingAccessDeniedHandler accessDeniedHandler;
 
 
     @Value("${spring.queries.users-query}")
@@ -51,16 +49,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 // URLs matching for access rights
-
                 .antMatchers("/**").permitAll()
+                .antMatchers("/car*").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin/**").permitAll()
+                .antMatchers("/admin*").hasRole("ADMIN")
+                .antMatchers("/admin/car*").hasRole("ADMIN")
                 .antMatchers("/confirm-account").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/booking**").permitAll()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/car/**").hasAnyAuthority("ROLE_USER")
-                .antMatchers("/car**").hasAnyAuthority("ROLE_USER")
+                .antMatchers("/car/**/booking**").permitAll()
+                .antMatchers("/car/**/booking/checkout").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
@@ -84,7 +83,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60 * 60)
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement()
                 .maximumSessions(1)
@@ -100,7 +98,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/webjars/**", "/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**");
+        web.ignoring().antMatchers( "/webjars/**", "/static/**", "/css/**", "/js/**", "/img/**", "/fonts/**");
     }
 
     @Bean

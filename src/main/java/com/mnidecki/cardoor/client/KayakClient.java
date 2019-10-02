@@ -47,7 +47,6 @@ public class KayakClient {
 
     }
 
-
     public long getKayakAverageTotalCarPrice(String locationName, String startDate, String startHour, String endDate, String endHour) {
 
         String cityId = getKayakLocationId(locationName);
@@ -64,10 +63,11 @@ public class KayakClient {
 
                     ResponseBody  responseBody = client.newCall(request).execute().body();
                     KayakCarSearchResponeDto carSearchResponse =(objectMapper.readValue(responseBody.string(), KayakCarSearchResponeDto.class));
-                    if(carSearchResponse!=null){
+                    if(carSearchResponse.getCarSet()!=null){
                         double sum = Arrays.stream(carSearchResponse.getCarSet()).mapToDouble(total -> Double.parseDouble(total.getTotalPrice()))
                                 .sum();
                         long count = carSearchResponse.getCarSet().length;
+                        if(count==0) count++;
                         return (long)sum / count;
                     }
 

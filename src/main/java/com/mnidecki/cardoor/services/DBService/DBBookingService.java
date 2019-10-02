@@ -99,6 +99,15 @@ public class DBBookingService {
         return Timestamp.valueOf(date + " " + time + ":00");
     }
 
+    public LocalDateTime timeToLocalDateTimeConverter(String date, String time) {
+        return Timestamp.valueOf(date + " " + time + ":00").toLocalDateTime();
+    }
+
+    public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
+        LocalDateTime start = timeToLocalDateTimeConverter(startDate,startTime);
+        LocalDateTime end = timeToLocalDateTimeConverter(endDate,endTime);
+        return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
+    }
     public int  countHappyClients() {
         Integer unhappyClient = 0;
         unhappyClient = commentService.countAllByRatingLessThan2();

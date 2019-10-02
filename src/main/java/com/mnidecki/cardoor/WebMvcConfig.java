@@ -4,7 +4,6 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -19,7 +18,6 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import java.util.List;
 
 @Configuration
-@EnableJpaRepositories
 public class WebMvcConfig implements WebMvcConfigurer {
     ApplicationContext applicationContext;
 
@@ -34,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/hello").setViewName("hello");
         registry.addViewController("/bookingConfirmation").setViewName("bookingConfirmation");
-        registry.addViewController("/cars").setViewName("cars");
+        registry.addViewController("/getAllCars").setViewName("cars");
         registry.addViewController("/admin").setViewName("cars");
         registry.addViewController("/carsPictures").setViewName("carsPicture");
         registry.addViewController("/brand").setViewName("carBrand");
@@ -45,6 +43,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/error").setViewName("error");
         registry.addViewController("/booking").setViewName("booking");
         registry.addViewController("/carBooking").setViewName("carBooking");
+        registry.addViewController("/about").setViewName("about");
     }
 
     //1. Creating SpringResourceTemplateResolver
@@ -63,11 +62,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(springTemplateResolver());
         springTemplateEngine.addDialect(new SpringSecurityDialect());
-
-
         return springTemplateEngine;
     }
-
 
     //3. Registering ThymeleafViewResolver
     @Bean

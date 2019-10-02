@@ -2,10 +2,11 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.booking.BookingExtras;
 import com.mnidecki.cardoor.domain.dto.BookingExtrasDto;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public class BookingExtrasMapper {
 
     public BookingExtrasDto mapToBookingExtrasDto(BookingExtras bookingExtras) {

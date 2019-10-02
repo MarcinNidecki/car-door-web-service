@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-@CrossOrigin(origins = "*")
 @RestController
+@CrossOrigin(origins = "*")
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -32,8 +31,7 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute("lastComments")
     public List<CommentDto> getLast4Comments() {
-        return commentMapper.mapToCommentDtoList(commentService.findTop4ByCreationDate());
-    }
+        return commentMapper.mapToCommentDtoList(commentService.findTop4ByCreationDate()); }
 
     @ModelAttribute("happyClients")
     public int getNumbersOfHappyClients() {

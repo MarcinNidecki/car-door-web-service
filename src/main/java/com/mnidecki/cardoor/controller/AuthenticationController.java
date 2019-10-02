@@ -2,7 +2,8 @@ package com.mnidecki.cardoor.controller;
 
 import com.mnidecki.cardoor.domain.ConfirmationToken;
 import com.mnidecki.cardoor.domain.User;
-import com.mnidecki.cardoor.domain.dto.UserQuickRegistrationFormDto;
+import com.mnidecki.cardoor.domain.dto.BookingSpecDto;
+import com.mnidecki.cardoor.domain.dto.UserQuickFormDto;
 import com.mnidecki.cardoor.mapper.UserMapper;
 import com.mnidecki.cardoor.repository.ConfirmationTokenRepository;
 import com.mnidecki.cardoor.repository.UserRepository;
@@ -10,6 +11,7 @@ import com.mnidecki.cardoor.services.DBService.DBUserRoleService;
 import com.mnidecki.cardoor.services.DBService.DBUserService;
 import com.mnidecki.cardoor.services.SimpleEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -50,14 +52,14 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView model = new ModelAndView();
-        UserQuickRegistrationFormDto user = new UserQuickRegistrationFormDto();
+        UserQuickFormDto user = new UserQuickFormDto();
         model.addObject("userDto", user);
         model.setViewName("register");
         return model;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute("userDto") @Valid UserQuickRegistrationFormDto userDto, BindingResult bindingResult) {
+    public ModelAndView register(@ModelAttribute("userDto") @Valid UserQuickFormDto userDto, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         if (userService.isUserExist(userDto.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
@@ -71,7 +73,7 @@ public class AuthenticationController {
             userService.sendConfirmationToken(user);
             model.addObject("emailId", user.getEmail());
             model.addObject("msg", "User has been registered successfully");
-            model.addObject("userDto", new UserQuickRegistrationFormDto());
+            model.addObject("userDto", new UserQuickFormDto());
             model.setViewName("register"); // resources/template/register.html
         }
         return model;
@@ -88,7 +90,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+    public ModelAndView confirmUserAccount(@RequestParam("token") String confirmationToken) {
         ModelAndView model = new ModelAndView();
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
@@ -98,6 +100,7 @@ public class AuthenticationController {
             user.getRoles().add(userRoleService.getUserRoleByRoleName("ROLE_USER"));
             userRepository.save(user);
             model.setViewName("index");
+            model.addObject("booking",new BookingSpecDto());
         } else {
             model.addObject("message", "The link is invalid or broken!");
             model.setViewName("error");
@@ -107,8 +110,11 @@ public class AuthenticationController {
     }
 
     @GetMapping("/access-denied")
-    public String accessDenied() {
-        return "/access-denied";
+    public ModelAndView accessDenied() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("access-denied");
+        modelAndView.setStatus(HttpStatus.FORBIDDEN);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)

@@ -58,5 +58,60 @@ public class Car {
         this.price = price;
         this.location = location;
     }
+
+    public static class CarBuilder {
+        private Long id;
+        private CarBrandModel model;
+        private String registration;
+        private String vehicleStatus;
+        private CarParameters carParameters;
+        private BigDecimal price;
+        private Location location;
+        private Set<Booking> bookingsList;
+
+        public CarBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public CarBuilder model(CarBrandModel model) {
+            this.model = model;
+            return this;
+        }
+
+        public CarBuilder registration(String registration) {
+            this.registration = registration;
+            return this;
+        }
+
+        public CarBuilder vehicleStatus(String vehicleStatus) {
+            this.vehicleStatus = vehicleStatus;
+            return this;
+        }
+
+        public CarBuilder carParameters(CarParameters carParameters) {
+            this.carParameters = carParameters;
+            return this;
+        }
+
+        public CarBuilder price(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public CarBuilder location(Location location) {
+            this.location = location;
+            return this;
+        }
+
+        public CarBuilder bookingsList(Set<Booking> bookingsList) {
+            this.bookingsList = bookingsList;
+            return this;
+        }
+
+        public Car build() {
+            return new Car(id, model, registration, vehicleStatus, carParameters, price, location);
+        }
+    }
 }
 

@@ -34,6 +34,7 @@ public class DBUserService {
     private SimpleEmailService emailSenderService;
 
     public User save(final User user) {
+        if (user.getId()==null)
         user.setStatus(0);
         UserRole userRole = userRoleRepository.getUserRoleByRoleName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));

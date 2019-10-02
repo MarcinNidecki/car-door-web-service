@@ -28,55 +28,61 @@ public class BookingMapper {
 
     public Booking mapToBooking(BookingDto bookingDto) {
         if (bookingDto.getUserId() != null) {
-            return new Booking(
-                    bookingDto.getId(),
-                    userService.findUserById(bookingDto.getUserId()),
-                    carService.findById(bookingDto.getCarId()),
-                    statusService.findByID(bookingDto.getBookingStatusCodeId()),
-                    cityService.findById(bookingDto.getCityId()),
-                    bookingDto.getTotalCost(),
-                    bookingDto.getStartDate(),
-                    bookingDto.getReturnDate(),
-                    bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()));
+            return new Booking.BookingBuilder()
+                    .id(bookingDto.getId())
+                    .user(userService.findUserById(bookingDto.getUserId()))
+                    .car(carService.findById(bookingDto.getCarId()))
+                    .bookingStatusCode(statusService.findByID(bookingDto.getBookingStatusCodeId()))
+                    .location( cityService.findById(bookingDto.getCityId()))
+                    .totalCost(bookingDto.getTotalCost())
+                    .startDate(bookingDto.getStartDate())
+                    .returnDate(bookingDto.getReturnDate())
+                    .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()))
+                    .build();
         } else {
-            return new Booking(
-                    userService.findUserById(bookingDto.getUserId()),
-                    carService.findById(bookingDto.getCarId()),
-                    statusService.findByID(bookingDto.getBookingStatusCodeId()),
-                    cityService.findById(bookingDto.getCityId()),
-                    bookingDto.getTotalCost(),
-                    bookingDto.getStartDate(),
-                    bookingDto.getReturnDate(),
-                    bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()));
+            return new Booking.BookingBuilder()
+                    .user(userService.findUserById(bookingDto.getUserId()))
+                    .car(carService.findById(bookingDto.getCarId()))
+                    .bookingStatusCode(statusService.findByID(bookingDto.getBookingStatusCodeId()))
+                    .location(cityService.findById(bookingDto.getCityId()))
+                    .totalCost( bookingDto.getTotalCost())
+                    .startDate(bookingDto.getStartDate())
+                    .returnDate(bookingDto.getReturnDate())
+                    .bookingExtrasList( bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()))
+                    .build();
         }
 
     }
 
     public BookingDto mapToBookingDto(Booking booking) {
         if (booking.getUser() != null) {
-            return new BookingDto(
-                    booking.getId(),
-                    booking.getUser().getId(),
-                    booking.getCar().getId(),
-                    booking.getBookingStatusCode().getId(),
-                    booking.getLocation().getId(),
-                    booking.getTotalCost(),
-                    booking.getStartDate(),
-                    booking.getReturnDate(),
-                    bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()));
+            return new BookingDto.BookingDtoBuilder()
+                    .id(booking.getId())
+                    .userId(booking.getUser().getId())
+                    .carId(booking.getCar().getId())
+                    .bookingStatusCodeId(booking.getBookingStatusCode().getId())
+                    .cityId(booking.getLocation().getId())
+                    .totalCost(booking.getTotalCost())
+                    .startDate(booking.getStartDate())
+                    .returnDate(booking.getReturnDate())
+                    .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()))
+                    .build();
         } else {
-            return new BookingDto(
-                    booking.getId(),
-                    booking.getCar().getId(),
-                    booking.getBookingStatusCode().getId(),
-                    booking.getLocation().getId(),
-                    booking.getTotalCost(),
-                    booking.getStartDate(),
-                    booking.getReturnDate(),
-                    bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()));
+            return new BookingDto.BookingDtoBuilder()
+                    .userId(booking.getId())
+                    .carId(booking.getCar().getId())
+                    .bookingStatusCodeId(booking.getBookingStatusCode().getId())
+                    .cityId(booking.getLocation().getId())
+                    .totalCost(booking.getTotalCost())
+                    .startDate(booking.getStartDate())
+                    .returnDate(booking.getReturnDate())
+                    .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()))
+                    .build();
         }
 
     }
+
+
 
     public List<BookingDto> mapToBookingDtoList(List<Booking> bookingList) {
         return bookingList.stream()

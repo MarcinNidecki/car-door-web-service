@@ -9,6 +9,11 @@
       "name": "spring.queries.roles-query",
       "type": "java.lang.String",
       "description": "Description for spring.queries.roles-query."
+    },
+    {
+      "name": "ftp.host",
+      "type": "java.lang.String",
+      "description": "Description for ftp.host."
     }
   ]
 }

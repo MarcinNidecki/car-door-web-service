@@ -7,22 +7,12 @@ import com.mnidecki.cardoor.services.DBService.DBBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class BookingExtrasItemMapper {
 
-    private Long id;
-    private String name;
-    private String description;
-    private Long quantity;
-    private BigDecimal totalValue;
-    private BigDecimal price;
-    private Long bookingExtrasId;
-    private Long bookingId;
-    private String iconPath;
     @Autowired
     private DBBookingExtrasService bookingExtrasService;
     @Autowired

@@ -9,7 +9,6 @@ import com.mnidecki.cardoor.services.DBService.DBCarService;
 import com.mnidecki.cardoor.services.DBService.DBCommentService;
 import com.mnidecki.cardoor.services.DBService.DBUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +34,7 @@ public class CarController {
     private DBUserService userService;
 
     @PostMapping(value = "/brand/{brandId}/model/{modelId}/comment")
-    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long modelId, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId, Model model) {
+    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long modelId, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!bindingResult.hasErrors()) {
             commentDto.setUserFirstName(userService.getUserFromAuthentication().getUsername());
@@ -44,28 +43,28 @@ public class CarController {
             commentDto.setCreationDate(new Timestamp(System.currentTimeMillis()).toString());
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
-                model.addAttribute("msg", "Your comment has been successfully submitted.");
+                modelAndView.addObject("msg", "Your comment has been successfully submitted.");
             } else {
-                model.addAttribute("msg", "Sorry something went wrong try again!");
-                model.addAttribute("commentDto", commentDto);
+                modelAndView.addObject("msg", "Sorry something went wrong try again!");
+                modelAndView.addObject("commentDto", commentDto);
             }
         }
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        model.addAttribute("commentDtoList", commentDtoList);
-        model.addAttribute("carDto", carDto);
+        modelAndView.addObject("commentDtoList", commentDtoList);
+        modelAndView.addObject("carDto", carDto);
         modelAndView.setViewName("car");
         return modelAndView;
     }
 
     @GetMapping(value = "/{carId}")
-    public ModelAndView type(@PathVariable Long carId, Model model) {
+    public ModelAndView type(@PathVariable Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        model.addAttribute("commentDtoList", commentDtoList);
-        model.addAttribute("carDto", carDto);
-        model.addAttribute("commentDto", new CommentDto());
+        modelAndView.addObject("commentDtoList", commentDtoList);
+        modelAndView.addObject("carDto", carDto);
+        modelAndView.addObject("commentDto", new CommentDto());
         modelAndView.setViewName("car");
         return modelAndView;
     }

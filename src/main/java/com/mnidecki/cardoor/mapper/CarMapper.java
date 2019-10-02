@@ -27,44 +27,46 @@ public class CarMapper {
     private DBStarService starService;
 
     public Car mapToCar(final CarDto carDto) {
-        return new Car(
-                carDto.getId(),
-                carBrandModelService.findByID(carDto.getModelId()),
-                carDto.getRegistration(),
-                carDto.getVehicleStatus(),
-                carParametersService.findById(carDto.getCarParametersId()).orElse(null),
-                carDto.getPrice(),
-                cityService.findById(carDto.getCityId()));
+        return new Car.CarBuilder()
+                .id(carDto.getId())
+                .model(carBrandModelService.findByID(carDto.getModelId()))
+                .registration(carDto.getRegistration())
+                .vehicleStatus(carDto.getVehicleStatus())
+                .carParameters(carParametersService.findById(carDto.getCarParametersId()).orElse(null))
+                .price(carDto.getPrice())
+                .location(cityService.findById(carDto.getCityId()))
+                .build();
     }
 
     public CarDto mapToCarDto(final Car car) {
-        return new CarDto(
-                car.getId(),
-                car.getModel().getBrand().getBrand(),
-                car.getModel().getModel(),
-                car.getModel().getId(),
-                car.getModel().getBrand().getId(),
-                car.getRegistration(),
-                car.getVehicleStatus(),
-                car.getCarParameters().getYear(),
-                car.getPrice(),
-                car.getCarParameters().isTransmissionIsAutomatic(),
-                car.getCarParameters().isAirConditioning(),
-                car.getCarParameters().isAllWheelDrive(),
-                typeService.getById(car.getCarParameters().getType().getId()).getType(),
-                car.getCarParameters().getFuelType(),
-                car.getCarParameters().getDoorsNumber(),
-                car.getCarParameters().getSeatsNumber(),
-                car.getCarParameters().getSmallBags(),
-                car.getCarParameters().getBigBags(),
-                car.getCarParameters().getColor(),
-                car.getCarParameters().getType().getId(),
-                starService.findById(car.getModel().getId()).getRatingAverage(),
-                car.getLocation().getId(),
-                car.getCarParameters().getCarPicture().getId(),
-                car.getCarParameters().getId(),
-                carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getFileNamePath(),
-                carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getThumbnailsPath());
+        return new CarDto.CarDtoBuilder()
+                .id(car.getId())
+                .brand(car.getModel().getBrand().getBrand())
+                .model(car.getModel().getModel())
+                .modelId(car.getModel().getId())
+                .brandId(car.getModel().getBrand().getId())
+                .registration(car.getRegistration())
+                .vehicleStatus(car.getVehicleStatus())
+                .year(car.getCarParameters().getYear())
+                .price(car.getPrice())
+                .transmissionIsAutomatic(car.getCarParameters().isTransmissionIsAutomatic())
+                .airConditioning(car.getCarParameters().isAirConditioning())
+                .allWheelDrive(car.getCarParameters().isAllWheelDrive())
+                .carTypeName(typeService.getById(car.getCarParameters().getType().getId()).getType())
+                .fuelType(car.getCarParameters().getFuelType())
+                .doorsNumber(car.getCarParameters().getDoorsNumber())
+                .seatsNumber(car.getCarParameters().getSeatsNumber())
+                .smallBags(car.getCarParameters().getSmallBags())
+                .bigBags(car.getCarParameters().getBigBags())
+                .color(car.getCarParameters().getColor())
+                .carTypeId(car.getCarParameters().getType().getId())
+                .rating(starService.findById(car.getModel().getId()).getRatingAverage())
+                .cityId(car.getLocation().getId())
+                .carPictureId(car.getCarParameters().getCarPicture().getId())
+                .carParametersId(car.getCarParameters().getId())
+                .fileNamePath(carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getFileNamePath())
+                .thumbnailsPath(carPictureService.findById(car.getCarParameters().getCarPicture().getId()).getThumbnailsPath())
+                .build();
     }
 
 

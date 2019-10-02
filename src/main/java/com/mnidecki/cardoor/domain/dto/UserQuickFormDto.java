@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserQuickRegistrationFormDto {
+public class UserQuickFormDto implements UserDto {
     @NotNull
     @Length(min = 3, message = "The fistsname must be at least {min} characters long")
     private String firstname;
