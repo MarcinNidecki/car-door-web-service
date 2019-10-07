@@ -103,8 +103,9 @@ public class BookingService {
     }
 
     public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
-        LocalDateTime start = LocalDateTime.parse(startDate+"T" +startTime);
-        LocalDateTime end = LocalDateTime.parse(endDate+"T" +endTime);
+
+        LocalDateTime start = LocalDateTime.parse(prepereProperStringDate(startDate)+"T" +startTime);
+        LocalDateTime end = LocalDateTime.parse(prepereProperStringDate(endDate)+"T" +endTime);
         return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
     }
 
@@ -115,6 +116,15 @@ public class BookingService {
         return allClient - unhappyClient;
     }
 
+    public String prepereProperStringDate(String date) {
+        if(date.length()<=9) {
+            StringBuffer startDataBuffer = new StringBuffer(date);
+            startDataBuffer.insert(7,"0");
+            return startDataBuffer.toString();
+        } else {
+            return date;
+        }
 
+    }
 }
 
