@@ -247,5 +247,9 @@ public class CarPictureControllerTest {
     }
 
 */
+@Test
+public void save() {
+}
+
 
 }
