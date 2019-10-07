@@ -12,6 +12,7 @@ public interface BookingStatusCodeRepository extends CrudRepository<BookingStatu
     @Override
     List<BookingStatusCode> findAll();
 
+
     Optional<BookingStatusCode> findById(Long id);
 
     @Override

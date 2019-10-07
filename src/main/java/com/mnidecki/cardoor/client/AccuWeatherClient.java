@@ -44,13 +44,16 @@ public class AccuWeatherClient {
         } catch (
                 RestClientException e) {
             LOGGER.error(e.getMessage(), e);
-            return "";
         }
         return "";
     }
 
     public ForecastResponseDto get5DayForecasts(Location location) {
         String locationId = getCityId(location);
+        if(locationId.equals("")) {
+            return new ForecastResponseDto();
+        }
+
         URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/forecasts/v1/daily/5day/" + locationId)
                 .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
                 .queryParam("language", "pl-pl")

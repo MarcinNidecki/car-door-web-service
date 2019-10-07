@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CarParametersService {
+public class  CarParametersService {
 
     @Autowired
     private CarParametersRepository carParametersRepository;

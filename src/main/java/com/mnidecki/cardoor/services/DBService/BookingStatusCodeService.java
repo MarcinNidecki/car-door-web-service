@@ -5,7 +5,9 @@ import com.mnidecki.cardoor.repository.BookingStatusCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingStatusCodeService {
@@ -17,8 +19,8 @@ public class BookingStatusCodeService {
         return bookingStatusCodeRepository.findAll();
     }
 
-    public BookingStatusCode findByID(final Long id) {
-        return bookingStatusCodeRepository.findById(id).orElse(null);
+    public Optional<BookingStatusCode> findById(final Long id) {
+        return bookingStatusCodeRepository.findById(id);
     }
 
     public BookingStatusCode save(final BookingStatusCode statusCode) {

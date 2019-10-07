@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarBrandModelService {
+
     @Autowired
     private CarBrandModelRepository carBrandModelRepository;
 
@@ -20,18 +22,19 @@ public class CarBrandModelService {
         return carBrandModelRepository.findAll();
     }
 
-    public CarBrandModel findByID(final Long id) {
-        return carBrandModelRepository.findById(id).orElseGet(null);
+    public Optional<CarBrandModel> findByID(final Long id) {
+        return carBrandModelRepository.findById(id);
     }
 
     public CarBrandModel save(final CarBrandModel carBrandModel) {
-        Star star = new Star(carBrandModel.getId(),10F);
-        if (carBrandModel.getId() != null && starService.findById(carBrandModel.getId()) != null) {
-           star = starService.findById(carBrandModel.getId());
+        if (carBrandModel.getStar() == null) {
+            Star star = new Star(carBrandModel.getId(), 0F);
+            star.setCarBrandModel(carBrandModel);
+            starService.save(star);
+            carBrandModel.setStar(star);
         }
-        carBrandModel.setStar(star);
-        star.setCarBrandModel(carBrandModel);
-        return carBrandModelRepository.save(carBrandModel); }
+        return carBrandModelRepository.save(carBrandModel);
+    }
 
     public void delete(final Long id) {
         carBrandModelRepository.deleteById(id);
@@ -40,5 +43,4 @@ public class CarBrandModelService {
     public List<CarBrandModel> getAllModelByBrand_Id(Long id) {
         return carBrandModelRepository.findCarBrandModelByBrand_Id(id);
     }
-
 }

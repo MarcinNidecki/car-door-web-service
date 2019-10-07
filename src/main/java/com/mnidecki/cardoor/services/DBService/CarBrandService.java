@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarBrandService {
+
     @Autowired
     private CarBrandRepository carBrandRepository;
 
@@ -16,8 +18,8 @@ public class CarBrandService {
         return carBrandRepository.findAll();
     }
 
-    public CarBrand findByID(final Long id) {
-        return carBrandRepository.findById(id).orElseGet(null);
+    public Optional<CarBrand> findByID(final Long id) {
+        return carBrandRepository.findById(id);
     }
 
     public CarBrand save(final CarBrand carBrand) {

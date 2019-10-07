@@ -44,8 +44,8 @@ dependencies {
     compile('org.webjars:popper.js:1.15.0')
     compile ('org.webjars.npm:github-com-atatanasov-gijgo:1.5.1')
 
-    //compile('org.postgresql:postgresql')
-    compile('mysql:mysql-connector-java')
+    compile('org.postgresql:postgresql')
+    //compile('mysql:mysql-connector-java')
 
     compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'

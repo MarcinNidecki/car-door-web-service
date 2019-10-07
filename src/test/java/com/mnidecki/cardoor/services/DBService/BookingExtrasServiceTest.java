@@ -103,7 +103,6 @@ public class BookingExtrasServiceTest {
 
         //Then
         assertTrue(founded.isPresent());
-        assertThat(bookingExtras, is(equalTo(founded)));
         assertEquals(Long.valueOf(1),founded.get().getId());
         assertEquals("TV",founded.get().getName());
         assertEquals("32'",founded.get().getDescription());

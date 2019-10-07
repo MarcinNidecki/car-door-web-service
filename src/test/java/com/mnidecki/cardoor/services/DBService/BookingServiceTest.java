@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,25 +30,21 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class BookingServiceTest {
 
     @InjectMocks
     private BookingService bookingService;
-    @MockBean
-    private SimpleEmailService simpleEmailService;
-    @MockBean
+    @Mock
     private BookingRepository bookingRepository;
-    @MockBean
+    @Mock
+    private SimpleEmailService simpleEmailService;
+    @Mock
     private BookingExtrasService extrasService;
-    @MockBean
+    @Mock
     private CommentService commentService;
 
-    @Before
-    public void setUp() {
 
-        MockitoAnnotations.initMocks(this);
-    }
 
     public Booking getBooking() {
         User user = new User.UserBuilder()
@@ -230,8 +227,6 @@ public class BookingServiceTest {
         assertEquals(BigDecimal.valueOf(600),foundedBooking.getTotalCost());
         assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),foundedBooking.getStartDate());
         assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),foundedBooking.getReturnDate());
-        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.getCreatedDate());
-        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.getCreatedDate());
         assertEquals("lastname",foundedBooking.getUser().getLastname());
         assertEquals("firstname",foundedBooking.getUser().getFirstname());
         assertEquals("email",foundedBooking.getUser().getEmail());
@@ -490,17 +485,20 @@ public class BookingServiceTest {
     @Test
     public void shouldCountHappyClients() {
         //Given
-        int commentsWithRatingLessThen2= 15;
-        int allBookings= 20;
+        int commentsWithRatingLessThen2= 2;
+        List<Booking> bookingList  = new ArrayList<>();
+        bookingList.add(getBooking());
+        bookingList.add(getBooking());
+        bookingList.add(getBooking());
 
-       when(bookingService.findAll().size()).thenReturn(allBookings);
+       when(bookingService.findAll()).thenReturn(bookingList);
        when(commentService.countAllByRatingLessThan2()).thenReturn(commentsWithRatingLessThen2);
 
        //When
         int happyClient = bookingService.countHappyClients();
         System.out.println(happyClient);
         //Then
-        assertEquals(allBookings-commentsWithRatingLessThen2,happyClient);
+        assertEquals(1,happyClient);
     }
 }
 

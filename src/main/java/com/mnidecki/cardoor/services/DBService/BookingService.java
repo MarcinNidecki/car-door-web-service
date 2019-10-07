@@ -27,7 +27,8 @@ public class BookingService {
     private final SimpleEmailService simpleEmailService;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, CommentService commentService, BookingExtrasService extrasService, SimpleEmailService simpleEmailService) {
+    public BookingService(BookingRepository bookingRepository, CommentService commentService,
+                          BookingExtrasService extrasService, SimpleEmailService simpleEmailService) {
         this.bookingRepository = bookingRepository;
         this.commentService = commentService;
         this.extrasService = extrasService;
@@ -78,12 +79,14 @@ public class BookingService {
                 .collect(Collectors.toList()));
         booking.getBookingExtrasList()
                 .forEach(bookingExtrasItem ->
-                        bookingExtrasItem.setValue(BigDecimal.valueOf(bookingExtrasItem.getQuantity()).multiply(bookingExtrasItem.getBookingExtras().getPrice())));
+                        bookingExtrasItem.setValue(BigDecimal.valueOf(bookingExtrasItem.getQuantity())
+                                .multiply(bookingExtrasItem.getBookingExtras().getPrice())));
 
         BigDecimal totalCost = booking.getBookingExtrasList().stream()
                 .map(BookingExtrasItem::getValue)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        totalCost = totalCost.add(booking.getCar().getPrice().multiply(new BigDecimal(countBookingDays(booking.getStartDate(), booking.getReturnDate()))));
+        totalCost = totalCost.add(booking.getCar().getPrice().multiply(
+                new BigDecimal(countBookingDays(booking.getStartDate(), booking.getReturnDate()))));
         booking.setTotalCost(totalCost);
         return booking;
 
@@ -99,12 +102,12 @@ public class BookingService {
         return Timestamp.valueOf(LocalDateTime.parse(date+"T" +time));
     }
 
-
     public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
         LocalDateTime start = LocalDateTime.parse(startDate+"T" +startTime);
         LocalDateTime end = LocalDateTime.parse(endDate+"T" +endTime);
         return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
     }
+
     public int  countHappyClients() {
         Integer unhappyClient;
         unhappyClient = commentService.countAllByRatingLessThan2();

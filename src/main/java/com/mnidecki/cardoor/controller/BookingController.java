@@ -73,7 +73,7 @@ public class BookingController {
 
     @ModelAttribute("allCity")
     public List<LocationDto> allCity() {
-        return locationMapper.mapToLocationDtoList(this.cityService.findAll());
+        return locationMapper.mapToLocationDtoList(cityService.findAll());
     }
 
 

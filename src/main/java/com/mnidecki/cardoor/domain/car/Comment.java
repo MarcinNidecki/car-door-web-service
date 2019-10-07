@@ -22,7 +22,6 @@ import java.sql.Timestamp;
         ) })
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity(name = "comment")
@@ -50,4 +49,13 @@ public class Comment {
     @JoinColumn(name = "model_id")
     private CarBrandModel model;
 
+    public Comment(Long id, String commentContent, Integer rating, Timestamp creationDate, User user,
+                   CarBrandModel model) {
+        this.id = id;
+        this.commentContent = commentContent;
+        this.rating = rating;
+        this.creationDate = creationDate;
+        this.user = user;
+        this.model = model;
+    }
 }

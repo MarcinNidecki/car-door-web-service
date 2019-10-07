@@ -1,5 +1,6 @@
 package com.mnidecki.cardoor.mapper;
 
+import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.car.Comment;
 import com.mnidecki.cardoor.domain.dto.CommentDto;
 import com.mnidecki.cardoor.services.DBService.CarBrandModelService;
@@ -25,7 +26,7 @@ public class CommentMapper {
                 commentDto.getRating(),
                 Timestamp.valueOf(commentDto.getCreationDate()),
                 userService.findUserById(commentDto.getUserId()),
-                modelService.findByID(commentDto.getModelId()));
+                modelService.findByID(commentDto.getModelId()).orElse(new CarBrandModel()));
     }
 
     public CommentDto mapToCommentDto(Comment comment) {

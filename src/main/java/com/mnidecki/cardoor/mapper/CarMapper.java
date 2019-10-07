@@ -1,6 +1,7 @@
 package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.car.Car;
+import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.car.CarParameters;
 import com.mnidecki.cardoor.domain.dto.CarDto;
 import com.mnidecki.cardoor.services.DBService.*;
@@ -20,7 +21,7 @@ public class CarMapper {
     @Autowired
     private CarPictureService carPictureService;
     @Autowired
-    private CarParameters carParametersService;
+    private CarParametersService carParametersService;
     @Autowired
     private CarBrandModelService carBrandModelService;
     @Autowired
@@ -29,7 +30,7 @@ public class CarMapper {
     public Car mapToCar(final CarDto carDto) {
 
         return new Car.CarBuilder()
-                .model(carBrandModelService.findByID(carDto.getModelId()))
+                .model(carBrandModelService.findByID(carDto.getModelId()).orElse(new CarBrandModel()))
                 .registration(carDto.getRegistration())
                 .vehicleStatus(carDto.getVehicleStatus())
                 .carParameters(mapToCarParameters(carDto))

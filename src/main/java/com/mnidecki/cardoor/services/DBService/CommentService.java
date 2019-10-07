@@ -32,6 +32,7 @@ public class CommentService {
     public List<Comment> findAllByModel_Id(Long id) {
         return commentRepository.findAllByModel_Id(id);
     }
+
     public List<Comment> findTop4ByCreationDate() {
         return commentRepository.retriveLast4Comment();
     }

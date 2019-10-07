@@ -59,7 +59,7 @@ public class CarBrandAndModelController {
     @GetMapping("/brand/{brandId}")
     public ModelAndView brand(@PathVariable Long brandId) {
         ModelAndView modelAndView = new ModelAndView();
-        CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId));
+        CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId).orElse(new CarBrand()));
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
         modelAndView.addObject("carBrandModels", carModels);
@@ -77,10 +77,11 @@ public class CarBrandAndModelController {
     @GetMapping("/brand/{brandId}/model/{modelId}")
     public ModelAndView model(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
-        CarBrandModelDto carBrandModelDto = carBrandModelMapper.mapToCarBrandModelDto(carBrandModelService.findByID(modelId));
+        CarBrandModelDto carModelDto = carBrandModelMapper.mapToCarBrandModelDto(
+                carBrandModelService.findByID(modelId).orElse(new CarBrandModel()));
         List<CarBrandDto> carBrands = allType();
         modelAndView.addObject("carBrands", carBrands);
-        modelAndView.addObject("carBrandModelDto", carBrandModelDto);
+        modelAndView.addObject("carBrandModelDto", carModelDto);
         modelAndView.addObject("carBrandModelDtoEmpty", new CarBrandModelDto());
         modelAndView.addObject("carBrandDto", new CarBrandDto());
         modelAndView.addObject("title", "Cars Models");

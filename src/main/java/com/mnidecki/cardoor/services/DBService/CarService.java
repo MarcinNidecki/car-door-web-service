@@ -21,8 +21,6 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
     @Autowired
-    private CarParameters carParametersService;
-    @Autowired
     private CarCustomRepository carCustomRepository;
 
     public List<Car> findAll() {

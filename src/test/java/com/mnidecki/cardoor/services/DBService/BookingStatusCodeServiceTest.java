@@ -1,31 +1,23 @@
 package com.mnidecki.cardoor.services.DBService;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
-import com.mnidecki.cardoor.domain.booking.BookingExtrasItem;
 import com.mnidecki.cardoor.domain.booking.BookingStatusCode;
-import com.mnidecki.cardoor.repository.BookingRepository;
 import com.mnidecki.cardoor.repository.BookingStatusCodeRepository;
-import com.mnidecki.cardoor.services.SimpleEmailService;
-import org.assertj.core.util.Arrays;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookingStatusCodeServiceTest {
@@ -35,19 +27,8 @@ public class BookingStatusCodeServiceTest {
     @Mock
     private BookingStatusCodeRepository bookingStatusCodeRepository;
 
-
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-
-    @Test
-    public void shouldFindAllBookingStatusCode() {
-        //Given
-        BookingStatusCode bookingStatusCode =  new BookingStatusCode();
-        bookingStatusCode.setId(1L);
+    public BookingStatusCode getBookingStatusCode() {
+        BookingStatusCode bookingStatusCode =  new BookingStatusCode(1L,"IN RENT");
         Booking booking = new Booking.BookingBuilder()
                 .id(1L)
                 .totalCost(BigDecimal.valueOf(600))
@@ -58,11 +39,14 @@ public class BookingStatusCodeServiceTest {
                 .build();
 
         bookingStatusCode.getBookingList().add(booking);
+        return bookingStatusCode;
+    }
 
-
+    @Test
+    public void shouldFindAllBookingStatusCode() {
+        //Given
         List<BookingStatusCode> bookingStatusCodes = new ArrayList<>();
-        bookingStatusCodes.add(bookingStatusCode);
-
+        bookingStatusCodes.add(getBookingStatusCode());
 
         when(bookingStatusCodeRepository.findAll()).thenReturn(bookingStatusCodes);
 
@@ -77,23 +61,86 @@ public class BookingStatusCodeServiceTest {
         assertEquals(1, foundedStatusCode.getBookingList().size());
         assertEquals(Long.valueOf(1),foundedStatusCode.getBookingList().get(0).getId());
         assertEquals(BigDecimal.valueOf(600),foundedStatusCode.getBookingList().get(0).getTotalCost());
-        assertEquals(Timestamp.valueOf("2019-08-10 21:44:22"),
+        assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),
                 foundedStatusCode.getBookingList().get(0).getStartDate());
-        assertEquals(Timestamp.valueOf("2019-08-12 21:44:22"),
+        assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),
                 foundedStatusCode.getBookingList().get(0).getReturnDate());
         assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),
                 foundedStatusCode.getBookingList().get(0).getCreatedDate());
     }
 
     @Test
-    public void findByID() {
+    public void shouldFindById() {
+        //Given
+        Optional<BookingStatusCode> bookingStatusCode = Optional.of(getBookingStatusCode());
+
+        when(bookingStatusCodeRepository.findById(anyLong())).thenReturn(bookingStatusCode);
+
+        //When
+        Optional<BookingStatusCode> foundedStatusCode = bookingStatusCodeService.findById(1L);
+
+        //Then
+        assertTrue( foundedStatusCode.isPresent());
+        assertEquals(Long.valueOf(1),foundedStatusCode.get().getId());
+        assertEquals("IN RENT",foundedStatusCode.get().getDescription());
+        assertEquals(1, foundedStatusCode.get().getBookingList().size());
+        assertEquals(Long.valueOf(1),foundedStatusCode.get().getBookingList().get(0).getId());
+        assertEquals(BigDecimal.valueOf(600),foundedStatusCode.get().getBookingList().get(0).getTotalCost());
+        assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),
+                foundedStatusCode.get().getBookingList().get(0).getStartDate());
+        assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),
+                foundedStatusCode.get().getBookingList().get(0).getReturnDate());
+        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),
+                foundedStatusCode.get().getBookingList().get(0).getCreatedDate());
     }
 
     @Test
-    public void save() {
+    public void shouldFindEmptyOptionalOfBookingStatusCode() {
+        //Given
+
+        when(bookingStatusCodeRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        //When
+        Optional<BookingStatusCode> foundedStatusCode = bookingStatusCodeService.findById(1L);
+
+        //Then
+        assertFalse( foundedStatusCode.isPresent());
+
     }
 
     @Test
-    public void deleteById() {
+    public void shouldSaveBookingStatusCode() {
+        //Given
+        BookingStatusCode bookingStatusCode = getBookingStatusCode();
+
+        when(bookingStatusCodeRepository.save(bookingStatusCode)).thenReturn(bookingStatusCode);
+
+        //When
+        BookingStatusCode savedCode = bookingStatusCodeService.save(bookingStatusCode);
+
+        //Then
+        assertEquals(Long.valueOf(1),savedCode.getId());
+        assertEquals("IN RENT",savedCode.getDescription());
+        assertEquals(1, savedCode.getBookingList().size());
+        assertEquals(Long.valueOf(1),savedCode.getBookingList().get(0).getId());
+        assertEquals(BigDecimal.valueOf(600),savedCode.getBookingList().get(0).getTotalCost());
+        assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),
+                savedCode.getBookingList().get(0).getStartDate());
+        assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),
+                savedCode.getBookingList().get(0).getReturnDate());
+        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),
+                savedCode.getBookingList().get(0).getCreatedDate());
+    }
+
+    @Test
+    public void ShouldDeleteById() {
+        //Given
+        doNothing().when(bookingStatusCodeRepository).deleteById(anyLong());
+
+        //When
+        bookingStatusCodeService.deleteById(1L);
+
+        //Then
+        verify(bookingStatusCodeRepository, times(1)).deleteById(1L);
     }
 }
