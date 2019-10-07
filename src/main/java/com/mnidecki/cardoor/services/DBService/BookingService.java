@@ -119,7 +119,7 @@ public class BookingService {
     public String prepereProperStringDate(String date) {
         if(date.length()<=9) {
             StringBuffer startDataBuffer = new StringBuffer(date);
-            startDataBuffer.insert(7,"0");
+            startDataBuffer.insert(8,"0");
             return startDataBuffer.toString();
         } else {
             return date;
