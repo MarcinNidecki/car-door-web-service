@@ -173,8 +173,8 @@ public class CarControllerTest {
 
         locationsList.add(location);
 
-        List<LocationDto> locationsDtoList = new ArrayList<>();
-        LocationDto locationDto = new LocationDto(1L, "Poland", "Katowice", "Airport Katowice", "ul. Odlotowa","23a/b", "pick up instructions", "44-444", "email@katowice.email.pl", "515125144", "11:00 - 19:00");
+        List<LocationnDto> locationsDtoList = new ArrayList<>();
+        LocationnDto locationDto = new LocationnDto(1L, "Poland", "Katowice", "Airport Katowice", "ul. Odlotowa","23a/b", "pick up instructions", "44-444", "email@katowice.email.pl", "515125144", "11:00 - 19:00");
         locationsDtoList.add(locationDto);
 
         when(locationService.findAll()).thenReturn(locationsList);

@@ -42,7 +42,6 @@ public class BookingController {
     private final CarMapper carMapper;
     private final LocationMapper locationMapper;
     private final LocationService locationService;
-    private final LocationService cityService;
     private final UserService userService;
     private final UserMapper userMapper;
     private final BookingExtrasItemMapper bookingExtrasItemMapper;
@@ -52,7 +51,7 @@ public class BookingController {
     @Autowired
     public BookingController(BookingMapper bookingMapper, BookingService bookingService, CarService carService,
                              CarMapper carMapper, LocationMapper locationMapper, LocationService locationService,
-                             KayakClient kayakClient, LocationService cityService, UserService userService,
+                             KayakClient kayakClient, UserService userService,
                              UserMapper userMapper, BookingExtrasItemMapper bookingExtrasItemMapper, AccuWeatherClient
                                          accuWeatherClient) {
 
@@ -63,19 +62,11 @@ public class BookingController {
         this.locationMapper = locationMapper;
         this.locationService = locationService;
         this.kayakClient = kayakClient;
-        this.cityService = cityService;
         this.userService = userService;
         this.userMapper = userMapper;
         this.bookingExtrasItemMapper = bookingExtrasItemMapper;
         this.accuWeatherClient = accuWeatherClient;
     }
-
-
-    @ModelAttribute("allCity")
-    public List<LocationDto> allCity() {
-        return locationMapper.mapToLocationDtoList(cityService.findAll());
-    }
-
 
     @GetMapping("car")
     public ModelAndView searchAndFilter(
@@ -123,7 +114,7 @@ public class BookingController {
             @RequestParam(value = "cityId") Long cityId, @PathVariable Long carId, HttpSession session) {
 
         CarDto car = carMapper.mapToCarDto(carService.findById(carId));
-        LocationDto location = locationMapper.mapToLocationDto(locationService.findById(cityId));
+        LocationnDto location = locationMapper.mapToLocationDto(locationService.findById(cityId));
         BookingItemCreationDto bookingExtras = new BookingItemCreationDto(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList
                 (bookingService.prepareEmptyExtrasItemList()));
         long daysOfRent = bookingService.countBookingDays(bookingService.stringTimeToTimestampConverter(startDate, startTime),

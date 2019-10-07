@@ -1,6 +1,6 @@
 package com.mnidecki.cardoor.controller;
 
-import com.mnidecki.cardoor.domain.dto.LocationDto;
+import com.mnidecki.cardoor.domain.dto.LocationnDto;
 import com.mnidecki.cardoor.mapper.LocationMapper;
 import com.mnidecki.cardoor.services.DBService.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,12 @@ public class LocationController {
     private LocationMapper locationMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getCities")
-    public List<LocationDto> getLocations() {
+    public List<LocationnDto> getLocations() {
         return locationMapper.mapToLocationDtoList(locationService.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createCities", consumes = APPLICATION_JSON_VALUE)
-    public void createCar(@RequestBody LocationDto locationDto) {
+    public void createCar(@RequestBody LocationnDto locationDto) {
         locationService.save(locationMapper.mapToLocation(locationDto));
     }
 

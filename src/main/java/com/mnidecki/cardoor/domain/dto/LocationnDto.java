@@ -1,12 +1,11 @@
 package com.mnidecki.cardoor.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LocationDto {
+public class LocationnDto {
 
 
     private Long id;
@@ -21,9 +20,7 @@ public class LocationDto {
     private String phone;
     private String openingHours;
 
-
-
-    public LocationDto(Long id, String country, String city, String locationName, String addressLine, String addressLine2, String pickUpInstructions, String postalCode, String email, String phone, String openingHours) {
+    public LocationnDto(Long id, String country, String city, String locationName, String addressLine, String addressLine2, String pickUpInstructions, String postalCode, String email, String phone, String openingHours) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -42,7 +39,7 @@ public class LocationDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LocationDto that = (LocationDto) o;
+        LocationnDto that = (LocationnDto) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;

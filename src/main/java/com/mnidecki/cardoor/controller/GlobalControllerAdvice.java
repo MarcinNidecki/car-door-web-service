@@ -1,7 +1,9 @@
 package com.mnidecki.cardoor.controller;
 
 import com.mnidecki.cardoor.domain.dto.CommentDto;
+import com.mnidecki.cardoor.domain.dto.LocationnDto;
 import com.mnidecki.cardoor.mapper.CommentMapper;
+import com.mnidecki.cardoor.mapper.LocationMapper;
 import com.mnidecki.cardoor.services.DBService.BookingService;
 import com.mnidecki.cardoor.services.DBService.CarService;
 import com.mnidecki.cardoor.services.DBService.CommentService;
@@ -28,6 +30,8 @@ public class GlobalControllerAdvice {
     private BookingService bookingService;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private LocationMapper locationMapper;
 
     @ModelAttribute("lastComments")
     public List<CommentDto> getLast4Comments() {
@@ -48,5 +52,11 @@ public class GlobalControllerAdvice {
         return locationService.findAll().size();
     }
 
-    
+    @ModelAttribute("allCity")
+    public List<LocationnDto> allCity() {
+        return locationMapper.mapToLocationDtoList(locationService.findAll());
+    }
+
+
+
 }

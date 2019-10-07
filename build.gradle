@@ -11,6 +11,18 @@ buildscript {
     }
 }
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.freefair.gradle:lombok-plugin:4.1.2"
+    }
+}
+
+apply plugin: "io.freefair.lombok"
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -26,8 +38,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly('org.projectlombok:lombok:1.18.8')
-    annotationProcessor('org.projectlombok:lombok:1.18.8')
+
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.4.RELEASE')
@@ -44,8 +55,8 @@ dependencies {
     compile('org.webjars:popper.js:1.15.0')
     compile ('org.webjars.npm:github-com-atatanasov-gijgo:1.5.1')
 
-    compile('org.postgresql:postgresql')
-    //compile('mysql:mysql-connector-java')
+    //compile('org.postgresql:postgresql')
+    compile('mysql:mysql-connector-java')
 
     compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.9'

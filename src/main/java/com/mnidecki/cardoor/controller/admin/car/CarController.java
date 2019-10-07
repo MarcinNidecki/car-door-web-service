@@ -45,7 +45,7 @@ public class CarController {
     private CarBrandModelService carBrandModelService;
 
     @ModelAttribute("allCity")
-    public List<LocationDto> getAllCity() {
+    public List<LocationnDto> getAllCity() {
         return locationMapper.mapToLocationDtoList(this.locationService.findAll());
     }
 

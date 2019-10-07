@@ -1,9 +1,7 @@
 package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.Location;
-import com.mnidecki.cardoor.domain.dto.LocationDto;
-import com.mnidecki.cardoor.services.DBService.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mnidecki.cardoor.domain.dto.LocationnDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,10 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class LocationMapper {
 
-    @Autowired
-    LocationService cityService;
-
-    public Location mapToLocation(final LocationDto locationDto) {
+    public Location mapToLocation(final LocationnDto locationDto) {
         return new Location(
                 locationDto.getId(),
                 locationDto.getCountry(),
@@ -30,8 +25,8 @@ public class LocationMapper {
                 locationDto.getOpeningHours());
     }
 
-    public LocationDto mapToLocationDto(final Location location) {
-        return new LocationDto(
+    public LocationnDto mapToLocationDto(final Location location) {
+        return new LocationnDto(
                 location.getId(),
                 location.getCountry(),
                 location.getCity(),
@@ -45,9 +40,21 @@ public class LocationMapper {
                 location.getOpeningHours());
     }
 
-    public List<LocationDto> mapToLocationDtoList(final List<Location> carList) {
+    public List<LocationnDto> mapToLocationDtoList(final List<Location> carList) {
         return carList.stream()
-                .map(this::mapToLocationDto)
+                .map(location -> new LocationnDto(
+                        location.getId(),
+                        location.getCountry(),
+                        location.getCity(),
+                        location.getLocationName(),
+                        location.getAddressLine(),
+                        location.getAddressLine2(),
+                        location.getPickUpInstructions(),
+                        location.getPostalCode(),
+                        location.getEmail(),
+                        location.getPhone(),
+                        location.getOpeningHours()))
                 .collect(Collectors.toList());
+
     }
 }

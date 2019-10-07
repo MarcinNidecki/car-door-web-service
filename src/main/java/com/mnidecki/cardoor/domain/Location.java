@@ -117,4 +117,8 @@ public class Location {
         result = 31 * result + (bookingList != null ? bookingList.hashCode() : 0);
         return result;
     }
+
+    public String getOpeningHours() {
+        return openingHours;
+    }
 }
