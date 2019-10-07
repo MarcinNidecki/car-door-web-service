@@ -16,6 +16,7 @@
                         <input type="hidden" th:field="*{id}" th:value="@{${isAdd}?'':'${carTypeDto.id}'}">
 
                         <label for="formGroupExampleInput">Car type name</label>
+                           <div class="text text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
                         <input type="text" class="form-control" id="type" placeholder="car type name" th:field="*{type}">
                     </div>
 

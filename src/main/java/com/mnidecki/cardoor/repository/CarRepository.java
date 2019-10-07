@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Repository
 public interface CarRepository extends CrudRepository<Car, Integer> {
 

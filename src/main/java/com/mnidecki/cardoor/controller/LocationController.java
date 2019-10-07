@@ -2,7 +2,7 @@ package com.mnidecki.cardoor.controller;
 
 import com.mnidecki.cardoor.domain.dto.LocationDto;
 import com.mnidecki.cardoor.mapper.LocationMapper;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class LocationController {
     @Autowired
-    private DBLocationService locationService;
+    private LocationService locationService;
 
     @Autowired
     private LocationMapper locationMapper;

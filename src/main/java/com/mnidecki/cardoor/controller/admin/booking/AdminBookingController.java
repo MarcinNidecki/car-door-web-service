@@ -2,7 +2,7 @@ package com.mnidecki.cardoor.controller.admin.booking;
 
 import com.mnidecki.cardoor.domain.dto.BookingDto;
 import com.mnidecki.cardoor.mapper.BookingMapper;
-import com.mnidecki.cardoor.services.DBService.DBBookingService;
+import com.mnidecki.cardoor.services.DBService.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 public class AdminBookingController {
 
     @Autowired
-    private DBBookingService bookingService;
+    private BookingService bookingService;
     @Autowired
     private BookingMapper bookingMapper;
 

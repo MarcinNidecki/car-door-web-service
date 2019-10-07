@@ -7,8 +7,8 @@ import com.mnidecki.cardoor.domain.dto.BookingExtrasItemDto;
 import com.mnidecki.cardoor.domain.dto.CarDto;
 import com.mnidecki.cardoor.mapper.BookingMapper;
 import com.mnidecki.cardoor.mapper.CarMapper;
-import com.mnidecki.cardoor.services.DBService.DBBookingService;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
+import com.mnidecki.cardoor.services.DBService.BookingService;
+import com.mnidecki.cardoor.services.DBService.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -26,11 +26,11 @@ public class MailCreatorService {
     @Autowired
     private TemplateEngine templateEngine;
     @Autowired
-    private DBBookingService bookingService;
+    private BookingService bookingService;
     @Autowired
     private BookingMapper bookingMapper;
     @Autowired
-    private DBCarService carService;
+    private CarService carService;
     @Autowired
     private CarMapper carMapper;
 

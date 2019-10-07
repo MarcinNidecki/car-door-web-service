@@ -1,7 +1,6 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
 import com.mnidecki.cardoor.domain.car.Car;
-import com.mnidecki.cardoor.domain.car.CarParameters;
 import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.mapper.*;
 import com.mnidecki.cardoor.services.DBService.*;
@@ -16,20 +15,18 @@ import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RestController("AdminCarController")
+@RestController
 @RequestMapping("/admin")
 public class CarController {
 
     @Autowired
-    private DBLocationService locationService;
+    private LocationService locationService;
     @Autowired
-    private DBCarService carService;
+    private CarService carService;
     @Autowired
-    private DBCarTypeService carTypeService;
+    private CarTypeService carTypeService;
     @Autowired
-    private DBCarPicture carPictureService;
-    @Autowired
-    private DBCarParameters carParametersService;
+    private CarPictureService carPictureService;
     @Autowired
     private CarMapper carMapper;
     @Autowired
@@ -41,11 +38,11 @@ public class CarController {
     @Autowired
     private CarBrandMapper carBrandMapper;
     @Autowired
-    private DBCarBrandService carBrandService;
+    private CarBrandService carBrandService;
     @Autowired
     private CarBrandModelMapper carBrandModelMapper;
     @Autowired
-    private DBCarBrandModelService carBrandModelService;
+    private CarBrandModelService carBrandModelService;
 
     @ModelAttribute("allCity")
     public List<LocationDto> getAllCity() {
@@ -94,19 +91,19 @@ public class CarController {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("cars");
-        } else {
-            CarParameters carParameters = carParametersService.saveCarParameters(carMapper.mapToCarParameters(carDto));
-            carDto.setCarParametersId(carParameters.getId());
-            Car car = carService.save(carMapper.mapToCar(carDto));
-            if (car != null && car.getCarParameters() != null) {
-                redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
-                modelAndView.setViewName("redirect:/admin/car");
-            } else {
-                modelAndView.addObject("errormessage", "Car is not save, Please try again");
-                modelAndView.addObject("carDto", carDto);
-                modelAndView.setViewName("cars");
-            }
+            return modelAndView;
         }
+        Car car = carService.save(carMapper.mapToCar(carDto));
+        if (car != null) {
+            redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
+            modelAndView.setViewName("redirect:/admin/car");
+            return modelAndView;
+        } else {
+            modelAndView.addObject("errormessage", "Car is not save, Please try again");
+            modelAndView.addObject("carDto", carDto);
+            modelAndView.setViewName("cars");
+            }
+
         return modelAndView;
     }
 
@@ -133,12 +130,11 @@ public class CarController {
             System.out.println(bindingResult.getFieldError());
             modelAndView.setViewName("cars");
         } else {
-            CarParameters carParameters = carParametersService.saveCarParameters(carMapper.mapToCarParameters(carDto));
-            carDto.setCarParametersId(carParameters.getId());
             Car car = carService.save(carMapper.mapToCar(carDto));
-            if (car != null && car.getCarParameters() != null) {
+            if (car != null) {
                 redirectAttributes.addFlashAttribute("successmessage", "Car is updated successfully");
                 modelAndView.setViewName("redirect:/admin/car");
+
             } else {
                 modelAndView.addObject("errormessage", "Car is not updated, Please try again");
                 modelAndView.addObject("carDto", carDto);
@@ -149,16 +145,16 @@ public class CarController {
     }
 
     @Transactional
-    @GetMapping(value = "/car/delete/{id}")
+    @DeleteMapping(value = "/car/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         carService.deleteByID(id);
         redirectAttributes.addFlashAttribute("successmessage", "Car is deleted successfully");
-        modelAndView.setViewName("redirect:/admin/car/");
+        modelAndView.setViewName("redirect:/admin/car");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/car/modelbeforePrice", method = RequestMethod.GET)
+    @RequestMapping(value = "/car/model", method = RequestMethod.GET)
     public @ResponseBody
     List<CarBrandModelDto> findAllModels(@RequestParam(value = "brandId") Long brandId) {
         return carBrandModelMapper.mapToCarBrandModelDtoList(carBrandModelService.getAllModelByBrand_Id(brandId));

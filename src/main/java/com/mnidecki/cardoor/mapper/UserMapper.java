@@ -5,7 +5,7 @@ import com.mnidecki.cardoor.domain.dto.UserDto;
 import com.mnidecki.cardoor.domain.dto.UserEditFormDto;
 import com.mnidecki.cardoor.domain.dto.UserLongFormDto;
 import com.mnidecki.cardoor.domain.dto.UserQuickFormDto;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     @Autowired
-    private DBUserService userService;
+    private UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

@@ -2,10 +2,10 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
 import com.mnidecki.cardoor.domain.dto.BookingDto;
-import com.mnidecki.cardoor.services.DBService.DBBookingStatusCodeService;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.BookingStatusCodeService;
+import com.mnidecki.cardoor.services.DBService.CarService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 public class BookingMapper {
 
     @Autowired
-    private DBUserService userService;
+    private UserService userService;
     @Autowired
-    private DBLocationService cityService;
+    private LocationService cityService;
     @Autowired
-    private DBCarService carService;
+    private CarService carService;
     @Autowired
-    private DBBookingStatusCodeService statusService;
+    private BookingStatusCodeService statusService;
     @Autowired
     private BookingExtrasItemMapper bookingExtrasItemMapper;
 

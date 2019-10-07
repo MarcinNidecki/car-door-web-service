@@ -35,7 +35,7 @@ public class BookingExtras {
     @OneToMany(targetEntity = BookingExtrasItem.class,
             mappedBy = "bookingExtras",
             fetch = FetchType.EAGER)
-    private List<BookingExtrasItem> bookingList = new ArrayList<>();
+    private List<BookingExtrasItem> bookingExtrasItems = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -43,4 +43,5 @@ public class BookingExtras {
                 "price=" + price +
                 '}';
     }
+
 }

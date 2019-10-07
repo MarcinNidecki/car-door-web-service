@@ -2,7 +2,7 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.dto.CarBrandModelDto;
-import com.mnidecki.cardoor.services.DBService.DBCarBrandService;
+import com.mnidecki.cardoor.services.DBService.CarBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CarBrandModelMapper {
 
     @Autowired
-    DBCarBrandService carBrandService;
+    CarBrandService carBrandService;
 
     public CarBrandModel mapToCarBrandModel(final CarBrandModelDto carBrandModelDto) {
         return new CarBrandModel(

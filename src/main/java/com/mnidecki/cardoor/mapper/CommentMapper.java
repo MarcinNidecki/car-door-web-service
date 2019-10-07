@@ -2,8 +2,8 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.car.Comment;
 import com.mnidecki.cardoor.domain.dto.CommentDto;
-import com.mnidecki.cardoor.services.DBService.DBCarBrandModelService;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.CarBrandModelService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class CommentMapper {
 
     @Autowired
-    DBUserService userService;
+    UserService userService;
     @Autowired
-    DBCarBrandModelService modelService;
+    CarBrandModelService modelService;
 
     public Comment mapToComment(CommentDto commentDto) {
         return new Comment(

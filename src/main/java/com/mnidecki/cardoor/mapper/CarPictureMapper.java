@@ -2,8 +2,6 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.domain.dto.CarPictureDto;
-import com.mnidecki.cardoor.services.DBService.DBCarPicture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,9 +9,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class CarPictureMapper {
-
-    @Autowired
-    private DBCarPicture carPictureService;
 
     public CarPicture mapToCarPicture(CarPictureDto carPictureDto) {
         return new CarPicture(
@@ -24,8 +19,7 @@ public class CarPictureMapper {
                 carPictureDto.getFileNamePath(),
                 carPictureDto.getThumbnailsPath(),
                 carPictureDto.getFileExtension(),
-                carPictureDto.getCreatedDate(),
-                carPictureDto.getUpdatedDate());
+                carPictureDto.getCreatedDate());
     }
 
     public CarPictureDto mapToCarPictureDto(CarPicture carPicture) {
@@ -53,8 +47,7 @@ public class CarPictureMapper {
                         carPicture.getFileNamePath(),
                         carPicture.getThumbnailsPath(),
                         carPicture.getFileExtension(),
-                        carPicture.getCreatedDate(),
-                        null))
+                        carPicture.getCreatedDate()))
                 .collect(Collectors.toList());
     }
 
@@ -68,11 +61,8 @@ public class CarPictureMapper {
                         carPictureDto.getFileNamePath(),
                         carPictureDto.getThumbnailsPath(),
                         carPictureDto.getFileExtension(),
-                        carPictureDto.getCreatedDate(),
-                        carPictureDto.getUpdatedDate()))
+                        carPictureDto.getCreatedDate()))
                 .collect(Collectors.toList());
     }
-
-
 }
 

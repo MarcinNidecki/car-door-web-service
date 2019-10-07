@@ -1,5 +1,6 @@
 package com.mnidecki.cardoor.repository;
 
+
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

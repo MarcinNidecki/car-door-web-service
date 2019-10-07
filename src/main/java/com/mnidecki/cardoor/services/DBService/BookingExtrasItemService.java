@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DBBookingExtrasItemService {
+public class BookingExtrasItemService {
 
     @Autowired
     BookingExtrasItemRepository bookingExtrasItemRepository;
-
 
     public List<BookingExtrasItem> findAll() {
         return bookingExtrasItemRepository.findAll();
@@ -31,7 +30,4 @@ public class DBBookingExtrasItemService {
         bookingExtrasItemRepository.deleteById(id);
     }
 
-    public List<BookingExtrasItem> findAllBookingExtrasItemByBooking_Id(Long id) {
-        return bookingExtrasItemRepository.findAllBookingExtrasItemByBooking_Id(id);
-    }
 }

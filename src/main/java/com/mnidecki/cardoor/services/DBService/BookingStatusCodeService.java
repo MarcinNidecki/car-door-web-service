@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DBBookingStatusCodeService {
+public class BookingStatusCodeService {
 
     @Autowired
     private BookingStatusCodeRepository bookingStatusCodeRepository;
-
 
     public List<BookingStatusCode> findAll() {
         return bookingStatusCodeRepository.findAll();

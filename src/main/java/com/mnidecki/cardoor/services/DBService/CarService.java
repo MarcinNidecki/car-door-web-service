@@ -2,6 +2,7 @@ package com.mnidecki.cardoor.services.DBService;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
 import com.mnidecki.cardoor.domain.car.Car;
+import com.mnidecki.cardoor.domain.car.CarParameters;
 import com.mnidecki.cardoor.repository.CarCustomRepository;
 import com.mnidecki.cardoor.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class DBCarService {
+public class CarService {
 
     @Autowired
     private CarRepository carRepository;
     @Autowired
-    private DBBookingService bookingService;
+    private CarParameters carParametersService;
     @Autowired
     private CarCustomRepository carCustomRepository;
 
@@ -33,6 +34,11 @@ public class DBCarService {
     }
 
     public Car save(final Car car) {
+        return carRepository.save(car);
+    }
+
+    public Car save(final Car car, final CarParameters carParameters) {
+        car.setCarParameters(carParameters);
         return carRepository.save(car);
     }
 

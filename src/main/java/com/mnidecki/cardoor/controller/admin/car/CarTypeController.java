@@ -3,13 +3,15 @@ package com.mnidecki.cardoor.controller.admin.car;
 import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.domain.dto.CarTypeDto;
 import com.mnidecki.cardoor.mapper.CarTypeMapper;
-import com.mnidecki.cardoor.services.DBService.DBCarTypeService;
+import com.mnidecki.cardoor.services.DBService.CarTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -18,14 +20,10 @@ import java.util.List;
 public class CarTypeController {
 
     @Autowired
-    private DBCarTypeService carTypeService;
+    private CarTypeService carTypeService;
     @Autowired
     private CarTypeMapper carTypeMapper;
 
-    @ModelAttribute("allType")
-    public List<CarTypeDto> allType() {
-        return carTypeMapper.mapToCarTypeDtoList(this.carTypeService.findAll());
-    }
 
     @GetMapping("/type")
     public ModelAndView cars() {
@@ -39,21 +37,29 @@ public class CarTypeController {
         return modelAndView;
     }
 
-
     @PostMapping(value = "/type")
-    public ModelAndView save(@ModelAttribute CarTypeDto carTypeDto, RedirectAttributes redirectAttributes) {
+    public ModelAndView save(@Valid @ModelAttribute CarTypeDto carTypeDto,
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
+            modelAndView.setViewName("carType");
+            return modelAndView;
+        }
         CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car type is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/type");
+            return modelAndView;
 
         } else {
             modelAndView.addObject("errormessage", "Car type is not save, Please try again");
             modelAndView.addObject("carTypeDto", carTypeDto);
             modelAndView.setViewName("carType");
+            return modelAndView;
+
         }
-        return modelAndView;
+
     }
 
 
@@ -65,14 +71,20 @@ public class CarTypeController {
         modelAndView.addObject("carTypes", carTypes);
         modelAndView.addObject("carTypeDto", carTypeDto);
         modelAndView.addObject("title", "Cars Type");
-        modelAndView.addObject("isAdd", false);
+        modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("carType");
         return modelAndView;
     }
 
     @PutMapping(value = "/type")
-    public ModelAndView update(@ModelAttribute CarTypeDto carTypeDto, RedirectAttributes redirectAttributes) {
+    public ModelAndView update(@Valid @ModelAttribute CarTypeDto carTypeDto,
+                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getFieldError());
+            modelAndView.setViewName("carType");
+            return modelAndView;
+        }
         CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car type is updated successfully");
@@ -92,7 +104,7 @@ public class CarTypeController {
         carTypeService.deleteById(id);
         modelAndView.addObject("carTypeDto", new CarTypeDto());
         redirectAttributes.addFlashAttribute("successmessage", "Car type is deleted successfully");
-        modelAndView.setViewName("carType");
+        modelAndView.setViewName("redirect:/admin/car/type");
         return modelAndView;
     }
 }

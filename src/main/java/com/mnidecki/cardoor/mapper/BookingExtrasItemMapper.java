@@ -2,8 +2,8 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.booking.BookingExtrasItem;
 import com.mnidecki.cardoor.domain.dto.BookingExtrasItemDto;
-import com.mnidecki.cardoor.services.DBService.DBBookingExtrasService;
-import com.mnidecki.cardoor.services.DBService.DBBookingService;
+import com.mnidecki.cardoor.services.DBService.BookingExtrasService;
+import com.mnidecki.cardoor.services.DBService.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class BookingExtrasItemMapper {
 
     @Autowired
-    private DBBookingExtrasService bookingExtrasService;
+    private BookingExtrasService bookingExtrasService;
     @Autowired
-    private DBBookingService bookingService;
+    private BookingService bookingService;
 
     public BookingExtrasItemDto mapToBookingExtrasItemDto(BookingExtrasItem bookingExtrasItem) {
         if (bookingExtrasItem.getBooking() == null) {
@@ -57,7 +57,7 @@ public class BookingExtrasItemMapper {
                     bookingExtrasItemDto.getQuantity(),
                     bookingExtrasItemDto.getTotalValue(),
                     bookingExtrasService.findById(bookingExtrasItemDto.getBookingExtrasId()).orElse(null),
-                    bookingService.findById(bookingExtrasItemDto.getBookingId())
+                    bookingService.findById(bookingExtrasItemDto.getBookingId()).orElse(null)
             );
         } else {
             return new BookingExtrasItem(

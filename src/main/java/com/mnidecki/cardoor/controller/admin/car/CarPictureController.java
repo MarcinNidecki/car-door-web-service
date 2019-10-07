@@ -2,16 +2,10 @@ package com.mnidecki.cardoor.controller.admin.car;
 
 import com.mnidecki.cardoor.config.FtpConfig;
 import com.mnidecki.cardoor.domain.car.CarPicture;
-import com.mnidecki.cardoor.domain.dto.CarDto;
 import com.mnidecki.cardoor.domain.dto.CarPictureDto;
-import com.mnidecki.cardoor.domain.dto.LocationDto;
-import com.mnidecki.cardoor.mapper.CarMapper;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
-import com.mnidecki.cardoor.mapper.LocationMapper;
-import com.mnidecki.cardoor.services.DBService.DBCarParameters;
-import com.mnidecki.cardoor.services.DBService.DBCarPicture;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
+import com.mnidecki.cardoor.services.DBService.CarParametersService;
+import com.mnidecki.cardoor.services.DBService.CarPictureService;
 import com.mnidecki.cardoor.services.FtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,33 +21,16 @@ import java.util.List;
 @RequestMapping("/admin/car/")
 public class CarPictureController {
 
-    private final FtpService ftpService = new FtpService();
     @Autowired
-    private DBLocationService locationService;
+    private  FtpService ftpService;
     @Autowired
-    private DBCarService carService;
-    @Autowired
-    private DBCarParameters carParametersService;
-    @Autowired
-    private CarMapper carMapper;
-    @Autowired
-    private LocationMapper locationMapper;
+    private CarParametersService carParametersService;
     @Autowired
     private CarPictureMapper carPictureMapper;
     @Autowired
-    private DBCarPicture pictureService;
+    private CarPictureService pictureService;
     @Autowired
     private FtpConfig ftpConfig;
-
-    @ModelAttribute("allCity")
-    public List<LocationDto> allCity() {
-        return locationMapper.mapToLocationDtoList(this.locationService.findAll());
-    }
-
-    @ModelAttribute("allCar")
-    public List<CarDto> allCar() {
-        return carMapper.mapToCarDtoList(this.carService.findAll());
-    }
 
     @GetMapping("/picture")
     public ModelAndView cars() {
@@ -62,7 +39,6 @@ public class CarPictureController {
         modelAndView.addObject("carsPictures", carsPictures);
         modelAndView.addObject("carPictureDto", new CarPictureDto());
         modelAndView.addObject("carParametersService", carParametersService);
-        modelAndView.addObject("title", "Cars Picture");
         modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("carsPicture");
         return modelAndView;
@@ -71,14 +47,18 @@ public class CarPictureController {
     @PostMapping(value = "/picture")
     public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
-        CarPicture carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
+        modelAndView.addObject("isAdd", false);
+        CarPictureDto uploadedPicture = ftpService.uploadPicture(carPictureDto);
+        CarPicture carPicture = new CarPicture();
+        if (uploadedPicture !=null) {
+            carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
+        }
         if (carPicture != null) {
-            redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
+            redirectAttributes.addFlashAttribute("successmessage",
+                    "Picture " + carPicture.getFileName()+ "."+ carPicture.getFileExtension() +" saved successfully");
             modelAndView.setViewName("redirect:/admin/car/picture");
-
         } else {
-            modelAndView.addObject("errormessage", "Car is not save, Please try again");
+            modelAndView.addObject("errormessage", "We could not save your picture. Please try again later");
             modelAndView.addObject("carPictureDto", carPictureDto);
             modelAndView.setViewName("carsPicture");
         }
@@ -93,7 +73,6 @@ public class CarPictureController {
         modelAndView.addObject("carsPictures", carsPictures);
         modelAndView.addObject("carPictureDto", carPictureDto);
         modelAndView.addObject("carParametersService", carParametersService);
-        modelAndView.addObject("title", "Cars Picture");
         modelAndView.addObject("isAdd", false);
         modelAndView.setViewName("carsPicture");
         return modelAndView;
@@ -102,10 +81,11 @@ public class CarPictureController {
     @PutMapping(value = "/picture")
     public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        if (!carPictureDto.getFile().isEmpty()) {
-            modelAndView.addObject(ftpService.uploadPicture(carPictureDto, redirectAttributes).getFlashAttributes());
+        CarPictureDto uploadedPicture = ftpService.uploadPicture(carPictureDto);
+        CarPicture carPicture = new CarPicture();
+        if (uploadedPicture !=null) {
+            carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         }
-        CarPicture carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         if (carPicture != null) {
             redirectAttributes.addFlashAttribute("successmessage", "Car picture is updated successfully");
             modelAndView.setViewName("redirect:/admin/car/picture");
@@ -124,7 +104,7 @@ public class CarPictureController {
         pictureService.deleteById(id);
         modelAndView.addObject("carPictureDto", new CarPictureDto());
         redirectAttributes.addFlashAttribute("successmessage", "Car picture is deleted successfully");
-        modelAndView.setViewName("carsPicture");
+        modelAndView.setViewName("redirect:/admin/car/picture");
         return modelAndView;
     }
 

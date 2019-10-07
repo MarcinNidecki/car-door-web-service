@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class DBCarPicture {
+public class CarPictureService {
 
     @Autowired
     private CarPictureRepository carPictureRepository;
@@ -21,7 +21,7 @@ public class DBCarPicture {
         CarPicture unknown = carPictureRepository.findCarPictureByDescriptions("Unknown");
         if (unknown == null) {
             unknown = new CarPicture(
-                    "Unknown", "unknown", "unknown-small", "/img/car/unknown.jpg", "/img/car/unknown-small.jpg", "jpg", LocalDate.now(), LocalDate.now());
+                    "Unknown", "unknown", "unknown-small", "/img/car/unknown.jpg", "/img/car/unknown-small.jpg", "jpg", LocalDate.now());
             save(unknown);
         }
         return unknown;

@@ -2,7 +2,7 @@ package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.Location;
 import com.mnidecki.cardoor.domain.dto.LocationDto;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class LocationMapper {
 
     @Autowired
-    DBLocationService cityService;
+    LocationService cityService;
 
     public Location mapToLocation(final LocationDto locationDto) {
         return new Location(

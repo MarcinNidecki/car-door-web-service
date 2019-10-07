@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DBCarBrandModelService {
+public class CarBrandModelService {
     @Autowired
     private CarBrandModelRepository carBrandModelRepository;
 
     @Autowired
-    private DBStarService starService;
+    private StarService starService;
 
     public List<CarBrandModel> findAll() {
         return carBrandModelRepository.findAll();

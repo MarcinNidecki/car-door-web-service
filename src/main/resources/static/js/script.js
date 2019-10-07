@@ -59,7 +59,7 @@ $(".confirm-delete2").on('click', function (e) {
 
 $('.brand').change(
     function () {
-        $.getJSON("https://sleepy-oasis-69014.herokuapp.com/admin/car/model", {
+        $.getJSON("http://localhost:8080/admin/car/model", {
             brandId: $(this).val(),
             ajax: 'true'
         }, function (data) {

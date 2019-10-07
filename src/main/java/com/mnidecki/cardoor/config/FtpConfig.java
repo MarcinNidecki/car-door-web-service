@@ -13,5 +13,7 @@ public class FtpConfig {
     private String login;
     @Value("${ftp.password}")
     private String password;
+    @Value("${ftp.domain.image.path}")
+    private String domainFullImagePath;
 
 }

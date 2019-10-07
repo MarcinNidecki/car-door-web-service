@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Optional;
 
 @Service
-public class DBUserService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;

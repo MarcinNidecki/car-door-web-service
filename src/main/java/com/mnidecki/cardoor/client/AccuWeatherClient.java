@@ -30,37 +30,36 @@ public class AccuWeatherClient {
     private RestTemplate restTemplate;
 
 
-
     public String getCityId(Location location) {
-    URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/locations/v1/cities/search")
-            .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
-            .queryParam("q",location.getCity())
-            .queryParam("language", "pl-pl")
-            .build().encode().toUri();
+        URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/locations/v1/cities/search")
+                .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
+                .queryParam("q", location.getCity())
+                .queryParam("language", "pl-pl")
+                .build().encode().toUri();
 
         try {
-        LocationDto[] boardsResponse =  restTemplate.getForObject(uri, LocationDto[].class);
-        if(boardsResponse!= null && location.getCountry().equals(boardsResponse[0].getCountry().getLocalizedName()))
-            return ofNullable(boardsResponse[0].getCityKey()).orElse("");
+            LocationDto[] boardsResponse = restTemplate.getForObject(uri, LocationDto[].class);
+            if (boardsResponse != null && location.getCountry().equals(boardsResponse[0].getCountry().getLocalizedName()))
+                return ofNullable(boardsResponse[0].getCityKey()).orElse("");
         } catch (
-        RestClientException e) {
+                RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return "";
         }
-        return  "";
-}
+        return "";
+    }
 
     public ForecastResponseDto get5DayForecasts(Location location) {
         String locationId = getCityId(location);
-        URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/forecasts/v1/daily/5day/"+locationId)
+        URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/forecasts/v1/daily/5day/" + locationId)
                 .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
                 .queryParam("language", "pl-pl")
                 .build().encode().toUri();
 
         try {
-            ForecastResponseDto boardsResponse =  restTemplate.getForObject(uri, ForecastResponseDto.class);
+            ForecastResponseDto boardsResponse = restTemplate.getForObject(uri, ForecastResponseDto.class);
             boardsResponse = accuWeatherService.setDisplayNameOfDay(boardsResponse);
-                return ofNullable(boardsResponse).orElse(new ForecastResponseDto());
+            return ofNullable(boardsResponse).orElse(new ForecastResponseDto());
         } catch (
                 RestClientException e) {
             LOGGER.error(e.getMessage(), e);

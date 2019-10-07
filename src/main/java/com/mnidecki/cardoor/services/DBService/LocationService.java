@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DBLocationService {
+public class LocationService {
 
     @Autowired
     private LocationRepository locationRepository;

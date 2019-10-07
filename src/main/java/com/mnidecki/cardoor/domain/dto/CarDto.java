@@ -22,7 +22,8 @@ public class CarDto {
     @NotNull(message = "The model name must not be empty")
     private Long modelId;
     private Long brandId;
-    @Length(min = 2, max = 20, message = "The license plate '${validatedValue}' must be between {min} and {max} characters long")
+    @Length(min = 2, max = 10, message = "The license plate must be between {min} and {max} " +
+            "characters long")
     private String registration;
     private String vehicleStatus;
     @Max(2020)
@@ -36,17 +37,9 @@ public class CarDto {
     private boolean allWheelDrive;
     private String carTypeName;
     private String fuelType;
-    @Min(1)
-    @Max(5)
     private Integer doorsNumber;
-    @Min(1)
-    @Max(7)
     private Integer seatsNumber;
-    @Min(1)
-    @Max(5)
     private Integer smallBags;
-    @Min(1)
-    @Max(5)
     private Integer bigBags;
     @NotEmpty(message = "Color must be not empty")
     private String color;
@@ -223,5 +216,76 @@ public class CarDto {
         public CarDto build() {
             return new CarDto(id, brand, model, modelId, brandId, registration, vehicleStatus, year, price, transmissionIsAutomatic, airConditioning, allWheelDrive, carTypeName, fuelType, doorsNumber, seatsNumber, smallBags, bigBags, color, carTypeId, rating, cityId, carPictureId, carParametersId, fileNamePath, thumbnailsPath);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarDto carDto = (CarDto) o;
+
+        if (year != carDto.year) return false;
+        if (transmissionIsAutomatic != carDto.transmissionIsAutomatic) return false;
+        if (airConditioning != carDto.airConditioning) return false;
+        if (allWheelDrive != carDto.allWheelDrive) return false;
+        if (id != null ? !id.equals(carDto.id) : carDto.id != null) return false;
+        if (brand != null ? !brand.equals(carDto.brand) : carDto.brand != null) return false;
+        if (model != null ? !model.equals(carDto.model) : carDto.model != null) return false;
+        if (modelId != null ? !modelId.equals(carDto.modelId) : carDto.modelId != null) return false;
+        if (brandId != null ? !brandId.equals(carDto.brandId) : carDto.brandId != null) return false;
+        if (registration != null ? !registration.equals(carDto.registration) : carDto.registration != null)
+            return false;
+        if (vehicleStatus != null ? !vehicleStatus.equals(carDto.vehicleStatus) : carDto.vehicleStatus != null)
+            return false;
+        if (price != null ? !price.equals(carDto.price) : carDto.price != null) return false;
+        if (carTypeName != null ? !carTypeName.equals(carDto.carTypeName) : carDto.carTypeName != null) return false;
+        if (fuelType != null ? !fuelType.equals(carDto.fuelType) : carDto.fuelType != null) return false;
+        if (doorsNumber != null ? !doorsNumber.equals(carDto.doorsNumber) : carDto.doorsNumber != null) return false;
+        if (seatsNumber != null ? !seatsNumber.equals(carDto.seatsNumber) : carDto.seatsNumber != null) return false;
+        if (smallBags != null ? !smallBags.equals(carDto.smallBags) : carDto.smallBags != null) return false;
+        if (bigBags != null ? !bigBags.equals(carDto.bigBags) : carDto.bigBags != null) return false;
+        if (color != null ? !color.equals(carDto.color) : carDto.color != null) return false;
+        if (carTypeId != null ? !carTypeId.equals(carDto.carTypeId) : carDto.carTypeId != null) return false;
+        if (rating != null ? !rating.equals(carDto.rating) : carDto.rating != null) return false;
+        if (cityId != null ? !cityId.equals(carDto.cityId) : carDto.cityId != null) return false;
+        if (carPictureId != null ? !carPictureId.equals(carDto.carPictureId) : carDto.carPictureId != null)
+            return false;
+        if (carParametersId != null ? !carParametersId.equals(carDto.carParametersId) : carDto.carParametersId != null)
+            return false;
+        if (fileNamePath != null ? !fileNamePath.equals(carDto.fileNamePath) : carDto.fileNamePath != null)
+            return false;
+        return thumbnailsPath != null ? thumbnailsPath.equals(carDto.thumbnailsPath) : carDto.thumbnailsPath == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (modelId != null ? modelId.hashCode() : 0);
+        result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
+        result = 31 * result + (registration != null ? registration.hashCode() : 0);
+        result = 31 * result + (vehicleStatus != null ? vehicleStatus.hashCode() : 0);
+        result = 31 * result + year;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (transmissionIsAutomatic ? 1 : 0);
+        result = 31 * result + (airConditioning ? 1 : 0);
+        result = 31 * result + (allWheelDrive ? 1 : 0);
+        result = 31 * result + (carTypeName != null ? carTypeName.hashCode() : 0);
+        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        result = 31 * result + (doorsNumber != null ? doorsNumber.hashCode() : 0);
+        result = 31 * result + (seatsNumber != null ? seatsNumber.hashCode() : 0);
+        result = 31 * result + (smallBags != null ? smallBags.hashCode() : 0);
+        result = 31 * result + (bigBags != null ? bigBags.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (carTypeId != null ? carTypeId.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
+        result = 31 * result + (carPictureId != null ? carPictureId.hashCode() : 0);
+        result = 31 * result + (carParametersId != null ? carParametersId.hashCode() : 0);
+        result = 31 * result + (fileNamePath != null ? fileNamePath.hashCode() : 0);
+        result = 31 * result + (thumbnailsPath != null ? thumbnailsPath.hashCode() : 0);
+        return result;
     }
 }

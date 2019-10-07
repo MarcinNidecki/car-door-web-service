@@ -5,9 +5,9 @@ import com.mnidecki.cardoor.domain.dto.CarDto;
 import com.mnidecki.cardoor.domain.dto.CommentDto;
 import com.mnidecki.cardoor.mapper.CarMapper;
 import com.mnidecki.cardoor.mapper.CommentMapper;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
-import com.mnidecki.cardoor.services.DBService.DBCommentService;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.CarService;
+import com.mnidecki.cardoor.services.DBService.CommentService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +18,20 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RestController
+@RestController("UserCarController")
 @RequestMapping("/car")
-public class CarController {
+public class UserCarController {
 
     @Autowired
-    private DBCarService carService;
+    private CarService carService;
     @Autowired
     private CarMapper carMapper;
     @Autowired
-    private DBCommentService commentService;
+    private CommentService commentService;
     @Autowired
     private CommentMapper commentMapper;
     @Autowired
-    private DBUserService userService;
+    private UserService userService;
 
     @PostMapping(value = "/brand/{brandId}/model/{modelId}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long modelId, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {

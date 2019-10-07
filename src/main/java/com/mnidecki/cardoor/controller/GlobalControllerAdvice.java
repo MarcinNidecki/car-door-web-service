@@ -2,10 +2,10 @@ package com.mnidecki.cardoor.controller;
 
 import com.mnidecki.cardoor.domain.dto.CommentDto;
 import com.mnidecki.cardoor.mapper.CommentMapper;
-import com.mnidecki.cardoor.services.DBService.DBBookingService;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
-import com.mnidecki.cardoor.services.DBService.DBCommentService;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
+import com.mnidecki.cardoor.services.DBService.BookingService;
+import com.mnidecki.cardoor.services.DBService.CarService;
+import com.mnidecki.cardoor.services.DBService.CommentService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,15 +19,15 @@ import java.util.List;
 public class GlobalControllerAdvice {
 
     @Autowired
-    private DBCommentService commentService;
+    private CommentService commentService;
     @Autowired
     private CommentMapper commentMapper;
     @Autowired
-    private DBCarService carService;
+    private CarService carService;
     @Autowired
-    private DBBookingService bookingService;
+    private BookingService bookingService;
     @Autowired
-    private DBLocationService locationService;
+    private LocationService locationService;
 
     @ModelAttribute("lastComments")
     public List<CommentDto> getLast4Comments() {

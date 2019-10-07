@@ -9,8 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -81,18 +79,98 @@ public class CarParameters implements Serializable {
         this.car = car;
     }
 
-    public CarParameters(String fuelType, boolean allWheelDrive, Integer doorsNumber, Integer seatsNumber, Integer bigBags, Integer smallBags, String color, Integer year, @NotNull boolean transmissionIsAutomatic, @NotNull boolean airConditioning, CarType type, CarPicture carPicture) {
-        this.fuelType = fuelType;
-        this.allWheelDrive = allWheelDrive;
-        this.doorsNumber = doorsNumber;
-        this.seatsNumber = seatsNumber;
-        this.bigBags = bigBags;
-        this.smallBags = smallBags;
-        this.color = color;
-        this.year = year;
-        this.transmissionIsAutomatic = transmissionIsAutomatic;
-        this.airConditioning = airConditioning;
-        this.type = type;
-        this.carPicture = carPicture;
+
+    public static class CarParametersBuilder {
+        private String fuelType;
+        private boolean allWheelDrive;
+        private Integer doorsNumber;
+        private Integer seatsNumber;
+        private String color;
+        private Integer year;
+        private boolean transmissionIsAutomatic;
+        private boolean airConditioning;
+        private CarType type;
+        private CarPicture carPicture;
+        private Car car;
+        private Integer bigBags;
+        private Integer smallBags;
+        private Long id;
+
+
+        public CarParametersBuilder fuelType(String fuelType) {
+            this.fuelType = fuelType;
+            return this;
+        }
+
+        public CarParametersBuilder allWheelDrive(boolean allWheelDrive) {
+            this.allWheelDrive = allWheelDrive;
+            return this;
+        }
+
+        public CarParametersBuilder doorsNumber(Integer doorsNumber) {
+            this.doorsNumber = doorsNumber;
+            return this;
+        }
+
+        public CarParametersBuilder seatsNumber(Integer seatsNumber) {
+            this.seatsNumber = seatsNumber;
+            return this;
+        }
+
+        public CarParametersBuilder color(String color) {
+            this.color = color;
+            return this;
+        }
+
+        public CarParametersBuilder year(Integer year) {
+            this.year = year;
+            return this;
+        }
+
+        public CarParametersBuilder transmissionIsAutomatic(boolean transmissionIsAutomatic) {
+            this.transmissionIsAutomatic = transmissionIsAutomatic;
+            return this;
+        }
+
+        public CarParametersBuilder airConditioning(boolean airConditioning) {
+            this.airConditioning = airConditioning;
+            return this;
+        }
+
+        public CarParametersBuilder type(CarType type) {
+            this.type = type;
+            return this;
+        }
+
+        public CarParametersBuilder carPicture(CarPicture carPicture) {
+            this.carPicture = carPicture;
+            return this;
+        }
+
+        public CarParametersBuilder car(Car car) {
+            this.car = car;
+            return this;
+        }
+
+        public CarParametersBuilder bigBags(Integer bigBags) {
+            this.bigBags = bigBags;
+            return this;
+        }
+
+        public CarParametersBuilder smallBags(Integer smallBags) {
+            this.smallBags = smallBags;
+            return this;
+        }
+
+        public CarParametersBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public CarParameters build() {
+            return new CarParameters(id, fuelType, allWheelDrive, doorsNumber, seatsNumber, bigBags, smallBags, color,
+                    year, transmissionIsAutomatic, airConditioning, type, carPicture, car);
+        }
     }
 }
+

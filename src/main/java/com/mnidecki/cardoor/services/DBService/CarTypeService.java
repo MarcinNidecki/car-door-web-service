@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DBCarTypeService {
+public class CarTypeService {
 
     @Autowired
     private CarTypeRepository carTypeRepository;
@@ -36,5 +36,10 @@ public class DBCarTypeService {
 
     public void deleteById(final Long id) {
         carTypeRepository.deleteById(id);
+    }
+
+    public boolean isExist(Long id ) {
+       return carTypeRepository.existsById(id);
+
     }
 }

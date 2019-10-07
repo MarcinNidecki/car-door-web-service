@@ -8,10 +8,10 @@ import com.mnidecki.cardoor.domain.car.Car;
 import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.domain.dto.accuweather.ForecastResponseDto;
 import com.mnidecki.cardoor.mapper.*;
-import com.mnidecki.cardoor.services.DBService.DBBookingService;
-import com.mnidecki.cardoor.services.DBService.DBCarService;
-import com.mnidecki.cardoor.services.DBService.DBLocationService;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.BookingService;
+import com.mnidecki.cardoor.services.DBService.CarService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import net.kaczmarzyk.spring.data.jpa.domain.Between;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
@@ -36,23 +36,23 @@ import java.util.List;
 @CrossOrigin("*")
 public class BookingController {
 
-    private final DBBookingService bookingService;
+    private final BookingService bookingService;
     private final BookingMapper bookingMapper;
-    private final DBCarService carService;
+    private final CarService carService;
     private final CarMapper carMapper;
     private final LocationMapper locationMapper;
-    private final DBLocationService locationService;
-    private final DBLocationService cityService;
-    private final DBUserService userService;
+    private final LocationService locationService;
+    private final LocationService cityService;
+    private final UserService userService;
     private final UserMapper userMapper;
     private final BookingExtrasItemMapper bookingExtrasItemMapper;
     private final AccuWeatherClient accuWeatherClient;
     private final KayakClient kayakClient;
 
     @Autowired
-    public BookingController(BookingMapper bookingMapper, DBBookingService bookingService, DBCarService carService,
-                             CarMapper carMapper, LocationMapper locationMapper, DBLocationService locationService,
-                             KayakClient kayakClient, DBLocationService cityService, DBUserService userService,
+    public BookingController(BookingMapper bookingMapper, BookingService bookingService, CarService carService,
+                             CarMapper carMapper, LocationMapper locationMapper, LocationService locationService,
+                             KayakClient kayakClient, LocationService cityService, UserService userService,
                              UserMapper userMapper, BookingExtrasItemMapper bookingExtrasItemMapper, AccuWeatherClient
                                          accuWeatherClient) {
 
@@ -125,9 +125,9 @@ public class BookingController {
         CarDto car = carMapper.mapToCarDto(carService.findById(carId));
         LocationDto location = locationMapper.mapToLocationDto(locationService.findById(cityId));
         BookingItemCreationDto bookingExtras = new BookingItemCreationDto(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList
-                (bookingService.prepareEmptyExtrasList()));
-        long daysOfRent = bookingService.countBookingDays(bookingService.timeToTimestampConverter(startDate, startTime),
-                bookingService.timeToTimestampConverter(endDate, endTime));
+                (bookingService.prepareEmptyExtrasItemList()));
+        long daysOfRent = bookingService.countBookingDays(bookingService.stringTimeToTimestampConverter(startDate, startTime),
+                bookingService.stringTimeToTimestampConverter(endDate, endTime));
 
         ModelAndView modelAndView = new ModelAndView();
         session.setAttribute("car", car);
@@ -163,8 +163,8 @@ public class BookingController {
                                 .bookingStatusCodeId(1L)
                                 .cityId(cityId)
                                 .totalCost(BigDecimal.ZERO)
-                                .startDate(bookingService.timeToTimestampConverter(startDate, startTime))
-                                .returnDate(bookingService.timeToTimestampConverter(endDate, endTime))
+                                .startDate(bookingService.stringTimeToTimestampConverter(startDate, startTime))
+                                .returnDate(bookingService.stringTimeToTimestampConverter(endDate, endTime))
                                 .bookingExtrasList(bookingExtras.getItems())
                                 .build())));
         session.setAttribute("userBooking", userBooking);

@@ -51,6 +51,10 @@ public class CarBrandModel {
         this.model = model;
         this.brand = brand;
     }
+    public CarBrandModel(Long id, String model) {
+        this.id = id;
+        this.model = model;
+    }
 
 }
 

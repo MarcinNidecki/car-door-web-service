@@ -14,25 +14,25 @@ import java.util.stream.Collectors;
 public class CarMapper {
 
     @Autowired
-    private DBLocationService cityService;
+    private LocationService cityService;
     @Autowired
-    private DBCarTypeService typeService;
+    private CarTypeService typeService;
     @Autowired
-    private DBCarPicture carPictureService;
+    private CarPictureService carPictureService;
     @Autowired
-    private DBCarParameters carParametersService;
+    private CarParameters carParametersService;
     @Autowired
-    private DBCarBrandModelService carBrandModelService;
+    private CarBrandModelService carBrandModelService;
     @Autowired
-    private DBStarService starService;
+    private StarService starService;
 
     public Car mapToCar(final CarDto carDto) {
+
         return new Car.CarBuilder()
-                .id(carDto.getId())
                 .model(carBrandModelService.findByID(carDto.getModelId()))
                 .registration(carDto.getRegistration())
                 .vehicleStatus(carDto.getVehicleStatus())
-                .carParameters(carParametersService.findById(carDto.getCarParametersId()).orElse(null))
+                .carParameters(mapToCarParameters(carDto))
                 .price(carDto.getPrice())
                 .location(cityService.findById(carDto.getCityId()))
                 .build();
@@ -77,19 +77,19 @@ public class CarMapper {
     }
 
     public CarParameters mapToCarParameters(final CarDto carDto) {
-        return new CarParameters(
-                carDto.getFuelType(),
-                carDto.isAllWheelDrive(),
-                carDto.getDoorsNumber(),
-                carDto.getSeatsNumber(),
-                carDto.getBigBags(),
-                carDto.getSmallBags(),
-                carDto.getColor(),
-                carDto.getYear(),
-                carDto.isTransmissionIsAutomatic(),
-                carDto.isAirConditioning(),
-                typeService.getById(carDto.getCarTypeId()),
-                carPictureService.findById(carDto.getCarPictureId()));
+        return new CarParameters.CarParametersBuilder()
+                .fuelType(carDto.getFuelType())
+                .allWheelDrive(carDto.isAllWheelDrive())
+                .doorsNumber(carDto.getDoorsNumber())
+                .seatsNumber(carDto.getSeatsNumber())
+                .bigBags(carDto.getBigBags())
+                .smallBags(carDto.getSmallBags())
+                .color(carDto.getColor())
+                .year(carDto.getYear())
+                .transmissionIsAutomatic(carDto.isTransmissionIsAutomatic())
+                .airConditioning(carDto.isAirConditioning())
+                .type(typeService.getById(carDto.getCarTypeId()))
+                .carPicture(carPictureService.findById(carDto.getCarPictureId())).build();
     }
 
 }

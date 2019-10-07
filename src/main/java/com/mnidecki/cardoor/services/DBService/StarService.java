@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DBStarService {
+public class StarService {
 
     @Autowired
     private StarRepository starRepository;

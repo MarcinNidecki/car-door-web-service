@@ -7,8 +7,8 @@ import com.mnidecki.cardoor.domain.dto.UserQuickFormDto;
 import com.mnidecki.cardoor.mapper.UserMapper;
 import com.mnidecki.cardoor.repository.ConfirmationTokenRepository;
 import com.mnidecki.cardoor.repository.UserRepository;
-import com.mnidecki.cardoor.services.DBService.DBUserRoleService;
-import com.mnidecki.cardoor.services.DBService.DBUserService;
+import com.mnidecki.cardoor.services.DBService.UserRoleService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import com.mnidecki.cardoor.services.SimpleEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +26,9 @@ import javax.validation.Valid;
 @Controller
 public class AuthenticationController {
     @Autowired
-    DBUserService userService;
+    UserService userService;
     @Autowired
-    DBUserRoleService userRoleService;
+    UserRoleService userRoleService;
     @Autowired
     ConfirmationTokenRepository confirmationTokenRepository;
     @Autowired

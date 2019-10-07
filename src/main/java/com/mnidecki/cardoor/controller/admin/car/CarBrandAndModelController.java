@@ -6,8 +6,8 @@ import com.mnidecki.cardoor.domain.dto.CarBrandDto;
 import com.mnidecki.cardoor.domain.dto.CarBrandModelDto;
 import com.mnidecki.cardoor.mapper.CarBrandMapper;
 import com.mnidecki.cardoor.mapper.CarBrandModelMapper;
-import com.mnidecki.cardoor.services.DBService.DBCarBrandModelService;
-import com.mnidecki.cardoor.services.DBService.DBCarBrandService;
+import com.mnidecki.cardoor.services.DBService.CarBrandModelService;
+import com.mnidecki.cardoor.services.DBService.CarBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,9 +25,9 @@ public class CarBrandAndModelController {
     @Autowired
     private CarBrandModelMapper carBrandModelMapper;
     @Autowired
-    private DBCarBrandService carBrandService;
+    private CarBrandService carBrandService;
     @Autowired
-    private DBCarBrandModelService carBrandModelService;
+    private CarBrandModelService carBrandModelService;
 
     @ModelAttribute("allBrand")
     public List<CarBrandDto> allType() {

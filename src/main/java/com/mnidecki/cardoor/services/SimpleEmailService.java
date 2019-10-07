@@ -10,27 +10,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SimpleEmailService {
+
     private static Logger LOGGER = LoggerFactory.getLogger(MimeMessagePreparator.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
-    @Autowired
-    private MailCreatorService mailCreatorService;
 
-    public void send(Mail mail, Booking booking) {
-        LOGGER.info("Starting emial preparation...");
-        try {
-            javaMailSender.send(bookingConfirmationMail(mail, booking));
-
-            LOGGER.info("Email has been sent.");
-        } catch (MailException e) {
-            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
-        }
-    }
 
     public void send(Mail mail) {
         LOGGER.info("Starting emial preparation...");
@@ -40,6 +30,25 @@ public class SimpleEmailService {
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
+        }
+    }
+
+    public boolean sendBookingConfirmation(Booking booking) {
+        Mail mail = new Mail(
+                booking.getUser().getEmail(),
+                "CARDOOR car reservation confirmation.",
+                "CARDOOR car reservation confirmation");
+        LOGGER.info("Starting emial preparation...");
+
+        try {
+            javaMailSender.send(createMailMessage(mail));
+            LOGGER.info("Email has been sent.");
+            return true;
+
+
+        } catch (MailException e) {
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
+            return false;
         }
     }
 
@@ -53,14 +62,4 @@ public class SimpleEmailService {
         mailMessage.setText(mail.getMessage());
         return mailMessage;
     }
-
-    private MimeMessagePreparator bookingConfirmationMail(final Mail mail, Booking booking) {
-        return mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            messageHelper.setTo(mail.getMailTo());
-            messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.bookingConfirmation(booking), true);
-        };
-    }
-
 }

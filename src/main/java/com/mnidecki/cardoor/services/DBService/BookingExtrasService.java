@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DBBookingExtrasService {
+public class BookingExtrasService {
 
     @Autowired
     BookingExtrasRepository bookingExtrasRepository;

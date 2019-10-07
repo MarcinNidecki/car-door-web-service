@@ -27,7 +27,8 @@ public class CarBrand {
             fetch = FetchType.EAGER)
     private List<CarBrandModel> models = new ArrayList<>();
 
-    public CarBrand(String brand) {
+    public CarBrand(Long id, String brand) {
+        this.id = id;
         this.brand = brand;
     }
 

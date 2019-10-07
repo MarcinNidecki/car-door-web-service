@@ -27,7 +27,7 @@
                         <input type="hidden" th:field="*{id}" th:value="@{${isAdd}?'':'${carPictureDto.thumbnailsPath}'}">
                         <input type="hidden" th:field="*{thumbnailsPath}" th:value="@{${isAdd}?'':'${carPictureDto.fileExtension}'}">
                         <input type="hidden" th:field="*{createdDate}" th:value="@{${isAdd}?'':'${carPictureDto.createdDate}'}">
-                        <input type="hidden" th:field="*{updatedDate}" th:value="@{${isAdd}?'':'${carPictureDto.updatedDate}'}">
+
                         <label for="formGroupExampleInput">Descriptions</label>
                         <input type="text" class="form-control" id="descriptions" placeholder="Descriptions" th:field="*{descriptions}">
                     </div>

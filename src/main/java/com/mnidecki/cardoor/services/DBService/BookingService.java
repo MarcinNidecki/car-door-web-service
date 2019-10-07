@@ -15,38 +15,38 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class DBBookingService {
+public class BookingService {
+
+    private final BookingRepository bookingRepository;
+    private final CommentService commentService;
+    private final BookingExtrasService extrasService;
+    private final SimpleEmailService simpleEmailService;
 
     @Autowired
-    private BookingRepository bookingRepository;
-    @Autowired
-    private DBCommentService commentService;
-    @Autowired
-    private DBBookingExtrasService extrasService;
-    @Autowired
-    private SimpleEmailService simpleEmailService;
+    public BookingService(BookingRepository bookingRepository, CommentService commentService, BookingExtrasService extrasService, SimpleEmailService simpleEmailService) {
+        this.bookingRepository = bookingRepository;
+        this.commentService = commentService;
+        this.extrasService = extrasService;
+        this.simpleEmailService = simpleEmailService;
+    }
 
 
     public List<Booking> findAll() {
         return bookingRepository.findAll();
     }
 
-    public Booking findById(final Long id) {
-        return bookingRepository.findById(id).orElseGet(null);
+    public Optional<Booking> findById(final Long id) {
+        return bookingRepository.findById(id);
     }
 
-    public Booking save(final Booking booking) {
+    public Booking save(Booking booking) {
         booking.getBookingExtrasList().forEach(bookingExtrasItem -> bookingExtrasItem.setBooking(booking));
         booking.setCreatedDate(Timestamp.valueOf(LocalDateTime.now()));
-        String SUBJECT = "CARDOOR - Rental reservation confirmation";
-        simpleEmailService.send(new Mail(
-                booking.getUser().getEmail(),
-                SUBJECT,
-                "CARDOOR car reservation confirmation"), booking
-        );
+        simpleEmailService.sendBookingConfirmation(booking);
         return bookingRepository.save(booking);
     }
 
@@ -89,30 +89,29 @@ public class DBBookingService {
 
     }
 
-    public List<BookingExtrasItem> prepareEmptyExtrasList() {
+    public List<BookingExtrasItem> prepareEmptyExtrasItemList() {
         List<BookingExtrasItem> extrasItemList = new ArrayList<>();
         extrasService.findAll().forEach(extras -> extrasItemList.add(new BookingExtrasItem(0L, BigDecimal.ZERO, extras)));
         return extrasItemList;
     }
 
-    public Timestamp timeToTimestampConverter(String date, String time) {
-        return Timestamp.valueOf(date + " " + time + ":00");
+    public Timestamp stringTimeToTimestampConverter(String date, String time) {
+        return Timestamp.valueOf(LocalDateTime.parse(date+"T" +time));
     }
 
-    public LocalDateTime timeToLocalDateTimeConverter(String date, String time) {
-        return Timestamp.valueOf(date + " " + time + ":00").toLocalDateTime();
-    }
 
     public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
-        LocalDateTime start = timeToLocalDateTimeConverter(startDate,startTime);
-        LocalDateTime end = timeToLocalDateTimeConverter(endDate,endTime);
+        LocalDateTime start = LocalDateTime.parse(startDate+"T" +startTime);
+        LocalDateTime end = LocalDateTime.parse(endDate+"T" +endTime);
         return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
     }
     public int  countHappyClients() {
-        Integer unhappyClient = 0;
+        Integer unhappyClient;
         unhappyClient = commentService.countAllByRatingLessThan2();
         int allClient = findAll().size();
         return allClient - unhappyClient;
     }
+
+
 }
 
