@@ -1,6 +1,6 @@
 package com.mnidecki.cardoor.repository;
 
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface LocationRepository extends CrudRepository<Location, Integer> {
+public interface LocationRepository extends CrudRepository<Locationn, Integer> {
 
     @Override
-    List<Location> findAll();
+    List<Locationn> findAll();
 
-    Optional<Location> findById(Long id);
+    Optional<Locationn> findById(Long id);
 
     @Override
-    Location save(Location location);
+    Locationn save(Locationn location);
 
     void deleteById(Long id);
 

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Entity(name = "cities")
-public class Location {
+public class Locationn {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,7 +54,7 @@ public class Location {
     private Set<Booking> bookingList = new HashSet<>();
 
 
-    public Location(Long id, String country, String city, String locationName, String addressLine, String addressLine2, String pickUpInstructions, String postalCode, String email, String phone, String openingHours) {
+    public Locationn(Long id, String country, String city, String locationName, String addressLine, String addressLine2, String pickUpInstructions, String postalCode, String email, String phone, String openingHours) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -68,7 +68,7 @@ public class Location {
         this.openingHours = openingHours;
     }
 
-    public Location(Long id,String city) {
+    public Locationn(Long id, String city) {
         this.id = id;
         this.city = city;
     }
@@ -78,7 +78,7 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Location location = (Location) o;
+        Locationn location = (Locationn) o;
 
         if (id != null ? !id.equals(location.id) : location.id != null) return false;
         if (country != null ? !country.equals(location.country) : location.country != null) return false;

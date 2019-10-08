@@ -10,12 +10,12 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7")
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.8")
         classpath "io.freefair.gradle:lombok-plugin:4.1.2"
 
     }
 }
-
+apply plugin: "org.sonarqube"
 apply plugin: "io.freefair.lombok"
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'

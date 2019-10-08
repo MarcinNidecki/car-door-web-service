@@ -1,7 +1,7 @@
 package com.mnidecki.cardoor.domain.booking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.car.Car;
 import lombok.*;
@@ -37,7 +37,7 @@ public class Booking {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cityId")
-    private Location location;
+    private Locationn location;
 
     @Column(name = "total_cost")
     private BigDecimal totalCost;
@@ -66,7 +66,7 @@ public class Booking {
     private DiscountCode discountCode;
 
 
-    public Booking(Long id, User user, Car car, BookingStatusCode bookingStatusCode, Location location, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate, Timestamp createdDate, List<BookingExtrasItem> bookingExtrasList, DiscountCode discountCode) {
+    public Booking(Long id, User user, Car car, BookingStatusCode bookingStatusCode, Locationn location, BigDecimal totalCost, Timestamp startDate, Timestamp returnDate, Timestamp createdDate, List<BookingExtrasItem> bookingExtrasList, DiscountCode discountCode) {
         this.id = id;
         this.user = user;
         this.car = car;
@@ -85,7 +85,7 @@ public class Booking {
         private User user;
         private Car car;
         private BookingStatusCode bookingStatusCode;
-        private Location location;
+        private Locationn location;
         private BigDecimal totalCost;
         private Timestamp startDate;
         private Timestamp returnDate;
@@ -113,7 +113,7 @@ public class Booking {
             return this;
         }
 
-        public BookingBuilder location(Location location) {
+        public BookingBuilder location(Locationn location) {
             this.location = location;
             return this;
         }

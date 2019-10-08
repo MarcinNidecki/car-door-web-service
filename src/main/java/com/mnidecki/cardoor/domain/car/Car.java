@@ -1,9 +1,7 @@
 package com.mnidecki.cardoor.domain.car;
 
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.booking.Booking;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -39,7 +37,7 @@ public class Car {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cityId")
-    private Location location;
+    private Locationn location;
 
     @OneToMany(targetEntity = Booking.class,
             mappedBy = "car",
@@ -47,7 +45,7 @@ public class Car {
     private Set<Booking> bookingsList;
 
 
-    public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Location location) {
+    public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Locationn location) {
         this.id = id;
         this.model = model;
         this.registration = registration;
@@ -58,7 +56,7 @@ public class Car {
     }
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters,
-               BigDecimal price, Location location, Set<Booking> bookingsList) {
+               BigDecimal price, Locationn location, Set<Booking> bookingsList) {
         this.id = id;
         this.model = model;
         this.registration = registration;
@@ -80,7 +78,7 @@ public class Car {
         private String vehicleStatus;
         private CarParameters carParameters;
         private BigDecimal price;
-        private Location location;
+        private Locationn location;
         private Set<Booking> bookingsList;
 
         public CarBuilder id(Long id) {
@@ -113,7 +111,7 @@ public class Car {
             return this;
         }
 
-        public CarBuilder location(Location location) {
+        public CarBuilder location(Locationn location) {
             this.location = location;
             return this;
         }
@@ -182,7 +180,7 @@ public class Car {
         return price;
     }
 
-    public Location getLocation() {
+    public Locationn getLocation() {
         return location;
     }
 

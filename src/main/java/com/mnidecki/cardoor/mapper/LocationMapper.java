@@ -1,6 +1,6 @@
 package com.mnidecki.cardoor.mapper;
 
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.dto.LocationnDto;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 @Component
 public class LocationMapper {
 
-    public Location mapToLocation(final LocationnDto locationDto) {
-        return new Location(
+    public Locationn mapToLocation(final LocationnDto locationDto) {
+        return new Locationn(
                 locationDto.getId(),
                 locationDto.getCountry(),
                 locationDto.getCity(),
@@ -25,7 +25,7 @@ public class LocationMapper {
                 locationDto.getOpeningHours());
     }
 
-    public LocationnDto mapToLocationDto(final Location location) {
+    public LocationnDto mapToLocationDto(final Locationn location) {
         return new LocationnDto(
                 location.getId(),
                 location.getCountry(),
@@ -40,7 +40,7 @@ public class LocationMapper {
                 location.getOpeningHours());
     }
 
-    public List<LocationnDto> mapToLocationDtoList(final List<Location> carList) {
+    public List<LocationnDto> mapToLocationDtoList(final List<Locationn> carList) {
         return carList.stream()
                 .map(location -> new LocationnDto(
                         location.getId(),

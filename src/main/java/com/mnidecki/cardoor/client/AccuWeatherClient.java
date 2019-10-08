@@ -1,7 +1,7 @@
 package com.mnidecki.cardoor.client;
 
 import com.mnidecki.cardoor.config.AccuWeatherConfig;
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.dto.accuweather.ForecastResponseDto;
 import com.mnidecki.cardoor.domain.dto.accuweather.LocationDto;
 import com.mnidecki.cardoor.services.AccuWeatherService;
@@ -30,7 +30,7 @@ public class AccuWeatherClient {
     private RestTemplate restTemplate;
 
 
-    public String getCityId(Location location) {
+    public String getCityId(Locationn location) {
         URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/locations/v1/cities/search")
                 .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
                 .queryParam("q", location.getCity())
@@ -48,7 +48,7 @@ public class AccuWeatherClient {
         return "";
     }
 
-    public ForecastResponseDto get5DayForecasts(Location location) {
+    public ForecastResponseDto get5DayForecasts(Locationn location) {
         String locationId = getCityId(location);
         if(locationId.equals("")) {
             return new ForecastResponseDto();

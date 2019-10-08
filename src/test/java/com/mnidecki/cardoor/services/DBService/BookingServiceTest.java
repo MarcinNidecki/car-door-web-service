@@ -1,6 +1,6 @@
 package com.mnidecki.cardoor.services.DBService;
 
-import com.mnidecki.cardoor.domain.Location;
+import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.booking.Booking;
 import com.mnidecki.cardoor.domain.booking.BookingExtras;
@@ -8,15 +8,11 @@ import com.mnidecki.cardoor.domain.booking.BookingExtrasItem;
 import com.mnidecki.cardoor.domain.car.Car;
 import com.mnidecki.cardoor.repository.BookingRepository;
 import com.mnidecki.cardoor.services.SimpleEmailService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -69,7 +65,7 @@ public class BookingServiceTest {
                 .price(BigDecimal.valueOf(250))
                 .build();
 
-        Location location = new Location(1L,"Poland","Katowice","Katowice Airport","address line 1","address line 2",
+        Locationn location = new Locationn(1L,"Poland","Katowice","Katowice Airport","address line 1","address line 2",
                 "Terminal 2, office next to parking","44-444","email@email.pl","555555555","Mon - Fri 10-16");
 
         BookingExtras extras = new BookingExtras(1L,"BOOSTER","RED MIDDLE",BigDecimal.valueOf(50), "static/img" +
