@@ -42,7 +42,6 @@ public class FtpService {
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(thumbnails, carPictureDto.getFileExtension(), os);
-            InputStream is = new ByteArrayInputStream(os.toByteArray());
             FTPClient con = null;
 
 

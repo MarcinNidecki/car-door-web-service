@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Entity(name = "user_role")
-public class UserRole {
+public class UserRole implements Serializable {
 
     @Id
     @NotNull

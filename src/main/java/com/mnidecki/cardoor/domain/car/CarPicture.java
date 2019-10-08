@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "Car_pictures")
-public class CarPicture {
+public class CarPicture implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

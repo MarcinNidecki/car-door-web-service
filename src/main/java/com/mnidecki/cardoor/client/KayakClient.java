@@ -40,7 +40,7 @@ public class KayakClient {
             List<KayakLocationDto> citiesResponse = Arrays.asList(objectMapper.readValue(responseBody.string(),
                     KayakLocationDto[].class));
 
-            LOGGER.info("KAYAK:  location founded" + citiesResponse.toString());
+            LOGGER.info("KAYAK location founded.");
             return  citiesResponse.get(0).getCtid();
 
         } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
@@ -77,8 +77,9 @@ public class KayakClient {
                                 .sum();
 
                         long count = carSearchResponse.getCarSet().length;
-                        if(count>0)
-                        return (long)sum / count;
+                        if(count>0) {
+                            return (long)sum / count;
+                        }
                     }
 
             } catch (IOException | IllegalArgumentException e) {

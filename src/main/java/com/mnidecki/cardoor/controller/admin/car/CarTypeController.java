@@ -4,6 +4,8 @@ import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.domain.dto.CarTypeDto;
 import com.mnidecki.cardoor.mapper.CarTypeMapper;
 import com.mnidecki.cardoor.services.DBService.CarTypeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/car/")
 public class CarTypeController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarTypeController.class);
 
     @Autowired
     private CarTypeService carTypeService;
@@ -42,7 +46,7 @@ public class CarTypeController {
                              BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError());
+            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("carType");
             return modelAndView;
         }
@@ -81,7 +85,7 @@ public class CarTypeController {
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError());
+            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("carType");
             return modelAndView;
         }

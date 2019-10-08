@@ -7,6 +7,7 @@ import com.mnidecki.cardoor.domain.car.Car;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class Booking implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
