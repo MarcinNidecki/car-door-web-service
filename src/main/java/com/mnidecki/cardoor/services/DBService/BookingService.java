@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.services.DBService;
 
-import com.mnidecki.cardoor.domain.Mail;
 import com.mnidecki.cardoor.domain.booking.Booking;
 import com.mnidecki.cardoor.domain.booking.BookingExtrasItem;
 import com.mnidecki.cardoor.repository.BookingRepository;
@@ -120,7 +119,7 @@ public class BookingService {
         if(date.length()<=9) {
             StringBuilder startDataBuilder = new StringBuilder(date);
             startDataBuilder.insert(8,"0");
-            return startDataBuffer.toString();
+            return startDataBuilder.toString();
         } else {
             return date;
         }

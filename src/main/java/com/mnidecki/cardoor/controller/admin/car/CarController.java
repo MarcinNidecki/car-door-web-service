@@ -1,12 +1,9 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
-import com.mnidecki.cardoor.controller.BookingController;
 import com.mnidecki.cardoor.domain.car.Car;
 import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.mapper.*;
 import com.mnidecki.cardoor.services.DBService.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class CarController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarController.class);
 
     @Autowired
     private LocationService locationService;
@@ -94,7 +89,6 @@ public class CarController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("isAdd", false);
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("cars");
             return modelAndView;
         }
@@ -132,7 +126,6 @@ public class CarController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("isAdd", true);
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("cars");
         } else {
             Car car = carService.save(carMapper.mapToCar(carDto));

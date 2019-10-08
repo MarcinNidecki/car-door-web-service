@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.controller;
 
-import com.mnidecki.cardoor.client.KayakClient;
 import com.mnidecki.cardoor.domain.ConfirmationToken;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.dto.BookingSpecDto;
@@ -11,15 +10,12 @@ import com.mnidecki.cardoor.repository.UserRepository;
 import com.mnidecki.cardoor.services.DBService.UserRoleService;
 import com.mnidecki.cardoor.services.DBService.UserService;
 import com.mnidecki.cardoor.services.SimpleEmailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +25,6 @@ import javax.validation.Valid;
 
 @Controller
 public class AuthenticationController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     UserService userService;
@@ -72,8 +66,6 @@ public class AuthenticationController {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
-
             model.setViewName("register");
         } else {
             User user = userService.save(userMapper.mapToUser(userDto));

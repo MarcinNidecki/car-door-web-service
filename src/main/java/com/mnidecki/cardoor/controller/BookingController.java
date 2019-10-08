@@ -17,8 +17,6 @@ import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
@@ -38,7 +36,6 @@ import java.util.List;
 @CrossOrigin("*")
 public class BookingController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookingController.class);
     @Autowired
     private BookingService bookingService;
     @Autowired
@@ -182,7 +179,6 @@ public class BookingController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("editUserDto", userDto);
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("bookingCheckout");
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(userDto));
@@ -204,7 +200,6 @@ public class BookingController {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
-            LOGGER.debug("Validation field error:" + bindingResult.getFieldError());
             modelAndView.setViewName("bookingCheckout");
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(longUserDto));
