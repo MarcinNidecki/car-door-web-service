@@ -42,4 +42,4 @@ jobs:
       - run: gradle build
 
       # run sonar:
-      - run: ./gradlew sonarqube -Dsonar.projectKey=MarcinNidecki_car-door-web -Dsonar.organization=marcinnidecki -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=c03ce86f39dbd78a4620af54a89480ba66ead0c8
+      - run: ./gradlew sonarqube -Dsonar.projectKey=MarcinNidecki_car-door-web -Dsonar.organization=marcinnidecki -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=7c2d79a1e068a892e18aab1afb2d9895dba94c0d
