@@ -1,0 +1,4 @@
+*.js linguist-vendored=false
+
+src/main/resources/static/* linguist-vendored
+*.rb linguist-language=Java
