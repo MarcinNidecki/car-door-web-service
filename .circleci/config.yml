@@ -44,4 +44,4 @@ jobs:
       # run sonar:
             # run sonar
  
-      - run: ./gradlew sonarqube -Dsonar.projectKey=MarcinNidecki_car-door-web -Dsonar.organization=marcinnidecki -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=efffcee3609dbb62cf5899ceb0a658feaaf1222e
+      - run: sudo chmod +x ./gradlew sonarqube -Dsonar.projectKey=MarcinNidecki_car-door-web -Dsonar.organization=marcinnidecki -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=efffcee3609dbb62cf5899ceb0a658feaaf1222e
