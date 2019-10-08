@@ -1,6 +1,7 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
 import com.mnidecki.cardoor.config.FtpConfig;
+import com.mnidecki.cardoor.controller.ControllerConstant;
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.domain.dto.CarPictureDto;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+
+import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -54,11 +57,11 @@ public class CarPictureController {
             carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         }
         if (carPicture != null) {
-            redirectAttributes.addFlashAttribute("successmessage",
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE,
                     "Picture " + carPicture.getFileName()+ "."+ carPicture.getFileExtension() +" saved successfully");
-            modelAndView.setViewName("redirect:/admin/car/picture");
+            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         } else {
-            modelAndView.addObject("errormessage", "We could not save your picture. Please try again later");
+            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture. Please try again later");
             modelAndView.addObject("carPictureDto", carPictureDto);
             modelAndView.setViewName("carsPicture");
         }
@@ -87,12 +90,12 @@ public class CarPictureController {
             carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         }
         if (carPicture != null) {
-            redirectAttributes.addFlashAttribute("successmessage", "Car picture is updated successfully");
-            modelAndView.setViewName("redirect:/admin/car/picture");
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is updated successfully");
+            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         } else {
-            redirectAttributes.addFlashAttribute("errormessage", "Car picture is not update, Please try again");
+            redirectAttributes.addFlashAttribute(ERRORMESSAGE, "Car picture is not update, Please try again");
             modelAndView.addObject("cartPictureDto", carPictureDto);
-            modelAndView.setViewName("redirect:/admin/car/picture");
+            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         }
         return modelAndView;
     }
@@ -103,8 +106,8 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
         pictureService.deleteById(id);
         modelAndView.addObject("carPictureDto", new CarPictureDto());
-        redirectAttributes.addFlashAttribute("successmessage", "Car picture is deleted successfully");
-        modelAndView.setViewName("redirect:/admin/car/picture");
+        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is deleted successfully");
+        modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         return modelAndView;
     }
 

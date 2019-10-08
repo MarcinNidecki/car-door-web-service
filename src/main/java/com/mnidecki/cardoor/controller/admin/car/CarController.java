@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.mnidecki.cardoor.controller.ControllerConstant.*;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/admin")
@@ -74,12 +76,12 @@ public class CarController {
     public ModelAndView cars() {
         ModelAndView modelAndView = new ModelAndView();
         List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
-        modelAndView.addObject("cars", cars);
-        modelAndView.addObject("carDto", new CarDto());
+        modelAndView.addObject(CARS, cars);
+        modelAndView.addObject(CAR_DTO, new CarDto());
         modelAndView.addObject("afterPrice", "/Day");
         modelAndView.addObject("beforePrice", " $");
-        modelAndView.addObject("isAdd", false);
-        modelAndView.setViewName("cars");
+        modelAndView.addObject(IS_ADD, false);
+        modelAndView.setViewName(CARS);
         return modelAndView;
     }
 
@@ -87,20 +89,20 @@ public class CarController {
     @PostMapping(value = "/car")
     public ModelAndView save(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isAdd", false);
+        modelAndView.addObject(IS_ADD, false);
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("cars");
+            modelAndView.setViewName(CARS);
             return modelAndView;
         }
         Car car = carService.save(carMapper.mapToCar(carDto));
         if (car != null) {
-            redirectAttributes.addFlashAttribute("successmessage", "Car is saved successfully");
-            modelAndView.setViewName("redirect:/admin/car");
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car is saved successfully");
+            modelAndView.setViewName(REDIRECT_ADMIN_CAR);
             return modelAndView;
         } else {
-            modelAndView.addObject("errormessage", "Car is not save, Please try again");
-            modelAndView.addObject("carDto", carDto);
-            modelAndView.setViewName("cars");
+            modelAndView.addObject(ERRORMESSAGE, "Car is not save, Please try again");
+            modelAndView.addObject(CAR_DTO, carDto);
+            modelAndView.setViewName(CARS);
             }
 
         return modelAndView;
@@ -111,32 +113,32 @@ public class CarController {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(id));
         List<CarDto> cars = carMapper.mapToCarDtoList(carService.findAll());
-        modelAndView.addObject("cars", cars);
-        modelAndView.addObject("carDto", carDto);
+        modelAndView.addObject(CARS, cars);
+        modelAndView.addObject(CAR_DTO, carDto);
         modelAndView.addObject("afterPrice", "/Day");
         modelAndView.addObject("beforePrice", " $");
         modelAndView.addObject("title", "Cars");
-        modelAndView.addObject("isAdd", true);
-        modelAndView.setViewName("cars");
+        modelAndView.addObject(IS_ADD, true);
+        modelAndView.setViewName(CARS);
         return modelAndView;
     }
 
     @PutMapping(value = "/car")
     public ModelAndView update(@Valid @ModelAttribute CarDto carDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isAdd", true);
+        modelAndView.addObject(IS_ADD, true);
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("cars");
+            modelAndView.setViewName(CARS);
         } else {
             Car car = carService.save(carMapper.mapToCar(carDto));
             if (car != null) {
-                redirectAttributes.addFlashAttribute("successmessage", "Car is updated successfully");
-                modelAndView.setViewName("redirect:/admin/car");
+                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car is updated successfully");
+                modelAndView.setViewName(REDIRECT_ADMIN_CAR);
 
             } else {
-                modelAndView.addObject("errormessage", "Car is not updated, Please try again");
-                modelAndView.addObject("carDto", carDto);
-                modelAndView.setViewName("cars");
+                modelAndView.addObject(ERRORMESSAGE, "Car is not updated, Please try again");
+                modelAndView.addObject(CAR_DTO, carDto);
+                modelAndView.setViewName(CARS);
             }
         }
         return modelAndView;
@@ -147,8 +149,8 @@ public class CarController {
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         carService.deleteByID(id);
-        redirectAttributes.addFlashAttribute("successmessage", "Car is deleted successfully");
-        modelAndView.setViewName("redirect:/admin/car");
+        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car is deleted successfully");
+        modelAndView.setViewName(REDIRECT_ADMIN_CAR);
         return modelAndView;
     }
 

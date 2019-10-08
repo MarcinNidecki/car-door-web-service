@@ -52,9 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/car*").permitAll()
-                .antMatchers("/admin/car**","/admin/car/**").hasRole("ADMIN")
+                .antMatchers("/admin/car/**", "/admin/car**").hasRole("ADMIN")
                 .antMatchers("/admin**").hasRole("ADMIN")
-
                 .antMatchers("/booking**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/car/**/booking/checkout").permitAll()

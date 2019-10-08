@@ -116,7 +116,7 @@ public class BookingController {
         ModelAndView modelAndView = new ModelAndView();
         session.setAttribute("car", car);
         session.setAttribute("location", location);
-        session.setAttribute("daysOfRent", daysOfRent);
+        session.setAttribute(ControllerConstant.DAYS_OF_RENT, daysOfRent);
         modelAndView.addObject("longUserDto", new UserLongFormDto());
         modelAndView.addObject("editUserDto", getUser());
         modelAndView.addObject("bookingExtras", bookingExtras);
@@ -134,8 +134,8 @@ public class BookingController {
              @ModelAttribute(value = "bookingExtras") BookingItemCreationDto bookingExtras,
              RedirectAttributes redirectAttributes, HttpSession session) {
 
-        if (session.getAttribute("car") == null || session.getAttribute("daysOfRent") == null)
-            return redirectToHome(redirectAttributes, "Session Expired");
+        if (session.getAttribute("car") == null || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null)
+            return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
 
         ModelAndView modelAndView = new ModelAndView();
@@ -151,20 +151,20 @@ public class BookingController {
                                 .returnDate(bookingService.stringTimeToTimestampConverter(endDate, endTime))
                                 .bookingExtrasList(bookingExtras.getItems())
                                 .build())));
-        session.setAttribute("userBooking", userBooking);
+        session.setAttribute(ControllerConstant.USER_BOOKING, userBooking);
         modelAndView.addObject("longUserDto", new UserLongFormDto());
         modelAndView.addObject("editUserDto", getUser());
         session.setAttribute("bookingExtras", bookingExtras);
-        modelAndView.setViewName("bookingCheckout");
+        modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         return modelAndView;
     }
 
     @RequestMapping(value = {"car/{carId}/booking/checkout"}, method = {RequestMethod.GET})
     public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, RedirectAttributes redirectAttributes,
                                         HttpSession session) {
-        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, "Session Expired");
+        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("bookingCheckout");
+        modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         modelAndView.addObject("longUserDto", new UserLongFormDto());
         modelAndView.addObject("editUserDto", getUser());
         return modelAndView;
@@ -174,15 +174,16 @@ public class BookingController {
     public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
                                            @Valid @ModelAttribute("editUserDto") UserEditFormDto userDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
-        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, "Session Expired");
+        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("editUserDto", userDto);
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("bookingCheckout");
+            modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(userDto));
-            modelAndView.addObject("errormessage", "Booking has been confirmed! ");
+            modelAndView.addObject(
+                    ControllerConstant.ERRORMESSAGE, "Booking has been confirmed! ");
             modelAndView.setViewName("index");
         }
         return modelAndView;
@@ -192,7 +193,7 @@ public class BookingController {
     public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId,
                                            @Valid @ModelAttribute("longUserDto") UserLongFormDto longUserDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
-        if(isSessionExpired(session)) return redirectToHome(redirectAttributes, "Session Expired");
+        if(isSessionExpired(session)) return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("longUserDto", longUserDto);
@@ -200,10 +201,10 @@ public class BookingController {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("bookingCheckout");
+            modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(longUserDto));
-            modelAndView.addObject("errormessage", "Booking has been confirmed!  Open the email, and click the link to confirm your account.");
+            modelAndView.addObject(ControllerConstant.ERRORMESSAGE, "Booking has been confirmed!  Open the email, and click the link to confirm your account.");
         }
         return modelAndView;
     }
@@ -225,20 +226,20 @@ public class BookingController {
     }
 
     private boolean isSessionExpired( HttpSession session) {
-        return (session.getAttribute("bookingExtras") == null || session.getAttribute("userBooking") == null
-                || session.getAttribute("daysOfRent") == null);
+        return (session.getAttribute("bookingExtras") == null || session.getAttribute(ControllerConstant.USER_BOOKING) == null
+                || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null);
     }
 
     private ModelAndView redirectToHome(RedirectAttributes redirectAttributes, String message) {
         ModelAndView modelAndView = new ModelAndView();
-        redirectAttributes.addFlashAttribute("errormessage", message);
+        redirectAttributes.addFlashAttribute(ControllerConstant.ERRORMESSAGE, message);
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 
     private void saveBookingAndUser(HttpSession session, User user2) {
         User user = userService.save(user2);
-        Booking booking = bookingMapper.mapToBooking((BookingDto) session.getAttribute("userBooking"));
+        Booking booking = bookingMapper.mapToBooking((BookingDto) session.getAttribute(ControllerConstant.USER_BOOKING));
         booking.setUser(user);
         bookingService.save(booking);
     }

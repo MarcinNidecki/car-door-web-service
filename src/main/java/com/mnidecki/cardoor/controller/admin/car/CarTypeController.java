@@ -1,5 +1,6 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
+import com.mnidecki.cardoor.controller.ControllerConstant;
 import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.domain.dto.CarTypeDto;
 import com.mnidecki.cardoor.mapper.CarTypeMapper;
@@ -13,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.mnidecki.cardoor.controller.ControllerConstant.ERRORMESSAGE;
+import static com.mnidecki.cardoor.controller.ControllerConstant.SUCCESSMESSAGE;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -47,12 +51,12 @@ public class CarTypeController {
         }
         CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
-            redirectAttributes.addFlashAttribute("successmessage", "Car type is saved successfully");
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car type is saved successfully");
             modelAndView.setViewName("redirect:/admin/car/type");
             return modelAndView;
 
         } else {
-            modelAndView.addObject("errormessage", "Car type is not save, Please try again");
+            modelAndView.addObject(ERRORMESSAGE, "Car type is not save, Please try again");
             modelAndView.addObject("carTypeDto", carTypeDto);
             modelAndView.setViewName("carType");
             return modelAndView;
@@ -85,10 +89,10 @@ public class CarTypeController {
         }
         CarType carType = carTypeService.save(carTypeMapper.mapToCarType(carTypeDto));
         if (carType != null) {
-            redirectAttributes.addFlashAttribute("successmessage", "Car type is updated successfully");
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car type is updated successfully");
             modelAndView.setViewName("redirect:/admin/car/type");
         } else {
-            modelAndView.addObject("errormessage", "Car type is not update, Please try again");
+            modelAndView.addObject(ERRORMESSAGE, "Car type is not update, Please try again");
             modelAndView.addObject("carTypeDto", carTypeDto);
             modelAndView.setViewName("carType");
         }
@@ -101,7 +105,7 @@ public class CarTypeController {
         ModelAndView modelAndView = new ModelAndView();
         carTypeService.deleteById(id);
         modelAndView.addObject("carTypeDto", new CarTypeDto());
-        redirectAttributes.addFlashAttribute("successmessage", "Car type is deleted successfully");
+        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car type is deleted successfully");
         modelAndView.setViewName("redirect:/admin/car/type");
         return modelAndView;
     }
