@@ -7,13 +7,14 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarDto {
+public class CarDto implements Serializable {
 
     private Long id;
     private String brand;
@@ -51,9 +52,6 @@ public class CarDto {
     private String fileNamePath;
     private String thumbnailsPath;
 
-    public CarDto(Long id) {
-        this.id = id;
-    }
 
     public static class CarDtoBuilder {
         private Long id;

@@ -18,7 +18,7 @@ public class DiscountCodeService {
     }
 
     public DiscountCode findById(final Long id) {
-        return discountCodeRepository.findById(id).orElseGet(null);
+        return discountCodeRepository.findById(id).orElse(new DiscountCode());
     }
 
     public DiscountCode save(final DiscountCode discountCode) {

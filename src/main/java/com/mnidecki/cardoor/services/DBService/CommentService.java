@@ -18,7 +18,7 @@ public class CommentService {
     }
 
     public Comment findById(final Long id) {
-        return commentRepository.findById(id).orElseGet(null);
+        return commentRepository.findById(id).orElse(new Comment());
     }
 
     public Comment save(final Comment comment) {

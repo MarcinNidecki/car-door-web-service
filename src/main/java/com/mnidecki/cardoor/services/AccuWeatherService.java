@@ -10,9 +10,11 @@ public class AccuWeatherService {
     private DateTimeService dateTimeService;
 
     public ForecastResponseDto setDisplayNameOfDay(ForecastResponseDto forecastResponseDto) {
+
         forecastResponseDto.setNameOfFirstDay(dateTimeService.getLongDisplayNameOfDay(forecastResponseDto.getDailyForecastDtoList().get(0).getDate()));
         forecastResponseDto.setDateOfFirstDay(dateTimeService.getDateFromString(forecastResponseDto.getDailyForecastDtoList().get(0).getDate()));
-        forecastResponseDto.getDailyForecastDtoList().stream()
+
+        forecastResponseDto.getDailyForecastDtoList()
                 .forEach(dailyForecast -> dailyForecast.getDayDto().setNameOfDay(dateTimeService.getShortDisplayNameOfDay(dailyForecast.getDate())));
         return forecastResponseDto;
     }

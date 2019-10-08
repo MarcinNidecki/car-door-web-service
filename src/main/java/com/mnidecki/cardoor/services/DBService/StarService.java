@@ -18,7 +18,7 @@ public class StarService {
     }
 
     public Star findById(final Long id) {
-        return starRepository.findByModelId(id).orElseGet(null);
+        return starRepository.findByModelId(id).orElse(new Star());
     }
 
     public Star save(final Star star) {

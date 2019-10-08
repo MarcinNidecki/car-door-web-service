@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-public class BookingItemCreationDto {
+public class BookingItemCreationDto implements Serializable {
 
     private List<BookingExtrasItemDto> items;
 

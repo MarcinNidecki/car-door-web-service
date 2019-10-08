@@ -62,7 +62,7 @@ public class FtpService {
                     carPictureDto.setFileNamePath(ftpConfig.getDomainFullImagePath() + carPictureDto.getFile().getOriginalFilename());
                     carPictureDto.setThumbnailsPath(ftpConfig.getDomainFullImagePath() + carPictureDto.getThumbnails() + "." + carPictureDto.getFileExtension());
 
-                    LOGGER.info("Successfull uploaded " + carPictureDto.getFile().getOriginalFilename() + "!");
+                    LOGGER.info("Picture was successfull uploaded! ");
 
                 }
             } catch (Exception e) {

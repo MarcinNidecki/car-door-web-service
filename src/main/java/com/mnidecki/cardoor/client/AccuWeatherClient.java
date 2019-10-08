@@ -41,8 +41,7 @@ public class AccuWeatherClient {
             LocationDto[] boardsResponse = restTemplate.getForObject(uri, LocationDto[].class);
             if (boardsResponse != null && location.getCountry().equals(boardsResponse[0].getCountry().getLocalizedName()))
                 return ofNullable(boardsResponse[0].getCityKey()).orElse("");
-        } catch (
-                RestClientException e) {
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
         }
         return "";
@@ -63,8 +62,7 @@ public class AccuWeatherClient {
             ForecastResponseDto boardsResponse = restTemplate.getForObject(uri, ForecastResponseDto.class);
             boardsResponse = accuWeatherService.setDisplayNameOfDay(boardsResponse);
             return ofNullable(boardsResponse).orElse(new ForecastResponseDto());
-        } catch (
-                RestClientException e) {
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return new ForecastResponseDto();
         }

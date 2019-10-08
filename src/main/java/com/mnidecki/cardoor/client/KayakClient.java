@@ -44,7 +44,6 @@ public class KayakClient {
             return  citiesResponse.get(0).getCtid();
 
         } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-
             LOGGER.error(e.getMessage(), e);
             return "";
         }
@@ -83,7 +82,6 @@ public class KayakClient {
                     }
 
             } catch (IOException | IllegalArgumentException e) {
-                e.printStackTrace();
                 LOGGER.error(e.getMessage(), e);
                 return 0;
             }

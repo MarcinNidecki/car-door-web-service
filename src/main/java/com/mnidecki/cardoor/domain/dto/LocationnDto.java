@@ -3,9 +3,11 @@ package com.mnidecki.cardoor.domain.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @NoArgsConstructor
-public class LocationnDto {
+public class LocationnDto implements Serializable {
 
 
     private Long id;

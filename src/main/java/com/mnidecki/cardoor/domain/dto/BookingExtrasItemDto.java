@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookingExtrasItemDto {
+public class BookingExtrasItemDto implements Serializable {
 
     private Long id;
     private String name;

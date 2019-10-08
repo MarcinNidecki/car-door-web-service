@@ -47,17 +47,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 // URLs matching for access rights
-                .antMatchers("/*").permitAll()
-                .antMatchers("/car*").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin**").hasRole("ADMIN")
-                .antMatchers("/admin/car**","/admin/car/**").hasRole("ADMIN")
                 .antMatchers("/confirm-account").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/*").permitAll()
+                .antMatchers("/car*").permitAll()
+                .antMatchers("/admin/car**","/admin/car/**").hasRole("ADMIN")
+                .antMatchers("/admin**").hasRole("ADMIN")
+
                 .antMatchers("/booking**").permitAll()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/car/**/booking**").permitAll()
                 .antMatchers("/car/**/booking/checkout").permitAll()
+                .antMatchers("/car/**/booking**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
 

@@ -1,6 +1,7 @@
 package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
+import com.mnidecki.cardoor.domain.booking.BookingStatusCode;
 import com.mnidecki.cardoor.domain.dto.BookingDto;
 import com.mnidecki.cardoor.services.DBService.BookingStatusCodeService;
 import com.mnidecki.cardoor.services.DBService.CarService;
@@ -32,7 +33,7 @@ public class BookingMapper {
                     .id(bookingDto.getId())
                     .user(userService.findUserById(bookingDto.getUserId()))
                     .car(carService.findById(bookingDto.getCarId()))
-                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElseGet(null))
+                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElse(new BookingStatusCode()))
                     .location( cityService.findById(bookingDto.getCityId()))
                     .totalCost(bookingDto.getTotalCost())
                     .startDate(bookingDto.getStartDate())
@@ -43,7 +44,7 @@ public class BookingMapper {
             return new Booking.BookingBuilder()
                     .user(userService.findUserById(bookingDto.getUserId()))
                     .car(carService.findById(bookingDto.getCarId()))
-                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElseGet(null))
+                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElse(new BookingStatusCode()))
                     .location(cityService.findById(bookingDto.getCityId()))
                     .totalCost( bookingDto.getTotalCost())
                     .startDate(bookingDto.getStartDate())
