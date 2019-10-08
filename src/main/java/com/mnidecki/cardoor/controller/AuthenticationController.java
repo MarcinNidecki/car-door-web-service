@@ -39,7 +39,7 @@ public class AuthenticationController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping(value = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping(value = {"/login"})
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         String referrer = request.getHeader("Referer");
@@ -78,7 +78,7 @@ public class AuthenticationController {
         return model;
     }
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @GetMapping(value = "/home")
     public ModelAndView home() {
         ModelAndView model = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -88,7 +88,7 @@ public class AuthenticationController {
         return model;
     }
 
-    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping(value = "/confirm-account")
     public ModelAndView confirmUserAccount(@RequestParam("token") String confirmationToken) {
         ModelAndView model = new ModelAndView();
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);

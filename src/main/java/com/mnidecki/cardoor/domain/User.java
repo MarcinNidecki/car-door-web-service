@@ -2,7 +2,6 @@ package com.mnidecki.cardoor.domain;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
 import com.mnidecki.cardoor.domain.car.Comment;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -68,7 +66,24 @@ public class User implements Serializable {
             fetch = FetchType.LAZY)
     private Set<Comment> commentsList = new HashSet<>();
 
-
+    public User(Long id, String firstname, String lastname, String email, String password, String username,
+                String addressLine1, String addressLine2, String country, String state, String zipCode, Integer status, Set<UserRole> roles, List<Booking> bookingList, Set<Comment> commentsList) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.country = country;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.status = status;
+        this.roles = roles;
+        this.bookingList = bookingList;
+        this.commentsList = commentsList;
+    }
 
     public static class UserBuilder {
 

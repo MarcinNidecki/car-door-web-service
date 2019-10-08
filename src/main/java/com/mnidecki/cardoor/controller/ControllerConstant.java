@@ -19,11 +19,7 @@ public class ControllerConstant {
     public static final String CARS = "cars";
     public static final String REDIRECT_ADMIN_CAR = "redirect:/admin/car";
     public static final String CAR_DTO = "carDto";
-
-    public static final String SUCCESSMESSAGE = "successmessage";
     public static final String REDIRECT_ADMIN_CAR_PICTURE = "redirect:/admin/car/picture";
-    public static final String ERRORMESSAGE = "errormessage";
-    public static final String SUCCESSMESSAGE = "successmessage";
-    public static final String ERRORMESSAGE = "errormessage";
+
 }
 

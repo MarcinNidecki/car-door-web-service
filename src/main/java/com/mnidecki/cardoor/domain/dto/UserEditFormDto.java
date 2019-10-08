@@ -117,10 +117,11 @@ public class UserEditFormDto implements UserDto{
         public UserEditFormDto build() {
             return new UserEditFormDto(id,firstname, lastname, email, username, addressLine1, addressLine2, country, state, zipCode);
         }
-
-
     }
-
+    @Override
+    public String getEmail() {
+        return email;
+    }
 
     @Override
     public String toString() {

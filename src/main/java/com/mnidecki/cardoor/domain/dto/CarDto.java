@@ -52,6 +52,36 @@ public class CarDto implements Serializable {
     private String fileNamePath;
     private String thumbnailsPath;
 
+    public CarDto(Long id, String brand, String model, @Min(1) @NotNull(message = "The model name must not be empty") Long modelId, Long brandId, @Length(min = 2, max = 10, message = "The license plate must be between {min} and {max} " +
+            "characters long") String registration, String vehicleStatus, @Max(2020) @Min(2000) int year, @DecimalMin(value = "10.00", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal price, boolean transmissionIsAutomatic, boolean airConditioning, boolean allWheelDrive, String carTypeName, String fuelType, Integer doorsNumber, Integer seatsNumber, Integer smallBags, Integer bigBags, @NotEmpty(message = "Color must be not empty") String color, Long carTypeId, Float rating, Long cityId, Long carPictureId, Long carParametersId, String fileNamePath, String thumbnailsPath) {
+
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.modelId = modelId;
+        this.brandId = brandId;
+        this.registration = registration;
+        this.vehicleStatus = vehicleStatus;
+        this.year = year;
+        this.price = price;
+        this.transmissionIsAutomatic = transmissionIsAutomatic;
+        this.airConditioning = airConditioning;
+        this.allWheelDrive = allWheelDrive;
+        this.carTypeName = carTypeName;
+        this.fuelType = fuelType;
+        this.doorsNumber = doorsNumber;
+        this.seatsNumber = seatsNumber;
+        this.smallBags = smallBags;
+        this.bigBags = bigBags;
+        this.color = color;
+        this.carTypeId = carTypeId;
+        this.rating = rating;
+        this.cityId = cityId;
+        this.carPictureId = carPictureId;
+        this.carParametersId = carParametersId;
+        this.fileNamePath = fileNamePath;
+        this.thumbnailsPath = thumbnailsPath;
+    }
 
     public static class CarDtoBuilder {
         private Long id;

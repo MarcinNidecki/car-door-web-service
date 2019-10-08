@@ -121,6 +121,10 @@ public class UserLongFormDto implements UserDto{
     }
 
     @Override
+    public String getEmail() {
+        return email;
+    }
+    @Override
     public String toString() {
         return "UserLongFormDto{" +
                 "firstname='" + firstname + '\'' +

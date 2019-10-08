@@ -26,4 +26,8 @@ public class UserQuickFormDto implements UserDto {
     @Length(min = 5, message = "The password is too short. Please try again.")
     private String password;
 
+    @Override
+    public String getEmail() {
+        return email;
+    }
 }
