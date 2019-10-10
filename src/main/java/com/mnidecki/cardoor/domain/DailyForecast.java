@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NamedNativeQuery(
         name = "DailyForecast.deleteAllWhereWeatherId",
@@ -20,7 +21,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity(name = "daily_forecast")
 
-public class DailyForecast {
+public class DailyForecast implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

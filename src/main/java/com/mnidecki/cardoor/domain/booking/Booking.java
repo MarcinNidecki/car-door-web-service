@@ -61,7 +61,7 @@ public class Booking implements Serializable {
             mappedBy = "booking",
             orphanRemoval = true,
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<BookingExtrasItem> bookingExtrasList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

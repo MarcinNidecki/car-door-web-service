@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "booking_extras")
-public class BookingExtras {
+public class BookingExtras implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

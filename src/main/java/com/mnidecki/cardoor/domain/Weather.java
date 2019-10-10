@@ -29,7 +29,7 @@ public class Weather implements Serializable {
     @OneToMany(targetEntity = DailyForecast.class,
             mappedBy = "weather",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<DailyForecast> dailyForecastList;
 
     public void setLocation(Locationn location) {

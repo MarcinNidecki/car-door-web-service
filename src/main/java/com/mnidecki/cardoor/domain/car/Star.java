@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "Star")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Star {
+public class Star implements Serializable {
 
     @Id
     @Column(name = "id")

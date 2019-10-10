@@ -181,16 +181,7 @@ public class CarParameters implements Serializable {
 
         CarParameters that = (CarParameters) o;
 
-        if (allWheelDrive != that.allWheelDrive) return false;
-        if (transmissionIsAutomatic != that.transmissionIsAutomatic) return false;
-        if (airConditioning != that.airConditioning) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (fuelType != null ? !fuelType.equals(that.fuelType) : that.fuelType != null) return false;
-        if (doorsNumber != null ? !doorsNumber.equals(that.doorsNumber) : that.doorsNumber != null) return false;
-        if (seatsNumber != null ? !seatsNumber.equals(that.seatsNumber) : that.seatsNumber != null) return false;
-        if (bigBags != null ? !bigBags.equals(that.bigBags) : that.bigBags != null) return false;
-        if (smallBags != null ? !smallBags.equals(that.smallBags) : that.smallBags != null) return false;
-        if (color != null ? !color.equals(that.color) : that.color != null) return false;
         if (year != null ? !year.equals(that.year) : that.year != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (carPicture != null ? !carPicture.equals(that.carPicture) : that.carPicture != null) return false;
