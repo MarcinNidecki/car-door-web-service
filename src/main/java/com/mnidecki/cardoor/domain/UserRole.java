@@ -1,7 +1,6 @@
 package com.mnidecki.cardoor.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
