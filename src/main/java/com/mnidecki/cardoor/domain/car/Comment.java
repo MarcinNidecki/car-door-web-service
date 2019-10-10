@@ -58,4 +58,32 @@ public class Comment implements Serializable {
         this.user = user;
         this.model = model;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Comment comment = (Comment) o;
+
+        if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
+        if (commentContent != null ? !commentContent.equals(comment.commentContent) : comment.commentContent != null)
+            return false;
+        if (rating != null ? !rating.equals(comment.rating) : comment.rating != null) return false;
+        if (creationDate != null ? !creationDate.equals(comment.creationDate) : comment.creationDate != null)
+            return false;
+        if (user != null ? !user.equals(comment.user) : comment.user != null) return false;
+        return model != null ? model.equals(comment.model) : comment.model == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (commentContent != null ? commentContent.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        return result;
+    }
 }

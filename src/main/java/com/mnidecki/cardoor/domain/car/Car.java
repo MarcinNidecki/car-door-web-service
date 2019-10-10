@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -44,7 +44,7 @@ public class Car implements Serializable {
     @OneToMany(targetEntity = Booking.class,
             mappedBy = "car",
             fetch = FetchType.EAGER)
-    private Set<Booking> bookingsList;
+    private List<Booking> bookingsList;
 
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Locationn location) {
@@ -58,7 +58,7 @@ public class Car implements Serializable {
     }
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters,
-               BigDecimal price, Locationn location, Set<Booking> bookingsList) {
+               BigDecimal price, Locationn location, List<Booking> bookingsList) {
         this.id = id;
         this.model = model;
         this.registration = registration;
@@ -81,7 +81,7 @@ public class Car implements Serializable {
         private CarParameters carParameters;
         private BigDecimal price;
         private Locationn location;
-        private Set<Booking> bookingsList;
+        private List<Booking> bookingsList;
 
         public CarBuilder id(Long id) {
             this.id = id;
@@ -118,7 +118,7 @@ public class Car implements Serializable {
             return this;
         }
 
-        public CarBuilder bookingsList(Set<Booking> bookingsList) {
+        public CarBuilder bookingsList(List<Booking> bookingsList) {
             this.bookingsList = bookingsList;
             return this;
         }
@@ -156,10 +156,10 @@ public class Car implements Serializable {
         return location;
     }
 
-    public Set<Booking> getBookingsList() {
+    public List<Booking> getBookingsList() {
         return bookingsList;
     }
 
-  
+
 }
 

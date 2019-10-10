@@ -167,11 +167,16 @@ public class Booking implements Serializable {
         if (id != null ? !id.equals(booking.id) : booking.id != null) return false;
         if (user != null ? !user.equals(booking.user) : booking.user != null) return false;
         if (car != null ? !car.equals(booking.car) : booking.car != null) return false;
+        if (bookingStatusCode != null ? !bookingStatusCode.equals(booking.bookingStatusCode) : booking.bookingStatusCode != null)
+            return false;
+        if (location != null ? !location.equals(booking.location) : booking.location != null) return false;
+        if (totalCost != null ? !totalCost.equals(booking.totalCost) : booking.totalCost != null) return false;
         if (startDate != null ? !startDate.equals(booking.startDate) : booking.startDate != null) return false;
         if (returnDate != null ? !returnDate.equals(booking.returnDate) : booking.returnDate != null) return false;
-        return  createdDate != null ? createdDate.equals(booking.createdDate) : booking.createdDate == null;
-
-
+        if (createdDate != null ? !createdDate.equals(booking.createdDate) : booking.createdDate != null) return false;
+        if (bookingExtrasList != null ? !bookingExtrasList.equals(booking.bookingExtrasList) : booking.bookingExtrasList != null)
+            return false;
+        return discountCode != null ? discountCode.equals(booking.discountCode) : booking.discountCode == null;
     }
 
     @Override
