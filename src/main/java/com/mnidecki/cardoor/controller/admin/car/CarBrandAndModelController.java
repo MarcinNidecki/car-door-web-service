@@ -52,7 +52,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject(CAR_BRANDS, carBrands);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
-        modelAndView.addObject(TITLE, "Cars Models");
+        modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(IS_ADD, false);
         modelAndView.setViewName(CAR_BRAND);
@@ -70,7 +70,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject(CAR_BRANDS, carBrands);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRAND_DTO, carBrandDto);
-        modelAndView.addObject(TITLE, "Cars Models");
+        modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject("isBrandAdd", true);
         modelAndView.addObject("isModelAdd", false);
         modelAndView.setViewName(CAR_BRAND);
@@ -87,7 +87,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, carModelDto);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
-        modelAndView.addObject(TITLE, "Cars Models");
+        modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject("isBrandAdd", false);
         modelAndView.addObject("isModelAdd", true);
         modelAndView.setViewName(CAR_BRAND);

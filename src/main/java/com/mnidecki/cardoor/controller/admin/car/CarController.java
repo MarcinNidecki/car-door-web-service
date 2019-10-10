@@ -154,7 +154,7 @@ public class CarController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/car/model", method = RequestMethod.GET)
+    @GetMapping(value = "/car/model")
     public @ResponseBody
     List<CarBrandModelDto> findAllModels(@RequestParam(value = "brandId") Long brandId) {
         return carBrandModelMapper.mapToCarBrandModelDtoList(carBrandModelService.getAllModelByBrand_Id(brandId));

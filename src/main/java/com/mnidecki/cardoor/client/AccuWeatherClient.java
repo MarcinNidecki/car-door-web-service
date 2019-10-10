@@ -60,7 +60,6 @@ public class AccuWeatherClient {
 
         try {
             ForecastResponseDto boardsResponse = restTemplate.getForObject(uri, ForecastResponseDto.class);
-            System.out.println(boardsResponse.toString());
             boardsResponse = accuWeatherService.setDisplayNameOfDay(boardsResponse);
             return ofNullable(boardsResponse).orElse(new ForecastResponseDto());
         } catch (RestClientException e) {

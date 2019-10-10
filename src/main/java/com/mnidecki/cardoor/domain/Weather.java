@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "weather")
-public class Weather {
+public class Weather implements Serializable {
 
     @Id
     private Long id;

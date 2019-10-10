@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.controller;
 
-import com.mnidecki.cardoor.client.AccuWeatherClient;
 import com.mnidecki.cardoor.client.KayakClient;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.Weather;
@@ -9,7 +8,10 @@ import com.mnidecki.cardoor.domain.car.Car;
 import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.mapper.*;
 import com.mnidecki.cardoor.services.AccuWeatherService;
-import com.mnidecki.cardoor.services.DBService.*;
+import com.mnidecki.cardoor.services.DBService.BookingService;
+import com.mnidecki.cardoor.services.DBService.CarService;
+import com.mnidecki.cardoor.services.DBService.LocationService;
+import com.mnidecki.cardoor.services.DBService.UserService;
 import com.mnidecki.cardoor.services.DateTimeService;
 import net.kaczmarzyk.spring.data.jpa.domain.Between;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -28,6 +30,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+
+import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 
 
 @RestController
@@ -54,17 +58,11 @@ public class BookingController {
     @Autowired
     private BookingExtrasItemMapper bookingExtrasItemMapper;
     @Autowired
-    private AccuWeatherClient accuWeatherClient;
-    @Autowired
     private AccuWeatherService accuWeatherService;
     @Autowired
     private KayakClient kayakClient;
     @Autowired
     private DateTimeService dateTimeService;
-    @Autowired
-    private DailyForecastService dailyForecastService;
-
-
 
     @GetMapping("car")
     public ModelAndView searchAndFilter(
@@ -81,7 +79,7 @@ public class BookingController {
             @RequestParam(value = "endTime") String endTime, @RequestParam(value = "cityId") Long cityId, RedirectAttributes redirectAttributes) {
 
         if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
-            return redirectToHome(redirectAttributes, "Please check your date!");
+            return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
 
         List<CarDto> carList = carMapper.mapToCarDtoList(carService.getAllAvailableCar(carSpecification, startDate,
@@ -112,7 +110,7 @@ public class BookingController {
             RedirectAttributes redirectAttributes, HttpSession session) {
 
         if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
-            return redirectToHome(redirectAttributes, "Please check your date!");
+            return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
 
         CarDto car = carMapper.mapToCarDto(carService.findById(carId));
@@ -126,25 +124,25 @@ public class BookingController {
         session.setAttribute("car", car);
         session.setAttribute("location", location);
         session.setAttribute(ControllerConstant.DAYS_OF_RENT, daysOfRent);
-        modelAndView.addObject("longUserDto", new UserRegisterLongFormDto());
-        modelAndView.addObject("editUserDto", getUser());
-        modelAndView.addObject("bookingExtras", bookingExtras);
+        modelAndView.addObject(LONG_USER_DTO, new UserRegisterLongFormDto());
+        modelAndView.addObject(EDIT_USER_DTO, getUser());
+        modelAndView.addObject(BOOKING_EXTRAS, bookingExtras);
         modelAndView.setViewName("carBooking");
         return modelAndView;
     }
 
 
-    @RequestMapping(value = {"car/{carId}/booking/checkout"}, method = {RequestMethod.POST},
+    @PostMapping(value = {"car/{carId}/booking/checkout"},
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView bookingCheckout
             (@RequestParam(value = "startDate") String startDate, @RequestParam(value = "startTime") String startTime,
              @RequestParam(value = "endDate") String endDate, @RequestParam(value = "endTime") String endTime,
              @RequestParam(value = "cityId") Long cityId, @PathVariable(value = "carId") Long carId,
-             @ModelAttribute(value = "bookingExtras") BookingItemCreationDto bookingExtras,
+             @ModelAttribute(value = BOOKING_EXTRAS) BookingItemCreationDto bookingExtras,
              RedirectAttributes redirectAttributes, HttpSession session) {
 
         if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
-            return redirectToHome(redirectAttributes, "Please check your date!");
+            return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
         if (session.getAttribute("car") == null || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null)
             return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
@@ -164,33 +162,33 @@ public class BookingController {
                                 .bookingExtrasList(bookingExtras.getItems())
                                 .build())));
         session.setAttribute(ControllerConstant.USER_BOOKING, userBooking);
-        modelAndView.addObject("longUserDto", new UserRegisterLongFormDto());
-        modelAndView.addObject("editUserDto", getUser());
-        session.setAttribute("bookingExtras", bookingExtras);
+        modelAndView.addObject(LONG_USER_DTO, new UserRegisterLongFormDto());
+        modelAndView.addObject(EDIT_USER_DTO, getUser());
+        session.setAttribute(BOOKING_EXTRAS, bookingExtras);
         modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         return modelAndView;
     }
 
-    @RequestMapping(value = {"car/{carId}/booking/checkout"}, method = {RequestMethod.GET})
+    @GetMapping(value = {"car/{carId}/booking/checkout"})
     public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, RedirectAttributes redirectAttributes,
                                         HttpSession session) {
         if(isSessionExpired(session))  return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
-        modelAndView.addObject("longUserDto", new UserRegisterLongFormDto());
-        modelAndView.addObject("editUserDto", getUser());
+        modelAndView.addObject(LONG_USER_DTO, new UserRegisterLongFormDto());
+        modelAndView.addObject(EDIT_USER_DTO, getUser());
         return modelAndView;
     }
 
-    @RequestMapping(value = {"car/{carId}/booking/user/{userId}"}, method = {RequestMethod.POST})
+    @PostMapping(value = {"car/{carId}/booking/user/{userId}"})
     public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
-                                           @Valid @ModelAttribute("editUserDto") UserEditFormDto userDto, BindingResult bindingResult,
+                                           @Valid @ModelAttribute(EDIT_USER_DTO) UserEditFormDto userDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
         if(isSessionExpired(session))   return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("editUserDto", userDto);
+        modelAndView.addObject(EDIT_USER_DTO, userDto);
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
         } else {
@@ -202,14 +200,14 @@ public class BookingController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"car/{carId}/booking/"}, method = {RequestMethod.POST})
+    @PostMapping(value = {"car/{carId}/booking/"})
     public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId,
-                                           @Valid @ModelAttribute("longUserDto") UserRegisterLongFormDto longUserDto, BindingResult bindingResult,
+                                           @Valid @ModelAttribute(LONG_USER_DTO) UserRegisterLongFormDto longUserDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
         if(isSessionExpired(session)) return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("longUserDto", longUserDto);
+        modelAndView.addObject(LONG_USER_DTO, longUserDto);
         if (userService.isUserExist(longUserDto.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
@@ -240,7 +238,7 @@ public class BookingController {
     }
 
     private boolean isSessionExpired( HttpSession session) {
-        return (session.getAttribute("bookingExtras") == null || session.getAttribute(ControllerConstant.USER_BOOKING) == null
+        return (session.getAttribute(BOOKING_EXTRAS) == null || session.getAttribute(ControllerConstant.USER_BOOKING) == null
                 || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null);
     }
 

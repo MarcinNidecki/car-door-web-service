@@ -16,11 +16,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import static com.mnidecki.cardoor.controller.ControllerConstant.REGISTER;
 
 
 @Controller
@@ -50,30 +55,30 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public ModelAndView register() {
         ModelAndView model = new ModelAndView();
         UserRegisterQuickFormDto user = new UserRegisterQuickFormDto();
         model.addObject("userDto", user);
-        model.setViewName("register");
+        model.setViewName(REGISTER);
         return model;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     public ModelAndView register(@ModelAttribute("userDto") @Valid UserRegisterQuickFormDto userDto, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         if (userService.isUserExist(userDto.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
-            model.setViewName("register");
+            model.setViewName(REGISTER);
         } else {
             User user = userService.save(userMapper.mapToUser(userDto));
             userService.sendConfirmationToken(user);
             model.addObject("emailId", user.getEmail());
             model.addObject("msg", "User has been registered successfully");
             model.addObject("userDto", new UserRegisterQuickFormDto());
-            model.setViewName("register"); // resources/template/register.html
+            model.setViewName(REGISTER); // resources/template/register.html
         }
         return model;
     }
@@ -116,7 +121,7 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    @GetMapping(value = "/error")
     public ModelAndView error() {
         ModelAndView model = new ModelAndView();
         model.setViewName("error"); // resources/template/home.html

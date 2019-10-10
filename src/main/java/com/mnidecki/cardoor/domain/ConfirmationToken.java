@@ -22,7 +22,7 @@ public class ConfirmationToken {
     private long tokenid;
 
     @Column(name = "confirmation_token")
-    private String confirmationToken;
+    private String token;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -34,7 +34,7 @@ public class ConfirmationToken {
     public ConfirmationToken(User user) {
         this.user = user;
         createdDate = new Date();
-        confirmationToken = UUID.randomUUID().toString();
+        token = UUID.randomUUID().toString();
     }
 
 

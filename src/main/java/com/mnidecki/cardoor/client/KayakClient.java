@@ -53,8 +53,8 @@ public class KayakClient {
     public long getKayakAverageTotalCarPrice(String locationName, String startDate, String startHour, String endDate, String endHour) {
 
         String cityId = getKayakLocationId(locationName);
-        int intStartHour = Integer.valueOf(startHour.substring(0,2));
-        int intEndHout = Integer.valueOf(endHour.substring(0,2));
+        int intStartHour = Integer.parseInt(startHour.substring(0,2));
+        int intEndHout = Integer.parseInt(endHour.substring(0,2));
         if (!cityId.isEmpty()) {
 
             try {

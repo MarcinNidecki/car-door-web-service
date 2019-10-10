@@ -72,6 +72,6 @@ public class UserService {
         ConfirmationToken confirmationToken = new ConfirmationToken(user);
         confirmationTokenRepository.save(confirmationToken);
         emailSenderService.send(new Mail(user.getEmail(), "Complete Registration!", "To confirm your account, please click here : "
-                + "https://sleepy-oasis-69014.herokuapp.com/confirm-account?token=" + confirmationToken.getConfirmationToken()));
+                + "https://sleepy-oasis-69014.herokuapp.com/confirm-account?token=" + confirmationToken.getToken()));
     }
 }

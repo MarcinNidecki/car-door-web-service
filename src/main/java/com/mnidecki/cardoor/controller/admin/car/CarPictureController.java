@@ -34,17 +34,17 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
         List<CarPictureDto> carsPictures = carPictureMapper.mapToCarPictureDtoList(pictureService.findAll());
         modelAndView.addObject("carsPictures", carsPictures);
-        modelAndView.addObject("carPictureDto", new CarPictureDto());
-        modelAndView.addObject("carParametersService", carParametersService);
-        modelAndView.addObject("isAdd", true);
-        modelAndView.setViewName("carsPicture");
+        modelAndView.addObject(CAR_PICTURE_DTO, new CarPictureDto());
+        modelAndView.addObject(CAR_PARAMETERS_SERVICE, carParametersService);
+        modelAndView.addObject(IS_ADD, true);
+        modelAndView.setViewName(CARS_PICTURE);
         return modelAndView;
     }
 
     @PostMapping(value = "/picture")
     public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isAdd", true);
+        modelAndView.addObject(IS_ADD, true);
         CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
         if (carPicture != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE,
@@ -54,8 +54,8 @@ public class CarPictureController {
             modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +carPictureDto.getFile().getOriginalFilename()+" Please" +
                     " try again" +
                     " later");
-            modelAndView.addObject("carPictureDto", carPictureDto);
-            modelAndView.setViewName("carsPicture");
+            modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+            modelAndView.setViewName(CARS_PICTURE);
         }
         return modelAndView;
     }
@@ -66,10 +66,10 @@ public class CarPictureController {
         CarPictureDto carPictureDto = carPictureMapper.mapToCarPictureDto(pictureService.findById(id));
         List<CarPictureDto> carsPictures = carPictureMapper.mapToCarPictureDtoList(pictureService.findAll());
         modelAndView.addObject("carsPictures", carsPictures);
-        modelAndView.addObject("carPictureDto", carPictureDto);
-        modelAndView.addObject("carParametersService", carParametersService);
-        modelAndView.addObject("isAdd", false);
-        modelAndView.setViewName("carsPicture");
+        modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+        modelAndView.addObject(CAR_PARAMETERS_SERVICE, carParametersService);
+        modelAndView.addObject(IS_ADD, false);
+        modelAndView.setViewName(CARS_PICTURE);
         return modelAndView;
     }
 
@@ -92,15 +92,15 @@ public class CarPictureController {
     @DeleteMapping(value = "/picture/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("carParametersService", carParametersService);
+        modelAndView.addObject(CAR_PARAMETERS_SERVICE, carParametersService);
         pictureService.deleteById(id);
         modelAndView.addObject(SUCCESSMESSAGE, "Car picture is deleted successfully");
-        modelAndView.addObject("carPictureDto", new CarPictureDto());
-        modelAndView.setViewName("carsPicture");
+        modelAndView.addObject(CAR_PICTURE_DTO, new CarPictureDto());
+        modelAndView.setViewName(CARS_PICTURE);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/picturejson", method = RequestMethod.GET)
+    @GetMapping(value = "/picturejson")
     public @ResponseBody CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
         if (pictureId <= 0) {
             return new CarPictureDto();

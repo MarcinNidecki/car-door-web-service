@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "discount_code")
-public class DiscountCode {
+public class DiscountCode implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
