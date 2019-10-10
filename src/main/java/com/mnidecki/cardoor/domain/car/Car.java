@@ -2,7 +2,6 @@ package com.mnidecki.cardoor.domain.car;
 
 import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.booking.Booking;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
-@EqualsAndHashCode
+
 @NoArgsConstructor
 @Setter
 @Entity(name = "cars")
@@ -159,6 +158,33 @@ public class Car implements Serializable {
 
     public Set<Booking> getBookingsList() {
         return bookingsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (id != null ? !id.equals(car.id) : car.id != null) return false;
+        if (model != null ? !model.equals(car.model) : car.model != null) return false;
+        if (registration != null ? !registration.equals(car.registration) : car.registration != null) return false;
+        if (vehicleStatus != null ? !vehicleStatus.equals(car.vehicleStatus) : car.vehicleStatus != null) return false;
+        if (carParameters != null ? !carParameters.equals(car.carParameters) : car.carParameters != null) return false;
+        if (price != null ? !price.equals(car.price) : car.price != null) return false;
+        if (location != null ? !location.equals(car.location) : car.location != null) return false;
+        return bookingsList != null ? bookingsList.equals(car.bookingsList) : car.bookingsList == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (registration != null ? registration.hashCode() : 0);
+        result = 31 * result + (vehicleStatus != null ? vehicleStatus.hashCode() : 0);
+        result = 31 * result + (bookingsList != null ? bookingsList.hashCode() : 0);
+        return result;
     }
 }
 
