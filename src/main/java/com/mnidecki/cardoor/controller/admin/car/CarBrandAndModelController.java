@@ -17,7 +17,6 @@ import java.util.List;
 
 import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/admin/car/")
 public class CarBrandAndModelController {

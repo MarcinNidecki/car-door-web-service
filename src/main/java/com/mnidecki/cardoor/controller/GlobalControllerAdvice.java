@@ -10,13 +10,11 @@ import com.mnidecki.cardoor.services.DBService.CommentService;
 import com.mnidecki.cardoor.services.DBService.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 @RestController
-@CrossOrigin(origins = "*")
 @ControllerAdvice
 public class GlobalControllerAdvice {
 

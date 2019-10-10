@@ -32,18 +32,13 @@ public class PictureUploadService {
 
     public CarPicture uploadPicture(CarPicture picture) {
         if (picture != null && picture.getFile()!=null) {
-            System.out.println("pierwszy if");
             if (picture.getFileName() != null && picture.getFileNamePath() != null) {
-                System.out.println("2 if");
                 if (pictureService.isFileNameTheSameLikeFileNamePath(picture)) {
-                    System.out.println("3 if");
                     return picture;
                 } else {
-                    System.out.println("4 if");
                     return sendPicturesToFtp(picture, prepareThumbnailsAsImputStream(picture));
                 }
             } else {
-                System.out.println("5 if");
                return sendPicturesToFtp(picture, prepareThumbnailsAsImputStream(picture));
             }
         }
@@ -51,7 +46,6 @@ public class PictureUploadService {
     }
 
     private CarPicture setFilesNamesAndPaths(CarPicture picture) {
-        System.out.println("6 if");
         picture.setFileName(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()));
         picture.setThumbnails(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()) + "-small");
         picture.setFileNamePath(ftpConfig.getDomainFullImagePath() + picture.getFile().getOriginalFilename());
@@ -62,7 +56,6 @@ public class PictureUploadService {
     private InputStream prepareThumbnailsAsImputStream(CarPicture picture)  {
         picture.setFileExtension(FilenameUtils.getExtension(picture.getFile().getOriginalFilename()));
         try {
-            System.out.println("staram sie zromic miniatureke");
             BufferedImage thumbnails = Thumbnails.of(picture.getFile().getInputStream())
                     .size(397, 300)
                     .outputFormat(picture.getFileExtension())
@@ -86,7 +79,6 @@ public class PictureUploadService {
 
             con = new FTPClient();
             con.connect(ftpConfig.getFtpHost());
-            System.out.println("Łacze sie z ftp");
             if (con.login(ftpConfig.getLogin(), ftpConfig.getPassword())) {
                 con.enterLocalPassiveMode(); // important!
                 con.setFileType(FTP.BINARY_FILE_TYPE);
@@ -106,7 +98,6 @@ public class PictureUploadService {
             LOGGER.info("Could not upload" + picture.getFile().getOriginalFilename() + "!");
             return new CarPicture();
         }
-
     }
 }
 

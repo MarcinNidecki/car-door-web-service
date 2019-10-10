@@ -17,7 +17,6 @@ import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @RestController("UserCarController")
 @RequestMapping("/car")
 public class UserCarController {

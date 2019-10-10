@@ -36,7 +36,6 @@ import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin("*")
 public class BookingController {
 
     @Autowired
