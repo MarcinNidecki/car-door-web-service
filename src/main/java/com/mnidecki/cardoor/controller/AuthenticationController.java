@@ -96,7 +96,7 @@ public class AuthenticationController {
     @GetMapping(value = "/confirm-account")
     public ModelAndView confirmUserAccount(@RequestParam("token") String confirmationToken) {
         ModelAndView model = new ModelAndView();
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+        ConfirmationToken token = confirmationTokenRepository.findByToken(confirmationToken);
 
         if (token != null) {
             User user = userRepository.findByEmailIgnoreCase(token.getUser().getEmail());
