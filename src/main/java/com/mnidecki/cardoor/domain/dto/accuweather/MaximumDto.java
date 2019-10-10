@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MaximumDto {
 
-    @JsonProperty("UnitType")
+    @JsonProperty("Value")
     private String temp;
 
     @Override

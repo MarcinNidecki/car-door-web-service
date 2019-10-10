@@ -12,6 +12,8 @@ public class CarTypeService {
 
     @Autowired
     private CarTypeRepository carTypeRepository;
+    @Autowired
+    private CarParametersService carParametersService;
 
     public CarType getDefaultCarType() {
         CarType unknown = carTypeRepository.findCarTypeByType("Unknown");
@@ -35,11 +37,10 @@ public class CarTypeService {
     }
 
     public void deleteById(final Long id) {
+        CarType defaulfType = getDefaultCarType();
+        CarType carType = getById(id);
+        carType.getParameters().forEach(parameters -> parameters.setType(defaulfType));
+        save(carType);
         carTypeRepository.deleteById(id);
-    }
-
-    public boolean isExist(Long id ) {
-       return carTypeRepository.existsById(id);
-
     }
 }

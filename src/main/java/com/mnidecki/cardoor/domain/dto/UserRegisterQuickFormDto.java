@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserQuickFormDto implements UserDto {
+public class UserRegisterQuickFormDto implements UserDto {
     @NotNull
     @Length(min = 3, message = "The fistsname must be at least {min} characters long")
     private String firstname;
@@ -26,8 +26,4 @@ public class UserQuickFormDto implements UserDto {
     @Length(min = 5, message = "The password is too short. Please try again.")
     private String password;
 
-    @Override
-    public String getEmail() {
-        return email;
-    }
 }

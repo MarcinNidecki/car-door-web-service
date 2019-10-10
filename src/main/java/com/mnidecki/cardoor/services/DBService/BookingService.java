@@ -14,7 +14,6 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +38,8 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public Optional<Booking> findById(final Long id) {
-        return bookingRepository.findById(id);
+    public Booking findById(final Long id) {
+        return bookingRepository.findById(id).orElse(new Booking());
     }
 
     public Booking save(Booking booking) {
@@ -101,12 +100,7 @@ public class BookingService {
         return Timestamp.valueOf(LocalDateTime.parse(date+"T" +time));
     }
 
-    public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
 
-        LocalDateTime start = LocalDateTime.parse(prepereProperStringDate(startDate)+"T" +startTime);
-        LocalDateTime end = LocalDateTime.parse(prepereProperStringDate(endDate)+"T" +endTime);
-        return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
-    }
 
     public int  countHappyClients() {
         Integer unhappyClient;
@@ -115,15 +109,6 @@ public class BookingService {
         return allClient - unhappyClient;
     }
 
-    public String prepereProperStringDate(String date) {
-        if(date.length()<=9) {
-            StringBuilder startDataBuilder = new StringBuilder(date);
-            startDataBuilder.insert(8,"0");
-            return startDataBuilder.toString();
-        } else {
-            return date;
-        }
 
-    }
 }
 

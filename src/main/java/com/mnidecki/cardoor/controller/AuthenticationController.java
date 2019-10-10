@@ -3,7 +3,7 @@ package com.mnidecki.cardoor.controller;
 import com.mnidecki.cardoor.domain.ConfirmationToken;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.dto.BookingSpecDto;
-import com.mnidecki.cardoor.domain.dto.UserQuickFormDto;
+import com.mnidecki.cardoor.domain.dto.UserRegisterQuickFormDto;
 import com.mnidecki.cardoor.mapper.UserMapper;
 import com.mnidecki.cardoor.repository.ConfirmationTokenRepository;
 import com.mnidecki.cardoor.repository.UserRepository;
@@ -53,14 +53,14 @@ public class AuthenticationController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView model = new ModelAndView();
-        UserQuickFormDto user = new UserQuickFormDto();
+        UserRegisterQuickFormDto user = new UserRegisterQuickFormDto();
         model.addObject("userDto", user);
         model.setViewName("register");
         return model;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute("userDto") @Valid UserQuickFormDto userDto, BindingResult bindingResult) {
+    public ModelAndView register(@ModelAttribute("userDto") @Valid UserRegisterQuickFormDto userDto, BindingResult bindingResult) {
         ModelAndView model = new ModelAndView();
         if (userService.isUserExist(userDto.getEmail())) {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
@@ -72,7 +72,7 @@ public class AuthenticationController {
             userService.sendConfirmationToken(user);
             model.addObject("emailId", user.getEmail());
             model.addObject("msg", "User has been registered successfully");
-            model.addObject("userDto", new UserQuickFormDto());
+            model.addObject("userDto", new UserRegisterQuickFormDto());
             model.setViewName("register"); // resources/template/register.html
         }
         return model;

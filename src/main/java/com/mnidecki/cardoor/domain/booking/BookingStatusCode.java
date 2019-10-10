@@ -1,21 +1,22 @@
 package com.mnidecki.cardoor.domain.booking;
 
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@EqualsAndHashCode
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "booking_status")
-public class BookingStatusCode {
+public class BookingStatusCode implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

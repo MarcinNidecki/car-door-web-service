@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarBrandModelService {
@@ -22,8 +21,8 @@ public class CarBrandModelService {
         return carBrandModelRepository.findAll();
     }
 
-    public Optional<CarBrandModel> findByID(final Long id) {
-        return carBrandModelRepository.findById(id);
+    public CarBrandModel findByID(final Long id) {
+        return carBrandModelRepository.findById(id).orElse(new CarBrandModel());
     }
 
     public CarBrandModel save(final CarBrandModel carBrandModel) {

@@ -16,13 +16,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -39,8 +38,6 @@ public class BookingServiceTest {
     private BookingExtrasService extrasService;
     @Mock
     private CommentService commentService;
-
-
 
     public Booking getBooking() {
         User user = new User.UserBuilder()
@@ -155,58 +152,57 @@ public class BookingServiceTest {
         when(bookingRepository.findById(anyLong())).thenReturn(bookingsList);
 
         //When
-        Optional<Booking> foundedBooking = bookingService.findById(1L);
+        Booking foundedBooking = bookingService.findById(1L);
 
         //Then
-        assertTrue(foundedBooking.isPresent());
-        assertEquals(Long.valueOf(1),foundedBooking.get().getId());
-        assertEquals(BigDecimal.valueOf(600),foundedBooking.get().getTotalCost());
-        assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),foundedBooking.get().getStartDate());
-        assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),foundedBooking.get().getReturnDate());
-        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.get().getCreatedDate());
-        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.get().getCreatedDate());
-        assertEquals("lastname",foundedBooking.get().getUser().getLastname());
-        assertEquals("firstname",foundedBooking.get().getUser().getFirstname());
-        assertEquals("email",foundedBooking.get().getUser().getEmail());
-        assertEquals("password",foundedBooking.get().getUser().getPassword());
-        assertEquals(Integer.valueOf(1),foundedBooking.get().getUser().getStatus());
-        assertEquals("username",foundedBooking.get().getUser().getUsername());
-        assertEquals("address line 1",foundedBooking.get().getUser().getAddressLine1());
-        assertEquals("address line 2",foundedBooking.get().getUser().getAddressLine2());
-        assertEquals("Poland",foundedBooking.get().getUser().getCountry());
-        assertEquals("Slaskie",foundedBooking.get().getUser().getState());
-        assertEquals("44-444",foundedBooking.get().getUser().getZipCode());
-        assertEquals(Long.valueOf(1),foundedBooking.get().getCar().getId());
-        assertEquals("WWA 123456",foundedBooking.get().getCar().getRegistration());
-        assertEquals("RENT",foundedBooking.get().getCar().getVehicleStatus());
-        assertEquals(BigDecimal.valueOf(250),foundedBooking.get().getCar().getPrice());
-        assertEquals(Long.valueOf(1),foundedBooking.get().getLocation().getId());
-        assertEquals("Poland",foundedBooking.get().getLocation().getCountry());
-        assertEquals("Katowice",foundedBooking.get().getLocation().getCity());
-        assertEquals("Katowice Airport",foundedBooking.get().getLocation().getLocationName());
-        assertEquals("address line 1",foundedBooking.get().getLocation().getAddressLine());
-        assertEquals("address line 2",foundedBooking.get().getLocation().getAddressLine2());
-        assertEquals("Terminal 2, office next to parking",foundedBooking.get().getLocation().getPickUpInstructions());
-        assertEquals("44-444",foundedBooking.get().getLocation().getPostalCode());
-        assertEquals("email@email.pl",foundedBooking.get().getLocation().getEmail());
-        assertEquals("555555555",foundedBooking.get().getLocation().getPhone());
-        assertEquals("Mon - Fri 10-16",foundedBooking.get().getLocation().getOpeningHours());
-        assertEquals(1,foundedBooking.get().getBookingExtrasList().size());
-        assertEquals(Long.valueOf(1),foundedBooking.get().getBookingExtrasList().get(0).getId());
-        assertEquals(Long.valueOf(2),foundedBooking.get().getBookingExtrasList().get(0).getQuantity());
-        assertEquals(BigDecimal.valueOf(100),foundedBooking.get().getBookingExtrasList().get(0).getValue());
+        assertEquals(Long.valueOf(1L), foundedBooking.getId());
+        assertEquals(BigDecimal.valueOf(600),foundedBooking.getTotalCost());
+        assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),foundedBooking.getStartDate());
+        assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),foundedBooking.getReturnDate());
+        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.getCreatedDate());
+        assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),foundedBooking.getCreatedDate());
+        assertEquals("lastname",foundedBooking.getUser().getLastname());
+        assertEquals("firstname",foundedBooking.getUser().getFirstname());
+        assertEquals("email",foundedBooking.getUser().getEmail());
+        assertEquals("password",foundedBooking.getUser().getPassword());
+        assertEquals(Integer.valueOf(1), foundedBooking.getUser().getStatus());
+        assertEquals("username",foundedBooking.getUser().getUsername());
+        assertEquals("address line 1",foundedBooking.getUser().getAddressLine1());
+        assertEquals("address line 2",foundedBooking.getUser().getAddressLine2());
+        assertEquals("Poland",foundedBooking.getUser().getCountry());
+        assertEquals("Slaskie",foundedBooking.getUser().getState());
+        assertEquals("44-444",foundedBooking.getUser().getZipCode());
+        assertEquals(Long.valueOf(1),foundedBooking.getCar().getId());
+        assertEquals("WWA 123456",foundedBooking.getCar().getRegistration());
+        assertEquals("RENT",foundedBooking.getCar().getVehicleStatus());
+        assertEquals(BigDecimal.valueOf(250),foundedBooking.getCar().getPrice());
+        assertEquals(Long.valueOf(1),foundedBooking.getLocation().getId());
+        assertEquals("Poland",foundedBooking.getLocation().getCountry());
+        assertEquals("Katowice",foundedBooking.getLocation().getCity());
+        assertEquals("Katowice Airport",foundedBooking.getLocation().getLocationName());
+        assertEquals("address line 1",foundedBooking.getLocation().getAddressLine());
+        assertEquals("address line 2",foundedBooking.getLocation().getAddressLine2());
+        assertEquals("Terminal 2, office next to parking",foundedBooking.getLocation().getPickUpInstructions());
+        assertEquals("44-444",foundedBooking.getLocation().getPostalCode());
+        assertEquals("email@email.pl",foundedBooking.getLocation().getEmail());
+        assertEquals("555555555",foundedBooking.getLocation().getPhone());
+        assertEquals("Mon - Fri 10-16",foundedBooking.getLocation().getOpeningHours());
+        assertEquals(1,foundedBooking.getBookingExtrasList().size());
+        assertEquals(Long.valueOf(1),foundedBooking.getBookingExtrasList().get(0).getId());
+        assertEquals(Long.valueOf(2),foundedBooking.getBookingExtrasList().get(0).getQuantity());
+        assertEquals(BigDecimal.valueOf(100),foundedBooking.getBookingExtrasList().get(0).getValue());
     }
 
     @Test
-    public void shouldFindOptionalEmpty() {
+    public void shouldReturnEmptyBooking() {
         //Given
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<Booking> founded = bookingService.findById(2L);
+        Booking founded = bookingService.findById(2L);
 
         //Then
-        assertFalse(founded.isPresent());
+        assertEquals(new Booking(), founded);
 
     }
 
@@ -431,52 +427,6 @@ public class BookingServiceTest {
         assertEquals(exceptedTime,timestamp);
     }
 
-
-    @Test
-    public void dateShouldBeValid() {
-        //Given
-        String startDate = LocalDate.now().plusDays(2).toString();
-        String startHour = "22:20";
-        String returnDate = LocalDate.now().plusDays(4).toString();
-        String returnHour = "22:20";
-        //When
-        boolean isValid = bookingService.isBookingDateValid(startDate,startHour,returnDate,returnHour);
-
-        //Then
-        assertTrue(isValid);
-
-    }
-
-    @Test
-    public void dateShouldBeNotValidWhenStartIsBeforeNow() {
-        //Given
-        String startDate = LocalDate.now().toString();
-        String startHour = LocalDateTime.now().minusHours(1).toLocalTime().toString();
-        String returnDate = LocalDate.now().plusDays(4).toString();
-        String returnHour = LocalDateTime.now().minusHours(1).toLocalTime().toString();
-
-        //When
-        boolean isValid = bookingService.isBookingDateValid(startDate,startHour,returnDate,returnHour);
-
-        //Then
-        assertFalse(isValid);
-    }
-
-
-    @Test
-    public void dateShouldBeNotValidWhenStartDateIsAfterReturnDate() {
-        //Given
-        String startDate = LocalDate.now().plusDays(2).toString();
-        String startHour = LocalDateTime.now().toLocalTime().toString();
-        String returnDate = LocalDate.now().plusDays(1).toString();
-        String returnHour = LocalDateTime.now().toLocalTime().toString();
-
-        //When
-        boolean isValid = bookingService.isBookingDateValid(startDate,startHour,returnDate,returnHour);
-
-        //Then
-        assertFalse(isValid);
-    }
 
     @Test
     public void shouldCountHappyClients() {

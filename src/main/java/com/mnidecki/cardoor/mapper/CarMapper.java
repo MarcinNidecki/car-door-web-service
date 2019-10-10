@@ -1,7 +1,6 @@
 package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.car.Car;
-import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.car.CarParameters;
 import com.mnidecki.cardoor.domain.dto.CarDto;
 import com.mnidecki.cardoor.services.DBService.*;
@@ -21,22 +20,24 @@ public class CarMapper {
     @Autowired
     private CarPictureService carPictureService;
     @Autowired
-    private CarParametersService carParametersService;
-    @Autowired
     private CarBrandModelService carBrandModelService;
     @Autowired
     private StarService starService;
 
     public Car mapToCar(final CarDto carDto) {
-
-        return new Car.CarBuilder()
-                .model(carBrandModelService.findByID(carDto.getModelId()).orElse(new CarBrandModel()))
+        Car car = new Car.CarBuilder()
+                .model(carBrandModelService.findByID(carDto.getModelId()))
                 .registration(carDto.getRegistration())
                 .vehicleStatus(carDto.getVehicleStatus())
                 .carParameters(mapToCarParameters(carDto))
                 .price(carDto.getPrice())
                 .location(cityService.findById(carDto.getCityId()))
                 .build();
+
+        if(carDto.getId()!=null) {
+            car.setId(carDto.getId());
+        }
+        return car;
     }
 
     public CarDto mapToCarDto(final Car car) {
@@ -78,7 +79,7 @@ public class CarMapper {
     }
 
     public CarParameters mapToCarParameters(final CarDto carDto) {
-        return new CarParameters.CarParametersBuilder()
+        CarParameters carParameters = new CarParameters.CarParametersBuilder()
                 .fuelType(carDto.getFuelType())
                 .allWheelDrive(carDto.isAllWheelDrive())
                 .doorsNumber(carDto.getDoorsNumber())
@@ -90,7 +91,13 @@ public class CarMapper {
                 .transmissionIsAutomatic(carDto.isTransmissionIsAutomatic())
                 .airConditioning(carDto.isAirConditioning())
                 .type(typeService.getById(carDto.getCarTypeId()))
-                .carPicture(carPictureService.findById(carDto.getCarPictureId())).build();
+                .carPicture(carPictureService.findById(carDto.getCarPictureId()))
+                .build();
+
+        if (carDto.getCarParametersId()!=null) {
+            carParameters.setId(carDto.getCarParametersId());
+        }
+        return carParameters;
     }
 
 }

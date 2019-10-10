@@ -1,6 +1,7 @@
 package com.mnidecki.cardoor.domain.booking;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

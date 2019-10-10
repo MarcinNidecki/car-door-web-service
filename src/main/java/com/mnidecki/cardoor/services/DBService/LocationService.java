@@ -17,9 +17,7 @@ public class LocationService {
         return locationRepository.findAll();
     }
 
-    public Locationn findById(final Long id) {
-        return locationRepository.findById(id).orElse(new Locationn());
-    }
+    public Locationn findById(final Long id) { return locationRepository.findById(id).orElse(new Locationn());  }
 
     public Locationn save(final Locationn location) {
         return locationRepository.save(location);

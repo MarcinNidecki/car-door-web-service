@@ -1,7 +1,5 @@
 package com.mnidecki.cardoor.services.DBService;
 
-import com.mnidecki.cardoor.domain.User;
-import com.mnidecki.cardoor.domain.booking.BookingStatusCode;
 import com.mnidecki.cardoor.domain.car.*;
 import com.mnidecki.cardoor.repository.CarBrandModelRepository;
 import org.junit.Test;
@@ -17,10 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarBrandModelServiceTest {
@@ -88,20 +85,19 @@ public class CarBrandModelServiceTest {
         when(carBrandModelRepository.findById(anyLong())).thenReturn(optionalModel);
 
         //When
-        Optional<CarBrandModel> foundedModel = carBrandModelService.findByID(1L);
+        CarBrandModel foundedModel = carBrandModelService.findByID(1L);
 
         //Then
-        assertTrue( foundedModel.isPresent());
-        assertEquals(Long.valueOf(1),foundedModel.get().getId());
-        assertEquals("Sorento",foundedModel.get().getModel());
-        assertEquals(Long.valueOf(1),foundedModel.get().getBrand().getId());
-        assertEquals("Kia",foundedModel.get().getBrand().getBrand());
-        assertEquals(Long.valueOf(1),foundedModel.get().getCars().get(0).getId());
-        assertEquals(BigDecimal.valueOf(250),foundedModel.get().getCars().get(0).getPrice());
-        assertEquals("WWA 123456",foundedModel.get().getCars().get(0).getRegistration());
-        assertEquals("RENT",foundedModel.get().getCars().get(0).getVehicleStatus());
-        assertEquals(Float.valueOf(10),foundedModel.get().getStar().getRatingAverage());
-        assertEquals(Long.valueOf(1),foundedModel.get().getStar().getModelId());
+        assertEquals(Long.valueOf(1),foundedModel.getId());
+        assertEquals("Sorento",foundedModel.getModel());
+        assertEquals(Long.valueOf(1),foundedModel.getBrand().getId());
+        assertEquals("Kia",foundedModel.getBrand().getBrand());
+        assertEquals(Long.valueOf(1),foundedModel.getCars().get(0).getId());
+        assertEquals(BigDecimal.valueOf(250),foundedModel.getCars().get(0).getPrice());
+        assertEquals("WWA 123456",foundedModel.getCars().get(0).getRegistration());
+        assertEquals("RENT",foundedModel.getCars().get(0).getVehicleStatus());
+        assertEquals(Float.valueOf(10),foundedModel.getStar().getRatingAverage());
+        assertEquals(Long.valueOf(1),foundedModel.getStar().getModelId());
     }
 
     @Test
@@ -110,10 +106,10 @@ public class CarBrandModelServiceTest {
         when(carBrandModelRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<CarBrandModel> foundedModel = carBrandModelService.findByID(1L);
+        CarBrandModel foundedModel = carBrandModelService.findByID(1L);
 
         //Then
-        assertFalse(foundedModel.isPresent());
+        assertEquals(foundedModel, new CarBrandModel());
 
     }
 

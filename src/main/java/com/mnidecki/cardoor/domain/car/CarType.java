@@ -1,15 +1,13 @@
 package com.mnidecki.cardoor.domain.car;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,7 +26,7 @@ public class CarType implements Serializable {
     @OneToMany(targetEntity = CarParameters.class,
             mappedBy = "type",
             fetch = FetchType.EAGER)
-    private List<CarParameters> cars = new ArrayList<>();
+    private List<CarParameters> parameters = new ArrayList<>();
 
     public CarType(String type) {
         this.type = type;
@@ -39,25 +37,6 @@ public class CarType implements Serializable {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CarType carType = (CarType) o;
-
-        if (id != null ? !id.equals(carType.id) : carType.id != null) return false;
-        if (type != null ? !type.equals(carType.type) : carType.type != null) return false;
-        return cars != null ? cars.equals(carType.cars) : carType.cars == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (cars != null ? cars.hashCode() : 0);
-        return result;
-    }
 }
 
 

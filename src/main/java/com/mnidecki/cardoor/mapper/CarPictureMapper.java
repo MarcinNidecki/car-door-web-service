@@ -19,7 +19,9 @@ public class CarPictureMapper {
                 carPictureDto.getFileNamePath(),
                 carPictureDto.getThumbnailsPath(),
                 carPictureDto.getFileExtension(),
-                carPictureDto.getCreatedDate());
+                carPictureDto.getCreatedDate(),
+                carPictureDto.getFile());
+
     }
 
     public CarPictureDto mapToCarPictureDto(CarPicture carPicture) {
@@ -48,20 +50,6 @@ public class CarPictureMapper {
                         carPicture.getThumbnailsPath(),
                         carPicture.getFileExtension(),
                         carPicture.getCreatedDate()))
-                .collect(Collectors.toList());
-    }
-
-    public List<CarPicture> mapToCarPictureList(final List<CarPictureDto> carPictureDtoList) {
-        return carPictureDtoList.stream()
-                .map(carPictureDto -> new CarPicture(
-                        carPictureDto.getId(),
-                        carPictureDto.getDescriptions(),
-                        carPictureDto.getFileName(),
-                        carPictureDto.getThumbnails(),
-                        carPictureDto.getFileNamePath(),
-                        carPictureDto.getThumbnailsPath(),
-                        carPictureDto.getFileExtension(),
-                        carPictureDto.getCreatedDate()))
                 .collect(Collectors.toList());
     }
 }

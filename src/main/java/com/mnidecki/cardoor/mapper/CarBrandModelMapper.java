@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.mapper;
 
-import com.mnidecki.cardoor.domain.car.CarBrand;
 import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.dto.CarBrandModelDto;
 import com.mnidecki.cardoor.services.DBService.CarBrandService;
@@ -20,7 +19,7 @@ public class CarBrandModelMapper {
         return new CarBrandModel(
                 carBrandModelDto.getId(),
                 carBrandModelDto.getModel(),
-                carBrandService.findByID(carBrandModelDto.getBrandId()).orElse(new CarBrand())
+                carBrandService.findByID(carBrandModelDto.getBrandId())
         );
     }
 

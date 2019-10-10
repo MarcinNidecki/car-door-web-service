@@ -6,7 +6,6 @@ import com.mnidecki.cardoor.domain.car.*;
 import com.mnidecki.cardoor.domain.dto.*;
 import com.mnidecki.cardoor.mapper.*;
 import com.mnidecki.cardoor.services.DBService.*;
-import com.mnidecki.cardoor.services.DBService.CarPictureService;
 import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -198,7 +197,7 @@ public class CarControllerTest {
                 .andExpect(model().attribute("allCity", Matchers.hasItem(hasProperty("phone", is("515125144")))))
                 .andExpect(model().attribute("allCity", Matchers.hasItem(hasProperty("openingHours",
                         is("11:00 - 19:00")))))
-                .andExpect(view().name("cars"))
+                .andExpect(view().name("parameters"))
                 .andReturn();
     }*/
 

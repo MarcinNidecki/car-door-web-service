@@ -1,9 +1,9 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
-import com.mnidecki.cardoor.controller.ControllerConstant;
 import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.domain.dto.CarTypeDto;
 import com.mnidecki.cardoor.mapper.CarTypeMapper;
+import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,8 @@ public class CarTypeController {
     private CarTypeService carTypeService;
     @Autowired
     private CarTypeMapper carTypeMapper;
-
+    @Autowired
+    private CarParametersService carParametersService;
 
     @GetMapping("/type")
     public ModelAndView cars() {
@@ -36,6 +37,7 @@ public class CarTypeController {
         modelAndView.addObject("carTypes", carTypes);
         modelAndView.addObject("carTypeDto", new CarTypeDto());
         modelAndView.addObject("title", "Cars Type");
+        modelAndView.addObject("carParametersService", carParametersService);
         modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("carType");
         return modelAndView;
@@ -73,6 +75,7 @@ public class CarTypeController {
         List<CarTypeDto> carTypes = carTypeMapper.mapToCarTypeDtoList(carTypeService.findAll());
         modelAndView.addObject("carTypes", carTypes);
         modelAndView.addObject("carTypeDto", carTypeDto);
+        modelAndView.addObject("carParametersService", carParametersService);
         modelAndView.addObject("title", "Cars Type");
         modelAndView.addObject("isAdd", true);
         modelAndView.setViewName("carType");
@@ -98,13 +101,12 @@ public class CarTypeController {
         }
         return modelAndView;
     }
-
     @Transactional
     @DeleteMapping(value = "/type/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         carTypeService.deleteById(id);
-        modelAndView.addObject("carTypeDto", new CarTypeDto());
+        //modelAndView.addObject("carTypeDto", new CarTypeDto());
         redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car type is deleted successfully");
         modelAndView.setViewName("redirect:/admin/car/type");
         return modelAndView;

@@ -16,11 +16,6 @@ public class CarBrandModelDto {
     private String model;
     private Long brandId;
 
-
-    public CarBrandModelDto(String model) {
-        this.model = model;
-    }
-
     @Override
     public String toString() {
         return model;

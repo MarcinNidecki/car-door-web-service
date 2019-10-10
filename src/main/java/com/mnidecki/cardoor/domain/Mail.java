@@ -1,8 +1,10 @@
 package com.mnidecki.cardoor.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Mail {

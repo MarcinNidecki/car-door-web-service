@@ -45,16 +45,6 @@ public class BookingExtrasItemDto implements Serializable {
         this.iconPath = iconPath;
     }
 
-    public BookingExtrasItemDto(String name, String description, Long quantity, BigDecimal totalValue, BigDecimal price, Long bookingExtrasId, String iconPath) {
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.totalValue = totalValue;
-        this.price = price;
-        this.bookingExtrasId = bookingExtrasId;
-        this.iconPath = iconPath;
-    }
-
     @Override
     public String toString() {
         return "BookingExtrasItemDto{" +
@@ -69,4 +59,6 @@ public class BookingExtrasItemDto implements Serializable {
                 ", iconPath='" + iconPath + '\'' +
                 '}';
     }
+
+
 }

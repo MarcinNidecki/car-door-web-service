@@ -1,20 +1,19 @@
 package com.mnidecki.cardoor.domain.booking;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "booking_extras_item")
-public class BookingExtrasItem {
+public class BookingExtrasItem implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,5 +61,8 @@ public class BookingExtrasItem {
                 ", bookingExtras=" + bookingExtras +
 
                 '}';
+    }
+    public Long getId(){
+        return id;
     }
 }

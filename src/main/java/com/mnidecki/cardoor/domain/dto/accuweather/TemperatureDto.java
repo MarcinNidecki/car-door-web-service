@@ -15,10 +15,14 @@ public class TemperatureDto {
     @JsonProperty("Maximum")
     private MaximumDto maximumDto;
 
+    @JsonProperty("Minimum")
+    private MinimumDto minimumDto;
+
     @Override
     public String toString() {
         return "TemperatureDto{" +
                 "maximumDto=" + maximumDto +
+                ", minimumDto=" + minimumDto +
                 '}';
     }
 }

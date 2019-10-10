@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookingExtrasItemService {
@@ -22,8 +21,8 @@ public class BookingExtrasItemService {
         return bookingExtrasItemRepository.save(bookingExtrasItem);
     }
 
-    public Optional<BookingExtrasItem> findById(Long id) {
-        return bookingExtrasItemRepository.findById(id);
+    public BookingExtrasItem findById(Long id) {
+        return bookingExtrasItemRepository.findById(id).orElse(new BookingExtrasItem());
     }
 
     public void deleteById(Long id) {

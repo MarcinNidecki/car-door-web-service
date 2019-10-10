@@ -22,6 +22,5 @@ public interface CarTypeRepository extends CrudRepository<CarType, Integer> {
 
     CarType findCarTypeByType(String descriptions);
 
-    boolean existsById(Long id);
 
 }

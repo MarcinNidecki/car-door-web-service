@@ -12,7 +12,8 @@
                 <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
                 <strong th:text="${errormessage}"></strong>
             </div>
-            <form action="#" th:action="@{${isAdd}?'/admin/car/picture':'/admin/car/picture'}" th:object="${carPictureDto}" th:method="@{${isAdd}?'post':'put'}" enctype="multipart/form-data">
+            <form action="#" th:action="@{${isAdd}?'/admin/car/picture':'/admin/car/picture'}"
+            th:object="${carPictureDto}" th:method="@{${isAdd}?'post':'put'}"  enctype="multipart/form-data">
                 <div class="p-car-thumbnails" th:if="${isAdd} == false">
                     <a class="car-hover" th:href="*{fileNamePath}">
                         <img th:src="*{thumbnailsPath}" style="width: 397px;" class="image" alt="JSOFT">
@@ -24,16 +25,18 @@
                         <input type="hidden" th:field="*{fileName}" th:value="@{${isAdd}?'':'${carPictureDto.fileName}'}">
                         <input type="hidden" th:field="*{thumbnails}" th:value="@{${isAdd}?'':'${carPictureDto.thumbnails}'}">
                         <input type="hidden" th:field="*{fileNamePath}" th:value="@{${isAdd}?'':'${carPictureDto.fileNamePath}'}">
-                        <input type="hidden" th:field="*{id}" th:value="@{${isAdd}?'':'${carPictureDto.thumbnailsPath}'}">
-                        <input type="hidden" th:field="*{thumbnailsPath}" th:value="@{${isAdd}?'':'${carPictureDto.fileExtension}'}">
+                        <input type="hidden" th:field="*{thumbnailsPath}" th:value="@{${isAdd}?'':'${carPictureDto.thumbnailsPath}'}">
+                        <input type="hidden" th:field="*{fileExtension}" th:value="@{${isAdd}?'':'${carPictureDto.fileExtension}'}">
                         <input type="hidden" th:field="*{createdDate}" th:value="@{${isAdd}?'':'${carPictureDto.createdDate}'}">
 
                         <label for="formGroupExampleInput">Descriptions</label>
-                        <input type="text" class="form-control" id="descriptions" placeholder="Descriptions" th:field="*{descriptions}">
+
+                        <input type="text" th:field="*{descriptions}" class="form-control"
+                        placeholder="Descriptions">
                     </div>
                     <div class="col-md-6">
                         <label for="formGroupExampleInput">Upload picture</label>
-                        <input type="file" class="form-control" id="file" placeholder="file" th:field="*{file}" multiple="multiple">
+                        <input type="file" class="form-control" placeholder="file" th:field="*{file}" multiple="multiple">
                     </div>
                 </div>
                 <div class="input-submit">

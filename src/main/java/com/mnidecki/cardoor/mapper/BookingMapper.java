@@ -1,7 +1,6 @@
 package com.mnidecki.cardoor.mapper;
 
 import com.mnidecki.cardoor.domain.booking.Booking;
-import com.mnidecki.cardoor.domain.booking.BookingStatusCode;
 import com.mnidecki.cardoor.domain.dto.BookingDto;
 import com.mnidecki.cardoor.services.DBService.BookingStatusCodeService;
 import com.mnidecki.cardoor.services.DBService.CarService;
@@ -28,12 +27,12 @@ public class BookingMapper {
     private BookingExtrasItemMapper bookingExtrasItemMapper;
 
     public Booking mapToBooking(BookingDto bookingDto) {
-        if (bookingDto.getUserId() != null) {
+        if (bookingDto.getId() != null) {
             return new Booking.BookingBuilder()
                     .id(bookingDto.getId())
                     .user(userService.findUserById(bookingDto.getUserId()))
                     .car(carService.findById(bookingDto.getCarId()))
-                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElse(new BookingStatusCode()))
+                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()))
                     .location( cityService.findById(bookingDto.getCityId()))
                     .totalCost(bookingDto.getTotalCost())
                     .startDate(bookingDto.getStartDate())
@@ -44,7 +43,7 @@ public class BookingMapper {
             return new Booking.BookingBuilder()
                     .user(userService.findUserById(bookingDto.getUserId()))
                     .car(carService.findById(bookingDto.getCarId()))
-                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()).orElse(new BookingStatusCode()))
+                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()))
                     .location(cityService.findById(bookingDto.getCityId()))
                     .totalCost( bookingDto.getTotalCost())
                     .startDate(bookingDto.getStartDate())
@@ -52,11 +51,10 @@ public class BookingMapper {
                     .bookingExtrasList( bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()))
                     .build();
         }
-
     }
 
     public BookingDto mapToBookingDto(Booking booking) {
-        if (booking.getUser() != null) {
+        if (booking.getId() != null) {
             return new BookingDto.BookingDtoBuilder()
                     .id(booking.getId())
                     .userId(booking.getUser().getId())
@@ -70,7 +68,7 @@ public class BookingMapper {
                     .build();
         } else {
             return new BookingDto.BookingDtoBuilder()
-                    .userId(booking.getId())
+                    .userId(booking.getUser().getId())
                     .carId(booking.getCar().getId())
                     .bookingStatusCodeId(booking.getBookingStatusCode().getId())
                     .cityId(booking.getLocation().getId())
@@ -80,20 +78,10 @@ public class BookingMapper {
                     .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()))
                     .build();
         }
-
     }
-
-
-
     public List<BookingDto> mapToBookingDtoList(List<Booking> bookingList) {
         return bookingList.stream()
                 .map(this::mapToBookingDto)
-                .collect(Collectors.toList());
-    }
-
-    public List<Booking> mapToBookingList(List<BookingDto> bookingList) {
-        return bookingList.stream()
-                .map(this::mapToBooking)
                 .collect(Collectors.toList());
     }
 }

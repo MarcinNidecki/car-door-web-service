@@ -56,15 +56,15 @@ public class BookingExtrasItemMapper {
                     bookingExtrasItemDto.getId(),
                     bookingExtrasItemDto.getQuantity(),
                     bookingExtrasItemDto.getTotalValue(),
-                    bookingExtrasService.findById(bookingExtrasItemDto.getBookingExtrasId()).orElse(null),
-                    bookingService.findById(bookingExtrasItemDto.getBookingId()).orElse(null)
+                    bookingExtrasService.findById(bookingExtrasItemDto.getBookingExtrasId()),
+                    bookingService.findById(bookingExtrasItemDto.getBookingId())
             );
         } else {
             return new BookingExtrasItem(
                     bookingExtrasItemDto.getId(),
                     bookingExtrasItemDto.getQuantity(),
                     bookingExtrasItemDto.getTotalValue(),
-                    bookingExtrasService.findById(bookingExtrasItemDto.getBookingExtrasId()).orElse(null));
+                    bookingExtrasService.findById(bookingExtrasItemDto.getBookingExtrasId()));
 
         }
 

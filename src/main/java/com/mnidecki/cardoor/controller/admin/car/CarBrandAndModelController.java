@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
-import com.mnidecki.cardoor.controller.ControllerConstant;
 import com.mnidecki.cardoor.domain.car.CarBrand;
 import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.dto.CarBrandDto;
@@ -63,7 +62,7 @@ public class CarBrandAndModelController {
     @GetMapping("/brand/{brandId}")
     public ModelAndView brand(@PathVariable Long brandId) {
         ModelAndView modelAndView = new ModelAndView();
-        CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId).orElse(new CarBrand()));
+        CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId));
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
         modelAndView.addObject("carBrandModels", carModels);
@@ -82,7 +81,7 @@ public class CarBrandAndModelController {
     public ModelAndView model(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandModelDto carModelDto = carBrandModelMapper.mapToCarBrandModelDto(
-                carBrandModelService.findByID(modelId).orElse(new CarBrandModel()));
+                carBrandModelService.findByID(modelId));
         List<CarBrandDto> carBrands = allType();
         modelAndView.addObject(CAR_BRANDS, carBrands);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, carModelDto);

@@ -1,8 +1,10 @@
 package com.mnidecki.cardoor.domain.car;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @NoArgsConstructor
 @Getter
 @Setter
@@ -47,6 +50,8 @@ public class CarPicture implements Serializable {
             mappedBy = "carPicture",
             fetch = FetchType.EAGER)
     private List<CarParameters> carList = new ArrayList<>();
+    @Transient
+    private MultipartFile file;
 
 
     public CarPicture(String descriptions, String fileName, String thumbnails, String fileNamePath,
@@ -60,10 +65,10 @@ public class CarPicture implements Serializable {
         this.createdDate = createdDate;
 
 
-    }
 
+    }
     public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
-                             String thumbnailsPath, String fileExtension, LocalDate createdDate) {
+                      String thumbnailsPath, String fileExtension, LocalDate createdDate) {
         this.id = id;
         this.descriptions = descriptions;
         this.fileName = fileName;
@@ -72,7 +77,31 @@ public class CarPicture implements Serializable {
         this.thumbnailsPath = thumbnailsPath;
         this.fileExtension = fileExtension;
         this.createdDate = createdDate;
+    }
 
+    public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
+                             String thumbnailsPath, String fileExtension, LocalDate createdDate, MultipartFile file) {
+        this.id = id;
+        this.descriptions = descriptions;
+        this.fileName = fileName;
+        this.thumbnails = thumbnails;
+        this.fileNamePath = fileNamePath;
+        this.thumbnailsPath = thumbnailsPath;
+        this.fileExtension = fileExtension;
+        this.createdDate = createdDate;
+        this.file = file;
+    }
+
+    public CarPicture(String descriptions, String fileName, String thumbnails, String fileNamePath,
+                      String thumbnailsPath, String fileExtension, LocalDate createdDate, MultipartFile file) {
+        this.descriptions = descriptions;
+        this.fileName = fileName;
+        this.thumbnails = thumbnails;
+        this.fileNamePath = fileNamePath;
+        this.thumbnailsPath = thumbnailsPath;
+        this.fileExtension = fileExtension;
+        this.createdDate = createdDate;
+        this.file = file;
     }
     public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
                              String thumbnailsPath, String fileExtension) {
@@ -83,9 +112,13 @@ public class CarPicture implements Serializable {
         this.fileNamePath = fileNamePath;
         this.thumbnailsPath = thumbnailsPath;
         this.fileExtension = fileExtension;
-        this.createdDate = createdDate;
-
     }
+
+    public CarPicture(String descriptions, MultipartFile file) {
+        this.descriptions = descriptions;
+        this.file = file;
+    }
+
     public LocalDate getCreatedDate() {
         if (createdDate == null) {
             return LocalDate.now();
@@ -94,36 +127,18 @@ public class CarPicture implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CarPicture that = (CarPicture) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (descriptions != null ? !descriptions.equals(that.descriptions) : that.descriptions != null) return false;
-        if (fileName != null ? !fileName.equals(that.fileName) : that.fileName != null) return false;
-        if (thumbnails != null ? !thumbnails.equals(that.thumbnails) : that.thumbnails != null) return false;
-        if (fileNamePath != null ? !fileNamePath.equals(that.fileNamePath) : that.fileNamePath != null) return false;
-        if (thumbnailsPath != null ? !thumbnailsPath.equals(that.thumbnailsPath) : that.thumbnailsPath != null)
-            return false;
-        if (fileExtension != null ? !fileExtension.equals(that.fileExtension) : that.fileExtension != null)
-            return false;
-        if (createdDate != null ? !createdDate.equals(that.createdDate) : that.createdDate != null) return false;
-        return carList != null ? carList.equals(that.carList) : that.carList == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (descriptions != null ? descriptions.hashCode() : 0);
-        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
-        result = 31 * result + (thumbnails != null ? thumbnails.hashCode() : 0);
-        result = 31 * result + (fileNamePath != null ? fileNamePath.hashCode() : 0);
-        result = 31 * result + (thumbnailsPath != null ? thumbnailsPath.hashCode() : 0);
-        result = 31 * result + (fileExtension != null ? fileExtension.hashCode() : 0);
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (carList != null ? carList.hashCode() : 0);
-        return result;
+    public String toString() {
+        return "CarPicture{" +
+                "id=" + id +
+                ", descriptions='" + descriptions + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", thumbnails='" + thumbnails + '\'' +
+                ", fileNamePath='" + fileNamePath + '\'' +
+                ", thumbnailsPath='" + thumbnailsPath + '\'' +
+                ", fileExtension='" + fileExtension + '\'' +
+                ", createdDate=" + createdDate +
+                ", carList=" + carList +
+                ", file=" + file +
+                '}';
     }
 }

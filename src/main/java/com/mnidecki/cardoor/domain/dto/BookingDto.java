@@ -48,6 +48,11 @@ public class BookingDto implements Serializable {
         private List<BookingExtrasItemDto> bookingExtrasList;
         private Long id;
 
+        public BookingDtoBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
         public BookingDtoBuilder userId(Long userId) {
             this.userId = userId;
             return this;
@@ -88,13 +93,9 @@ public class BookingDto implements Serializable {
             return this;
         }
 
-        public BookingDtoBuilder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
         public BookingDto build() {
-            return new BookingDto(userId, carId, bookingStatusCodeId, cityId, totalCost, startDate, returnDate, bookingExtrasList);
+            return new BookingDto(id, userId, carId, bookingStatusCodeId, cityId, totalCost, startDate, returnDate,
+                    bookingExtrasList);
         }
     }
 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class  CarParametersService {
@@ -19,8 +18,8 @@ public class  CarParametersService {
         return carParametersRepository.findAll();
     }
 
-    public Optional<CarParameters> findById(final Long id) {
-        return carParametersRepository.findById(id);
+    public CarParameters findById(final Long id) {
+        return carParametersRepository.findById(id).orElse(new CarParameters());
     }
 
     public CarParameters saveCarParameters(final CarParameters car) {
@@ -33,7 +32,19 @@ public class  CarParametersService {
 
     public int countCarParametersByCarPictureId(final Long id) {
         return carParametersRepository.countCarParametersByCarPicture_id(id);
+    }
 
+    public int countCarParametersByCarTypeId(final Long id) {
+        return carParametersRepository.countCarParametersByType_Id(id);
+    }
+
+
+    public List<CarParameters> findCarParametersByType_Id(final Long id) {
+        return carParametersRepository.findCarParametersByType_Id(id);
+    }
+
+    public Iterable saveAll(List<CarParameters> parametersList) {
+        return carParametersRepository.saveAll(parametersList);
     }
 
 

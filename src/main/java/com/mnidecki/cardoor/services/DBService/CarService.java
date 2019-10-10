@@ -44,10 +44,6 @@ public class CarService {
         carRepository.deleteById(id);
     }
 
-    public List<Car> findCarByCityId(Long id) {
-        return carRepository.findCarByLocation_Id(id);
-    }
-
     public List<Car> getAllAvailableCar(Specification<Car> carSpecification, String startDate, String startTime, String endDate, String endTime, Long cityId) {
         Timestamp receiptDate = Timestamp.valueOf(startDate + " " + startTime + ":00");
         Timestamp returnDate = Timestamp.valueOf(endDate + " " + endTime + ":00");

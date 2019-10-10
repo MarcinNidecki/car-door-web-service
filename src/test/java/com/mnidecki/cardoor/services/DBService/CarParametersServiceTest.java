@@ -1,7 +1,9 @@
 package com.mnidecki.cardoor.services.DBService;
 
-import com.mnidecki.cardoor.domain.car.*;
-import com.mnidecki.cardoor.repository.CarBrandRepository;
+import com.mnidecki.cardoor.domain.car.Car;
+import com.mnidecki.cardoor.domain.car.CarParameters;
+import com.mnidecki.cardoor.domain.car.CarPicture;
+import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.repository.CarParametersRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +20,6 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarParametersServiceTest {
@@ -111,33 +112,32 @@ public class CarParametersServiceTest {
         when(carParametersRepository.findById(anyLong())).thenReturn(optionalParameters);
 
         //When
-        Optional<CarParameters> foundedParameters = carParametersService.findById(1L);
+        CarParameters foundedParameters = carParametersService.findById(1L);
 
         //Then
-        assertTrue( foundedParameters.isPresent());
-        assertEquals(Long.valueOf(1),foundedParameters.get().getId());
-        assertTrue(foundedParameters.get().isAirConditioning());
-        assertTrue(foundedParameters.get().isAllWheelDrive());
-        assertTrue(foundedParameters.get().isTransmissionIsAutomatic());
-        assertEquals(Integer.valueOf(2),foundedParameters.get().getBigBags());
-        assertEquals(Integer.valueOf(5),foundedParameters.get().getSeatsNumber());
-        assertEquals(Integer.valueOf(2),foundedParameters.get().getDoorsNumber());
-        assertEquals(Integer.valueOf(2),foundedParameters.get().getSmallBags());
-        assertEquals(Integer.valueOf(2015),foundedParameters.get().getYear());
-        assertEquals("Black",foundedParameters.get().getColor());
-        assertEquals("fileNamePath",foundedParameters.get().getCarPicture().getFileNamePath());
-        assertEquals("thumbNailsPath",foundedParameters.get().getCarPicture().getThumbnailsPath());
-        assertEquals("filename",foundedParameters.get().getCarPicture().getFileName());
-        assertEquals("thumbnails",foundedParameters.get().getCarPicture().getThumbnails());
-        assertEquals("description",foundedParameters.get().getCarPicture().getDescriptions());
-        assertEquals("jpg",foundedParameters.get().getCarPicture().getFileExtension());
-        assertEquals(Long.valueOf(1),foundedParameters.get().getCarPicture().getId());
-        assertEquals("Suv",foundedParameters.get().getType().getType());
-        assertEquals(Long.valueOf(1),foundedParameters.get().getType().getId());
-        assertEquals("Good",foundedParameters.get().getCar().getVehicleStatus());
-        assertEquals("SZO121212",foundedParameters.get().getCar().getRegistration());
-        assertEquals(Long.valueOf(234),foundedParameters.get().getCar().getId());
-        assertEquals(BigDecimal.valueOf(123),foundedParameters.get().getCar().getPrice());
+        assertEquals(Long.valueOf(1),foundedParameters.getId());
+        assertTrue(foundedParameters.isAirConditioning());
+        assertTrue(foundedParameters.isAllWheelDrive());
+        assertTrue(foundedParameters.isTransmissionIsAutomatic());
+        assertEquals(Integer.valueOf(2),foundedParameters.getBigBags());
+        assertEquals(Integer.valueOf(5),foundedParameters.getSeatsNumber());
+        assertEquals(Integer.valueOf(2),foundedParameters.getDoorsNumber());
+        assertEquals(Integer.valueOf(2),foundedParameters.getSmallBags());
+        assertEquals(Integer.valueOf(2015),foundedParameters.getYear());
+        assertEquals("Black",foundedParameters.getColor());
+        assertEquals("fileNamePath",foundedParameters.getCarPicture().getFileNamePath());
+        assertEquals("thumbNailsPath",foundedParameters.getCarPicture().getThumbnailsPath());
+        assertEquals("filename",foundedParameters.getCarPicture().getFileName());
+        assertEquals("thumbnails",foundedParameters.getCarPicture().getThumbnails());
+        assertEquals("description",foundedParameters.getCarPicture().getDescriptions());
+        assertEquals("jpg",foundedParameters.getCarPicture().getFileExtension());
+        assertEquals(Long.valueOf(1),foundedParameters.getCarPicture().getId());
+        assertEquals("Suv",foundedParameters.getType().getType());
+        assertEquals(Long.valueOf(1),foundedParameters.getType().getId());
+        assertEquals("Good",foundedParameters.getCar().getVehicleStatus());
+        assertEquals("SZO121212",foundedParameters.getCar().getRegistration());
+        assertEquals(Long.valueOf(234),foundedParameters.getCar().getId());
+        assertEquals(BigDecimal.valueOf(123),foundedParameters.getCar().getPrice());
     }
 
     @Test
@@ -146,10 +146,10 @@ public class CarParametersServiceTest {
         when(carParametersRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<CarParameters> foundedParameters = carParametersService.findById(1L);
+        CarParameters foundedParameters = carParametersService.findById(1L);
 
         //Then
-        assertFalse(foundedParameters.isPresent());
+        assertEquals(foundedParameters, new CarParameters());
 
     }
 

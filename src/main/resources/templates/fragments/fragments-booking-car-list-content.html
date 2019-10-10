@@ -201,7 +201,7 @@
         </div>
     </div>
     <div id="tooltip" class="col-lg-8">
-        <div th:if="${weather.dailyForecastDtoList != null}" class="col-xxl-7 mb-20">
+        <div th:if="${weather.dailyForecastList != null}" class="col-xxl-7 mb-20">
             <!-- Card -->
             <div class="card card-shadow weather">
                 <div class="card-header card-header-transparent cover overlay py-0 px-0">
@@ -218,12 +218,12 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="vertical-align">
-                                        <i class="vertical-align-middle wi-day-sunny font-size-50 mt-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastDtoList[0].dayDto.icon}+'-s.png'" class="image" alt="weather"> </i>
+                                        <i class="vertical-align-middle wi-day-sunny font-size-50 mt-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastList[0].icon}+'-s.png'" class="image" alt="weather"> </i>
                                     </div>
                                 </div>
 
                                 <div class="col-7">
-                                    <span class="font-size-40" style="color: #ffd000" th:text="${weather.dailyForecastDtoList[0].temperatureDto.maximumDto.temp}+ '°'">
+                                    <span class="font-size-40" style="color: #ffd000" th:text="${weather.dailyForecastList[0].temp}+ '°'">
                                                                 <span class="font-size-30">C</span>
                                     </span>
 
@@ -238,21 +238,10 @@
                                 <div class="col-3">
                                     <div class="weather-day vertical-align">
                                         <div class="vertical-align-middle font-size-16">
-                                            <div class="mb-10" th:text="${weather.dailyForecastDtoList[1].dayDto.nameOfDay}"></div>
-                                            <i class="wi-day-sunny font-size-24 mb-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastDtoList[1].dayDto.icon}+'-s.png'" class="image" alt="weather"></i>
-                                            <div th:text="${weather.dailyForecastDtoList[1].temperatureDto.maximumDto.temp}+ '°'">
-                                                <span class="font-size-12">C</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="weather-day vertical-align">
-                                        <div class="vertical-align-middle font-size-16">
-                                            <div class="mb-10" th:text="${weather.dailyForecastDtoList[2].dayDto.nameOfDay}"></div>
-                                            <i class="wi-day-sunny font-size-24 mb-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastDtoList[2].dayDto.icon}+'-s.png'" class="image" alt="weather"></i>
-                                            <div th:text="${weather.dailyForecastDtoList[2].temperatureDto.maximumDto.temp}+ '°'">
+                                            <div class="mb-10" th:text="${weather.dailyForecastList[1].dayName}"></div>
+                                            <i class="wi-day-sunny font-size-24 mb-10"><img
+                                            th:src="'/img/icon/weather/'+${weather.dailyForecastList[1].icon}+'-s.png'" class="image" alt="weather"></i>
+                                            <div th:text="${weather.dailyForecastList[1].temp}+ '°'">
                                                 <span class="font-size-12">C</span>
                                             </div>
                                         </div>
@@ -261,9 +250,10 @@
                                 <div class="col-3">
                                     <div class="weather-day vertical-align">
                                         <div class="vertical-align-middle font-size-16">
-                                            <div class="mb-10" th:text="${weather.dailyForecastDtoList[3].dayDto.nameOfDay}"></div>
-                                            <i class="wi-day-sunny font-size-24 mb-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastDtoList[3].dayDto.icon}+'-s.png'" class="image" alt="weather"></i>
-                                            <div th:text="${weather.dailyForecastDtoList[3].temperatureDto.maximumDto.temp}+ '°'">
+                                            <div class="mb-10" th:text="${weather.dailyForecastList[2].dayName}"></div>
+                                            <i class="wi-day-sunny font-size-24 mb-10"><img
+                                                                                                                                   th:src="'/img/icon/weather/'+${weather.dailyForecastList[2].icon}+'-s.png'" class="image" alt="weather"></i>
+                                            <div th:text="${weather.dailyForecastList[2].temp}+ '°'">
                                                 <span class="font-size-12">C</span>
                                             </div>
                                         </div>
@@ -272,15 +262,27 @@
                                 <div class="col-3">
                                     <div class="weather-day vertical-align">
                                         <div class="vertical-align-middle font-size-16">
-                                            <div class="mb-10" th:text="${weather.dailyForecastDtoList[4].dayDto.nameOfDay}"></div>
-                                            <i class="wi-day-sunny font-size-24 mb-10"><img th:src="'/img/icon/weather/'+${weather.dailyForecastDtoList[4].dayDto.icon}+'-s.png'" class="image" alt="weather"></i>
-                                            <div th:text="${weather.dailyForecastDtoList[4].temperatureDto.maximumDto.temp}+ '°'">
+                                            <div class="mb-10" th:text="${weather.dailyForecastList[3].dayName}"></div>
+                                            <i class="wi-day-sunny font-size-24 mb-10"><img
+                                                                                                                                   th:src="'/img/icon/weather/'+${weather.dailyForecastList[3].icon}+'-s.png'" class="image" alt="weather"></i>
+                                            <div th:text="${weather.dailyForecastList[3].temp}+ '°'">
                                                 <span class="font-size-12">C</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-3">
+                                    <div class="weather-day vertical-align">
+                                        <div class="vertical-align-middle font-size-16">
+                                            <div class="mb-10" th:text="${weather.dailyForecastList[4].dayName}"></div>
+                                            <i class="wi-day-sunny font-size-24 mb-10"><img
+                                                                                                                                   th:src="'/img/icon/weather/'+${weather.dailyForecastList[4].icon}+'-s.png'" class="image" alt="weather"></i>
+                                            <div th:text="${weather.dailyForecastList[4].temp}+ '°'">
+                                                <span class="font-size-12">C</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

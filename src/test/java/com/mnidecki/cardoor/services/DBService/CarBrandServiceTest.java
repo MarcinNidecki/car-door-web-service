@@ -1,7 +1,7 @@
 package com.mnidecki.cardoor.services.DBService;
 
-import com.mnidecki.cardoor.domain.car.*;
-import com.mnidecki.cardoor.repository.CarBrandModelRepository;
+import com.mnidecki.cardoor.domain.car.CarBrand;
+import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.repository.CarBrandRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,14 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -72,16 +69,15 @@ public class CarBrandServiceTest {
         when(carBrandRepository.findById(anyLong())).thenReturn(optionalBrand);
 
         //When
-        Optional<CarBrand> foundedBrand = carBrandService.findByID(1L);
+        CarBrand foundedBrand = carBrandService.findByID(1L);
 
         //Then
-        assertTrue( foundedBrand.isPresent());
-        assertEquals(Long.valueOf(1),foundedBrand.get().getId());
-        assertEquals("Kia",foundedBrand.get().getBrand());
-        assertEquals(Long.valueOf(1),foundedBrand.get().getModels().get(0).getId());
-        assertEquals(Long.valueOf(2),foundedBrand.get().getModels().get(1).getId());
-        assertEquals("Sorento",foundedBrand.get().getModels().get(0).getModel());
-        assertEquals("Sportage",foundedBrand.get().getModels().get(1).getModel());
+        assertEquals(Long.valueOf(1),foundedBrand.getId());
+        assertEquals("Kia",foundedBrand.getBrand());
+        assertEquals(Long.valueOf(1),foundedBrand.getModels().get(0).getId());
+        assertEquals(Long.valueOf(2),foundedBrand.getModels().get(1).getId());
+        assertEquals("Sorento",foundedBrand.getModels().get(0).getModel());
+        assertEquals("Sportage",foundedBrand.getModels().get(1).getModel());
     }
 
     @Test
@@ -90,10 +86,10 @@ public class CarBrandServiceTest {
         when(carBrandRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<CarBrand> foundedBrand = carBrandService.findByID(1L);
+        CarBrand foundedBrand = carBrandService.findByID(1L);
 
         //Then
-        assertFalse(foundedBrand.isPresent());
+        assertEquals(foundedBrand, new CarBrand());
 
     }
 

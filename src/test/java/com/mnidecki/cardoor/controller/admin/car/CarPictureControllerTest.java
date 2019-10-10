@@ -1,18 +1,15 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
-import com.mnidecki.cardoor.config.FtpConfig;
 import com.mnidecki.cardoor.controller.GlobalControllerAdvice;
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.domain.dto.CarPictureDto;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
 import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarPictureService;
-import com.mnidecki.cardoor.services.FtpService;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,7 +31,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -49,12 +45,9 @@ public class CarPictureControllerTest {
     @Autowired private MockMvc mockMvc;
     @MockBean private DataSource dataSource;
     @MockBean private GlobalControllerAdvice globalControllerAdvice;
-    @MockBean private FtpService ftpService;
     @MockBean private CarParametersService carParametersService;
     @MockBean private CarPictureMapper carPictureMapper;
     @MockBean private CarPictureService pictureService;
-    @MockBean private FtpConfig ftpConfig;
-
 
     @Before
     public void setUp()  {
@@ -63,7 +56,7 @@ public class CarPictureControllerTest {
 
     }
 
-/*
+
     @Test
     @WithMockUser(username = "testUser", password = "pw", roles = "USER")
     public void shouldBeAccessForbidden() throws Exception {
@@ -106,8 +99,6 @@ public class CarPictureControllerTest {
                 .andExpect(model().attribute("carsPictures", Matchers.hasItem(hasProperty("fileExtension", is("jpg")))))
                 .andExpect(model().attribute("carsPictures", Matchers.hasItem(hasProperty("createdDate",
                         is(LocalDate.of(2000, 11, 23))))))
-                .andExpect(model().attributeExists("carTypeDto"))
-                .andExpect(model().attributeExists("title"))
                 .andExpect(model().attribute("isAdd", true))
                 .andExpect(view().name("carsPicture"))
                 .andReturn();
@@ -129,6 +120,7 @@ public class CarPictureControllerTest {
 
         when(carPictureMapper.mapToCarPictureDtoList(carPictureList)).thenReturn(carPictureDtoList);
         when(pictureService.findAll()).thenReturn(carPictureList);
+
         when(carPictureMapper.mapToCarPictureDto(carPicture)).thenReturn(carPictureDto);
         when(pictureService.findById(carPictureDto.getId())).thenReturn(carPicture);
 
@@ -153,17 +145,17 @@ public class CarPictureControllerTest {
                         is(LocalDate.of(2000, 11, 23))))))
 
                 .andExpect(model().attribute("carPictureDto",hasProperty("id", is(1L))))
-                .andExpect(model().attribute("carsPictures", hasProperty("descriptions",
+                .andExpect(model().attribute("carPictureDto", hasProperty("descriptions",
                         is("Kia Sorento II"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("fileName", is("kia"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("thumbnails",
+                .andExpect(model().attribute("carPictureDto", hasProperty("fileName", is("kia"))))
+                .andExpect(model().attribute("carPictureDto", hasProperty("thumbnails",
                         is("small-kia"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("fileNamePath",
+                .andExpect(model().attribute("carPictureDto", hasProperty("fileNamePath",
                         is("/images/"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("thumbnailsPath",
+                .andExpect(model().attribute("carPictureDto", hasProperty("thumbnailsPath",
                         is("/images/small/"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("fileExtension", is("jpg"))))
-                .andExpect(model().attribute("carsPictures", hasProperty("createdDate",
+                .andExpect(model().attribute("carPictureDto", hasProperty("fileExtension", is("jpg"))))
+                .andExpect(model().attribute("carPictureDto", hasProperty("createdDate",
                         is(LocalDate.of(2000, 11, 23)))))
                 .andExpect(model().attributeExists("carParametersService"))
                 .andExpect(model().attribute("isAdd", false))
@@ -175,25 +167,21 @@ public class CarPictureControllerTest {
     @WithMockUser(username = "testAdmin", password = "pw", roles = "ADMIN")
     public void shouldSaveACarPicture() throws Exception {
         //Given
-        MultipartFile image =  new MockMultipartFile("car","car-1.jpg","img",new byte[]{1,2,3,4,5,66,7,7,8,9,77,8,9,
-                0});
-        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/"
-                , "jpg");
-        CarPictureDto carPictureDto = new CarPictureDto(1L, "Kia Sorento II", "car-1", "small-kia", "/images/",
-                "/images/small/", "jpg", image);
+        MultipartFile image =  new MockMultipartFile("file","car-1.jpg",
+                "img",new byte[]{1,2,3,4,5,66,7,7,8,9,77,8,9, 0});
 
+        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/", "jpg",  LocalDate.of(2000, 11, 23), image);
+        CarPictureDto carPictureDto = new CarPictureDto( "Kia Sorento II",  image);
 
-        CarPicture mockpicture = Mockito.mock(CarPicture.class);
-        when(mockpicture.getFileName()).thenReturn("car-1");
-        when(mockpicture.getFileExtension()).thenReturn("jpg");
-        when(ftpService.uploadPicture(carPictureDto)).thenReturn(carPictureDto);
-        when(carPictureMapper.mapToCarPicture(carPictureDto)).thenReturn(mockpicture);
-        when(pictureService.save(mockpicture)).thenReturn(mockpicture);
+        when(carPictureMapper.mapToCarPicture(carPictureDto)).thenReturn(carPicture);
+        when(pictureService.save(carPicture)).thenReturn(carPicture);
+        when(pictureService.isFileNameTheSameLikeFileNamePath(carPicture)).thenReturn(true);
 
         //When & Then
         MvcResult result2 = mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/car/picture")
-                .file((MockMultipartFile) image)
-                .param("pictureName","car-1"))
+                .file( (MockMultipartFile) image)
+                .param("descriptions","Kia Sorento II")
+                .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/admin/car/picture"))
                 .andExpect(flash().attribute("successmessage","Picture car-1.jpg saved successfully"))
@@ -203,33 +191,28 @@ public class CarPictureControllerTest {
     }
 
 
+
     @Test
     @WithMockUser(username = "testAdmin", password = "pw", roles = "ADMIN")
     public void shouldNotSaveACarPicture() throws Exception {
         //Given
-        MultipartFile image =  new MockMultipartFile("car","car-1.jpg","img",new byte[]{1,2,3,4,5,66,7,7,8,9,77,8,9,
-                0});
-        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/"
-                , "jpg");
-        CarPictureDto carPictureDto = new CarPictureDto(1L, "Kia Sorento II", "car-1", "small-kia", "/images/",
-                "/images/small/", "jpg", image);
+        MultipartFile image =  new MockMultipartFile("file","car-1.jpg",
+                "img",new byte[]{1,2,3,4,5,66,7,7,8,9,77,8,9, 0});
 
-        CarPicture mockpicture = Mockito.mock(CarPicture.class, RETURNS_DEEP_STUBS);
+        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/", "jpg",  LocalDate.of(2000, 11, 23), image);
+        CarPictureDto carPictureDto = new CarPictureDto( "Kia Sorento II",  image);
 
-        when(ftpService.uploadPicture(carPictureDto)).thenReturn(carPictureDto);
         when(carPictureMapper.mapToCarPicture(carPictureDto)).thenReturn(carPicture);
-        when(pictureService.save(carPicture)).thenReturn(mockpicture);
+        when(pictureService.save(carPicture)).thenReturn(carPicture);
+        when(pictureService.isFileNameTheSameLikeFileNamePath(carPicture)).thenReturn(false);
 
-        when(mockpicture.getFileName()).thenReturn("car-1");
-        when(mockpicture.getFileExtension()).thenReturn("jpg");
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/car/picture")
                 .file((MockMultipartFile) image)
-                .param("pictureName","car-1"))
-         //       .andExpect(status().isOk())
-             //   .andExpect(view().name("carsPicture"))
-                .andExpect(flash().attribute("successmessage","Picture car-1.jpg saved successfully"))
-                .andExpect(model().attribute("errormessage","We could not save your picture. Please try again later"))
+                .param("descriptions","Kia Sorento II"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("carsPicture"))
+                .andExpect(model().attribute("errormessage","We could not save your picture.car-1.jpg Please try again later"))
                 .andReturn();
 
     }
@@ -238,15 +221,13 @@ public class CarPictureControllerTest {
     @WithMockUser(username = "testAdmin", password = "pw", roles = "ADMIN")
     public void shouldDeletePicture() throws Exception {
         //When & Then
-
         mockMvc.perform(delete("/admin/car/picture/{id}", 1).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(flash().attribute("successmessage", "Car picture is deleted successfully"))
-                .andExpect(view().name("redirect:/admin/car/picture"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("successmessage", "Car picture is deleted successfully"))
+                .andExpect(view().name("carsPicture"))
                 .andReturn();
     }
 
-*/
 @Test
 public void save() {
 }

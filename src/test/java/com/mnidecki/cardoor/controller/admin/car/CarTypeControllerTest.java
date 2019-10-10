@@ -4,6 +4,7 @@ import com.mnidecki.cardoor.controller.GlobalControllerAdvice;
 import com.mnidecki.cardoor.domain.car.CarType;
 import com.mnidecki.cardoor.domain.dto.CarTypeDto;
 import com.mnidecki.cardoor.mapper.CarTypeMapper;
+import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarTypeService;
 import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils;
 import org.hamcrest.Matchers;
@@ -51,7 +52,8 @@ public class CarTypeControllerTest {
     private CarTypeService carTypeService;
     @MockBean
     private CarTypeMapper carTypeMapper;
-
+    @MockBean
+    private CarParametersService carParametersService;
 
 
     @Before
@@ -235,9 +237,11 @@ public class CarTypeControllerTest {
     @WithMockUser(username = "testAdmin", password = "pw", roles = "ADMIN")
     public void shouldDelete() throws Exception {
         //When & Then
-        mockMvc.perform(delete("/admin/car/type/{id}", 1).contentType(MediaType.APPLICATION_JSON))
+        MvcResult result =  mockMvc.perform(delete("/admin/car/type/{id}", 1).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(flash().attribute("successmessage", "Car type is deleted successfully"))
-                .andExpect(view().name("redirect:/admin/car/type"));
+                .andExpect(view().name("redirect:/admin/car/type"))
+                .andReturn();
+        System.out.print(result);
 
     }
 

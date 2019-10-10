@@ -28,16 +28,26 @@
         // Home Page 0ne Date Picker JS
 
         // Home Page 0ne Date Picker JS
+        Date.prototype.get2HoursAfter = function(h) {
+            this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+            return this.getHours();
+
+        }
+
+        var time = new Date().get2HoursAfter(2)+':00';
+
 
         $('#startTime').timepicker({
-            value: '15:00',
+            format:'HH:mm:ss',
+            value: time,
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome'
 
         });
 
         $('#endTime').timepicker({
-            value: '15:00',
+            format:'HH:mm:ss',
+            value: time,
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome'
         });

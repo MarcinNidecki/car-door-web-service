@@ -17,10 +17,15 @@ public interface CarParametersRepository extends CrudRepository<CarParameters, I
 
     int countCarParametersByCarPicture_id(Long id);
 
+    int countCarParametersByType_Id(Long id);
+
+    List<CarParameters> findCarParametersByType_Id(Long id);
+
     @Override
     CarParameters save(CarParameters carParameters);
 
     void deleteById(Long id);
 
     void deleteAll();
+
 }

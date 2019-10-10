@@ -11,13 +11,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookingStatusCodeServiceTest {
@@ -77,21 +77,20 @@ public class BookingStatusCodeServiceTest {
         when(bookingStatusCodeRepository.findById(anyLong())).thenReturn(bookingStatusCode);
 
         //When
-        Optional<BookingStatusCode> foundedStatusCode = bookingStatusCodeService.findById(1L);
+        BookingStatusCode foundedStatusCode = bookingStatusCodeService.findById(1L);
 
         //Then
-        assertTrue( foundedStatusCode.isPresent());
-        assertEquals(Long.valueOf(1),foundedStatusCode.get().getId());
-        assertEquals("IN RENT",foundedStatusCode.get().getDescription());
-        assertEquals(1, foundedStatusCode.get().getBookingList().size());
-        assertEquals(Long.valueOf(1),foundedStatusCode.get().getBookingList().get(0).getId());
-        assertEquals(BigDecimal.valueOf(600),foundedStatusCode.get().getBookingList().get(0).getTotalCost());
+        assertEquals(Long.valueOf(1),foundedStatusCode.getId());
+        assertEquals("IN RENT",foundedStatusCode.getDescription());
+        assertEquals(1, foundedStatusCode.getBookingList().size());
+        assertEquals(Long.valueOf(1),foundedStatusCode.getBookingList().get(0).getId());
+        assertEquals(BigDecimal.valueOf(600),foundedStatusCode.getBookingList().get(0).getTotalCost());
         assertEquals(Timestamp.valueOf("2020-12-11 15:00:00"),
-                foundedStatusCode.get().getBookingList().get(0).getStartDate());
+                foundedStatusCode.getBookingList().get(0).getStartDate());
         assertEquals(Timestamp.valueOf("2020-12-13 15:00:00"),
-                foundedStatusCode.get().getBookingList().get(0).getReturnDate());
+                foundedStatusCode.getBookingList().get(0).getReturnDate());
         assertEquals(Timestamp.valueOf("2020-12-10 15:00:00"),
-                foundedStatusCode.get().getBookingList().get(0).getCreatedDate());
+                foundedStatusCode.getBookingList().get(0).getCreatedDate());
     }
 
     @Test
@@ -101,10 +100,10 @@ public class BookingStatusCodeServiceTest {
         when(bookingStatusCodeRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<BookingStatusCode> foundedStatusCode = bookingStatusCodeService.findById(1L);
+        BookingStatusCode foundedStatusCode = bookingStatusCodeService.findById(1L);
 
         //Then
-        assertFalse( foundedStatusCode.isPresent());
+        assertEquals( foundedStatusCode, new BookingStatusCode());
 
     }
 

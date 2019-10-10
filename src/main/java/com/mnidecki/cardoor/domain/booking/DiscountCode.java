@@ -1,16 +1,14 @@
 package com.mnidecki.cardoor.domain.booking;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

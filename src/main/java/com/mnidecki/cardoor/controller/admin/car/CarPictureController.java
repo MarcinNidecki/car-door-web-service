@@ -1,13 +1,10 @@
 package com.mnidecki.cardoor.controller.admin.car;
 
-import com.mnidecki.cardoor.config.FtpConfig;
-import com.mnidecki.cardoor.controller.ControllerConstant;
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.domain.dto.CarPictureDto;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
 import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarPictureService;
-import com.mnidecki.cardoor.services.FtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,19 +18,16 @@ import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/admin/car/")
+@RequestMapping("/admin/car")
 public class CarPictureController {
 
-    @Autowired
-    private  FtpService ftpService;
     @Autowired
     private CarParametersService carParametersService;
     @Autowired
     private CarPictureMapper carPictureMapper;
     @Autowired
     private CarPictureService pictureService;
-    @Autowired
-    private FtpConfig ftpConfig;
+
 
     @GetMapping("/picture")
     public ModelAndView cars() {
@@ -50,18 +44,16 @@ public class CarPictureController {
     @PostMapping(value = "/picture")
     public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isAdd", false);
-        CarPictureDto uploadedPicture = ftpService.uploadPicture(carPictureDto);
-        CarPicture carPicture = new CarPicture();
-        if (uploadedPicture !=null) {
-            carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        }
-        if (carPicture != null) {
+        modelAndView.addObject("isAdd", true);
+        CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
+        if (carPicture != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE,
                     "Picture " + carPicture.getFileName()+ "."+ carPicture.getFileExtension() +" saved successfully");
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         } else {
-            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture. Please try again later");
+            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +carPictureDto.getFile().getOriginalFilename()+" Please" +
+                    " try again" +
+                    " later");
             modelAndView.addObject("carPictureDto", carPictureDto);
             modelAndView.setViewName("carsPicture");
         }
@@ -84,12 +76,8 @@ public class CarPictureController {
     @PutMapping(value = "/picture")
     public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        CarPictureDto uploadedPicture = ftpService.uploadPicture(carPictureDto);
-        CarPicture carPicture = new CarPicture();
-        if (uploadedPicture !=null) {
-            carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        }
-        if (carPicture != null) {
+        CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
+        if (carPicture != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is updated successfully");
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         } else {
@@ -104,19 +92,21 @@ public class CarPictureController {
     @DeleteMapping(value = "/picture/{id}")
     public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("carParametersService", carParametersService);
         pictureService.deleteById(id);
+        modelAndView.addObject(SUCCESSMESSAGE, "Car picture is deleted successfully");
         modelAndView.addObject("carPictureDto", new CarPictureDto());
-        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is deleted successfully");
-        modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+        modelAndView.setViewName("carsPicture");
         return modelAndView;
     }
 
     @RequestMapping(value = "/picturejson", method = RequestMethod.GET)
     public @ResponseBody CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
-        if (pictureId == 0) {
+        if (pictureId <= 0) {
             return new CarPictureDto();
         } else {
             return carPictureMapper.mapToCarPictureDto(pictureService.findById(pictureId));
         }
     }
+
 }

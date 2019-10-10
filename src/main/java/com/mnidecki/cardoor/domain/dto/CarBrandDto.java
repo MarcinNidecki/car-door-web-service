@@ -17,11 +17,6 @@ public class CarBrandDto {
     private String brand;
     private List<CarBrandModelDto> models = new ArrayList<>();
 
-
-    public CarBrandDto(String brand) {
-        this.brand = brand;
-    }
-
     public CarBrandDto(Long id, String brand, List<CarBrandModelDto> models) {
         this.id = id;
         this.brand = brand;

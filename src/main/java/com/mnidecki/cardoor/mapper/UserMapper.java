@@ -3,8 +3,8 @@ package com.mnidecki.cardoor.mapper;
 import com.mnidecki.cardoor.domain.User;
 import com.mnidecki.cardoor.domain.dto.UserDto;
 import com.mnidecki.cardoor.domain.dto.UserEditFormDto;
-import com.mnidecki.cardoor.domain.dto.UserLongFormDto;
-import com.mnidecki.cardoor.domain.dto.UserQuickFormDto;
+import com.mnidecki.cardoor.domain.dto.UserRegisterLongFormDto;
+import com.mnidecki.cardoor.domain.dto.UserRegisterQuickFormDto;
 import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,31 +18,7 @@ public class UserMapper {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserLongFormDto mapToUserDto(User user) {
-        if (user.getAddressLine1() == null) {
-            return new UserLongFormDto.UserLongFormDtoBuilder()
-                    .firstname(user.getFirstname())
-                    .lastname(user.getLastname())
-                    .email(user.getEmail())
-                    .build();
-        } else {
-            return new UserLongFormDto.UserLongFormDtoBuilder()
-                    .firstname(user.getFirstname())
-                    .lastname(user.getLastname())
-                    .email(user.getEmail())
-                    .username(user.getUsername())
-                    .addressLine1(user.getAddressLine1())
-                    .addressLine2(user.getAddressLine2())
-                    .country(user.getCountry())
-                    .state(user.getState())
-                    .zipCode(user.getZipCode())
-                    .build();
-        }
-    }
-
-
     public UserEditFormDto mapToEditFormUserDto(User user) {
-
         return new UserEditFormDto.UserEditFormDtoBuilder()
                 .id(user.getId())
                 .firstname(user.getFirstname())
@@ -60,8 +36,8 @@ public class UserMapper {
     public User mapToUser(UserDto userDto) {
         User user = new User();
 
-        if (userDto instanceof UserLongFormDto) {
-            UserLongFormDto longUser = (UserLongFormDto) userDto;
+        if (userDto instanceof UserRegisterLongFormDto) {
+            UserRegisterLongFormDto longUser = (UserRegisterLongFormDto) userDto;
             user = new User.UserBuilder()
                     .firstname(longUser.getFirstname())
                     .lastname(longUser.getLastname())
@@ -71,6 +47,7 @@ public class UserMapper {
                     .addressLine1(longUser.getAddressLine1())
                     .addressLine2(longUser.getAddressLine2())
                     .country(longUser.getCountry())
+                    .state(longUser.getState())
                     .zipCode(longUser.getZipCode())
                     .build();
         }
@@ -87,13 +64,13 @@ public class UserMapper {
             user.setZipCode(userEditFormDto.getZipCode());
         }
 
-        if (userDto instanceof UserQuickFormDto) {
-            UserQuickFormDto userQuickFormDto = (UserQuickFormDto) userDto;
+        if (userDto instanceof UserRegisterQuickFormDto) {
+            UserRegisterQuickFormDto userRegisterQuickFormDto = (UserRegisterQuickFormDto) userDto;
             user = new User.UserBuilder()
-                    .firstname(userQuickFormDto.getFirstname())
-                    .lastname(userQuickFormDto.getLastname())
-                    .email(userQuickFormDto.getEmail())
-                    .password(bCryptPasswordEncoder.encode(userQuickFormDto.getPassword()))
+                    .firstname(userRegisterQuickFormDto.getFirstname())
+                    .lastname(userRegisterQuickFormDto.getLastname())
+                    .email(userRegisterQuickFormDto.getEmail())
+                    .password(bCryptPasswordEncoder.encode(userRegisterQuickFormDto.getPassword()))
                     .build();
         }
         return user;

@@ -55,11 +55,12 @@ public class AccuWeatherClient {
 
         URI uri = UriComponentsBuilder.fromHttpUrl(accuWeatherConfig.getAccuWeatherEndpoint() + "/forecasts/v1/daily/5day/" + locationId)
                 .queryParam("apikey", accuWeatherConfig.getAccuWeatherKey())
-                .queryParam("language", "pl-pl")
+                .queryParam("language", "en-us")
                 .build().encode().toUri();
 
         try {
             ForecastResponseDto boardsResponse = restTemplate.getForObject(uri, ForecastResponseDto.class);
+            System.out.println(boardsResponse.toString());
             boardsResponse = accuWeatherService.setDisplayNameOfDay(boardsResponse);
             return ofNullable(boardsResponse).orElse(new ForecastResponseDto());
         } catch (RestClientException e) {

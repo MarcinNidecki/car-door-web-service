@@ -20,7 +20,8 @@ import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -32,7 +33,6 @@ public class BookingExtrasItemServiceTest {
     private BookingExtrasItemRepository extrasItemRepository;
     @InjectMocks
     private BookingExtrasItemService extrasItemService;
-
 
     public BookingExtrasItem getExtrasItem() {
         BookingExtras extras = new BookingExtras(1L,"TV","32'",BigDecimal.valueOf(100), "static/img/icon.jpg", new ArrayList<>());
@@ -121,23 +121,22 @@ public class BookingExtrasItemServiceTest {
         when(extrasItemRepository.findById(bookingExtrasItem.getId())).thenReturn(Optional.of(bookingExtrasItem));
 
         //When
-        Optional<BookingExtrasItem> founded = extrasItemService.findById(bookingExtrasItem.getId());
+        BookingExtrasItem founded = extrasItemService.findById(bookingExtrasItem.getId());
 
         //Then
-        assertTrue(founded.isPresent());
-        assertThat(bookingExtrasItem, is(equalTo(founded.get())));
-        assertEquals(Long.valueOf(1),founded.get().getId());
-        assertEquals(Long.valueOf(5),founded.get().getQuantity());
-        assertEquals(BigDecimal.valueOf(500), founded.get().getValue());
-        assertEquals(Long.valueOf(1),founded.get().getBookingExtras().getId());
-        assertEquals("TV",founded.get().getBookingExtras().getName());
-        assertEquals("32'",founded.get().getBookingExtras().getDescription());
-        assertEquals(BigDecimal.valueOf(100),founded.get().getBookingExtras().getPrice());
-        assertEquals("static/img/icon.jpg",founded.get().getBookingExtras().getIconPath());
-        assertEquals(Long.valueOf(1),founded.get().getBooking().getId());
-        assertEquals(BigDecimal.valueOf(500),founded.get().getBooking().getTotalCost());
-        assertEquals(Timestamp.valueOf("2019-08-10 21:44:22"),founded.get().getBooking().getStartDate());
-        assertEquals(Timestamp.valueOf("2019-08-12 21:44:22"),founded.get().getBooking().getReturnDate());
+        assertThat(bookingExtrasItem, is(equalTo(founded)));
+        assertEquals(Long.valueOf(1),founded.getId());
+        assertEquals(Long.valueOf(5),founded.getQuantity());
+        assertEquals(BigDecimal.valueOf(500), founded.getValue());
+        assertEquals(Long.valueOf(1),founded.getBookingExtras().getId());
+        assertEquals("TV",founded.getBookingExtras().getName());
+        assertEquals("32'",founded.getBookingExtras().getDescription());
+        assertEquals(BigDecimal.valueOf(100),founded.getBookingExtras().getPrice());
+        assertEquals("static/img/icon.jpg",founded.getBookingExtras().getIconPath());
+        assertEquals(Long.valueOf(1),founded.getBooking().getId());
+        assertEquals(BigDecimal.valueOf(500),founded.getBooking().getTotalCost());
+        assertEquals(Timestamp.valueOf("2019-08-10 21:44:22"),founded.getBooking().getStartDate());
+        assertEquals(Timestamp.valueOf("2019-08-12 21:44:22"),founded.getBooking().getReturnDate());
 
     }
     @Test
@@ -146,10 +145,10 @@ public class BookingExtrasItemServiceTest {
         when(extrasItemRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Optional<BookingExtrasItem> founded = extrasItemService.findById(2L);
+        BookingExtrasItem founded = extrasItemService.findById(2L);
 
         //Then
-        assertFalse(founded.isPresent());
+        assertEquals(new BookingExtrasItem(), founded);
     }
 
 

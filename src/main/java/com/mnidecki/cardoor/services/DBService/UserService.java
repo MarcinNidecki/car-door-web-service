@@ -15,9 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -38,12 +37,12 @@ public class UserService {
             user.setStatus(0);
         }
         UserRole userRole = userRoleRepository.getUserRoleByRoleName("ROLE_USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserByMail(final String email) {
-        return userRepository.getUserByEmail(email);
+    public User getUserByMail(final String email) {
+        return userRepository.getUserByEmail(email).orElse(new User());
     }
 
     public User findUserByEmail(final String email) {
@@ -55,8 +54,8 @@ public class UserService {
     }
 
     public boolean isUserExist(final String email) {
-        Optional user = getUserByMail(email);
-        return user.isPresent();
+        User user = getUserByMail(email);
+        return user.getEmail() != null;
     }
 
     public User getUserFromAuthentication() {

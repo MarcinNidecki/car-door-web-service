@@ -21,5 +21,5 @@ public interface CarPictureRepository extends CrudRepository<CarPicture, Integer
 
     void deleteById(Long id);
 
-    CarPicture findCarPictureByDescriptions(String descriptions);
+    Optional<CarPicture> findCarPictureByDescriptions(String descriptions);
 }

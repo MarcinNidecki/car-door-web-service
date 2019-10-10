@@ -26,6 +26,9 @@ $(".confirm-delete").on('click', function (e) {
             success: function (data) {
                 parentEl.slideUp(400, function () {
                     parentEl.remove();
+                    console.log(location.hostname);
+                    setTimeout(function(){  location.reload(); }, 500);
+
                 });
             }
         })
@@ -59,7 +62,7 @@ $(".confirm-delete2").on('click', function (e) {
 
 $('.brand').change(
     function () {
-        $.getJSON("http://localhost:8080/admin/car/model", {
+        $.getJSON("/admin/car/model", {
             brandId: $(this).val(),
             ajax: 'true'
         }, function (data) {
@@ -76,7 +79,7 @@ $('.brand').change(
 
 $('.picture').change(
     function () {
-        $.getJSON("https://sleepy-oasis-69014.herokuapp.com/admin/car/picturejson", {
+        $.getJSON("/admin/car/picturejson", {
             pictureId: $(this).val(),
             ajax: 'true'
         }, function (data) {

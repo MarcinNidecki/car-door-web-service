@@ -19,6 +19,8 @@ public class ForecastResponseDto {
     List<DailyForecastDto> dailyForecastDtoList;
 
     @JsonIgnoreProperties
+    private Long locationId;
+    @JsonIgnoreProperties
     private String nameOfFirstDay;
     @JsonIgnoreProperties
     private String dateOfFirstDay;

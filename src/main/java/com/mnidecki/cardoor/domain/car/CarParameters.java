@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -171,6 +172,48 @@ public class CarParameters implements Serializable {
             return new CarParameters(id, fuelType, allWheelDrive, doorsNumber, seatsNumber, bigBags, smallBags, color,
                     year, transmissionIsAutomatic, airConditioning, type, carPicture, car);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarParameters that = (CarParameters) o;
+
+        if (allWheelDrive != that.allWheelDrive) return false;
+        if (transmissionIsAutomatic != that.transmissionIsAutomatic) return false;
+        if (airConditioning != that.airConditioning) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (fuelType != null ? !fuelType.equals(that.fuelType) : that.fuelType != null) return false;
+        if (doorsNumber != null ? !doorsNumber.equals(that.doorsNumber) : that.doorsNumber != null) return false;
+        if (seatsNumber != null ? !seatsNumber.equals(that.seatsNumber) : that.seatsNumber != null) return false;
+        if (bigBags != null ? !bigBags.equals(that.bigBags) : that.bigBags != null) return false;
+        if (smallBags != null ? !smallBags.equals(that.smallBags) : that.smallBags != null) return false;
+        if (color != null ? !color.equals(that.color) : that.color != null) return false;
+        if (year != null ? !year.equals(that.year) : that.year != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (carPicture != null ? !carPicture.equals(that.carPicture) : that.carPicture != null) return false;
+        return car != null ? car.equals(that.car) : that.car == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        result = 31 * result + (allWheelDrive ? 1 : 0);
+        result = 31 * result + (doorsNumber != null ? doorsNumber.hashCode() : 0);
+        result = 31 * result + (seatsNumber != null ? seatsNumber.hashCode() : 0);
+        result = 31 * result + (bigBags != null ? bigBags.hashCode() : 0);
+        result = 31 * result + (smallBags != null ? smallBags.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (year != null ? year.hashCode() : 0);
+        result = 31 * result + (transmissionIsAutomatic ? 1 : 0);
+        result = 31 * result + (airConditioning ? 1 : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (carPicture != null ? carPicture.hashCode() : 0);
+        result = 31 * result + (car != null ? car.hashCode() : 0);
+        return result;
     }
 }
 

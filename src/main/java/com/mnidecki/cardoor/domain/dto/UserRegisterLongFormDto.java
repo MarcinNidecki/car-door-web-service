@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @NoArgsConstructor
-public class UserLongFormDto implements UserDto{
+public class UserRegisterLongFormDto implements UserDto{
 
     @NotNull
     @Length(min = 3, message = "The fistsname must be at least {min} characters long")
@@ -41,7 +41,7 @@ public class UserLongFormDto implements UserDto{
     @Length(min = 5, message = "The zipcode must be at least {min} characters long")
     private String zipCode;
 
-    public UserLongFormDto(@NotNull @Length(min = 3, message = "The fistsname must be at least {min} characters long") String firstname, @NotNull @Length(min = 3, message = "The lastname must be at least {min} characters long") String lastname, @Email @Length(min = 6, message = "The email must be at least {min} characters long") String email, @NotNull @Length(min = 5, message = "The password is too short. Please try again.") String password, @NotNull @Length(min = 3, message = "The username must be at least {min} characters long") String username, @NotNull @Length(min = 8, message = "The address must be at least {min} characters long") String addressLine1, String addressLine2, @NotNull @Length(min = 3, message = "The country must be at least {min} characters long") String country, @Length(min = 6, message = "The state must be at least {min} characters long") String state, @NotNull @Length(min = 5, message = "The zipcode must be at least {min} characters long") String zipCode) {
+    public UserRegisterLongFormDto(@NotNull @Length(min = 3, message = "The fistsname must be at least {min} characters long") String firstname, @NotNull @Length(min = 3, message = "The lastname must be at least {min} characters long") String lastname, @Email @Length(min = 6, message = "The email must be at least {min} characters long") String email, @NotNull @Length(min = 5, message = "The password is too short. Please try again.") String password, @NotNull @Length(min = 3, message = "The username must be at least {min} characters long") String username, @NotNull @Length(min = 8, message = "The address must be at least {min} characters long") String addressLine1, String addressLine2, @NotNull @Length(min = 3, message = "The country must be at least {min} characters long") String country, @Length(min = 6, message = "The state must be at least {min} characters long") String state, @NotNull @Length(min = 5, message = "The zipcode must be at least {min} characters long") String zipCode) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -115,8 +115,8 @@ public class UserLongFormDto implements UserDto{
             return this;
         }
 
-        public UserLongFormDto build() {
-            return new UserLongFormDto(firstname, lastname, email, password, username, addressLine1, addressLine2, country, state, zipCode);
+        public UserRegisterLongFormDto build() {
+            return new UserRegisterLongFormDto(firstname, lastname, email, password, username, addressLine1, addressLine2, country, state, zipCode);
         }
     }
 
