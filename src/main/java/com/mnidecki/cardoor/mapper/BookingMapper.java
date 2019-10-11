@@ -51,7 +51,7 @@ public class BookingMapper {
                     .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()))
                     .build();
 
-            if(booking.getUser().getId()!=null) bookingDto.setUserId(booking.getUser().getId());
+            if(booking.getUser()!= null && booking.getUser().getId()!=null) bookingDto.setUserId(booking.getUser().getId());
             if(booking.getId()!=null) bookingDto.setId(booking.getId());
 
             return bookingDto;
