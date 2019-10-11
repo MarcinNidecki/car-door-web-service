@@ -3,6 +3,8 @@ package com.mnidecki.cardoor.services.DBService;
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.repository.CarPictureRepository;
 import com.mnidecki.cardoor.services.PictureUploadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class CarPictureService {
     private CarPictureRepository carPictureRepository;
     @Autowired
     private PictureUploadService pictureUploadService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarPictureService.class);
 
     public CarPicture getDefaultCarPicture() {
         CarPicture unknown = carPictureRepository.findCarPictureByDescriptions("Unknown").orElse(new CarPicture());
@@ -65,6 +68,10 @@ public class CarPictureService {
     public boolean isFileNameTheSameLikeFileNamePath(CarPicture picture) {
 
         if(picture!= null && picture.getFileName() !=null && picture.getFileExtension()!=null) {
+            LOGGER.info(picture.getFileName());
+            LOGGER.info(picture.getFileExtension());
+            LOGGER.info(String.valueOf(picture.getFile().isEmpty()));
+            LOGGER.info(String.valueOf(picture.getFile().getOriginalFilename()));
             return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile().getOriginalFilename()).orElse(""));
         }
         return false;
