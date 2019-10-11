@@ -21,7 +21,7 @@ public class CarBrand  implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "brand_name")
+    @Column(name = "brand_name", unique = true)
     private String brand;
 
 
