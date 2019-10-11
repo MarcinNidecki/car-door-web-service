@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.mnidecki.cardoor.controller.ControllerConstant.*;
-
+@Transactional
 @RestController
 @RequestMapping("/admin/car/")
 public class CarBrandAndModelController {
