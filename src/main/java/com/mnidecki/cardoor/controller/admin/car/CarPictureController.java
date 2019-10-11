@@ -44,20 +44,29 @@ public class CarPictureController {
     public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(IS_ADD, true);
-        CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        if (carPicture.getFile() != null  && carPicture.getDescriptions() != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
-            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE,
-                    "Picture " + carPicture.getFileName()+ "."+ carPicture.getFileExtension() +" saved successfully");
+        CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
+
+        if (carPicture.getFile() != null && carPicture.getDescriptions() != null) {
+            carPicture = pictureService.save(carPicture);
+        }
+
+        if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
+                    "." + carPicture.getFileExtension() + " saved successfully");
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+            return modelAndView;
+
         } else {
-            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +carPictureDto.getFile().getOriginalFilename()+" Please" +
-                    " try again" +
-                    " later");
+            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +
+                    carPictureDto.getFile().getOriginalFilename() + " Please try again later");
             modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
             modelAndView.setViewName(CARS_PICTURE);
+            return modelAndView;
         }
-        return modelAndView;
     }
+
+
+
 
     @GetMapping(value = "/picture/{id}")
     public ModelAndView getPicture(@PathVariable Long id)  {
@@ -75,16 +84,23 @@ public class CarPictureController {
     @PutMapping(value = "/picture")
     public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        if (carPicture.getFile() != null  && carPicture.getDescriptions() != null  && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
-            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is updated successfully");
-            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
-        } else {
-            redirectAttributes.addFlashAttribute(ERRORMESSAGE, "Car picture is not update, Please try again");
-            modelAndView.addObject("cartPictureDto", carPictureDto);
-            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+        CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
+
+        if (carPicture.getFile() != null && carPicture.getDescriptions() != null) {
+            carPicture = pictureService.save(carPicture);
         }
-        return modelAndView;
+        if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture wasupdated successfully");
+            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+            return modelAndView;
+
+        } else {
+            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +
+                    carPictureDto.getFile().getOriginalFilename() + " Please try again later");
+            modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+            modelAndView.setViewName(CARS_PICTURE);
+            return modelAndView;
+        }
     }
 
     @Transactional
