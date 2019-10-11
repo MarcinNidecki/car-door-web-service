@@ -63,7 +63,8 @@ public class CarPictureService {
     }
 
     public boolean isFileNameTheSameLikeFileNamePath(CarPicture picture) {
-        if(picture.getFileName() !=null && picture.getFileExtension()!=null && picture.getFile()!=null) {
+
+        if(picture.getFileName() !=null && picture.getFileExtension()!=null) {
             return (picture.getFileName()+"." + picture.getFileExtension()).equals(picture.getFile().getOriginalFilename());
         }
         return false;
