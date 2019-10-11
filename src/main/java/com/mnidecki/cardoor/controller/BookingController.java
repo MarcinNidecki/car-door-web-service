@@ -86,7 +86,7 @@ public class BookingController {
         String cityName = locationService.findById(cityId).getCity();
         long averagePrice = kayakClient.getKayakAverageTotalCarPrice(cityName,startDate,startTime,endDate,endTime);
         Weather weather = accuWeatherService.findById(cityId);
-        System.out.println(weather);
+        //System.out.println(weather);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("weather", weather);
         modelAndView.addObject("cars", carList);
