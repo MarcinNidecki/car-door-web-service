@@ -40,8 +40,8 @@ public class AccuWeatherService {
         List<ForecastResponseDto> weather = new ArrayList<>();
 
         for(Long id: idList) {
-            ForecastResponseDto forecastResponseDto = getLocation5DayForecasts(id);
-            if(forecastResponseDto.getDailyForecastDtoList().size()>=5) {
+            ForecastResponseDto forecast = getLocation5DayForecasts(id);
+            if(forecast.getDailyForecastDtoList() !=null && forecast.getDailyForecastDtoList().size()>=5) {
                 weather.add(getLocation5DayForecasts(id));
             }
 
@@ -53,7 +53,7 @@ public class AccuWeatherService {
     public ForecastResponseDto getLocation5DayForecasts(Long cityId) {
 
         ForecastResponseDto forecast = accuWeatherClient.get5DayForecasts(locationService.findById(cityId));
-        if(forecast.getDailyForecastDtoList().size()>=5) {
+        if(forecast.getDailyForecastDtoList() !=null && forecast.getDailyForecastDtoList().size()>=5) {
             forecast = setDisplayNameOfDay(forecast);
             forecast.setLocationId(cityId);
         }
