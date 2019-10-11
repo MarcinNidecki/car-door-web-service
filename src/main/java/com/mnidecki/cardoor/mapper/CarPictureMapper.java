@@ -11,17 +11,18 @@ import java.util.stream.Collectors;
 public class CarPictureMapper {
 
     public CarPicture mapToCarPicture(CarPictureDto carPictureDto) {
-        CarPicture carPicture = new CarPicture();
-        if(carPictureDto.getId()>0) carPicture.setId(carPictureDto.getId());
-        if(carPictureDto.getDescriptions()!=null) carPicture.setDescriptions(carPictureDto.getDescriptions());
-        if(carPictureDto.getFileName()!=null) carPicture.setFileName(carPictureDto.getFileName());
-        if(carPictureDto.getThumbnails()!=null) carPicture.setThumbnails(carPictureDto.getThumbnails());
-        if(carPictureDto.getThumbnailsPath()!=null) carPicture.setThumbnailsPath(carPictureDto.getThumbnailsPath());
-        if(carPictureDto.getFileNamePath()!=null) carPicture.setFileNamePath(carPictureDto.getFileNamePath());
-        if(carPictureDto.getFileExtension()!=null) carPicture.setFileExtension(carPictureDto.getFileExtension());
-        if(carPictureDto.getCreatedDate()!=null) carPicture.setCreatedDate(carPictureDto.getCreatedDate());
-        if(carPictureDto.getFile()!=null) carPicture.setFile(carPictureDto.getFile());
-        return carPicture;
+
+        return CarPicture.builder()
+                .id(carPictureDto.getId())
+                .descriptions(carPictureDto.getDescriptions())
+                .fileName(carPictureDto.getFileName())
+                .thumbnails(carPictureDto.getThumbnails())
+                .thumbnailsPath(carPictureDto.getThumbnailsPath())
+                .fileNamePath(carPictureDto.getFileNamePath())
+                .fileExtension(carPictureDto.getFileExtension())
+                .createdDate(carPictureDto.getCreatedDate())
+                .file(carPictureDto.getFile())
+                .build();
     }
 
     public CarPictureDto mapToCarPictureDto(CarPicture carPicture) {
