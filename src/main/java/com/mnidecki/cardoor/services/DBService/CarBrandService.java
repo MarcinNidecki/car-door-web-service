@@ -21,6 +21,10 @@ public class CarBrandService {
         return save(unknown);
     }
 
+    public CarBrand findByBrandName(String name) {
+        return carBrandRepository.findByBrand(name).orElse(getDefaultCarBrand());
+    }
+
     public List<CarBrand> findAll() {
         return carBrandRepository.findAll();
     }

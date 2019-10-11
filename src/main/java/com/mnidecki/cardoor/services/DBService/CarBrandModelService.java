@@ -23,7 +23,7 @@ public class CarBrandModelService {
     private StarService starService;
 
     public CarBrandModel getDefaultCarBrandModel() {
-        CarBrand unknown = carBrandService.getDefaultCarBrand();
+        CarBrand unknown = carBrandService.findByBrandName("Unknown");
         CarBrandModel unknownModel = carBrandModelRepository.findCarBrandModelByModel("Unknown")
                 .orElse(new CarBrandModel("Unknown",unknown));
         return save(unknownModel);

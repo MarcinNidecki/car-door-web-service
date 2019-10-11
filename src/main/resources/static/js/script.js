@@ -20,7 +20,7 @@ $(".confirm-delete").on('click', function (e) {
     $("#modal-no").html(no);
     $("#modal-id").html(id);
     $("#carModal").modal('show');
-    $("#deleteType").on('click', function (e) {
+    $("#deleteBrand").on('click', function (e) {
         $.ajax({
             url: path,
             method: 'DELETE',
@@ -37,17 +37,17 @@ $(".confirm-delete").on('click', function (e) {
 });
 $(".confirm-delete2").on('click', function (e) {
     e.preventDefault();
-    var id = $(this).data('id');
-    var path = $(this).data('path');
-    var redirect = $(this).data('redirect');
-    var name = $(this).data('name');
-    var no = $(this).data('no');
+    var id2 = $(this).data('id2');
+    var path2 = $(this).data('path2');
+    var redirect2 = $(this).data('redirect2');
+    var name2 = $(this).data('name2');
+    var no2 = $(this).data('no2');
     var parentEl = $(this).parents('[data-single-model]');
-    $("#modal-name").html(name);
-    $("#modal-no").html(no);
-    $("#modal-id").html(id);
+    $("#modal-name2").html(name);
+    $("#modal-no2").html(no);
+    $("#modal-id2").html(id);
     $("#carModal2").modal('show');
-    $("#deleteType").on('click', function (e) {
+    $("#deleteModel").on('click', function (e) {
         $.ajax({
             url: path,
             method: 'DELETE',
