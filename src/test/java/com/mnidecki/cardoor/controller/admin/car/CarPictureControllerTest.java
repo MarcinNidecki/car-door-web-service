@@ -212,7 +212,7 @@ public class CarPictureControllerTest {
                 .param("descriptions","Kia Sorento II"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("carsPicture"))
-                .andExpect(model().attribute("errormessage","We could not update your picture. Fill all the field"))
+                .andExpect(model().attribute("errormessage","We could not save your picture. Fill all the field"))
                 .andReturn();
 
     }
