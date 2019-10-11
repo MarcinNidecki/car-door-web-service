@@ -7,6 +7,7 @@ public class ControllerConstant {
     public static final String CAR_TYPE_DTO = "carTypeDto";
     public static final String CAR_TYPE = "carType";
     public static final String REDIRECT_ADMIN_CAR_TYPE = "redirect:/admin/car/type";
+    public static final String CAR_SERVICE = "carService";
 
     private ControllerConstant() {
         throw new IllegalStateException("Controller constant class");

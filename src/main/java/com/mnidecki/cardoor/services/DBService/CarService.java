@@ -68,4 +68,12 @@ public class CarService {
         }
         return availableCar;
     }
+
+    public int countCarByBrandId(final Long id) {
+        return carRepository.countCarByModel_Brand_Id(id);
+    }
+
+    public int countCarByModelId(final Long id) {
+        return carRepository.countCarByModel_Id(id);
+    }
 }

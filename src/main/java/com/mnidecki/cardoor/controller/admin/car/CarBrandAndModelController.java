@@ -8,6 +8,7 @@ import com.mnidecki.cardoor.mapper.CarBrandMapper;
 import com.mnidecki.cardoor.mapper.CarBrandModelMapper;
 import com.mnidecki.cardoor.services.DBService.CarBrandModelService;
 import com.mnidecki.cardoor.services.DBService.CarBrandService;
+import com.mnidecki.cardoor.services.DBService.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +31,8 @@ public class CarBrandAndModelController {
     private CarBrandService carBrandService;
     @Autowired
     private CarBrandModelService carBrandModelService;
+    @Autowired
+    private CarService carService;
 
     @ModelAttribute("allBrand")
     public List<CarBrandDto> allType() {
@@ -48,6 +51,7 @@ public class CarBrandAndModelController {
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
         modelAndView.addObject("carBrandModels", carModels);
+        modelAndView.addObject(CAR_SERVICE, carService);
         modelAndView.addObject(CAR_BRANDS, carBrands);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
@@ -67,6 +71,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject("carBrandModels", carModels);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRANDS, carBrands);
+        modelAndView.addObject(CAR_SERVICE, carService);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(CAR_BRAND_DTO, carBrandDto);
         modelAndView.addObject(TITLE, CARS_MODELS);
@@ -85,6 +90,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject(CAR_BRANDS, carBrands);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO, carModelDto);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
+        modelAndView.addObject(CAR_SERVICE, carService);
         modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
         modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject("isBrandAdd", false);
@@ -96,6 +102,7 @@ public class CarBrandAndModelController {
     @PostMapping(value = "/brand/{brandId}/model")
     public ModelAndView saveModel(@PathVariable Long brandId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is saved successfully");
@@ -111,6 +118,7 @@ public class CarBrandAndModelController {
     @PostMapping(value = "/brand")
     public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         if (carBrand != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car brand is saved successfully");
@@ -120,6 +128,7 @@ public class CarBrandAndModelController {
             modelAndView.addObject(CAR_BRAND_DTO, carBrandDto);
             modelAndView.setViewName(CAR_BRAND);
         }
+
         return modelAndView;
     }
 
@@ -127,6 +136,7 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}/model/{modelId}")
     public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is updated successfully");
@@ -142,6 +152,7 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}")
     public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrand != null || carBrandModel != null) {
@@ -158,6 +169,7 @@ public class CarBrandAndModelController {
     @DeleteMapping(value = "/brand/{id}")
     public ModelAndView delete(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         carBrandService.deleteById(id);
         modelAndView.addObject(SUCCESSMESSAGE, "Car brand is deleted successfully");
         modelAndView.setViewName(CAR_BRAND);
@@ -167,6 +179,7 @@ public class CarBrandAndModelController {
     @DeleteMapping(value = "/brand/{brandId}/model/{modelId}")
     public ModelAndView delete(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_SERVICE, carService);
         carBrandModelService.delete(modelId);
         modelAndView.addObject(SUCCESSMESSAGE, "Car model is deleted successfully");
         modelAndView.setViewName(CAR_BRAND);

@@ -20,4 +20,8 @@ public interface CarRepository extends CrudRepository<Car, Integer> {
 
     void deleteById(Long id);
 
+    int countCarByModel_Id(Long id);
+
+    int countCarByModel_Brand_Id(Long id);
+
 }
