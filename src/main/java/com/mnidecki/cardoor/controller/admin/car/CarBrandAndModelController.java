@@ -156,20 +156,20 @@ public class CarBrandAndModelController {
     }
 
     @DeleteMapping(value = "/brand/{id}")
-    public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView delete(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         carBrandService.deleteById(id);
-        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car brand is deleted successfully");
-        modelAndView.setViewName(REDIRECT_ADMIN_CAR_BRAND);
+        modelAndView.addObject(SUCCESSMESSAGE, "Car brand is deleted successfully");
+        modelAndView.setViewName(CAR_BRAND);
         return modelAndView;
     }
 
     @DeleteMapping(value = "/brand/{brandId}/model/{modelId}")
-    public ModelAndView delete(@PathVariable Long brandId, @PathVariable Long modelId, RedirectAttributes redirectAttributes) {
+    public ModelAndView delete(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
         carBrandModelService.delete(modelId);
-        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is deleted successfully");
-        modelAndView.setViewName(REDIRECT_ADMIN_CAR_BRAND);
+        modelAndView.addObject(SUCCESSMESSAGE, "Car model is deleted successfully");
+        modelAndView.setViewName(CAR_BRAND);
         return modelAndView;
     }
 

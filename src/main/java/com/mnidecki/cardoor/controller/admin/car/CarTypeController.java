@@ -101,10 +101,11 @@ public class CarTypeController {
     }
     @Transactional
     @DeleteMapping(value = "/type/{id}")
-    public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public ModelAndView delete(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         carTypeService.deleteById(id);
-        redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car type is deleted successfully");
+        modelAndView.addObject(SUCCESSMESSAGE, "Car type is deleted successfully");
+        modelAndView.addObject(CAR_TYPE_DTO, new CarTypeDto());
         modelAndView.setViewName(REDIRECT_ADMIN_CAR_TYPE);
         return modelAndView;
     }
