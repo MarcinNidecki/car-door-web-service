@@ -4,10 +4,12 @@ import com.mnidecki.cardoor.domain.car.CarBrand;
 import com.mnidecki.cardoor.repository.CarBrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CarBrandService {
 
     @Autowired
