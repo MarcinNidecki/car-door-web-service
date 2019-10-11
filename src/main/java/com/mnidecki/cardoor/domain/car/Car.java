@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity(name = "cars")
 @Table(name = "cars")
-@Where(clause = "deleted = 0")
+@Where(clause = "deleted = false")
 public class Car implements Serializable {
 
     @Id
@@ -51,8 +51,8 @@ public class Car implements Serializable {
             fetch = FetchType.EAGER)
     private List<Booking> bookingsList;
 
-    @Column(name = "deleted", columnDefinition = "1")
-    private Integer deleted = 0;
+    @Column(name = "deleted", columnDefinition = "false")
+    private boolean deleted;
 
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Locationn location) {
