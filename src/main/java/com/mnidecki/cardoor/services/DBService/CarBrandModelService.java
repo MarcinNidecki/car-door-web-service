@@ -25,6 +25,10 @@ public class CarBrandModelService {
         CarBrandModel unknownModel = carBrandModelRepository.findCarBrandModelByModel("Unknown")
                 .orElse(new CarBrandModel("Unknown",unknown));
         unknown.getModels().add(unknownModel);
+        if (unknownModel.getId()!=null) {
+            unknownModel = carBrandModelRepository.save(unknownModel);
+        }
+
         return save(unknownModel);
     }
 
