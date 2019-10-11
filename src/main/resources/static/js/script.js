@@ -20,7 +20,7 @@ $(".confirm-delete").on('click', function (e) {
     $("#modal-no").html(no);
     $("#modal-id").html(id);
     $("#carModal").modal('show');
-    $("#deleteBrand").on('click', function (e) {
+    $("#deleteType").on('click', function (e) {
         $.ajax({
             url: path,
             method: 'DELETE',
