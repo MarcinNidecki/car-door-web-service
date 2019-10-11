@@ -13,9 +13,15 @@ public class CarBrandService {
     @Autowired
     private CarBrandRepository carBrandRepository;
 
-    public CarBrand findByBrandName(String name) {
+    public CarBrand getDefaultCarBrand() {
+        CarBrand unknown = carBrandRepository.findByBrand("Unknown")
+                .orElse(new CarBrand("Unknown"));
 
-        return carBrandRepository.findByBrand(name).orElse(new CarBrand());
+        return save(unknown);
+    }
+
+    public CarBrand findByBrandName(String name) {
+        return carBrandRepository.findByBrand(name).orElse(getDefaultCarBrand());
     }
 
     public List<CarBrand> findAll() {
@@ -31,6 +37,9 @@ public class CarBrandService {
     }
 
     public void deleteById(final Long id) {
+        CarBrand carBrand = findByID(id);
+        carBrand.getModels().forEach(model -> model.setBrand(getDefaultCarBrand()));
+        save(carBrand);
         carBrandRepository.deleteById(id);
     }
 }
