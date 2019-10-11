@@ -1,9 +1,6 @@
 package com.mnidecki.cardoor.domain.car;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -114,6 +112,7 @@ public class CarPicture implements Serializable {
         this.thumbnailsPath = thumbnailsPath;
         this.fileExtension = fileExtension;
     }
+
 
     public CarPicture(String descriptions, MultipartFile file) {
         this.descriptions = descriptions;
