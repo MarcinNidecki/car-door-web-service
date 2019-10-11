@@ -23,7 +23,13 @@ public class CommentMapper {
                 commentDto.getRating());
 
         comment.setModel(modelService.findByID(commentDto.getModelId()));
-        if(commentDto.getId()!=null && commentDto.getId()>0) commentDto.setId(commentDto.getId());
+        if(commentDto.getId()!=null && commentDto.getId()>0) comment.setId(commentDto.getId());
+        if(commentDto.getModelId()!=null && commentDto.getId()>0) {
+            comment.setModel(modelService.findByID(commentDto.getModelId()));
+        }
+        if(commentDto.getUserId()!=null && commentDto.getUserId()>0) {
+            comment.setUser(userService.findUserById(commentDto.getUserId()));
+        }
         return comment;
     }
 

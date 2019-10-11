@@ -106,7 +106,7 @@ public class CarTypeController {
         carTypeService.deleteById(id);
         modelAndView.addObject(SUCCESSMESSAGE, "Car type is deleted successfully");
         modelAndView.addObject(CAR_TYPE_DTO, new CarTypeDto());
-        modelAndView.setViewName(REDIRECT_ADMIN_CAR_TYPE);
+        modelAndView.setViewName(CAR_TYPE);
         return modelAndView;
     }
 }

@@ -560,11 +560,13 @@ public class CarControllerTest {
     public void shouldDelete() throws Exception {
         //When & Then
         MvcResult result = mockMvc.perform(delete("/admin/car/{carId}", 1).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(flash().attribute("successmessage", "Car is deleted successfully"))
-                .andExpect(view().name("redirect:/admin/car"))
+                .andExpect(model().attribute("successmessage", "Car is deleted successfully"))
+                .andExpect(view().name("cars"))
                 .andReturn();
 
-        System.out.println(result.getResponse().getContentAsString());
+        String content = result.getResponse().getContentAsString();
+        assertNotNull(content);
+        assertTrue(content.contains("Car is deleted successfully"));
     }
 
     @Test

@@ -57,8 +57,6 @@ public class CommentMapperTest {
         assertEquals(Long.valueOf(1),comment.getId());
         assertEquals("Very good car!",comment.getCommentContent());
         assertEquals(Integer.valueOf(10),comment.getRating());
-        assertEquals(Timestamp.valueOf("2019-12-10 21:22:22"),comment.getCreationDate());
-        assertEquals("John",comment.getUser().getFirstname());
         assertEquals("John",comment.getUser().getFirstname());
         assertEquals("AvDww872nccDAa2131eszx",comment.getUser().getPassword());
         assertEquals(Long.valueOf(2),comment.getUser().getId());
