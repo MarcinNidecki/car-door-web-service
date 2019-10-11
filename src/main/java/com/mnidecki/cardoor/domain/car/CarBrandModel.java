@@ -46,6 +46,11 @@ public class CarBrandModel implements Serializable {
         this.model = model;
     }
 
+    public CarBrandModel(String model, CarBrand brand) {
+        this.model = model;
+        this.brand = brand;
+    }
+
     public CarBrandModel(Long id, String model, CarBrand brand) {
         this.id = id;
         this.model = model;

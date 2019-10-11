@@ -15,6 +15,8 @@ public interface CarBrandRepository extends CrudRepository<CarBrand, Integer> {
 
     Optional<CarBrand> findById(Long id);
 
+    Optional<CarBrand> findByBrand(String brandName);
+
     @Override
     CarBrand save(CarBrand carBrand);
 

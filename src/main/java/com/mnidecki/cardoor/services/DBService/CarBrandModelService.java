@@ -1,5 +1,6 @@
 package com.mnidecki.cardoor.services.DBService;
 
+import com.mnidecki.cardoor.domain.car.CarBrand;
 import com.mnidecki.cardoor.domain.car.CarBrandModel;
 import com.mnidecki.cardoor.domain.car.Star;
 import com.mnidecki.cardoor.repository.CarBrandModelRepository;
@@ -13,9 +14,19 @@ public class CarBrandModelService {
 
     @Autowired
     private CarBrandModelRepository carBrandModelRepository;
+    @Autowired
+    private CarBrandService carBrandService;
 
     @Autowired
     private StarService starService;
+
+    public CarBrandModel getDefaultCarBrandModel() {
+        CarBrand unknown = carBrandService.getDefaultCarBrand();
+        CarBrandModel unknownModel = carBrandModelRepository.findCarBrandModelByModel("Unknown")
+                .orElse(new CarBrandModel("Unknown",unknown));
+        return save(unknownModel);
+    }
+
 
     public List<CarBrandModel> findAll() {
         return carBrandModelRepository.findAll();
@@ -36,7 +47,10 @@ public class CarBrandModelService {
     }
 
     public void delete(final Long id) {
-        carBrandModelRepository.deleteById(id);
+        CarBrandModel carModel = findByID(id);
+        carModel.getCars().forEach(model -> model.setModel(getDefaultCarBrandModel()));
+        save(carModel);
+        carBrandService.deleteById(id);
     }
 
     public List<CarBrandModel> getAllModelByBrand_Id(Long id) {

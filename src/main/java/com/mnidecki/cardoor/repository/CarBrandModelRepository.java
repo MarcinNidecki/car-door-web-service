@@ -15,6 +15,8 @@ public interface CarBrandModelRepository extends CrudRepository<CarBrandModel, I
 
     List<CarBrandModel> findCarBrandModelByBrand_Id(Long id);
 
+    Optional<CarBrandModel> findCarBrandModelByModel(String modelName);
+
     Optional<CarBrandModel> findById(Long id);
 
     @Override
