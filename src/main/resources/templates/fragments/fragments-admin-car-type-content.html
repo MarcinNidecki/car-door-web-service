@@ -68,7 +68,8 @@
                             <a th:href="@{'/admin/car/type/'+${carType.id}}"> <i class="fa fa-edit" style="font-size:21px;"></i></a>
 
 <a href="javascript:void(0)" class="confirm-delete" th:attr="data-id=${carType.id}, data-name=${carType.type}, data-no=${carParametersService.countCarParametersByCarTypeId
-                              (carType.id)},  data-path='/admin/car/type/'+${carType.id}">
+                              (carType.id)},  data-redirect='/admin/car/type/', data-path='/admin/car/type/'+${carType
+                              .id}">
                               <i class="fa fa-trash" style="font-size:21px; color: red;"></i></a>
                         </div>
                     </div>

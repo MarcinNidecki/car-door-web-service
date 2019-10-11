@@ -12,6 +12,7 @@ $(".confirm-delete").on('click', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
     var path = $(this).data('path');
+    var redirect = $(this).data('redirect');
     var name = $(this).data('name');
     var no = $(this).data('no');
     var parentEl = $(this).parents('[data-single-item]');
@@ -27,7 +28,9 @@ $(".confirm-delete").on('click', function (e) {
                 parentEl.slideUp(400, function () {
                     parentEl.remove();
                     console.log(location.hostname);
-                    setTimeout(function(){  location.reload(); }, 500);
+                    setTimeout(function(){   window.location.href = redirect; }, 400);
+
+
 
                 });
             }

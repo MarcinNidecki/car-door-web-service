@@ -93,7 +93,11 @@
                                                 <a th:href="@{'/admin/car/brand/'+${brand.id}+'/model/'+${model.id}}"> <i class="fa fa-edit" style="font-size:17px;color: darkgrey;"></i></a>
                                             </div>
                                             <div class="col-md-6">
-                                                <a href="javascript:void(0)" class="confirm-delete2" id="gallery-page-content" style="background-color: unset;" th:attr="data-id=${model.id}, data-name=${model.model},  data-path='/admin/car/brand/'+${brand.id}+'/model/'+${model.id}"> <i class="fa fa-trash" style="font-size:17px; color: red;"></i></a>
+                                                <a href="javascript:void(0)" class="confirm-delete2"
+                                                id="gallery-page-content" style="background-color: unset;"
+                                                th:attr="data-id=${model.id}, data-name=${model.model},
+                                                data-redirect='/admin/car/brand/',
+                                                data-path='/admin/car/brand/'+${brand.id}+'/model/'+${model.id}"> <i class="fa fa-trash" style="font-size:17px; color: red;"></i></a>
                                             </div>
                                         </div>
                                     </div>

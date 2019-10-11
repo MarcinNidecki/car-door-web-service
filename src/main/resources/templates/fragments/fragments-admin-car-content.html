@@ -312,7 +312,9 @@
                             <div class="col-md-4">
                                 <h5>
                            <a th:href="@{'/admin/car/'+${car.id}}"> <i class="fa fa-edit" style ="font-size:21px;"></i></a>
-                           <a href="javascript:void(0)" class="confirm-delete" id="gallery-page-content" style="background-color: unset;" th:attr="data-id=${car.id}, data-name=${car.brand+' '+car.model}">
+                           <a href="javascript:void(0)" class="confirm-delete" id="gallery-page-content"
+                           style="background-color: unset;" th:attr="data-id=${car.id}, data-name=${car.brand+' '+car
+                           .model},  data-redirect='/admin/car/',  data-path='/admin/car/'+${car.id}">
                            <i class="fa fa-trash" style="font-size:21px; color: red;"></i></a>
                         </h5>
                             </div>
@@ -322,5 +324,4 @@
             </div>
         </div>
     </div>
-</div>                        <a th:href="@{'/admin/car/picture/'+${picture.id}}"> <i class="fa fa-edit" style ="font-size:21px;"></i></a>
-                              <a href="javascript:void(0)" class="confirm-delete" th:attr="data-id=${picture.id}, data-name=${picture.descriptions}, data-no=${carParametersService.countCarParametersByCarPictureId(picture.id)},  data-path='/admin/car/picture/'+${picture.id}"> <i class="fa fa-trash" style="font-size:21px; color: red;"> </i></a>
+</div>                   
