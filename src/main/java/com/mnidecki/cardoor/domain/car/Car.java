@@ -4,6 +4,7 @@ import com.mnidecki.cardoor.domain.Locationn;
 import com.mnidecki.cardoor.domain.booking.Booking;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,9 +12,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
+
+
 @NoArgsConstructor
 @Setter
 @Entity(name = "cars")
+@Table(name = "cars")
+@Where(clause = "deleted = 0")
 public class Car implements Serializable {
 
     @Id
@@ -45,6 +50,9 @@ public class Car implements Serializable {
             mappedBy = "car",
             fetch = FetchType.EAGER)
     private List<Booking> bookingsList;
+
+    @Column(name = "deleted", columnDefinition = "1")
+    private Integer deleted = 0;
 
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Locationn location) {
