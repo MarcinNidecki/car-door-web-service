@@ -45,7 +45,7 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(IS_ADD, true);
         CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        if (carPicture != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+        if (carPicture.getFile() != null  && carPicture.getDescriptions() != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE,
                     "Picture " + carPicture.getFileName()+ "."+ carPicture.getFileExtension() +" saved successfully");
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
@@ -76,7 +76,7 @@ public class CarPictureController {
     public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         CarPicture  carPicture = pictureService.save(carPictureMapper.mapToCarPicture(carPictureDto));
-        if (carPicture != null && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+        if (carPicture.getFile() != null  && carPicture.getDescriptions() != null  && pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car picture is updated successfully");
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
         } else {
