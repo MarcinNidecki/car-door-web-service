@@ -172,30 +172,28 @@ public class BookingController {
     @GetMapping(value = {"car/{carId}/booking/checkout"})
     public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, RedirectAttributes redirectAttributes,
                                         HttpSession session) {
-        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
+        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
+        modelAndView.setViewName(BOOKING_CHECKOUT);
         modelAndView.addObject(LONG_USER_DTO, new UserRegisterLongFormDto());
         modelAndView.addObject(EDIT_USER_DTO, getUser());
         return modelAndView;
     }
 
     @PostMapping(value = {"car/{carId}/booking/user/{userId}"})
-    public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
+    public ModelAndView saveBooking(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
                                            @Valid @ModelAttribute(EDIT_USER_DTO) UserEditFormDto userDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
-        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
+        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(EDIT_USER_DTO, userDto);
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
+            modelAndView.setViewName(BOOKING_CHECKOUT);
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(userDto));
-            modelAndView.addObject(
-                    ControllerConstant.ERRORMESSAGE, "Booking has been confirmed! ");
-            modelAndView.setViewName("index");
+            return redirectToHome(redirectAttributes, "Booking has been confirmed");
         }
         return modelAndView;
     }
@@ -212,10 +210,10 @@ public class BookingController {
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName(ControllerConstant.BOOKING_CHECKOUT);
+            modelAndView.setViewName(BOOKING_CHECKOUT);
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(longUserDto));
-            modelAndView.addObject(ControllerConstant.ERRORMESSAGE, "Booking has been confirmed!  Open the email, and click the link to confirm your account.");
+            return redirectToHome(redirectAttributes, "Booking has been confirmed!  Open the email, and click the link to confirm your account.");
         }
         return modelAndView;
     }
