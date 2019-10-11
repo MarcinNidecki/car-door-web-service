@@ -85,7 +85,7 @@ public class PictureUploadService {
 
                 con.storeFile(picture.getFile().getOriginalFilename(),
                         picture.getFile().getInputStream());
-                con.storeFile(picture.getFile().getOriginalFilename() + "." + picture.getFileExtension(), thumbnails);
+                con.storeFile(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()) + "-small." + picture.getFileExtension(), thumbnails);
 
                 con.logout();
                 con.disconnect();
