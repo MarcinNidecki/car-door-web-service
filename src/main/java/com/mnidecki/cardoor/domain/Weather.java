@@ -38,4 +38,14 @@ public class Weather implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "id=" + id +
+                ", nameOfFirstDay='" + nameOfFirstDay + '\'' +
+                ", dateOfFirstDay='" + dateOfFirstDay + '\'' +
+                ", location=" + location +
+                ", dailyForecastList=" + dailyForecastList +
+                '}';
+    }
 }
