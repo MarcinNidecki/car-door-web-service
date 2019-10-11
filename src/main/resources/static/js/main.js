@@ -38,7 +38,7 @@
 
 
         $('#startTime').timepicker({
-            format:'HH:mm:ss',
+            format:'HH:mm',
             value: time,
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome'
@@ -46,7 +46,7 @@
         });
 
         $('#endTime').timepicker({
-            format:'HH:mm:ss',
+            format:'HH:mm',
             value: time,
             uiLibrary: 'bootstrap4',
             iconsLibrary: 'fontawesome'
