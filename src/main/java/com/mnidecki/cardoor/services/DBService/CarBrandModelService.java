@@ -48,9 +48,11 @@ public class CarBrandModelService {
 
     public void delete(final Long id) {
         CarBrandModel carModel = findByID(id);
-        carModel.getCars().forEach(model -> model.setModel(getDefaultCarBrandModel()));
-        save(carModel);
-        carBrandService.deleteById(id);
+        if(carModel.getCars()!=null) {
+            carModel.getCars().forEach(model -> model.setModel(getDefaultCarBrandModel()));
+            save(carModel);
+        }
+        carBrandModelRepository.deleteById(id);
     }
 
     public List<CarBrandModel> getAllModelByBrand_Id(Long id) {

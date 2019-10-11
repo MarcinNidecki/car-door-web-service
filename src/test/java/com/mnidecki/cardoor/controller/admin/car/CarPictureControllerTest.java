@@ -194,13 +194,11 @@ public class CarPictureControllerTest {
 
     @Test
     @WithMockUser(username = "testAdmin", password = "pw", roles = "ADMIN")
-    public void shouldNotSaveACarPicture() throws Exception {
+    public void shouldNotSaveACarPictureWhenFileIsNull() throws Exception {
         //Given
-        MultipartFile image =  new MockMultipartFile("file","car-1.jpg",
-                "img",new byte[]{1,2,3,4,5,66,7,7,8,9,77,8,9, 0});
 
-        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/", "jpg",  LocalDate.of(2000, 11, 23), image);
-        CarPictureDto carPictureDto = new CarPictureDto( "Kia Sorento II",  image);
+        CarPicture carPicture = new CarPicture(1L, "Kia Sorento II", "car-1", "small-kia", "/images/", "/images/small/", "jpg",  LocalDate.of(2000, 11, 23));
+        CarPictureDto carPictureDto = new CarPictureDto( "Kia Sorento II",  null);
 
         when(carPictureMapper.mapToCarPicture(carPictureDto)).thenReturn(carPicture);
         when(pictureService.save(carPicture)).thenReturn(carPicture);
@@ -208,7 +206,6 @@ public class CarPictureControllerTest {
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/car/picture")
-                .file((MockMultipartFile) image)
                 .param("descriptions","Kia Sorento II"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("carsPicture"))

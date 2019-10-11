@@ -46,7 +46,7 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
 
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
-        if (!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
+        if (carPicture.getFile()!=null &&!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
             if (carPicture.getFileName()!=null ) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
