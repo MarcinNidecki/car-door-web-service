@@ -34,14 +34,11 @@ public class PictureUploadService {
         if (picture != null && !picture.getFile().isEmpty()) {
             if (picture.getFile().getOriginalFilename() != null && picture.getFileNamePath() != null) {
                 LOGGER.info((pictureService.isFileNameTheSameLikeFileNamePath(picture))+" tutaj");
-
                 if (pictureService.isFileNameTheSameLikeFileNamePath(picture)) {
                     return picture;
                 } else {
                     return sendPicturesToFtp(picture, prepareThumbnailsAsImputStream(picture));
                 }
-            } else {
-               return sendPicturesToFtp(picture, prepareThumbnailsAsImputStream(picture));
             }
         }
         return picture;
