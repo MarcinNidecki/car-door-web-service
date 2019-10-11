@@ -16,6 +16,7 @@ public class CarBrandService {
     public CarBrand getDefaultCarBrand() {
         CarBrand unknown = carBrandRepository.findByBrand("Unknown")
                 .orElse(new CarBrand("Unknown"));
+
         return save(unknown);
     }
 

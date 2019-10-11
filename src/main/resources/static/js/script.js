@@ -43,17 +43,17 @@ $(".confirm-delete2").on('click', function (e) {
     var name2 = $(this).data('name2');
     var no2 = $(this).data('no2');
     var parentEl = $(this).parents('[data-single-model]');
-    $("#modal-name2").html(name);
-    $("#modal-no2").html(no);
-    $("#modal-id2").html(id);
+    $("#modal-name2").html(name2);
+    $("#modal-no2").html(no2);
+    $("#modal-id2").html(id2);
     $("#carModal2").modal('show');
     $("#deleteModel").on('click', function (e) {
         $.ajax({
-            url: path,
+            url: path2,
             method: 'DELETE',
             success: function (data) {
                 parentEl.slideUp(400, function () {
-                    setTimeout(function(){   window.location.href = redirect; }, 400);
+                    setTimeout(function(){   window.location.href = redirect2; }, 400);
                 });
             }
         })
