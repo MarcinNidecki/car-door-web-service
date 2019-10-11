@@ -7,7 +7,6 @@ import com.mnidecki.cardoor.services.DBService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 @Component
@@ -19,13 +18,13 @@ public class CommentMapper {
     CarBrandModelService modelService;
 
     public Comment mapToComment(CommentDto commentDto) {
-        return new Comment(
-                commentDto.getId(),
+        Comment comment = new Comment(
                 commentDto.getCommentContent(),
-                commentDto.getRating(),
-                Timestamp.valueOf(commentDto.getCreationDate()),
-                userService.findUserById(commentDto.getUserId()),
-                modelService.findByID(commentDto.getModelId()));
+                commentDto.getRating());
+
+        comment.setModel(modelService.findByID(commentDto.getModelId()));
+        if(commentDto.getId()!=null && commentDto.getId()>0) commentDto.setId(commentDto.getId());
+        return comment;
     }
 
     public CommentDto mapToCommentDto(Comment comment) {

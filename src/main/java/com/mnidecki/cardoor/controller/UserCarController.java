@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController("UserCarController")
@@ -36,10 +35,6 @@ public class UserCarController {
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long modelId, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!bindingResult.hasErrors()) {
-            commentDto.setUserFirstName(userService.getUserFromAuthentication().getUsername());
-            commentDto.setUserId(userService.getUserFromAuthentication().getId());
-            commentDto.setModelId(modelId);
-            commentDto.setCreationDate(new Timestamp(System.currentTimeMillis()).toString());
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
                 modelAndView.addObject("msg", "Your comment has been successfully submitted.");

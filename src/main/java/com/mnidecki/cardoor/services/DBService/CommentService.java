@@ -5,6 +5,8 @@ import com.mnidecki.cardoor.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -12,6 +14,8 @@ public class CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private UserService userService;
 
     public List<Comment> findAll() {
         return commentRepository.findAll();
@@ -22,6 +26,8 @@ public class CommentService {
     }
 
     public Comment save(final Comment comment) {
+        comment.setUser(userService.getUserFromAuthentication());
+        comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
         return commentRepository.save(comment);
     }
 

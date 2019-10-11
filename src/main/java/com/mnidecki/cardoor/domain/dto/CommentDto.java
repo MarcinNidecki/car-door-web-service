@@ -24,4 +24,8 @@ public class CommentDto {
     private Long userId;
     private Long modelId;
 
+    public CommentDto(@Length(min = 15, message = "Message must be at least 20 characters long") String commentContent, @NotNull(message = "Please select the star rating point!") Integer rating) {
+        this.commentContent = commentContent;
+        this.rating = rating;
+    }
 }

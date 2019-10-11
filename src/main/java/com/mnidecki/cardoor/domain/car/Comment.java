@@ -59,5 +59,8 @@ public class Comment implements Serializable {
         this.model = model;
     }
 
-
+    public Comment(String commentContent, Integer rating) {
+        this.commentContent = commentContent;
+        this.rating = rating;
+    }
 }
