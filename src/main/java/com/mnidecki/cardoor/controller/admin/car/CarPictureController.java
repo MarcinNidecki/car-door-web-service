@@ -51,7 +51,7 @@ public class CarPictureController {
         LOGGER.info(carPicture.getFile().getOriginalFilename());
         LOGGER.info(carPicture.getDescriptions());
         LOGGER.info(String.valueOf(carPicture.getFile().isEmpty()));
-        if (carPicture.getFile() != null && carPicture.getDescriptions() != null) {
+        if (carPicture.getFile().isEmpty() || carPicture.getDescriptions().isEmpty()) {
             LOGGER.info("Picture saving");
             carPicture = pictureService.save(carPicture);
         }
