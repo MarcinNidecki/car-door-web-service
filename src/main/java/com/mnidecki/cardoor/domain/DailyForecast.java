@@ -44,7 +44,6 @@ public class DailyForecast implements Serializable {
                 ", temp=" + temp +
                 ", icon='" + icon + '\'' +
                 ", dayName='" + dayName + '\'' +
-                ", weather=" + weather +
                 '}';
     }
 }
