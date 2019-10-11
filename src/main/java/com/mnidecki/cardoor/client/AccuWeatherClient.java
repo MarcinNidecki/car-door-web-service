@@ -39,7 +39,7 @@ public class AccuWeatherClient {
 
         try {
             LocationDto[] boardsResponse = restTemplate.getForObject(uri, LocationDto[].class);
-            if (boardsResponse != null && location.getCountry().equals(boardsResponse[0].getCountry().getLocalizedName()))
+            if (boardsResponse != null && boardsResponse.length > 0 && location.getCountry().equals(boardsResponse[0].getCountry().getLocalizedName()))
                 return ofNullable(boardsResponse[0].getCityKey()).orElse("");
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
