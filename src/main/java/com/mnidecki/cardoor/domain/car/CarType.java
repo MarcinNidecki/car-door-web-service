@@ -22,7 +22,7 @@ public class CarType implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "type")
+    @Column(name = "type", unique = true)
     private String type;
 
 
