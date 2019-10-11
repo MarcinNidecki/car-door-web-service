@@ -1,15 +1,16 @@
 package com.mnidecki.cardoor.domain.car;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@EqualsAndHashCode
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,8 +36,8 @@ public class CarBrandModel implements Serializable {
 
     @OneToMany(targetEntity = Comment.class,
             mappedBy = "model",
-            fetch = FetchType.EAGER)
-    private Set<Comment> comments = new HashSet<>();
+            fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToOne(mappedBy = "carBrandModel", cascade = CascadeType.ALL)
     private Star star;

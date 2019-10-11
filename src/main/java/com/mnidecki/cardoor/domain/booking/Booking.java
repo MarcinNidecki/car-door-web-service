@@ -157,39 +157,4 @@ public class Booking implements Serializable {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Booking booking = (Booking) o;
-
-        if (id != null ? !id.equals(booking.id) : booking.id != null) return false;
-        if (user != null ? !user.equals(booking.user) : booking.user != null) return false;
-        if (car != null ? !car.equals(booking.car) : booking.car != null) return false;
-        if (bookingStatusCode != null ? !bookingStatusCode.equals(booking.bookingStatusCode) : booking.bookingStatusCode != null)
-            return false;
-        if (totalCost != null ? !totalCost.equals(booking.totalCost) : booking.totalCost != null) return false;
-        if (startDate != null ? !startDate.equals(booking.startDate) : booking.startDate != null) return false;
-        if (returnDate != null ? !returnDate.equals(booking.returnDate) : booking.returnDate != null) return false;
-        if (createdDate != null ? !createdDate.equals(booking.createdDate) : booking.createdDate != null) return false;
-        if (bookingExtrasList != null ? !bookingExtrasList.equals(booking.bookingExtrasList) : booking.bookingExtrasList != null)
-            return false;
-        return discountCode != null ? discountCode.equals(booking.discountCode) : booking.discountCode == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (car != null ? car.hashCode() : 0);
-        result = 31 * result + (bookingStatusCode != null ? bookingStatusCode.hashCode() : 0);
-        result = 31 * result + (totalCost != null ? totalCost.hashCode() : 0);
-        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (bookingExtrasList != null ? bookingExtrasList.hashCode() : 0);
-        result = 31 * result + (discountCode != null ? discountCode.hashCode() : 0);
-        return result;
-    }
 }

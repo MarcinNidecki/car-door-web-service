@@ -1,6 +1,5 @@
 package com.mnidecki.cardoor.domain.car;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode
+
 @NoArgsConstructor
 @Getter
 @Setter
