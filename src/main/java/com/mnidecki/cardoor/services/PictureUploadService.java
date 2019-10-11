@@ -31,7 +31,7 @@ public class PictureUploadService {
 
 
     public CarPicture uploadPicture(CarPicture picture) {
-        if (picture != null && picture.getFile()!=null) {
+        if (picture != null && !picture.getFile().isEmpty()) {
             if (picture.getFile().getOriginalFilename() != null && picture.getFileNamePath() != null) {
                 LOGGER.info((pictureService.isFileNameTheSameLikeFileNamePath(picture))+" tutaj");
 
