@@ -5,6 +5,8 @@ import com.mnidecki.cardoor.domain.dto.CarPictureDto;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
 import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarPictureService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +21,7 @@ import static com.mnidecki.cardoor.controller.ControllerConstant.*;
 @RestController
 @RequestMapping("/admin/car")
 public class CarPictureController {
-
+    private static Logger LOGGER = LoggerFactory.getLogger(CarPictureController.class);
     @Autowired
     private CarParametersService carParametersService;
     @Autowired
@@ -81,14 +83,17 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
 
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
-        if (!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
+        if (!carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
+            LOGGER.info(pictureService.isFileNameTheSameLikeFileNamePath(carPicture)+" controler");
             if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture was updated successfully");
                 modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
                 return modelAndView;
             }
         }
+        LOGGER.info(carPicture.getFile().getOriginalFilename());
+        LOGGER.info(carPicture.getFileName());
         modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
         modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
         modelAndView.addObject(IS_ADD, false);

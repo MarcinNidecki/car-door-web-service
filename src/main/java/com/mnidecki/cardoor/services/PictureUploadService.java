@@ -32,7 +32,9 @@ public class PictureUploadService {
 
     public CarPicture uploadPicture(CarPicture picture) {
         if (picture != null && picture.getFile()!=null) {
-            if (picture.getFileName() != null && picture.getFileNamePath() != null) {
+            if (picture.getFile().getOriginalFilename() != null && picture.getFileNamePath() != null) {
+                LOGGER.info((pictureService.isFileNameTheSameLikeFileNamePath(picture))+" tutaj");
+
                 if (pictureService.isFileNameTheSameLikeFileNamePath(picture)) {
                     return picture;
                 } else {
@@ -50,6 +52,9 @@ public class PictureUploadService {
         picture.setThumbnails(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()) + "-small");
         picture.setFileNamePath(ftpConfig.getDomainFullImagePath() + picture.getFile().getOriginalFilename());
         picture.setThumbnailsPath(ftpConfig.getDomainFullImagePath() + picture.getThumbnails() + "." + picture.getFileExtension());
+        LOGGER.info(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()));
+        LOGGER.info(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()) + "-small");
+
         return picture;
     }
 

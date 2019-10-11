@@ -12,7 +12,7 @@
                 <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
                 <strong th:text="${errormessage}"></strong>
             </div>
-            <form action="#" th:action="@{${isAdd}?'/admin/car/picture':'/admin/car/picture'}"
+            <form action="#" th:action="@{'/admin/car/picture'}"
             th:object="${carPictureDto}" th:method="@{${isAdd}?'post':'put'}"  enctype="multipart/form-data">
                 <div class="p-car-thumbnails" th:if="${isAdd} == false">
                     <a class="car-hover" th:href="*{fileNamePath}">
