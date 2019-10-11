@@ -53,8 +53,9 @@ public class CarPictureController {
                 return modelAndView;
             }
         }
-        modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
+        modelAndView.addObject(ERRORMESSAGE, "We could not save your picture. Fill all the field");
         modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+        modelAndView.addObject(IS_ADD, true);
         modelAndView.setViewName(CARS_PICTURE);
         return modelAndView;
     }
@@ -90,6 +91,7 @@ public class CarPictureController {
         }
         modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
         modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+        modelAndView.addObject(IS_ADD, false);
         modelAndView.setViewName(CARS_PICTURE);
         return modelAndView;
     }
