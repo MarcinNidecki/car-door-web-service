@@ -45,8 +45,7 @@ public class User implements Serializable {
     private String state;
     @Column(name = "zip_code")
     private String zipCode;
-    @Column(name = "status")
-    private Integer status;
+    private Integer status =0;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "join_user_user_role",
