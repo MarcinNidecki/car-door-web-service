@@ -15,7 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -44,7 +46,7 @@ public class CarBrandModelServiceTest {
 
         carBrandModel.getCars().add(car);
         Comment comment = new Comment(1L,"text",10, Timestamp.valueOf("2020-12-11 15:00:00"),null,carBrandModel);
-        carBrandModel.setComments(Collections.singleton(comment));
+        carBrandModel.setComments(Collections.singletonList(comment));
 
 
         return carBrandModel;
@@ -101,7 +103,7 @@ public class CarBrandModelServiceTest {
     }
 
     @Test
-    public void shouldFindEmptyOptionalOfBookingStatusCode() {
+    public void shouldFindEmptyBrandModel() {
         //Given
         when(carBrandModelRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -109,7 +111,10 @@ public class CarBrandModelServiceTest {
         CarBrandModel foundedModel = carBrandModelService.findByID(1L);
 
         //Then
-        assertEquals(foundedModel, new CarBrandModel());
+        assertNull(foundedModel.getId());
+        assertTrue(foundedModel.getCars().isEmpty());
+        assertNull(foundedModel.getBrand());
+        assertNull(foundedModel.getModel());
 
     }
 

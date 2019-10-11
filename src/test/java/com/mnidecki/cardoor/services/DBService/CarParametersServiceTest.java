@@ -141,7 +141,7 @@ public class CarParametersServiceTest {
     }
 
     @Test
-    public void ShouldFindEmptyOptionalOfCarParametersById() {
+    public void ShouldFindEmptyCarParametersById() {
         //Given
         when(carParametersRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -149,7 +149,12 @@ public class CarParametersServiceTest {
         CarParameters foundedParameters = carParametersService.findById(1L);
 
         //Then
-        assertEquals(foundedParameters, new CarParameters());
+        assertNotNull(foundedParameters);
+        assertNull(foundedParameters.getId());
+        assertNull(foundedParameters.getFuelType());
+        assertNull(foundedParameters.getCar());
+        assertNull(foundedParameters.getColor());
+
 
     }
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,10 +52,10 @@ public class CarService {
                 .collect(Collectors.toList());
 
         for (Car car : carsInLocation) {
-            Set<Booking> bookingList = car.getBookingsList();
-            Set<Booking> conflictBooking = bookingList.stream()
+            List<Booking> bookingList = car.getBookingsList();
+            List<Booking> conflictBooking = bookingList.stream()
                     .filter(booking -> booking.getStartDate().before(returnDate) && receiptDate.before(booking.getReturnDate()))
-                    .collect(Collectors.toSet());
+                    .collect(Collectors.toList());
             if (conflictBooking.size() == 0) {
                 availableCar.add(car);
             }

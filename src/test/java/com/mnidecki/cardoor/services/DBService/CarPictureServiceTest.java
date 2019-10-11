@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -71,7 +73,7 @@ public class CarPictureServiceTest {
 
         String unknown = "Unknown";
 
-        when(carPictureRepository.findCarPictureByDescriptions(unknown)).thenReturn(defaulfPicture);
+        when(carPictureRepository.findCarPictureByDescriptions(unknown)).thenReturn(Optional.empty());
 
         when(carPictureService.save(unknownPicture,true)).thenReturn(unknownPicture);
         when(carPictureRepository.save(unknownPicture)).thenReturn(unknownPicture);
@@ -181,7 +183,16 @@ public class CarPictureServiceTest {
         CarPicture foundedPicture = carPictureService.save(picture,false);
 
         //Then
-        assertEquals(foundedPicture, new CarPicture());
+        assertNull(foundedPicture.getId());
+
+        assertNull(foundedPicture.getDescriptions());
+        assertNull(foundedPicture.getFile());
+        assertEquals(foundedPicture.getCreatedDate(),LocalDate.now());
+        assertNull(foundedPicture.getFileExtension());
+        assertNull(foundedPicture.getFileName());
+        assertNull(foundedPicture.getThumbnailsPath());
+        assertTrue(foundedPicture.getCarList().isEmpty());
+
 
     }
 

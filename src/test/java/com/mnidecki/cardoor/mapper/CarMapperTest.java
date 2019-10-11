@@ -92,7 +92,7 @@ public class CarMapperTest {
                 .createdDate(Timestamp.valueOf("2020-12-10 15:00:00"))
                 .build();
 
-        car.setBookingsList(Collections.singleton(booking));
+        car.setBookingsList(Collections.singletonList(booking));
         return car;
     }
 

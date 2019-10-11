@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -202,7 +201,13 @@ public class BookingServiceTest {
         Booking founded = bookingService.findById(2L);
 
         //Then
-        assertEquals(new Booking(), founded);
+        assertNull(founded.getId());
+        assertTrue(founded.getBookingExtrasList().isEmpty());
+        assertNull(founded.getBookingStatusCode());
+        assertNull(founded.getCar());
+        assertNull(founded.getUser());
+        assertNull(founded.getCreatedDate());
+
 
     }
 
