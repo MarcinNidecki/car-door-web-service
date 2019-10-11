@@ -14,7 +14,8 @@ public class CarBrandService {
     private CarBrandRepository carBrandRepository;
 
     public CarBrand findByBrandName(String name) {
-        return carBrandRepository.findByBrand(name).orElse(new CarBrand("Unknown"));
+
+        return carBrandRepository.findByBrand(name).orElse(new CarBrand());
     }
 
     public List<CarBrand> findAll() {
@@ -30,9 +31,6 @@ public class CarBrandService {
     }
 
     public void deleteById(final Long id) {
-        CarBrand carBrand = findByID(id);
-        carBrand.getModels().forEach(model -> model.setBrand(null));
-        save(carBrand);
         carBrandRepository.deleteById(id);
     }
 }
