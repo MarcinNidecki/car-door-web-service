@@ -27,7 +27,6 @@ public class BookingMapper {
     private BookingExtrasItemMapper bookingExtrasItemMapper;
 
     public Booking mapToBooking(BookingDto bookingDto) {
-        if (bookingDto.getId() != null) {
             return new Booking.BookingBuilder()
                     .id(bookingDto.getId())
                     .user(userService.findUserById(bookingDto.getUserId()))
@@ -39,18 +38,6 @@ public class BookingMapper {
                     .returnDate(bookingDto.getReturnDate())
                     .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()))
                     .build();
-        } else {
-            return new Booking.BookingBuilder()
-                    .user(userService.findUserById(bookingDto.getUserId()))
-                    .car(carService.findById(bookingDto.getCarId()))
-                    .bookingStatusCode(statusService.findById(bookingDto.getBookingStatusCodeId()))
-                    .location(cityService.findById(bookingDto.getCityId()))
-                    .totalCost( bookingDto.getTotalCost())
-                    .startDate(bookingDto.getStartDate())
-                    .returnDate(bookingDto.getReturnDate())
-                    .bookingExtrasList( bookingExtrasItemMapper.mapToBookingExtrasItemList(bookingDto.getBookingExtrasList()))
-                    .build();
-        }
     }
 
     public BookingDto mapToBookingDto(Booking booking) {
@@ -63,6 +50,7 @@ public class BookingMapper {
                     .returnDate(booking.getReturnDate())
                     .bookingExtrasList(bookingExtrasItemMapper.mapToBookingExtrasItemDtoList(booking.getBookingExtrasList()))
                     .build();
+
             if(booking.getUser().getId()!=null) bookingDto.setUserId(booking.getUser().getId());
             if(booking.getId()!=null) bookingDto.setId(booking.getId());
 
