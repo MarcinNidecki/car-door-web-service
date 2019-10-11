@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -70,9 +71,9 @@ public class CarPictureService {
         if(picture!= null && picture.getFileName() !=null && picture.getFileExtension()!=null) {
             LOGGER.info(picture.getFileName());
             LOGGER.info(picture.getFileExtension());
-            LOGGER.info(Optional.ofNullable(picture.getFile().getOriginalFilename()).orElse("QWEQERQWE"));
-            LOGGER.info(String.valueOf(picture.getFile().getOriginalFilename()));
-            return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile().getOriginalFilename()).orElse(""));
+            LOGGER.info(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse("QWEQERQWE"));
+       
+            return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse(""));
         }
         return false;
     }
