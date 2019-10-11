@@ -10,9 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,7 +52,7 @@ public class Locationn implements Serializable {
     @OneToMany(targetEntity = Booking.class,
             mappedBy = "location",
             fetch = FetchType.EAGER)
-    private Set<Booking> bookingList = new HashSet<>();
+    private List<Booking> bookingList = new ArrayList<>();
 
     @OneToOne(mappedBy = "location", cascade = CascadeType.ALL)
     private Weather weather;

@@ -169,7 +169,6 @@ public class Booking implements Serializable {
         if (car != null ? !car.equals(booking.car) : booking.car != null) return false;
         if (bookingStatusCode != null ? !bookingStatusCode.equals(booking.bookingStatusCode) : booking.bookingStatusCode != null)
             return false;
-        if (location != null ? !location.equals(booking.location) : booking.location != null) return false;
         if (totalCost != null ? !totalCost.equals(booking.totalCost) : booking.totalCost != null) return false;
         if (startDate != null ? !startDate.equals(booking.startDate) : booking.startDate != null) return false;
         if (returnDate != null ? !returnDate.equals(booking.returnDate) : booking.returnDate != null) return false;
@@ -185,7 +184,6 @@ public class Booking implements Serializable {
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (car != null ? car.hashCode() : 0);
         result = 31 * result + (bookingStatusCode != null ? bookingStatusCode.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (totalCost != null ? totalCost.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
