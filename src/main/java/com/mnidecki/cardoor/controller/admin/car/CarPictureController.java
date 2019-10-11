@@ -5,8 +5,6 @@ import com.mnidecki.cardoor.domain.dto.CarPictureDto;
 import com.mnidecki.cardoor.mapper.CarPictureMapper;
 import com.mnidecki.cardoor.services.DBService.CarParametersService;
 import com.mnidecki.cardoor.services.DBService.CarPictureService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,8 +27,6 @@ public class CarPictureController {
     @Autowired
     private CarPictureService pictureService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarPictureController.class);
-
     @GetMapping("/picture")
     public ModelAndView cars() {
         ModelAndView modelAndView = new ModelAndView();
@@ -46,31 +42,21 @@ public class CarPictureController {
     @PostMapping(value = "/picture")
     public ModelAndView save(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(IS_ADD, true);
-        CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
-        LOGGER.info(carPicture.getFile().getOriginalFilename());
-        LOGGER.info(carPicture.getDescriptions());
-        LOGGER.info(String.valueOf(carPicture.getFile().isEmpty()));
-        if (carPicture.getFile().isEmpty() || carPicture.getDescriptions().isEmpty()) {
-            LOGGER.info("Picture saving");
-            carPicture = pictureService.save(carPicture);
-        }
-        LOGGER.info("Picture is the same as....");
-        if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
-            LOGGER.info("succces");
-            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
-                    "." + carPicture.getFileExtension() + " saved successfully");
-            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
-            return modelAndView;
 
-        } else {
-            LOGGER.info("not succces");
-            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +
-                    carPictureDto.getFile().getOriginalFilename() + " Please try again later");
-            modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
-            modelAndView.setViewName(CARS_PICTURE);
-            return modelAndView;
+        CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
+        if (!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
+            carPicture = pictureService.save(carPicture);
+            if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
+                        "." + carPicture.getFileExtension() + " saved successfully");
+                modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+                return modelAndView;
+            }
         }
+        modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
+        modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+        modelAndView.setViewName(CARS_PICTURE);
+        return modelAndView;
     }
 
 
@@ -92,23 +78,20 @@ public class CarPictureController {
     @PutMapping(value = "/picture")
     public ModelAndView update(@ModelAttribute CarPictureDto carPictureDto, RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
+
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
-
-        if (carPicture.getFile() != null && carPicture.getDescriptions() != null) {
+        if (!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
+            if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture was updated successfully");
+                modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
+                return modelAndView;
+            }
         }
-        if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
-            redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture wasupdated successfully");
-            modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
-            return modelAndView;
-
-        } else {
-            modelAndView.addObject(ERRORMESSAGE, "We could not save your picture." +
-                    carPictureDto.getFile().getOriginalFilename() + " Please try again later");
-            modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
-            modelAndView.setViewName(CARS_PICTURE);
-            return modelAndView;
-        }
+        modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
+        modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
+        modelAndView.setViewName(CARS_PICTURE);
+        return modelAndView;
     }
 
     @Transactional
