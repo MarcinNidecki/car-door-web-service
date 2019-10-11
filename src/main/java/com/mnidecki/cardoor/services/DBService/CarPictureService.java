@@ -70,7 +70,7 @@ public class CarPictureService {
         if(picture!= null && picture.getFileName() !=null && picture.getFileExtension()!=null) {
             LOGGER.info(picture.getFileName());
             LOGGER.info(picture.getFileExtension());
-            LOGGER.info(String.valueOf(picture.getFile().isEmpty()));
+            LOGGER.info(Optional.ofNullable(picture.getFile().getOriginalFilename()).orElse("QWEQERQWE"));
             LOGGER.info(String.valueOf(picture.getFile().getOriginalFilename()));
             return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile().getOriginalFilename()).orElse(""));
         }
