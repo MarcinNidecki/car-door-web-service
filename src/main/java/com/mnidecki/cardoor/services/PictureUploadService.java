@@ -79,7 +79,7 @@ public class PictureUploadService {
 
     private CarPicture sendPicturesToFtp(CarPicture picture, InputStream thumbnails) {
         FTPClient con = null;
-
+        if(thumbnails==null) return new CarPicture();
         try {
 
             con = new FTPClient();
@@ -90,6 +90,7 @@ public class PictureUploadService {
 
                 con.storeFile(picture.getFile().getOriginalFilename(),
                         picture.getFile().getInputStream());
+
                 con.storeFile(FilenameUtils.getBaseName(picture.getFile().getOriginalFilename()) + "-small." + picture.getFileExtension(), thumbnails);
 
                 con.logout();

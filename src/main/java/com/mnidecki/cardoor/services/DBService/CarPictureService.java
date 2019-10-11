@@ -72,7 +72,7 @@ public class CarPictureService {
             LOGGER.info(picture.getFileName());
             LOGGER.info(picture.getFileExtension());
             LOGGER.info(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse("QWEQERQWE"));
-       
+
             return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse(""));
         }
         return false;

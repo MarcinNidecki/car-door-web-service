@@ -48,7 +48,7 @@ public class CarPictureController {
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
         if (!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
-            if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+            if (carPicture.getFileName()!=null ) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
                         "." + carPicture.getFileExtension() + " saved successfully");
                 modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
@@ -85,8 +85,8 @@ public class CarPictureController {
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
         if (!carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
-            LOGGER.info(pictureService.isFileNameTheSameLikeFileNamePath(carPicture)+" controler");
-            if (pictureService.isFileNameTheSameLikeFileNamePath(carPicture)) {
+
+            if (carPicture.getFileName()!=null ) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture was updated successfully");
                 modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
                 return modelAndView;
