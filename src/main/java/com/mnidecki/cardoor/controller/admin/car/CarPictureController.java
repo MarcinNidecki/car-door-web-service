@@ -92,8 +92,6 @@ public class CarPictureController {
                 return modelAndView;
             }
         }
-        LOGGER.info(carPicture.getFile().getOriginalFilename());
-        LOGGER.info(carPicture.getFileName());
         modelAndView.addObject(ERRORMESSAGE, "We could not update your picture. Fill all the field");
         modelAndView.addObject(CAR_PICTURE_DTO, carPictureDto);
         modelAndView.addObject(IS_ADD, false);
