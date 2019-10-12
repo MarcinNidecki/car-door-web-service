@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +31,7 @@ public class UserCarController {
 
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
-                                    BindingResult bindingResult, Long carId) {
+                                    BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
@@ -41,8 +42,8 @@ public class UserCarController {
             commentDto.setModelId(model);
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
-                modelAndView.addObject("commentDto", new CommentDto());
-                modelAndView.setViewName("car");
+                redirectAttributes.addFlashAttribute("carId",carId);
+                modelAndView.setViewName("redirect:/car/{carId}");
                 return modelAndView;
             }
         } else {
@@ -54,7 +55,7 @@ public class UserCarController {
     }
 
     @GetMapping(value = "/{carId}")
-    public ModelAndView type(@PathVariable Long carId) {
+    public ModelAndView type(@PathVariable("carId") Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
