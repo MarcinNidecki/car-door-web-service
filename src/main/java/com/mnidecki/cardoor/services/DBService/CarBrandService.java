@@ -15,14 +15,9 @@ public class CarBrandService {
     @Autowired
     private CarBrandRepository carBrandRepository;
 
-    public CarBrand getDefaultCarBrand() {
-        CarBrand unknown = carBrandRepository.findByBrand("Unknown")
-                .orElse(new CarBrand("Unknown"));
-        return save(unknown);
-    }
 
     public CarBrand findByBrandName(String name) {
-        return carBrandRepository.findByBrand(name).orElse(getDefaultCarBrand());
+        return carBrandRepository.findByBrand(name).orElse(new CarBrand());
     }
 
     public List<CarBrand> findAll() {

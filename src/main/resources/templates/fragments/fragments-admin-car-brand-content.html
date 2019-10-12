@@ -29,49 +29,22 @@
   <div class="modal fade" id="carModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true">
                     <div class="modal-dialog">
-                        <div  th:if="${carService.countCarByModelId(model.id)}>0" class="modal-content">
-                            <div  class="modal-body"
-                            id="myModalBody">
+                        <div class="modal-content">
+                            <div class="modal-body" id="myModalBody">
 
-                              <p>You  you cannot delete this  <span id="modal-name"> </span><span> </span><span
-                              id="modal-id">
-                              </span> car brand!
-                                                      </p>
-                             <span class="text text-danger font-weight-bold gj-font-size-16" id="modal-no"> </span>
-                              <span class="text text-danger font-weight-bold gj-font-size-16">cars is using this
-                                brand!</span>
-                                                                              </p>
-                                </div>
+                              <p>Do you want to delete this <span id="modal-name"> </span><span> </span><span id="modal-id">
+                              </span> car brand? </p>
+                            </div>
                             <div class="modal-footer">
 
                                 <form name="idModalLink" id="idModalLink">
-
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    <button id="deleteType" type="button" class="btn btn-danger"
+                                    data-dismiss="modal">Yes</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                 </form>
 
                             </div>
                         </div>
-
-                          <div  th:if="${carService.countCarByModelId(model.id)}<=0" class="modal-content">
-                             <div  class="modal-body" id="myModalBody">
-
-                                                      <p>Do you want to delete this <span id="modal-name"> </span><span> </span><span id="modal-id">
-                                                      </span> car brand?
-
-
-                                               </div>
-
-                                                                 <div class="modal-footer">
-
-                                                                                  <form name="idModalLink" id="idModalLink">
-                                                      <button id="deleteModel" type="button" class="btn btn-danger"
-                                                                                      data-dismiss="modal">Yes</button>
-                                                                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                  </form>
-
-                                                                              </div>
-
-                                                  </div>
                     </div>
                 </div>
                 <div class="modal fade" id="carModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
@@ -84,14 +57,7 @@
                               id="modal-id2">
                               </span> car model?
                                   <span class="text text-danger font-weight-bold gj-font-size-16" id="modal-no2">
-                                  </span> <span
-                                                                                                       class="text text-danger font-weight-bold
-                                                                                                       gj-font-size-16">cars is using this
-                                                                             model!</span>
-                                                                              </p>
-                                                                             <p> All cars will be assigned a default
-                                                                             model
-                                                                             </p>
+                                  </span>
                             </div>
                             <div class="modal-footer">
 
@@ -126,7 +92,7 @@
                                     <a th:href="@{'/admin/car/brand/'+${brand.id}}">
      <i class="fa fa-edit" style ="font-size:21px;"></i></a>
 
-   <a href="javascript:void(0)" class="confirm-delete"
+   <a th:if="${carService.countCarByBrandId(brand.id})<=0" href="javascript:void(0)" class="confirm-delete"
                    id="gallery-page-content" style="background-color: unset;"
                    th:attr="data-id=${brand.id}, data-name=${brand.brand},
                    data-redirect='/admin/car/brand/',
@@ -152,7 +118,8 @@
                                                 <a th:href="@{'/admin/car/brand/'+${brand.id}+'/model/'+${model.id}}"> <i class="fa fa-edit" style="font-size:17px;color: darkgrey;"></i></a>
                                             </div>
                                             <div class="col-md-6">
-                                                <a href="javascript:void(0)" class="confirm-delete2"
+                                                <a  th:if="${carService.countCarByModelId(model.id})<=0"
+                                                href="javascript:void(0)" class="confirm-delete2"
                                                 id="gallery-page-content" style="background-color: unset;"
                                                 th:attr="data-id2=${model.id}, data-name2=${model.model},
                                                 data-redirect2='/admin/car/brand/',
