@@ -31,7 +31,7 @@ public class UserCarController {
 
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
-                                    BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
+                                    BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam Long carId) {
         ModelAndView modelAndView = new ModelAndView();
             if (!bindingResult.hasErrors()) {
             commentDto.setModelId(model);
