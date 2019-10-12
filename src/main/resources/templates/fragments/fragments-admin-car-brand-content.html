@@ -92,7 +92,7 @@
                                     <a th:href="@{'/admin/car/brand/'+${brand.id}}">
      <i class="fa fa-edit" style ="font-size:21px;"></i></a>
 
-   <a th:if="${carService.countCarByBrandId(brand.id}<=0}" href="javascript:void(0)" class="confirm-delete"
+   <a th:if="${carService.countCarByBrandId(brand.id}&le;0}" href="javascript:void(0)" class="confirm-delete"
                    id="gallery-page-content" style="background-color: unset;"
                    th:attr="data-id=${brand.id}, data-name=${brand.brand},
                    data-redirect='/admin/car/brand/',
@@ -118,7 +118,7 @@
                                                 <a th:href="@{'/admin/car/brand/'+${brand.id}+'/model/'+${model.id}}"> <i class="fa fa-edit" style="font-size:17px;color: darkgrey;"></i></a>
                                             </div>
                                             <div class="col-md-6">
-                                                <a  th:if="${carService.countCarByModelId(model.id)<=0}"
+                                                <a  th:if="${carService.countCarByModelId(model.id)&le;0}"
                                                 href="javascript:void(0)" class="confirm-delete2"
                                                 id="gallery-page-content" style="background-color: unset;"
                                                 th:attr="data-id2=${model.id}, data-name2=${model.model},
