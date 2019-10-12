@@ -68,7 +68,7 @@ public class CarBrandAndModelController {
     @GetMapping("/brand/{brandId}")
     public ModelAndView brand(@PathVariable Long brandId) {
         ModelAndView modelAndView = new ModelAndView();
-        
+
         CarBrandDto carBrandDto = carBrandMapper.mapToCarBrandDto(carBrandService.findByID(brandId));
         List<CarBrandDto> carBrands = allType();
         List<CarBrandModelDto> carModels = allModel();
