@@ -18,8 +18,6 @@ public class CommentService {
     @Autowired
     private UserService userService;
     @Autowired
-    private StarService starService;
-    @Autowired
     private CarBrandModelService modelService;
 
 
@@ -32,6 +30,7 @@ public class CommentService {
     }
 
     public Comment save(final Comment comment) {
+
         List<Comment> commentList = findAllByModel_Id(comment.getModel().getId());
         commentList.add(comment);
         comment.setUser(userService.getUserFromAuthentication());

@@ -106,6 +106,7 @@ public class BookingService {
         Integer unhappyClient;
         unhappyClient = commentService.countAllByRatingLessThan2();
         int allClient = findAll().size();
+        if(allClient==0) return 0;
         return allClient - unhappyClient;
     }
 
