@@ -29,8 +29,8 @@ public class UserCarController {
     private CommentMapper commentMapper;
 
 
-    @PostMapping(value = "/brand/{brandId}/model/{modelId}/comment")
-    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long modelId, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {
+    @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
+    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         if (!bindingResult.hasErrors()) {
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));

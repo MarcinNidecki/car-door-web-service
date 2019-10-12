@@ -32,10 +32,9 @@ public class CommentService {
         List<Comment> commentList = findAllByModel_Id(comment.getModel().getId());
         commentList.add(comment);
 
-
         double average= commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
         average = Math.round(average * 10) / 10.0;
-        
+
         comment.getModel().getStar().setRatingAverage(average);
         comment.setUser(userService.getUserFromAuthentication());
         comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
