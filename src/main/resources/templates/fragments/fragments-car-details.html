@@ -75,7 +75,7 @@
                                     </div>
                                 </form>
 
-                                <form action="#" th:action="@{/car/brand/{brandId}/model/{modelId}/comment(brandId = ${carDto.brandId}, modelId = ${carDto.modelId}, carId = ${carDto.id})}" th:object="${commentDto}" method="post" sec:authorize="isAuthenticated()">
+                                <form action="#" th:action="@{/car/brand/{brandId}/model/{model}/comment(brandId = ${carDto.brandId}, model= ${carDto.modelId}, carId = ${carDto.id})}" th:object="${commentDto}" method="post" sec:authorize="isAuthenticated()">
                                     <div class="rating2">
                                             <input th:field="*{modelId}" type="hidden" name="stars" th:value="${carDto
                                             .modelId}" />

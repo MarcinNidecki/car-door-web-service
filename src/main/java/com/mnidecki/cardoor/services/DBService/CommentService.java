@@ -35,6 +35,7 @@ public class CommentService {
 
         double average= commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
         average = Math.round(average * 10) / 10.0;
+
         Star star = starService.findById(comment.getModel().getId());
         star.setRatingAverage(average);
         starService.save(star);
