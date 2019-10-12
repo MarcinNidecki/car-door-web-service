@@ -78,9 +78,9 @@
                                 <form action="#" th:action="@{/car/brand/{brandId}/model/{model}/comment(brandId = ${carDto.brandId}, model= ${carDto.modelId}, carId = ${carDto.id})}" th:object="${commentDto}" method="post" sec:authorize="isAuthenticated()">
                                     <div class="rating2">
 
-    <input th:filed="*{modelId}"  type="hidden" th:value="${carDto.modelId}"/>
+                                <input th:filed="*{modelId}"  type="hidden" th:value="${carDto.modelId}"/>
 
-                              <input th:field="*{modelId}" type="hidden" name="stars" th:value="${carDto.modelId}"/>
+                         
 
 
 
