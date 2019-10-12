@@ -181,6 +181,8 @@ public class CarBrandAndModelController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(CAR_SERVICE, carService);
         carBrandService.deleteById(id);
+        modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
+        modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(SUCCESSMESSAGE, "Car brand is deleted successfully");
         modelAndView.setViewName(CAR_BRAND);
         return modelAndView;
@@ -189,6 +191,8 @@ public class CarBrandAndModelController {
     @DeleteMapping(value = "/brand/{brandId}/model/{modelId}")
     public ModelAndView delete(@PathVariable Long brandId, @PathVariable Long modelId) {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
+        modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(CAR_SERVICE, carService);
         carBrandModelService.delete(modelId);
         modelAndView.addObject(SUCCESSMESSAGE, "Car model is deleted successfully");
