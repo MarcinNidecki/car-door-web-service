@@ -20,13 +20,13 @@ public class Star implements Serializable {
     private Long modelId;
 
     @Column(name = "rating_average")
-    private Float ratingAverage;
+    private double ratingAverage;
 
     @OneToOne
     @MapsId
     private CarBrandModel carBrandModel;
 
-    public Star(Long modelId, Float ratingAverage) {
+    public Star(Long modelId, Double ratingAverage) {
         this.modelId = modelId;
         this.ratingAverage = ratingAverage;
     }

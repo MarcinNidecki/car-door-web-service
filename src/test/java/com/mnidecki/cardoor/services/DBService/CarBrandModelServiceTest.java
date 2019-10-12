@@ -74,7 +74,7 @@ public class CarBrandModelServiceTest {
         assertEquals(BigDecimal.valueOf(250),carBrandModel.getCars().get(0).getPrice());
         assertEquals("WWA 123456",carBrandModel.getCars().get(0).getRegistration());
         assertEquals("RENT",carBrandModel.getCars().get(0).getVehicleStatus());
-        assertEquals(Float.valueOf(10),carBrandModel.getStar().getRatingAverage());
+        assertEquals(10,carBrandModel.getStar().getRatingAverage(),0.01);
         assertEquals(Long.valueOf(1),carBrandModel.getStar().getModelId());
 
     }
@@ -98,7 +98,7 @@ public class CarBrandModelServiceTest {
         assertEquals(BigDecimal.valueOf(250),foundedModel.getCars().get(0).getPrice());
         assertEquals("WWA 123456",foundedModel.getCars().get(0).getRegistration());
         assertEquals("RENT",foundedModel.getCars().get(0).getVehicleStatus());
-        assertEquals(Float.valueOf(10),foundedModel.getStar().getRatingAverage());
+        assertEquals(10.00,foundedModel.getStar().getRatingAverage(), 0.01);
         assertEquals(Long.valueOf(1),foundedModel.getStar().getModelId());
     }
 
@@ -137,7 +137,7 @@ public class CarBrandModelServiceTest {
         assertEquals(BigDecimal.valueOf(250),savedModel.getCars().get(0).getPrice());
         assertEquals("WWA 123456",savedModel.getCars().get(0).getRegistration());
         assertEquals("RENT",savedModel.getCars().get(0).getVehicleStatus());
-        assertEquals(Float.valueOf(10),savedModel.getStar().getRatingAverage());
+        assertEquals(10.00,savedModel.getStar().getRatingAverage(),0.01);
         assertEquals(Long.valueOf(1),savedModel.getStar().getModelId());
 
     }
@@ -146,7 +146,7 @@ public class CarBrandModelServiceTest {
         //When
         CarBrandModel carBrandModel =getBrandModel();
         carBrandModel.setStar(null);
-        Star star = new Star(carBrandModel.getId(), 0F);
+        Star star = new Star(carBrandModel.getId(), 0.0);
         when(carBrandModelRepository.save(carBrandModel)).thenReturn(carBrandModel);
 
 
@@ -162,7 +162,7 @@ public class CarBrandModelServiceTest {
         assertEquals(BigDecimal.valueOf(250),savedModel.getCars().get(0).getPrice());
         assertEquals("WWA 123456",savedModel.getCars().get(0).getRegistration());
         assertEquals("RENT",savedModel.getCars().get(0).getVehicleStatus());
-        assertEquals(Float.valueOf(0),savedModel.getStar().getRatingAverage());
+        assertEquals(0.0,savedModel.getStar().getRatingAverage(),0.01);
         assertEquals(Long.valueOf(1),savedModel.getStar().getModelId());
     }
 

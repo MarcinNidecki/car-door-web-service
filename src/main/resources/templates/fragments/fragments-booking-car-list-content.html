@@ -294,7 +294,10 @@
         </div>
         <div class="alert alert-success" role="alert">
 
-            For <span class="alert-heading"><span  style="font-weight: bold" th:text="${startDate}"></span> to <span style="font-weight: bold" th:text="${endDate}"></span></span> the data shows that the average rental price for car in <span th:text="${cityName}"></span> is <span style="font-weight: bold" th:text="${averagePrice}"></span>
+            For searching date: <span class="alert-heading"><span  style="font-weight: bold"
+            th:text="${startDate}"></span> to <span style="font-weight: bold" th:text="${endDate}"></span></span>.
+            average rental price for car in <span th:text="${cityName}"></span> is <span style="font-weight: bold"
+            th:text="${averagePrice}"> according to the kayak portal. </span>
         </div>
         <div class="car-list-content m-t-50">
             <div class="single-car-wrap" th:each="car : ${cars}">
@@ -306,7 +309,7 @@
                         <div class="p-car-feature">
                             <div class="car-list-info">
                                 <h4 th:text="${car.brand} + ' ' +${car.model}"></h4>
-                                <h5 th:text="'$' + ${car.price} + '  Rent /per a day'"></h5>
+                                <h5 th:text="'PLN' + ${car.price} + '  Rent /per a day'"></h5>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">

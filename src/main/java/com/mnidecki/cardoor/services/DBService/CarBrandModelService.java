@@ -32,7 +32,7 @@ public class CarBrandModelService {
 
     public CarBrandModel save(final CarBrandModel carBrandModel) {
         if (carBrandModel.getStar() == null) {
-            Star star = new Star(carBrandModel.getId(), 0F);
+            Star star = new Star(carBrandModel.getId(), 0.0);
             star.setCarBrandModel(carBrandModel);
             starService.save(star);
             carBrandModel.setStar(star);

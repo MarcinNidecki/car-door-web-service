@@ -13,6 +13,6 @@ import lombok.Setter;
 public class StarDto {
 
     private Long modelId;
-    private Float ratingAverage;
+    private Double ratingAverage;
 
 }

@@ -243,7 +243,7 @@
 
                                     <div>
                                         <h6 class="my-0" th:text="'$' + *{item.totalValue} + ' / ' +  *{item.quantity} + 'pcs'"></h6>
-                                        <small class="text-muted" th:text="'$' + *{item.price} + '/pcs'"></small>
+                                        <small class="text-muted" th:text="'PLN' + *{item.price} + '/pcs'"></small>
                                     </div>
                                     </div>
                                 </li>
@@ -255,8 +255,10 @@
 
                                     <div>
 
-                                        <h6 class="my-0" th:if="${session.daysOfRent}>1" th:text="'$' + ${session.daysOfRent}*${session.car.price}+ ' / ' + ${session.daysOfRent} + 'Day'"></h6>
-                                        <h6 class="my-0" th:unless="${session.daysOfRent}>1" th:text="'$' + ${session.daysOfRent}*${session.car.price}+ ' / ' + ${session.daysOfRent} + 'Days'"></h6>
+                                        <h6 class="my-0" th:if="${session.daysOfRent}>1" th:text="'PLN' + ${session
+                                        .daysOfRent}*${session.car.price}+ ' / ' + ${session.daysOfRent} + 'Day'"></h6>
+                                        <h6 class="my-0" th:unless="${session.daysOfRent}>1" th:text="'PLN' + ${session
+                                        .daysOfRent}*${session.car.price}+ ' / ' + ${session.daysOfRent} + 'Days'"></h6>
 
                                     </div>
                                 </li>

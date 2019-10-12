@@ -218,7 +218,7 @@ public class CarMapperTest {
         assertEquals(Integer.valueOf(2),carDto.getDoorsNumber());
         assertEquals(Integer.valueOf(2),carDto.getSmallBags());
         assertEquals(Long.valueOf(1),carDto.getCarTypeId());
-        assertEquals(Float.valueOf(10),carDto.getRating());
+        assertEquals(10,carDto.getRating(),0.01);
         assertEquals(Long.valueOf(1),carDto.getCityId());
         assertEquals(Long.valueOf(1),carDto.getCarPictureId());
         assertEquals("Black",carDto.getColor());
@@ -261,7 +261,7 @@ public class CarMapperTest {
         assertEquals(Integer.valueOf(2),carDto.getDoorsNumber());
         assertEquals(Integer.valueOf(2),carDto.getSmallBags());
         assertEquals(Long.valueOf(1),carDto.getCarTypeId());
-        assertEquals(Float.valueOf(10),carDto.getRating());
+        assertEquals(10,carDto.getRating(),0.01);
         assertEquals(Long.valueOf(1),carDto.getCityId());
         assertEquals(Long.valueOf(1),carDto.getCarPictureId());
         assertEquals("Black",carDto.getColor());

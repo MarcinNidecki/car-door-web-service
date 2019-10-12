@@ -33,16 +33,14 @@ public class CommentService {
         List<Comment> commentList = findAllByModel_Id(comment.getModel().getId());
         commentList.add(comment);
 
-        int sum = commentList.stream().mapToInt(Comment::getRating).sum();
-        float rating = sum/ (float) commentList.size();
-
+        double average= commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
+        average = Math.round(average * 10) / 10.0;
         Star star = starService.findById(comment.getModel().getId());
-        star.setRatingAverage(rating);
+        star.setRatingAverage(average);
         starService.save(star);
 
         comment.setUser(userService.getUserFromAuthentication());
         comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
-
         return commentRepository.save(comment);
     }
 

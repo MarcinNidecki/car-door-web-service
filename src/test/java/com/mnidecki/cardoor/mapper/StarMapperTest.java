@@ -18,13 +18,13 @@ public class StarMapperTest {
     @Test
     public void mapToStarDto() {
         //Given
-        Star star = new Star(1L, 6.50F);
+        Star star = new Star(1L, 6.50);
 
         //When
         StarDto starDto = starMapper.mapToStarDto(star);
 
         //Then
         assertEquals(Long.valueOf(1),starDto.getModelId());
-        assertEquals(Float.valueOf(6.50F), starDto.getRatingAverage());
+        assertEquals(6.50,starDto.getRatingAverage(),0.01);
     }
 }

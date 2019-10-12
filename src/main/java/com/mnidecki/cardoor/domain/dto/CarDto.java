@@ -43,7 +43,7 @@ public class CarDto implements Serializable {
     @NotEmpty(message = "Color must be not empty")
     private String color;
     private Long carTypeId;
-    private Float rating;
+    private double rating;
     private Long cityId;
     private Long carPictureId;
     private Long carParametersId;
@@ -51,7 +51,12 @@ public class CarDto implements Serializable {
     private String thumbnailsPath;
 
     public CarDto(Long id, String brand, String model, @Min(1) @NotNull(message = "The model name must not be empty") Long modelId, Long brandId, @Length(min = 2, max = 10, message = "The license plate must be between {min} and {max} " +
-            "characters long") String registration, String vehicleStatus, @Max(2020) @Min(2000) int year, @DecimalMin(value = "10.00", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal price, boolean transmissionIsAutomatic, boolean airConditioning, boolean allWheelDrive, String carTypeName, String fuelType, Integer doorsNumber, Integer seatsNumber, Integer smallBags, Integer bigBags, @NotEmpty(message = "Color must be not empty") String color, Long carTypeId, Float rating, Long cityId, Long carPictureId, Long carParametersId, String fileNamePath, String thumbnailsPath) {
+            "characters long") String registration, String vehicleStatus, @Max(2020) @Min(2000) int year,
+                  @DecimalMin(value = "10.00", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal price
+            , boolean transmissionIsAutomatic, boolean airConditioning, boolean allWheelDrive, String carTypeName,
+                  String fuelType, Integer doorsNumber, Integer seatsNumber, Integer smallBags, Integer bigBags,
+                  @NotEmpty(message = "Color must be not empty") String color, Long carTypeId, double rating,
+                  Long cityId, Long carPictureId, Long carParametersId, String fileNamePath, String thumbnailsPath) {
 
         this.id = id;
         this.brand = brand;
@@ -102,7 +107,7 @@ public class CarDto implements Serializable {
         private Integer bigBags;
         private String color;
         private Long carTypeId;
-        private Float rating;
+        private double rating;
         private Long cityId;
         private Long carPictureId;
         private Long carParametersId;
@@ -209,7 +214,7 @@ public class CarDto implements Serializable {
             return this;
         }
 
-        public CarDtoBuilder rating(Float rating) {
+        public CarDtoBuilder rating(double rating) {
             this.rating = rating;
             return this;
         }
@@ -258,7 +263,6 @@ public class CarDto implements Serializable {
             return false;
         if (price != null ? !price.equals(carDto.price) : carDto.price != null) return false;
         if (carTypeId != null ? !carTypeId.equals(carDto.carTypeId) : carDto.carTypeId != null) return false;
-        if (rating != null ? !rating.equals(carDto.rating) : carDto.rating != null) return false;
         if (carParametersId != null ? !carParametersId.equals(carDto.carParametersId) : carDto.carParametersId != null)
             return false;
         return thumbnailsPath != null ? thumbnailsPath.equals(carDto.thumbnailsPath) : carDto.thumbnailsPath == null;
@@ -277,7 +281,6 @@ public class CarDto implements Serializable {
         result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
         result = 31 * result + (color != null ? color.hashCode() : 0);
         result = 31 * result + (carTypeId != null ? carTypeId.hashCode() : 0);
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
         result = 31 * result + (carPictureId != null ? carPictureId.hashCode() : 0);
         result = 31 * result + (carParametersId != null ? carParametersId.hashCode() : 0);
         result = 31 * result + (fileNamePath != null ? fileNamePath.hashCode() : 0);
