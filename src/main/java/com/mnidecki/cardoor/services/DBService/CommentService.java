@@ -1,7 +1,6 @@
 package com.mnidecki.cardoor.services.DBService;
 
 import com.mnidecki.cardoor.domain.car.Comment;
-import com.mnidecki.cardoor.domain.car.Star;
 import com.mnidecki.cardoor.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +32,11 @@ public class CommentService {
         List<Comment> commentList = findAllByModel_Id(comment.getModel().getId());
         commentList.add(comment);
 
+
         double average= commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
         average = Math.round(average * 10) / 10.0;
-
-        Star star = starService.findById(comment.getModel().getId());
-        star.setRatingAverage(average);
-        starService.save(star);
-
+        
+        comment.getModel().getStar().setRatingAverage(average);
         comment.setUser(userService.getUserFromAuthentication());
         comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
         return commentRepository.save(comment);
