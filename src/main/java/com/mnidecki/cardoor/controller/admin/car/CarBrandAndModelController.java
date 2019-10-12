@@ -59,7 +59,7 @@ public class CarBrandAndModelController {
         modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(IS_ADD, false);
-        modelAndView.addObject("isBrandAdd", true);
+        modelAndView.addObject("isBrandAdd", false);
         modelAndView.addObject("isModelAdd", false);
         modelAndView.setViewName(CAR_BRAND);
         return modelAndView;
@@ -121,9 +121,6 @@ public class CarBrandAndModelController {
     @PostMapping(value = "/brand")
     public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isBrandAdd", true);
-        modelAndView.addObject("isModelAdd", false);
-        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         if (carBrand != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car brand is saved successfully");
@@ -141,8 +138,6 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}/model/{modelId}")
     public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is updated successfully");
@@ -159,7 +154,6 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}")
     public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrand != null || carBrandModel != null) {
