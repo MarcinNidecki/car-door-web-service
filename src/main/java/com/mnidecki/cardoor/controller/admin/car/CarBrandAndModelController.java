@@ -139,7 +139,6 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}/model/{modelId}")
     public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is updated successfully");
@@ -156,7 +155,6 @@ public class CarBrandAndModelController {
     @PutMapping(value = "/brand/{brandId}")
     public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CAR_SERVICE, carService);
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrand != null || carBrandModel != null) {
