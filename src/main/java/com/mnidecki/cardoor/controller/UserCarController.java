@@ -30,8 +30,7 @@ public class UserCarController {
     private CommentService commentService;
     @Autowired
     private CommentMapper commentMapper;
-
-
+    
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
