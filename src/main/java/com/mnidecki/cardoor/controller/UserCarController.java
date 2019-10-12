@@ -44,7 +44,7 @@ public class UserCarController {
             if (comment != null) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
                 redirectAttributes.addFlashAttribute("commentDto", new CommentDto());
-                modelAndView.setViewName("redirect:/car/"+carId);
+                modelAndView.setViewName("redirect:/car/"+carId.toString());
                 return modelAndView;
             }
         } else {
