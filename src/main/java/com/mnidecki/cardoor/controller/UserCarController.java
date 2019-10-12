@@ -35,9 +35,10 @@ public class UserCarController {
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.addObject("commentDto", new CommentDto());
-
+        CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
+        List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
+        modelAndView.addObject("commentDtoList", commentDtoList);
+        modelAndView.addObject("carDto", carDto);
         commentDto.setModelId(model);
         if (!bindingResult.hasErrors()) {
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
@@ -48,6 +49,7 @@ public class UserCarController {
             }
         } else {
             modelAndView.addObject("commentDto", commentDto);
+
             modelAndView.setViewName("car");
         }
         return modelAndView;
