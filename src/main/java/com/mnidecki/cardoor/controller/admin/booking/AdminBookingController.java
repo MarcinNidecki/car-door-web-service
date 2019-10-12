@@ -21,7 +21,6 @@ public class AdminBookingController {
     private BookingMapper bookingMapper;
 
 
-
     @GetMapping(value = "/booking")
     public ModelAndView booking() {
         ModelAndView modelAndView = new ModelAndView();
