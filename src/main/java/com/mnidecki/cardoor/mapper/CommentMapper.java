@@ -24,7 +24,7 @@ public class CommentMapper {
 
         comment.setModel(modelService.findByID(commentDto.getModelId()));
         if(commentDto.getId()!=null && commentDto.getId()>0) comment.setId(commentDto.getId());
-        if(commentDto.getModelId()!=null && commentDto.getId()>0) {
+        if(commentDto.getModelId()!=null && commentDto.getId()!=null) {
             comment.setModel(modelService.findByID(commentDto.getModelId()));
         }
         if(commentDto.getUserId()!=null && commentDto.getUserId()>0) {

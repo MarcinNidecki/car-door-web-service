@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -102,17 +102,19 @@ public class CarBrandModelServiceTest {
         assertEquals(Long.valueOf(1),foundedModel.getStar().getModelId());
     }
 
-
-    @Test(expected = EntityNotFoundException.class)
+    @Test
     public void shouldFindEmptyBrandModel() {
         //Given
-        when(carBrandModelRepository.findById(anyLong())).thenThrow(new EntityNotFoundException());
+        when(carBrandModelRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
         CarBrandModel foundedModel = carBrandModelService.findByID(1L);
 
         //Then
-        assertNull(foundedModel);
+        assertNull(foundedModel.getId());
+        assertTrue(foundedModel.getCars().isEmpty());
+        assertNull(foundedModel.getBrand());
+        assertNull(foundedModel.getModel());
 
     }
 
