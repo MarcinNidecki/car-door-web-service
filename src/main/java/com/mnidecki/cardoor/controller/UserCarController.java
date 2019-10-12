@@ -36,17 +36,12 @@ public class UserCarController {
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
-        CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
-        List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        modelAndView.addObject("commentDtoList", commentDtoList);
-        modelAndView.addObject("carDto", carDto);
         commentDto.setModelId(model);
         if (!bindingResult.hasErrors()) {
-            System.out.println(bindingResult.hasErrors());
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
-                modelAndView.addObject(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
-                modelAndView.setViewName("car");
+                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
+                modelAndView.setViewName("/admin/{carId}");
                 return modelAndView;
             }
         } else {
