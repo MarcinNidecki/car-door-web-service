@@ -38,6 +38,7 @@ public class CommentService {
         average = Math.round(average * 10) / 10.0;
         Star star = starService.findById(comment.getModel().getId());
         star.setRatingAverage(average);
+        star.setCarBrandModel(comment.getModel());
         comment.getModel().setStar(star);
         modelService.save(comment.getModel());
         comment.setUser(userService.getUserFromAuthentication());
