@@ -77,13 +77,24 @@
 
                                 <form action="#" th:action="@{/car/brand/{brandId}/model/{model}/comment(brandId = ${carDto.brandId}, model= ${carDto.modelId}, carId = ${carDto.id})}" th:object="${commentDto}" method="post" sec:authorize="isAuthenticated()">
                                     <div class="rating2">
-                                            <input th:name="*{modelId}" type="hidden" name="stars" th:value="${carDto
-                                            .modelId}" />
+
+
+
+                              <input th:field="*{modelId}" type="hidden" name="stars" th:value="*{model}"/>
+
+
+
                                         <label>
+
+                                        <input th:field="*{modelId}" type="hidden" name="stars"/>
                                             <input th:field="*{rating}" type="radio" name="stars" value="1" />
                                             <span class="icon">★</span>
                                         </label>
                                         <label>
+                                        <input th:id="*{modelId}" th:name="*{modelId)"
+                                        th:value="${carDto.modelId}"
+                                        type="hidden"
+                                        name="stars"/>
                                             <input th:field="*{rating}" type="radio" name="stars" value="2" />
                                             <span class="icon">★</span>
                                             <span class="icon">★</span>
