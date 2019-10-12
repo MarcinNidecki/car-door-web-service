@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,15 +30,13 @@ public class UserCarController {
 
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
-                                    BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                                    @RequestParam(name = "carId") Long carId) {
+                                    BindingResult bindingResult, @RequestParam(name = "carId") Long carId) {
         ModelAndView modelAndView = new ModelAndView();
             if (!bindingResult.hasErrors()) {
             commentDto.setModelId(model);
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
                 modelAndView.addObject("carId",carId);
-                redirectAttributes.addFlashAttribute("carId",carId);
                 modelAndView.setViewName("redirect:/car/{carId}");
                 return modelAndView;
             }
