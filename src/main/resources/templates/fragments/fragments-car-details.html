@@ -80,12 +80,12 @@
 
 
 
-                              <input th:field="*{modelId}" type="hidden" name="stars" th:value="${carDto.brandId}"/>
+                              <input th:field="*{modelId}" type="hidden" name="stars" th:value="${carDto.modelId}"/>
 
 
 
                                         <label>
-
+ <input th:name="*{modelId}" th:id="*{modelId}" type="hidden" name="stars" th:value="${carDto.modelId}"/>
                                             <input th:field="*{rating}" type="radio" name="stars" value="1" />
                                             <span class="icon">★</span>
                                         </label>
