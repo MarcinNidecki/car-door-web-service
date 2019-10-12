@@ -37,8 +37,6 @@ public class UserCarController {
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
-        List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        modelAndView.addObject("commentDtoList", commentDtoList);
         modelAndView.addObject("carDto", carDto);
         modelAndView.addObject("commentDto", new CommentDto());
 
@@ -47,7 +45,6 @@ public class UserCarController {
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
-                redirectAttributes.addFlashAttribute("commentDtoList", commentDtoList);
                 redirectAttributes.addFlashAttribute("carDto", carDto);
                 redirectAttributes.addFlashAttribute("commentDto", new CommentDto());
                 modelAndView.setViewName("redirect:/car/"+carId);
