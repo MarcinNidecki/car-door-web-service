@@ -144,7 +144,7 @@
                                                                        <i class="fa fa-star" th:classappend="${session.car.rating < 9}?unmark"></i>
                                                                    </p>
                                                                    <div id="Review_Vote" class="carResultRow_OfferInfo_SupplierReview_Vote">
-                                                                       <span class="carResultRow_OfferInfo_SupplierReview_VoteNum" th:text="${car.rating}"></span>
+                                                                       <span class="carResultRow_OfferInfo_SupplierReview_VoteNum" th:text="${session.car.rating}"></span>
                                                                        <span class="carResultRow_OfferInfo_SupplierReview_VoteComment">
                            																												<h4 th:if="${session.car.rating <= 10 and car.rating >8}?unmark" class="review-comment">Excellent</h4>
                            																												<h4 th:if="${session.car.rating <= 8 and car.rating >6}?unmark" class="review-comment" style="font-size: 20px">Very good</h4>
