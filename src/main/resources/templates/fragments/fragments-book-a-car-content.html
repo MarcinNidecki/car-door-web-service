@@ -144,7 +144,10 @@
                                                                        <i class="fa fa-star" th:classappend="${session.car.rating < 9}?unmark"></i>
                                                                    </p>
                                                                    <div id="Review_Vote" class="carResultRow_OfferInfo_SupplierReview_Vote">
-                                                                       <span class="carResultRow_OfferInfo_SupplierReview_VoteNum" th:text="${session.car.rating}"></span>
+                                                                       <span
+                                                                       class="carResultRow_OfferInfo_SupplierReview_VoteNum" th:text="${#numbers.formatDecimal(session.car.rating, 0, T(Math).round(session.car.rating)
+                                                                                                                                                                                         ==
+                                                                                                                                                                                        value ? 0 : 2)}"></span>
                                                                        <span class="carResultRow_OfferInfo_SupplierReview_VoteComment">
                            										<h4 th:if="${session.car.rating <= 10 and session.car
                            										.rating >8}?unmark" class="review-comment">Excellent</h4>

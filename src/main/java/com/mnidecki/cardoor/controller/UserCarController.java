@@ -38,6 +38,7 @@ public class UserCarController {
             commentDto.setModelId(model);
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
+                modelAndView.addObject("carId",carId);
                 redirectAttributes.addFlashAttribute("carId",carId);
                 modelAndView.setViewName("redirect:/car/{carId}");
                 return modelAndView;
