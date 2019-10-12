@@ -18,7 +18,6 @@ public class CarBrandService {
     public CarBrand getDefaultCarBrand() {
         CarBrand unknown = carBrandRepository.findByBrand("Unknown")
                 .orElse(new CarBrand("Unknown"));
-
         return save(unknown);
     }
 
@@ -39,9 +38,6 @@ public class CarBrandService {
     }
 
     public void deleteById(final Long id) {
-        CarBrand carBrand = findByID(id);
-        carBrand.getModels().forEach(model -> model.setBrand(getDefaultCarBrand()));
-        save(carBrand);
         carBrandRepository.deleteById(id);
     }
 }
