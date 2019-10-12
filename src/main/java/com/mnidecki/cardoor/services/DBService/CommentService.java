@@ -19,6 +19,8 @@ public class CommentService {
     private UserService userService;
     @Autowired
     private StarService starService;
+    @Autowired
+    private CarBrandModelService modelService;
 
 
     public List<Comment> findAll() {
@@ -37,6 +39,7 @@ public class CommentService {
         Star star = starService.findById(comment.getModel().getId());
         star.setRatingAverage(average);
         comment.getModel().setStar(star);
+        modelService.save(comment.getModel());
         comment.setUser(userService.getUserFromAuthentication());
         comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
         return commentRepository.save(comment);

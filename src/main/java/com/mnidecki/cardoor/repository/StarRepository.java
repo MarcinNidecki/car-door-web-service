@@ -12,7 +12,7 @@ public interface StarRepository extends CrudRepository <Star,Integer> {
     @Override
     List<Star> findAll();
 
-    Optional<Star> findByModelId(Long id);
+    Optional<Star> findByCarBrandModel_Id(Long id);
 
     @Override
     Star save(Star star);
