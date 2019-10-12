@@ -146,11 +146,12 @@
                                                                    <div id="Review_Vote" class="carResultRow_OfferInfo_SupplierReview_Vote">
                                                                        <span class="carResultRow_OfferInfo_SupplierReview_VoteNum" th:text="${session.car.rating}"></span>
                                                                        <span class="carResultRow_OfferInfo_SupplierReview_VoteComment">
-                           																												<h4 th:if="${session.car.rating <= 10 and car.rating >8}?unmark" class="review-comment">Excellent</h4>
-                           																												<h4 th:if="${session.car.rating <= 8 and car.rating >6}?unmark" class="review-comment" style="font-size: 20px">Very good</h4>
-                           																											    <h4 th:if="${session.car.rating <= 6 and car.rating >4}?unmark" class="review-comment">Good</h4>
-                           																												<h4 th:if="${session.car.rating <= 4 and car.rating >2}?unmark" class="review-comment">Fair</h4>
-                           																												<h4 th:if="${session.car.rating <= 2 and car.rating >0}?unmark" class="review-comment">Poor</h4>
+                           										<h4 th:if="${session.car.rating <= 10 and session.car
+                           										.rating >8}?unmark" class="review-comment">Excellent</h4>
+                           																												<h4 th:if="${session.car.rating <= 8 and session.car.rating >6}?unmark" class="review-comment" style="font-size: 20px">Very good</h4>
+                           																											    <h4 th:if="${session.car.rating <= 6 and session.car.rating >4}?unmark" class="review-comment">Good</h4>
+                           																												<h4 th:if="${session.car.rating <= 4 and session.car.rating >2}?unmark" class="review-comment">Fair</h4>
+                           																												<h4 th:if="${session.car.rating <= 2 and session.car.rating >0}?unmark" class="review-comment">Poor</h4>
                            																												<a th:href="@{/car/{carId}(carId=${session.car.id})}">(check reviews)</a>
                            																											</span>
                                                                    </div>
