@@ -59,6 +59,8 @@ public class CarBrandAndModelController {
         modelAndView.addObject(TITLE, CARS_MODELS);
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject(IS_ADD, false);
+        modelAndView.addObject("isBrandAdd", true);
+        modelAndView.addObject("isModelAdd", false);
         modelAndView.setViewName(CAR_BRAND);
         return modelAndView;
     }
@@ -122,7 +124,8 @@ public class CarBrandAndModelController {
     public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
-
+        modelAndView.addObject("isBrandAdd", true);
+        modelAndView.addObject("isModelAdd", false);
         modelAndView.addObject(CAR_SERVICE, carService);
         modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
