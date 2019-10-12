@@ -45,8 +45,9 @@ public class UserCarController {
             System.out.println(bindingResult.hasErrors());
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
-                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
+                modelAndView.addObject(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
                 modelAndView.setViewName("car");
+                return modelAndView;
             }
         } else {
             modelAndView.addObject("commentDto", commentDto);
