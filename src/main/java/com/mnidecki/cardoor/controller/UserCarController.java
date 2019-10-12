@@ -39,10 +39,12 @@ public class UserCarController {
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
         modelAndView.addObject("commentDtoList", commentDtoList);
         modelAndView.addObject("carDto", carDto);
+
         commentDto.setModelId(model);
         if (!bindingResult.hasErrors()) {
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
+                modelAndView.addObject("commentDto", new CommentDto());
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
                 modelAndView.setViewName("redirect:/car/"+carId.toString());
                 return modelAndView;
