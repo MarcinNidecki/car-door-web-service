@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.mnidecki.cardoor.controller.ControllerConstant.SUCCESSMESSAGE;
 
 @RestController("UserCarController")
 @RequestMapping("/car")
@@ -30,22 +33,25 @@ public class UserCarController {
 
 
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
-    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto, BindingResult bindingResult, Long carId) {
+    public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
+                                    BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
-        if (!bindingResult.hasErrors()) {
-            Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
-            if (comment != null) {
-                modelAndView.addObject("msg", "Your comment has been successfully submitted.");
-            } else {
-                modelAndView.addObject("msg", "Sorry something went wrong try again!");
-                modelAndView.addObject("commentDto", commentDto);
-            }
-        }
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
         modelAndView.addObject("commentDtoList", commentDtoList);
         modelAndView.addObject("carDto", carDto);
-        modelAndView.setViewName("car");
+
+        if (!bindingResult.hasErrors()) {
+            System.out.println(bindingResult.hasErrors());
+            Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
+            if (comment != null) {
+                redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
+                modelAndView.setViewName("redirect:/car/{carId}");
+            }
+        } else {
+            modelAndView.addObject("commentDto", commentDto);
+            modelAndView.setViewName("car");
+        }
         return modelAndView;
     }
 
