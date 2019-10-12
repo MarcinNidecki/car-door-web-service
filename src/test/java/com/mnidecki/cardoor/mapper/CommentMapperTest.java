@@ -34,32 +34,20 @@ public class CommentMapperTest {
     @Test
     public void mapToComment() {
         //Given
-        CommentDto commentDto = new CommentDto(1L,"Very good car!", 10, "2019-12-10 21:22:22","John",2L,3L);
-
-        User user = new User.UserBuilder()
-                .id(2L)
-                .firstname("John")
-                .lastname("Kovalsky")
-                .password("AvDww872nccDAa2131eszx")
-                .email("email@wp.pl")
-                .build();
+        CommentDto commentDto = new CommentDto("Very good car!", 10, 1L);
 
 
         CarBrandModel sorento = new CarBrandModel(3L, "Sorento", new CarBrand());
         sorento.getBrand().getModels().add(sorento);
 
-        when(userService.findUserById(commentDto.getUserId())).thenReturn(user);
         when(carBrandModelService.findByID(commentDto.getModelId())).thenReturn(sorento);
         //When
         Comment comment = commentMapper.mapToComment(commentDto);
 
         //Then
-        assertEquals(Long.valueOf(1),comment.getId());
+
         assertEquals("Very good car!",comment.getCommentContent());
         assertEquals(Integer.valueOf(10),comment.getRating());
-        assertEquals("John",comment.getUser().getFirstname());
-        assertEquals("AvDww872nccDAa2131eszx",comment.getUser().getPassword());
-        assertEquals(Long.valueOf(2),comment.getUser().getId());
         assertEquals(Long.valueOf(3),comment.getModel().getId());
         assertEquals("Sorento",comment.getModel().getModel());
     }

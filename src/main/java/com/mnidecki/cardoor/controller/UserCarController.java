@@ -35,7 +35,7 @@ public class UserCarController {
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
-        ModelAndView modelAndView = getModelAndView(carId);
+        ModelAndView modelAndView = new ModelAndView();
 
         if (!bindingResult.hasErrors()) {
             System.out.println(bindingResult.hasErrors());
