@@ -105,12 +105,10 @@ public class CarBrandAndModelController {
     @PostMapping(value = "/brand/{brandId}/model")
     public ModelAndView saveModel(@PathVariable Long brandId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
         modelAndView.addObject(CAR_SERVICE, carService);
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is saved successfully");
-            redirectAttributes.addFlashAttribute(CAR_SERVICE, carService);
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_BRAND);
         } else {
             modelAndView.addObject(ERRORMESSAGE, "Car model is not save, Please try again");
@@ -123,15 +121,12 @@ public class CarBrandAndModelController {
     @PostMapping(value = "/brand")
     public ModelAndView saveBrand(@ModelAttribute CarBrandDto carBrandDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CAR_BRAND_MODEL_DTO_EMPTY, new CarBrandModelDto());
         modelAndView.addObject("isBrandAdd", true);
         modelAndView.addObject("isModelAdd", false);
         modelAndView.addObject(CAR_SERVICE, carService);
-        modelAndView.addObject(CAR_BRAND_DTO, new CarBrandDto());
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         if (carBrand != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car brand is saved successfully");
-            redirectAttributes.addFlashAttribute(CAR_SERVICE, carService);
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_BRAND);
         } else {
             modelAndView.addObject(ERRORMESSAGE, "Car brand is not save, Please try again");
@@ -151,7 +146,6 @@ public class CarBrandAndModelController {
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
             redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Car model is updated successfully");
-            redirectAttributes.addFlashAttribute(CAR_SERVICE, carService);
             modelAndView.setViewName(REDIRECT_ADMIN_CAR_BRAND);
         } else {
             modelAndView.addObject(ERRORMESSAGE, "Car model is not update, Please try again");

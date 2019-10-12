@@ -41,7 +41,7 @@
                                                                              brand!</span>
                                                                               </p>
                                                                              <p> All cars will be assigned a default
-                                                                             Bran and model!
+                                                                             Brand and model!
                                                                              </p>
                             </div>
                             <div class="modal-footer">
@@ -77,8 +77,8 @@
                             </div>
                             <div class="modal-footer">
 
-                                <form name="idModalLink" id="idModalLink2">
-                                    <button id="deleteModel2" type="button" class="btn btn-danger"
+                                <form name="idModalLink" id="idModalLink">
+                                    <button id="deleteModel" type="button" class="btn btn-danger"
                                     data-dismiss="modal">Yes</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
                                 </form>
@@ -108,8 +108,13 @@
                                     <a href="javascript:void(0)" class="confirm-delete" id="gallery-page-content"
                                     style="background-color: unset;" th:attr="data-id=${brand.id}, data-name=${brand
                                     .brand},  data-path='/admin/car/brand/'+${brand.id},  data-no=${carService
-                                    .countCarByBrandId(brand.id)}">             <i class="fa fa-trash"
+                                    .countCarByBrandId(brand.id),  data-redirect='/admin/car/brand/'}">             <i
+                                    class="fa fa-trash"
                                     style="font-size:21px; color: red;"></i></a>
+
+
+
+
                                 </h5>
                             </div>
                         </div>
