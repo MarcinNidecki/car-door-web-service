@@ -57,6 +57,7 @@
                             <li><a href="/contact">Contact</a></li>
                             <li sec:authorize="not isAuthenticated()"><a href="/login">Sign In</a></li>
                             <li sec:authorize="isAuthenticated()"><a href="/logout">Sign Out</a></li>
+                          <li sec:authorize="hasRole('ADMIN')"><a href="/admin/car">Admin Panel</a></li>
                         </ul>
                     </nav>
                 </div>
