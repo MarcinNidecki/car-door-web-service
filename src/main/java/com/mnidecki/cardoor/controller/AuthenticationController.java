@@ -76,7 +76,8 @@ public class AuthenticationController {
             User user = userService.save(userMapper.mapToUser(userDto));
             userService.sendConfirmationToken(user);
             model.addObject("emailId", user.getEmail());
-            model.addObject("msg", "User has been registered successfully");
+            model.addObject("msg", "User has been registered successfully, open yor mail and click the link to " +
+                    "activate yor account");
             model.addObject("userDto", new UserRegisterQuickFormDto());
             model.setViewName(REGISTER); // resources/template/register.html
         }
