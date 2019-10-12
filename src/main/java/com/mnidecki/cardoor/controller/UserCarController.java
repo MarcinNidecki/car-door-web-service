@@ -41,8 +41,7 @@ public class UserCarController {
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Your comment has been successfully submitted.");
-                redirectAttributes.addFlashAttribute("carId", carId);
-                modelAndView.setViewName("redirect:/car/{carId}");
+                modelAndView.setViewName("redirect:/car/"+carId);
                 return modelAndView;
             }
         } else {
