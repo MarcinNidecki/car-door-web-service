@@ -34,4 +34,12 @@ public class CommentDto {
         this.rating = rating;
         this.modelId = modelId;
     }
+
+    @Override
+    public String toString() {
+        return "CommentDto{" +
+                "commentContent='" + commentContent + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 }
