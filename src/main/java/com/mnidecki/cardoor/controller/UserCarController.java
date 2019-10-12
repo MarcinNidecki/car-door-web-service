@@ -33,12 +33,7 @@ public class UserCarController {
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
         ModelAndView modelAndView = new ModelAndView();
-        CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
-        List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        modelAndView.addObject("commentDtoList", commentDtoList);
-        modelAndView.addObject("carDto", carDto);
-
-        if (!bindingResult.hasErrors()) {
+            if (!bindingResult.hasErrors()) {
             commentDto.setModelId(model);
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
