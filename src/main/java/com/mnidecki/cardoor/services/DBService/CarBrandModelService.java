@@ -6,6 +6,7 @@ import com.mnidecki.cardoor.repository.CarBrandModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CarBrandModelService {
     }
 
     public CarBrandModel findByID(final Long id) {
-        return carBrandModelRepository.findById(id).orElse(new CarBrandModel());
+        return carBrandModelRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     public CarBrandModel save(final CarBrandModel carBrandModel) {

@@ -35,11 +35,7 @@ public class UserCarController {
     @PostMapping(value = "/brand/{brandId}/model/{model}/comment")
     public ModelAndView saveComment(@PathVariable Long brandId, @PathVariable Long model, @Valid @ModelAttribute CommentDto commentDto,
                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Long carId) {
-        ModelAndView modelAndView = new ModelAndView();
-        CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
-        List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
-        modelAndView.addObject("commentDtoList", commentDtoList);
-        modelAndView.addObject("carDto", carDto);
+        ModelAndView modelAndView = getModelAndView(carId);
 
         if (!bindingResult.hasErrors()) {
             System.out.println(bindingResult.hasErrors());
@@ -57,13 +53,18 @@ public class UserCarController {
 
     @GetMapping(value = "/{carId}")
     public ModelAndView type(@PathVariable Long carId) {
+        ModelAndView modelAndView = getModelAndView(carId);
+        modelAndView.addObject("commentDto", new CommentDto());
+        modelAndView.setViewName("car");
+        return modelAndView;
+    }
+
+    private ModelAndView getModelAndView(Long carId) {
         ModelAndView modelAndView = new ModelAndView();
         CarDto carDto = carMapper.mapToCarDto(carService.findById(carId));
         List<CommentDto> commentDtoList = commentMapper.mapToCommentDtoList(commentService.findAllByModel_Id(carDto.getModelId()));
         modelAndView.addObject("commentDtoList", commentDtoList);
         modelAndView.addObject("carDto", carDto);
-        modelAndView.addObject("commentDto", new CommentDto());
-        modelAndView.setViewName("car");
         return modelAndView;
     }
 }
