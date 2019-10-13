@@ -15,8 +15,8 @@ public class CardoorApplication extends SpringBootServletInitializer {
         SpringApplication.run(CardoorApplication.class, args);
     }
 
- /*   @Override
+    @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return  application.sources(CardoorApplication.class);
-    }  */
+    }
 }
