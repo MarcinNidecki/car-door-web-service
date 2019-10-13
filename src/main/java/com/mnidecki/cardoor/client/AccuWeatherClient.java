@@ -49,7 +49,7 @@ public class AccuWeatherClient {
 
     public ForecastResponseDto get5DayForecasts(Locationn location) {
         String locationId = getCityId(location);
-        if(locationId.equals("")) {
+        if (locationId.equals("")) {
             return new ForecastResponseDto();
         }
 

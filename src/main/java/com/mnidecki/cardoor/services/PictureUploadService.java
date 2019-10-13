@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 @Service
 public class PictureUploadService {
 
@@ -51,7 +52,7 @@ public class PictureUploadService {
         return picture;
     }
 
-    private InputStream prepareThumbnailsAsImputStream(CarPicture picture)  {
+    private InputStream prepareThumbnailsAsImputStream(CarPicture picture) {
         picture.setFileExtension(FilenameUtils.getExtension(picture.getFile().getOriginalFilename()));
         try {
             BufferedImage thumbnails = Thumbnails.of(picture.getFile().getInputStream())
@@ -72,7 +73,7 @@ public class PictureUploadService {
 
     private CarPicture sendPicturesToFtp(CarPicture picture, InputStream thumbnails) {
         FTPClient con = null;
-        if(thumbnails==null) return new CarPicture();
+        if (thumbnails == null) return new CarPicture();
         try {
 
             con = new FTPClient();

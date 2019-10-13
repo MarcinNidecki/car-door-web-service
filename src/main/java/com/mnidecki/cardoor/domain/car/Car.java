@@ -12,8 +12,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-
-
 @NoArgsConstructor
 @Setter
 @Entity(name = "cars")
@@ -81,6 +79,38 @@ public class Car implements Serializable {
         this.registration = registration;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public CarBrandModel getModel() {
+        return model;
+    }
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public String getVehicleStatus() {
+        return vehicleStatus;
+    }
+
+    public CarParameters getCarParameters() {
+        return carParameters;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Locationn getLocation() {
+        return location;
+    }
+
+    public List<Booking> getBookingsList() {
+        return bookingsList;
+    }
+
     public static class CarBuilder {
         private Long id;
         private CarBrandModel model;
@@ -134,38 +164,6 @@ public class Car implements Serializable {
         public Car build() {
             return new Car(id, model, registration, vehicleStatus, carParameters, price, location, bookingsList);
         }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public CarBrandModel getModel() {
-        return model;
-    }
-
-    public String getRegistration() {
-        return registration;
-    }
-
-    public String getVehicleStatus() {
-        return vehicleStatus;
-    }
-
-    public CarParameters getCarParameters() {
-        return carParameters;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Locationn getLocation() {
-        return location;
-    }
-
-    public List<Booking> getBookingsList() {
-        return bookingsList;
     }
 
 

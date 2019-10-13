@@ -17,6 +17,6 @@ public class CardoorApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return  application.sources(CardoorApplication.class);
+        return application.sources(CardoorApplication.class);
     }
 }

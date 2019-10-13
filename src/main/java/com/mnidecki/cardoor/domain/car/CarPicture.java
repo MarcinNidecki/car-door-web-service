@@ -54,7 +54,7 @@ public class CarPicture implements Serializable {
 
 
     public CarPicture(String descriptions, String fileName, String thumbnails, String fileNamePath,
-                             String thumbnailsPath, String fileExtension, LocalDate createdDate) {
+                      String thumbnailsPath, String fileExtension, LocalDate createdDate) {
         this.descriptions = descriptions;
         this.fileName = fileName;
         this.thumbnails = thumbnails;
@@ -64,8 +64,8 @@ public class CarPicture implements Serializable {
         this.createdDate = createdDate;
 
 
-
     }
+
     public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
                       String thumbnailsPath, String fileExtension, LocalDate createdDate) {
         this.id = id;
@@ -79,7 +79,7 @@ public class CarPicture implements Serializable {
     }
 
     public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
-                             String thumbnailsPath, String fileExtension, LocalDate createdDate, MultipartFile file) {
+                      String thumbnailsPath, String fileExtension, LocalDate createdDate, MultipartFile file) {
         this.id = id;
         this.descriptions = descriptions;
         this.fileName = fileName;
@@ -102,8 +102,9 @@ public class CarPicture implements Serializable {
         this.createdDate = createdDate;
         this.file = file;
     }
+
     public CarPicture(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
-                             String thumbnailsPath, String fileExtension) {
+                      String thumbnailsPath, String fileExtension) {
         this.id = id;
         this.descriptions = descriptions;
         this.fileName = fileName;

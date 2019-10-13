@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
 @ControllerAdvice
 public class GlobalControllerAdvice {
@@ -33,7 +34,8 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute("lastComments")
     public List<CommentDto> getLast4Comments() {
-        return commentMapper.mapToCommentDtoList(commentService.findTop4ByCreationDate()); }
+        return commentMapper.mapToCommentDtoList(commentService.findTop4ByCreationDate());
+    }
 
     @ModelAttribute("happyClients")
     public int getNumbersOfHappyClients() {
@@ -54,7 +56,6 @@ public class GlobalControllerAdvice {
     public List<LocationnDto> allCity() {
         return locationMapper.mapToLocationDtoList(locationService.findAll());
     }
-
 
 
 }

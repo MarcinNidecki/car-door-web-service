@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class DiscountCodeMapper {
 
@@ -18,7 +19,7 @@ public class DiscountCodeMapper {
                 discountCodeDto.getValidTo());
     }
 
-    public DiscountCodeDto mapToDiscountCodeDto (DiscountCode discountCode) {
+    public DiscountCodeDto mapToDiscountCodeDto(DiscountCode discountCode) {
         return new DiscountCodeDto(
                 discountCode.getId(),
                 discountCode.getDiscountPercentage(),

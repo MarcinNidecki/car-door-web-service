@@ -86,6 +86,45 @@ public class CarDto implements Serializable {
         this.thumbnailsPath = thumbnailsPath;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarDto carDto = (CarDto) o;
+
+        if (id != null ? !id.equals(carDto.id) : carDto.id != null) return false;
+        if (modelId != null ? !modelId.equals(carDto.modelId) : carDto.modelId != null) return false;
+        if (brandId != null ? !brandId.equals(carDto.brandId) : carDto.brandId != null) return false;
+        if (registration != null ? !registration.equals(carDto.registration) : carDto.registration != null)
+            return false;
+        if (price != null ? !price.equals(carDto.price) : carDto.price != null) return false;
+        if (carTypeId != null ? !carTypeId.equals(carDto.carTypeId) : carDto.carTypeId != null) return false;
+        if (carParametersId != null ? !carParametersId.equals(carDto.carParametersId) : carDto.carParametersId != null)
+            return false;
+        return thumbnailsPath != null ? thumbnailsPath.equals(carDto.thumbnailsPath) : carDto.thumbnailsPath == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (modelId != null ? modelId.hashCode() : 0);
+        result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
+        result = 31 * result + (registration != null ? registration.hashCode() : 0);
+        result = 31 * result + (vehicleStatus != null ? vehicleStatus.hashCode() : 0);
+        result = 31 * result + year;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (carTypeName != null ? carTypeName.hashCode() : 0);
+        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (carTypeId != null ? carTypeId.hashCode() : 0);
+        result = 31 * result + (carPictureId != null ? carPictureId.hashCode() : 0);
+        result = 31 * result + (carParametersId != null ? carParametersId.hashCode() : 0);
+        result = 31 * result + (fileNamePath != null ? fileNamePath.hashCode() : 0);
+
+        return result;
+    }
+
     public static class CarDtoBuilder {
         private Long id;
         private String brand;
@@ -247,44 +286,5 @@ public class CarDto implements Serializable {
         public CarDto build() {
             return new CarDto(id, brand, model, modelId, brandId, registration, vehicleStatus, year, price, transmissionIsAutomatic, airConditioning, allWheelDrive, carTypeName, fuelType, doorsNumber, seatsNumber, smallBags, bigBags, color, carTypeId, rating, cityId, carPictureId, carParametersId, fileNamePath, thumbnailsPath);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CarDto carDto = (CarDto) o;
-
-        if (id != null ? !id.equals(carDto.id) : carDto.id != null) return false;
-        if (modelId != null ? !modelId.equals(carDto.modelId) : carDto.modelId != null) return false;
-        if (brandId != null ? !brandId.equals(carDto.brandId) : carDto.brandId != null) return false;
-        if (registration != null ? !registration.equals(carDto.registration) : carDto.registration != null)
-            return false;
-        if (price != null ? !price.equals(carDto.price) : carDto.price != null) return false;
-        if (carTypeId != null ? !carTypeId.equals(carDto.carTypeId) : carDto.carTypeId != null) return false;
-        if (carParametersId != null ? !carParametersId.equals(carDto.carParametersId) : carDto.carParametersId != null)
-            return false;
-        return thumbnailsPath != null ? thumbnailsPath.equals(carDto.thumbnailsPath) : carDto.thumbnailsPath == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (modelId != null ? modelId.hashCode() : 0);
-        result = 31 * result + (brandId != null ? brandId.hashCode() : 0);
-        result = 31 * result + (registration != null ? registration.hashCode() : 0);
-        result = 31 * result + (vehicleStatus != null ? vehicleStatus.hashCode() : 0);
-        result = 31 * result + year;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (carTypeName != null ? carTypeName.hashCode() : 0);
-        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
-        result = 31 * result + (color != null ? color.hashCode() : 0);
-        result = 31 * result + (carTypeId != null ? carTypeId.hashCode() : 0);
-        result = 31 * result + (carPictureId != null ? carPictureId.hashCode() : 0);
-        result = 31 * result + (carParametersId != null ? carParametersId.hashCode() : 0);
-        result = 31 * result + (fileNamePath != null ? fileNamePath.hashCode() : 0);
-
-        return result;
     }
 }

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @NoArgsConstructor
-public class UserEditFormDto implements UserDto{
+public class UserEditFormDto implements UserDto {
 
     private Long id;
     @Length(min = 3, message = "The fistsname must be at least {min} characters long")
@@ -38,8 +38,8 @@ public class UserEditFormDto implements UserDto{
     @Length(min = 5, message = "The zipcode must be at least {min} characters long")
     private String zipCode;
 
-    public UserEditFormDto(Long id,@NotNull @Length(min = 3, message = "The fistsname must be at least {min} characters long") String firstname, @NotNull @Length(min = 3, message = "The lastname must be at least {min} characters long") String lastname, @Email @Length(min = 6, message = "The email must be at least {min} characters long") String email, @NotNull @Length(min = 3, message = "The username must be at least {min} characters long") String username, @NotNull @Length(min = 8, message = "The address must be at least {min} characters long") String addressLine1, String addressLine2, @NotNull @Length(min = 3, message = "The country must be at least {min} characters long") String country, @Length(min = 6, message = "The state must be at least {min} characters long") String state, @NotNull @Length(min = 5, message = "The zipcode must be at least {min} characters long") String zipCode) {
-        this.id= id;
+    public UserEditFormDto(Long id, @NotNull @Length(min = 3, message = "The fistsname must be at least {min} characters long") String firstname, @NotNull @Length(min = 3, message = "The lastname must be at least {min} characters long") String lastname, @Email @Length(min = 6, message = "The email must be at least {min} characters long") String email, @NotNull @Length(min = 3, message = "The username must be at least {min} characters long") String username, @NotNull @Length(min = 8, message = "The address must be at least {min} characters long") String addressLine1, String addressLine2, @NotNull @Length(min = 3, message = "The country must be at least {min} characters long") String country, @Length(min = 6, message = "The state must be at least {min} characters long") String state, @NotNull @Length(min = 5, message = "The zipcode must be at least {min} characters long") String zipCode) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -49,6 +49,27 @@ public class UserEditFormDto implements UserDto{
         this.country = country;
         this.state = state;
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEditFormDto{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                '}';
     }
 
     public static class UserEditFormDtoBuilder {
@@ -115,28 +136,8 @@ public class UserEditFormDto implements UserDto{
         }
 
         public UserEditFormDto build() {
-            return new UserEditFormDto(id,firstname, lastname, email, username, addressLine1, addressLine2, country, state, zipCode);
+            return new UserEditFormDto(id, firstname, lastname, email, username, addressLine1, addressLine2, country, state, zipCode);
         }
-    }
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public String toString() {
-        return "UserEditFormDto{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", addressLine2='" + addressLine2 + '\'' +
-                ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                '}';
     }
 }
 

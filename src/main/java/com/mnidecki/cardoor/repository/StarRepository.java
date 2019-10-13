@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
-public interface StarRepository extends CrudRepository <Star,Integer> {
+public interface StarRepository extends CrudRepository<Star, Integer> {
 
     @Override
     List<Star> findAll();

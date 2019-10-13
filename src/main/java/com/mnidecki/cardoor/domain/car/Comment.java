@@ -19,7 +19,7 @@ import java.sql.Timestamp;
         @NamedNativeQuery(
                 name = "Comment.countCommentWithRankingLessThen2",
                 query = "SELECT count(rating<=2) FROM comment"
-        ) })
+        )})
 
 @NoArgsConstructor
 @Getter

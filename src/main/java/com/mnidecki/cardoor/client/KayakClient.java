@@ -30,7 +30,7 @@ public class KayakClient {
 
         try {
             Request request = new Request.Builder()
-                    .url("https://apidojo-kayak-v1.p.rapidapi.com/locations/search?where="+locationName+"%2C%20%20Poland")
+                    .url("https://apidojo-kayak-v1.p.rapidapi.com/locations/search?where=" + locationName + "%2C%20%20Poland")
                     .get()
                     .addHeader(kayakConfig.getKayakHeaderHostName(), kayakConfig.getKayakHeaderHostValue())
                     .addHeader(kayakConfig.getKayakHeaderKeyName(), kayakConfig.getKayakHeaderKeyValue())
@@ -41,7 +41,7 @@ public class KayakClient {
                     KayakLocationDto[].class));
 
             LOGGER.info("KAYAK location founded.");
-            return  citiesResponse.get(0).getCtid();
+            return citiesResponse.get(0).getCtid();
 
         } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             LOGGER.error(e.getMessage(), e);
@@ -53,8 +53,8 @@ public class KayakClient {
     public long getKayakAverageTotalCarPrice(String locationName, String startDate, String startHour, String endDate, String endHour) {
 
         String cityId = getKayakLocationId(locationName);
-        int intStartHour = Integer.parseInt(startHour.substring(0,2));
-        int intEndHout = Integer.parseInt(endHour.substring(0,2));
+        int intStartHour = Integer.parseInt(startHour.substring(0, 2));
+        int intEndHout = Integer.parseInt(endHour.substring(0, 2));
         if (!cityId.isEmpty()) {
 
             try {
@@ -67,20 +67,20 @@ public class KayakClient {
                         .addHeader(kayakConfig.getKayakHeaderKeyName(), kayakConfig.getKayakHeaderKeyValue())
                         .build();
 
-                    ResponseBody  responseBody = client.newCall(request).execute().body();
-                    KayakCarSearchResponeDto carSearchResponse =(objectMapper.readValue(
-                            responseBody.string(), KayakCarSearchResponeDto.class));
+                ResponseBody responseBody = client.newCall(request).execute().body();
+                KayakCarSearchResponeDto carSearchResponse = (objectMapper.readValue(
+                        responseBody.string(), KayakCarSearchResponeDto.class));
 
-                    if(carSearchResponse.getCarSet()!=null){
-                        double sum = Arrays.stream(carSearchResponse.getCarSet())
-                                .mapToDouble(total -> Double.parseDouble(total.getTotalPrice()))
-                                .sum();
+                if (carSearchResponse.getCarSet() != null) {
+                    double sum = Arrays.stream(carSearchResponse.getCarSet())
+                            .mapToDouble(total -> Double.parseDouble(total.getTotalPrice()))
+                            .sum();
 
-                        long count = carSearchResponse.getCarSet().length;
-                        if(count>0) {
-                            return (long)sum / count;
-                        }
+                    long count = carSearchResponse.getCarSet().length;
+                    if (count > 0) {
+                        return (long) sum / count;
                     }
+                }
 
             } catch (IOException | IllegalArgumentException e) {
                 LOGGER.error(e.getMessage(), e);

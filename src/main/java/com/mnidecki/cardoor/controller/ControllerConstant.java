@@ -3,11 +3,6 @@ package com.mnidecki.cardoor.controller;
 public class ControllerConstant {
 
 
-
-    private ControllerConstant() {
-        throw new IllegalStateException("Controller constant class");
-    }
-
     public static final String CARS_PICTURE = "carsPicture";
     public static final String CAR_TYPE_DTO = "carTypeDto";
     public static final String CAR_TYPE = "carType";
@@ -39,5 +34,8 @@ public class ControllerConstant {
     public static final String LONG_USER_DTO = "longUserDto";
     public static final String EDIT_USER_DTO = "editUserDto";
     public static final String BOOKING_EXTRAS = "bookingExtras";
+    private ControllerConstant() {
+        throw new IllegalStateException("Controller constant class");
+    }
 }
 

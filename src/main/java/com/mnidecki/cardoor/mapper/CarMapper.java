@@ -34,7 +34,7 @@ public class CarMapper {
                 .location(cityService.findById(carDto.getCityId()))
                 .build();
 
-        if(carDto.getId()!=null) {
+        if (carDto.getId() != null) {
             car.setId(carDto.getId());
         }
         return car;
@@ -94,7 +94,7 @@ public class CarMapper {
                 .carPicture(carPictureService.findById(carDto.getCarPictureId()))
                 .build();
 
-        if (carDto.getCarParametersId()!=null) {
+        if (carDto.getCarParametersId() != null) {
             carParameters.setId(carDto.getCarParametersId());
         }
         return carParameters;

@@ -14,7 +14,6 @@ import java.io.Serializable;
 )
 
 
-
 @Setter
 @Getter
 @AllArgsConstructor

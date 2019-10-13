@@ -62,7 +62,8 @@ public class BookingExtrasItem implements Serializable {
 
                 '}';
     }
-    public Long getId(){
+
+    public Long getId() {
         return id;
     }
 }

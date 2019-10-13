@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CommentRepository extends CrudRepository <Comment, Integer> {
+public interface CommentRepository extends CrudRepository<Comment, Integer> {
 
     @Override
     List<Comment> findAll();

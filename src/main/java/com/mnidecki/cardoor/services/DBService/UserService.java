@@ -33,7 +33,7 @@ public class UserService {
     private SimpleEmailService emailSenderService;
 
     public User save(final User user) {
-        if(user.getRoles() == null || user.getRoles().size()<=0) {
+        if (user.getRoles() == null || user.getRoles().size() <= 0) {
             UserRole userRole = userRoleRepository.getUserRoleByRoleName("ROLE_USER");
             user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         }

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @NoArgsConstructor
-public class UserRegisterLongFormDto implements UserDto{
+public class UserRegisterLongFormDto implements UserDto {
 
     @NotNull
     @Length(min = 3, message = "The fistsname must be at least {min} characters long")
@@ -25,7 +25,7 @@ public class UserRegisterLongFormDto implements UserDto{
     @NotNull
     @Length(min = 5, message = "The password is too short. Please try again.")
     private String password;
-     @NotNull
+    @NotNull
     @Length(min = 3, message = "The username must be at least {min} characters long")
     private String username;
     @NotNull
@@ -54,6 +54,27 @@ public class UserRegisterLongFormDto implements UserDto{
         this.zipCode = zipCode;
     }
 
+    @Override
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLongFormDto{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                '}';
+    }
+
     public static class UserLongFormDtoBuilder {
         private String firstname;
         private String lastname;
@@ -80,6 +101,7 @@ public class UserRegisterLongFormDto implements UserDto{
             this.email = email;
             return this;
         }
+
         public UserLongFormDtoBuilder password(String password) {
             this.password = password;
             return this;
@@ -118,26 +140,6 @@ public class UserRegisterLongFormDto implements UserDto{
         public UserRegisterLongFormDto build() {
             return new UserRegisterLongFormDto(firstname, lastname, email, password, username, addressLine1, addressLine2, country, state, zipCode);
         }
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-    @Override
-    public String toString() {
-        return "UserLongFormDto{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", addressLine2='" + addressLine2 + '\'' +
-                ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                '}';
     }
 }
 

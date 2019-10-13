@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.mnidecki.cardoor.controller.ControllerConstant.*;
+
 @Transactional
 @RestController
 @RequestMapping("/admin/car/")
@@ -137,7 +138,7 @@ public class CarBrandAndModelController {
 
 
     @PutMapping(value = "/brand/{brandId}/model/{modelId}")
-    public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateModel(@PathVariable Long brandId, @PathVariable Long modelId, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));
         if (carBrandModel != null) {
@@ -153,7 +154,7 @@ public class CarBrandAndModelController {
     }
 
     @PutMapping(value = "/brand/{brandId}")
-    public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes)  {
+    public ModelAndView updateBrand(@PathVariable Long brandId, @ModelAttribute CarBrandDto carBrandDto, @ModelAttribute CarBrandModelDto carBrandModelDto, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
         CarBrand carBrand = carBrandService.save(carBrandMapper.mapToCarBrand(carBrandDto));
         CarBrandModel carBrandModel = carBrandModelService.save(carBrandModelMapper.mapToCarBrandModel(carBrandModelDto));

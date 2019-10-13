@@ -37,11 +37,11 @@ public class UserCarController {
         modelAndView.addObject("commentDtoList", commentDtoList);
         modelAndView.addObject("carDto", carDto);
         modelAndView.addObject("commentDto", new CommentDto());
-            if (!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             commentDto.setModelId(model);
             Comment comment = commentService.save(commentMapper.mapToComment(commentDto));
             if (comment != null) {
-                modelAndView.addObject("carId",carId);
+                modelAndView.addObject("carId", carId);
                 modelAndView.setViewName("redirect:/car/{carId}");
                 return modelAndView;
             }

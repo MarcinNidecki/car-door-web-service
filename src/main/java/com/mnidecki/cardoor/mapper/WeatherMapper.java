@@ -22,8 +22,8 @@ public class WeatherMapper {
 
     public Weather mapToWeather(ForecastResponseDto forecast) {
 
-        Weather weather =  weatherService.findById(forecast.getLocationId());
-        if(weather.getId()==null) weather.setId(forecast.getLocationId());
+        Weather weather = weatherService.findById(forecast.getLocationId());
+        if (weather.getId() == null) weather.setId(forecast.getLocationId());
         weather.setDateOfFirstDay(forecast.getDateOfFirstDay());
         weather.setNameOfFirstDay(forecast.getNameOfFirstDay());
         weather.setLocation(locationService.findById(forecast.getLocationId()));
@@ -32,22 +32,22 @@ public class WeatherMapper {
         return weather;
     }
 
-    public List<Weather> mapToWeatherLIst (List<ForecastResponseDto> forecasts) {
+    public List<Weather> mapToWeatherLIst(List<ForecastResponseDto> forecasts) {
         return forecasts.stream()
                 .map(this::mapToWeather)
                 .collect(Collectors.toList());
     }
 
-    public List<DailyForecast>  mapToDailyForecast (ForecastResponseDto forecast) {
-        List<DailyForecast>  dailyForecasts = new ArrayList<>();
+    public List<DailyForecast> mapToDailyForecast(ForecastResponseDto forecast) {
+        List<DailyForecast> dailyForecasts = new ArrayList<>();
         forecast.getDailyForecastDtoList().forEach(daily -> {
 
             DailyForecast dailyForecast = new DailyForecast();
             dailyForecast.setDayName(daily.getDayDto().getNameOfDay());
             dailyForecast.setIcon(daily.getDayDto().getIcon());
-            float maxTemp =  ((((Float.valueOf((daily.getTemperatureDto().getMaximumDto().getTemp())))-32)*5)/9);
-            float minTemp =  ((((Float.valueOf((daily.getTemperatureDto().getMinimumDto().getTemp())))-32)*5)/9);
-            int temp = (int) ((maxTemp+minTemp)/2);
+            float maxTemp = ((((Float.valueOf((daily.getTemperatureDto().getMaximumDto().getTemp()))) - 32) * 5) / 9);
+            float minTemp = ((((Float.valueOf((daily.getTemperatureDto().getMinimumDto().getTemp()))) - 32) * 5) / 9);
+            int temp = (int) ((maxTemp + minTemp) / 2);
             dailyForecast.setTemp(temp);
             dailyForecasts.add(dailyForecast);
         });

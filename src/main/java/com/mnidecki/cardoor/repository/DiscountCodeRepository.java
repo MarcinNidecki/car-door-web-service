@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DiscountCodeRepository extends CrudRepository <DiscountCode, Integer> {
+public interface DiscountCodeRepository extends CrudRepository<DiscountCode, Integer> {
 
     @Override
     List<DiscountCode> findAll();

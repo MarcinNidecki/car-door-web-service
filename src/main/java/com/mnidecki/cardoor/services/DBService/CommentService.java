@@ -35,7 +35,7 @@ public class CommentService {
         commentList.add(comment);
         comment.setUser(userService.getUserFromAuthentication());
         comment.setCreationDate(Timestamp.valueOf(LocalDateTime.now()));
-        double average= commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
+        double average = commentList.stream().mapToInt(Comment::getRating).average().orElse(0.0);
         average = Math.round(average * 10) / 10.0;
         CarBrandModel carBrandModel = modelService.findByID(comment.getModel().getId());
         carBrandModel.getStar().setRatingAverage(average);

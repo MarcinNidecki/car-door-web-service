@@ -14,8 +14,8 @@ public class WeatherScheduler {
     @Autowired
     private AccuWeatherService weatherService;
 
-    @Scheduled(cron ="0 0 7 * * ?")
-    public void  fetchWeather() {
+    @Scheduled(cron = "0 0 7 * * ?")
+    public void fetchWeather() {
 
         List<ForecastResponseDto> forecastResponseDtoList = weatherService.get5DayForecastsForAllLocation();
         weatherService.saveAll(forecastResponseDtoList);

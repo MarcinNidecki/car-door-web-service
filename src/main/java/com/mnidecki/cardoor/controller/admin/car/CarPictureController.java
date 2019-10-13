@@ -46,9 +46,9 @@ public class CarPictureController {
         ModelAndView modelAndView = new ModelAndView();
 
         CarPicture carPicture = carPictureMapper.mapToCarPicture(carPictureDto);
-        if (carPicture.getFile()!=null &&!carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
+        if (carPicture.getFile() != null && !carPicture.getFile().isEmpty() && !carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
-            if (carPicture.getFileName()!=null ) {
+            if (carPicture.getFileName() != null) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture " + carPicture.getFileName() +
                         "." + carPicture.getFileExtension() + " saved successfully");
                 modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
@@ -63,10 +63,8 @@ public class CarPictureController {
     }
 
 
-
-
     @GetMapping(value = "/picture/{id}")
-    public ModelAndView getPicture(@PathVariable Long id)  {
+    public ModelAndView getPicture(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView();
         CarPictureDto carPictureDto = carPictureMapper.mapToCarPictureDto(pictureService.findById(id));
         List<CarPictureDto> carsPictures = carPictureMapper.mapToCarPictureDtoList(pictureService.findAll());
@@ -86,7 +84,7 @@ public class CarPictureController {
         if (!carPicture.getDescriptions().isEmpty()) {
             carPicture = pictureService.save(carPicture);
 
-            if (carPicture.getFileName()!=null ) {
+            if (carPicture.getFileName() != null) {
                 redirectAttributes.addFlashAttribute(SUCCESSMESSAGE, "Picture was updated successfully");
                 modelAndView.setViewName(REDIRECT_ADMIN_CAR_PICTURE);
                 return modelAndView;
@@ -112,7 +110,8 @@ public class CarPictureController {
     }
 
     @GetMapping(value = "/picturejson")
-    public @ResponseBody CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
+    public @ResponseBody
+    CarPictureDto findPictureById(@RequestParam(value = "pictureId", required = true) Long pictureId) {
         if (pictureId <= 0) {
             return new CarPictureDto();
         } else {

@@ -19,11 +19,11 @@ import java.util.Optional;
 @Transactional
 public class CarPictureService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarPictureService.class);
     @Autowired
     private CarPictureRepository carPictureRepository;
     @Autowired
     private PictureUploadService pictureUploadService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarPictureService.class);
 
     public CarPicture getDefaultCarPicture() {
         CarPicture unknown = carPictureRepository.findCarPictureByDescriptions("Unknown").orElse(new CarPicture());
@@ -51,25 +51,25 @@ public class CarPictureService {
         }
     }
 
-    public CarPicture findById(final Long id)  {
+    public CarPicture findById(final Long id) {
         return carPictureRepository.findById(id).orElseGet(this::getDefaultCarPicture);
     }
 
-    public void deleteById(final Long id)  {
+    public void deleteById(final Long id) {
         Optional<CarPicture> carPicture = carPictureRepository.findById(id);
         if (carPicture.isPresent()) {
 
             carPicture.get().getCarList()
                     .forEach(carParameters -> carParameters.setCarPicture(getDefaultCarPicture()));
-            save(carPicture.get(),true);
+            save(carPicture.get(), true);
         }
         carPictureRepository.deleteById(id);
     }
 
     public boolean isFileNameTheSameLikeFileNamePath(CarPicture picture) {
 
-        if(picture!= null && picture.getFileName() !=null && picture.getFileExtension()!=null) {
-            return (picture.getFileName()+"." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse(""));
+        if (picture != null && picture.getFileName() != null && picture.getFileExtension() != null) {
+            return (picture.getFileName() + "." + picture.getFileExtension()).equals(Optional.ofNullable(picture.getFile()).map(MultipartFile::getOriginalFilename).orElse(""));
         }
         return false;
     }

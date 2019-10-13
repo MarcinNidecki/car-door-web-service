@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+
 @EqualsAndHashCode
 @Getter
 @Setter
@@ -35,6 +36,7 @@ public class CarPictureDto {
         this.createdDate = createdDate;
         this.file = file;
     }
+
     public CarPictureDto(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
                          String thumbnailsPath, String fileExtension, MultipartFile file) {
         this.id = id;
@@ -46,6 +48,7 @@ public class CarPictureDto {
         this.fileExtension = fileExtension;
         this.file = file;
     }
+
     public CarPictureDto(Long id, String descriptions, String fileName, String thumbnails, String fileNamePath,
                          String thumbnailsPath, String fileExtension, LocalDate createdDate) {
         this.id = id;

@@ -32,16 +32,13 @@ public class AccuWeatherService {
     private DailyForecastService dailyForecastService;
 
 
-
-
-
-    public List<ForecastResponseDto> get5DayForecastsForAllLocation () {
+    public List<ForecastResponseDto> get5DayForecastsForAllLocation() {
         List<Long> idList = locationService.findAll().stream().map(Locationn::getId).collect(Collectors.toList());
         List<ForecastResponseDto> weather = new ArrayList<>();
 
-        for(Long id: idList) {
+        for (Long id : idList) {
             ForecastResponseDto forecast = getLocation5DayForecasts(id);
-            if(forecast.getDailyForecastDtoList() !=null && forecast.getDailyForecastDtoList().size()>=5) {
+            if (forecast.getDailyForecastDtoList() != null && forecast.getDailyForecastDtoList().size() >= 5) {
                 weather.add(getLocation5DayForecasts(id));
             }
 
@@ -53,7 +50,7 @@ public class AccuWeatherService {
     public ForecastResponseDto getLocation5DayForecasts(Long cityId) {
 
         ForecastResponseDto forecast = accuWeatherClient.get5DayForecasts(locationService.findById(cityId));
-        if(forecast.getDailyForecastDtoList() !=null && forecast.getDailyForecastDtoList().size()>=5) {
+        if (forecast.getDailyForecastDtoList() != null && forecast.getDailyForecastDtoList().size() >= 5) {
             forecast = setDisplayNameOfDay(forecast);
             forecast.setLocationId(cityId);
         }
@@ -70,13 +67,13 @@ public class AccuWeatherService {
         return forecast;
     }
 
-    public Iterable<Weather> saveAll (List<ForecastResponseDto> weather) {
+    public Iterable<Weather> saveAll(List<ForecastResponseDto> weather) {
         List<Weather> weatherList = weatherMapper.mapToWeatherLIst(weather);
-        weatherList.forEach( location -> dailyForecastService.deleteAllByWeather_Id(location.getId()));
+        weatherList.forEach(location -> dailyForecastService.deleteAllByWeather_Id(location.getId()));
         return weatherRepository.saveAll(weatherList);
     }
 
-    public Weather  save (ForecastResponseDto forecast) {
+    public Weather save(ForecastResponseDto forecast) {
         Weather weather = weatherMapper.mapToWeather(forecast);
         System.out.println(weather);
         return weatherRepository.save(weather);

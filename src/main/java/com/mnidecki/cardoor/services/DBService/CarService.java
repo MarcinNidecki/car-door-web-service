@@ -41,7 +41,7 @@ public class CarService {
 
     public void deleteByID(final Long id) {
         Car car = findById(id);
-        if (car.getId()!=null) {
+        if (car.getId() != null) {
             car.setDeleted(true);
             save(car);
         }

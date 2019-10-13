@@ -4,9 +4,9 @@ $('#input').datepicker({
     footer: true
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#example').DataTable();
-} );
+});
 
 $(".confirm-delete").on('click', function (e) {
     e.preventDefault();
@@ -27,7 +27,9 @@ $(".confirm-delete").on('click', function (e) {
             success: function (data) {
                 parentEl.slideUp(400, function () {
                     parentEl.remove();
-                    setTimeout(function(){   window.location.href = redirect; }, 400);
+                    setTimeout(function () {
+                        window.location.href = redirect;
+                    }, 400);
 
                 });
             }
@@ -53,7 +55,9 @@ $(".confirm-delete2").on('click', function (e) {
             method: 'DELETE',
             success: function (data) {
                 parentEl.slideUp(400, function () {
-                    setTimeout(function(){   window.location.href = redirect2; }, 400);
+                    setTimeout(function () {
+                        window.location.href = redirect2;
+                    }, 400);
                 });
             }
         })

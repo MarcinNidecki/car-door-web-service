@@ -78,14 +78,14 @@ public class BookingController {
             @RequestParam(value = "endTime") String endTime, @RequestParam(value = "cityId") Long cityId, RedirectAttributes redirectAttributes) {
         startTime = dateTimeService.fixTheTime(startTime);
         endTime = dateTimeService.fixTheTime(endTime);
-        if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
+        if (!dateTimeService.isBookingDateValid(startDate, startTime, endDate, endTime)) {
             return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
 
         List<CarDto> carList = carMapper.mapToCarDtoList(carService.getAllAvailableCar(carSpecification, startDate,
                 startTime, endDate, endTime, cityId));
         String cityName = locationService.findById(cityId).getCity();
-        long averagePrice = kayakClient.getKayakAverageTotalCarPrice(cityName,startDate,startTime,endDate,endTime);
+        long averagePrice = kayakClient.getKayakAverageTotalCarPrice(cityName, startDate, startTime, endDate, endTime);
         Weather weather = accuWeatherService.findById(cityId);
         System.out.println(weather);
         ModelAndView modelAndView = new ModelAndView();
@@ -97,7 +97,7 @@ public class BookingController {
         modelAndView.addObject("endTime", endTime);
         modelAndView.addObject("cityId", cityId);
         modelAndView.addObject("cityName", cityName);
-        modelAndView.addObject("averagePrice",averagePrice);
+        modelAndView.addObject("averagePrice", averagePrice);
         modelAndView.setViewName("booking");
         return modelAndView;
     }
@@ -110,7 +110,7 @@ public class BookingController {
             @RequestParam(value = "cityId") Long cityId, @PathVariable Long carId,
             RedirectAttributes redirectAttributes, HttpSession session) {
 
-        if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
+        if (!dateTimeService.isBookingDateValid(startDate, startTime, endDate, endTime)) {
             return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
 
@@ -143,7 +143,7 @@ public class BookingController {
              RedirectAttributes redirectAttributes, HttpSession session) {
 
 
-        if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
+        if (!dateTimeService.isBookingDateValid(startDate, startTime, endDate, endTime)) {
             return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
         if (session.getAttribute("car") == null || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null)
@@ -153,8 +153,8 @@ public class BookingController {
         ModelAndView modelAndView = new ModelAndView();
         session.setAttribute("isAdd", false);
         BookingDto userBooking =
-                    bookingMapper.mapToBookingDto(bookingService.setAllBookingCostFields(bookingMapper.mapToBooking(
-                            new BookingDto.BookingDtoBuilder()
+                bookingMapper.mapToBookingDto(bookingService.setAllBookingCostFields(bookingMapper.mapToBooking(
+                        new BookingDto.BookingDtoBuilder()
                                 .carId(carId)
                                 .bookingStatusCodeId(1L)
                                 .cityId(cityId)
@@ -174,7 +174,7 @@ public class BookingController {
     @GetMapping(value = {"car/{carId}/booking/checkout"})
     public ModelAndView bookingCheckout(@PathVariable(value = "carId") Long carId, RedirectAttributes redirectAttributes,
                                         HttpSession session) {
-        if(isSessionExpired(session))  return redirectToHome(redirectAttributes, SESSION_EXPIRED);
+        if (isSessionExpired(session)) return redirectToHome(redirectAttributes, SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(BOOKING_CHECKOUT);
@@ -185,9 +185,9 @@ public class BookingController {
 
     @PostMapping(value = {"car/{carId}/booking/user/{userId}"})
     public ModelAndView saveBooking(@PathVariable(value = "carId") Long carId, @PathVariable(value = "userId") Long userId,
-                                           @Valid @ModelAttribute(EDIT_USER_DTO) UserEditFormDto userDto, BindingResult bindingResult,
-                                           RedirectAttributes redirectAttributes, HttpSession session) {
-        if(isSessionExpired(session))   return redirectToHome(redirectAttributes, SESSION_EXPIRED);
+                                    @Valid @ModelAttribute(EDIT_USER_DTO) UserEditFormDto userDto, BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes, HttpSession session) {
+        if (isSessionExpired(session)) return redirectToHome(redirectAttributes, SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(EDIT_USER_DTO, userDto);
@@ -204,7 +204,7 @@ public class BookingController {
     public ModelAndView saveBookingAndUser(@PathVariable(value = "carId") Long carId,
                                            @Valid @ModelAttribute(LONG_USER_DTO) UserRegisterLongFormDto longUserDto, BindingResult bindingResult,
                                            RedirectAttributes redirectAttributes, HttpSession session) {
-        if(isSessionExpired(session)) return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
+        if (isSessionExpired(session)) return redirectToHome(redirectAttributes, ControllerConstant.SESSION_EXPIRED);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(LONG_USER_DTO, longUserDto);
@@ -230,14 +230,14 @@ public class BookingController {
 
 
     private UserEditFormDto getUser() {
-        if(userService.getUserFromAuthentication().getEmail()!=null) {
+        if (userService.getUserFromAuthentication().getEmail() != null) {
             return userMapper.mapToEditFormUserDto(userService.getUserFromAuthentication());
         } else {
             return new UserEditFormDto();
         }
     }
 
-    private boolean isSessionExpired( HttpSession session) {
+    private boolean isSessionExpired(HttpSession session) {
         return (session.getAttribute(BOOKING_EXTRAS) == null || session.getAttribute(ControllerConstant.USER_BOOKING) == null
                 || session.getAttribute(ControllerConstant.DAYS_OF_RENT) == null);
     }

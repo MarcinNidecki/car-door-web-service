@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,6 +25,7 @@ public class ForecastResponseDto {
     private String nameOfFirstDay;
     @JsonIgnoreProperties
     private String dateOfFirstDay;
+
     @Override
     public String toString() {
         return "ForecastResponeDto{" +

@@ -45,7 +45,7 @@ public class User implements Serializable {
     private String state;
     @Column(name = "zip_code")
     private String zipCode;
-    private Integer status =0;
+    private Integer status = 0;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "join_user_user_role",
@@ -84,6 +84,27 @@ public class User implements Serializable {
         this.roles = roles;
         this.bookingList = bookingList;
         this.commentsList = commentsList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", status=" + status +
+                ", roles=" + roles +
+                ", bookingList=" + bookingList +
+                ", commentsList=" + commentsList +
+                '}';
     }
 
     public static class UserBuilder {
@@ -182,26 +203,5 @@ public class User implements Serializable {
         public User build() {
             return new User(id, firstname, lastname, email, password, username, addressLine1, addressLine2, country, state, zipCode, status, roles, bookingList, commentsList);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", addressLine2='" + addressLine2 + '\'' +
-                ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", status=" + status +
-                ", roles=" + roles +
-                ", bookingList=" + bookingList +
-                ", commentsList=" + commentsList +
-                '}';
     }
 }

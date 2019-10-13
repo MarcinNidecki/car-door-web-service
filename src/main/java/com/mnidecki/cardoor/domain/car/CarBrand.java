@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "car_brand")
-public class CarBrand  implements Serializable {
+public class CarBrand implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

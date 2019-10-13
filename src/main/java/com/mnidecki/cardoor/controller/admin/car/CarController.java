@@ -102,7 +102,7 @@ public class CarController {
             modelAndView.addObject(ERRORMESSAGE, "Car is not save, Please try again");
             modelAndView.addObject(CAR_DTO, carDto);
             modelAndView.setViewName(CARS);
-            }
+        }
 
         return modelAndView;
     }

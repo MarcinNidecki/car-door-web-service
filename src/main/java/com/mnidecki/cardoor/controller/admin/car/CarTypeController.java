@@ -99,6 +99,7 @@ public class CarTypeController {
         }
         return modelAndView;
     }
+
     @Transactional
     @DeleteMapping(value = "/type/{id}")
     public ModelAndView delete(@PathVariable Long id) {

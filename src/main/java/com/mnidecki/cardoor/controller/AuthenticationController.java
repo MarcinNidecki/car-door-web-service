@@ -105,7 +105,7 @@ public class AuthenticationController {
             user.getRoles().add(userRoleService.getUserRoleByRoleName("ROLE_USER"));
             userRepository.save(user);
             model.setViewName("index");
-            model.addObject("booking",new BookingSpecDto());
+            model.addObject("booking", new BookingSpecDto());
         } else {
             model.addObject("message", "The link is invalid or broken!");
             model.setViewName("error");

@@ -97,16 +97,15 @@ public class BookingService {
     }
 
     public Timestamp stringTimeToTimestampConverter(String date, String time) {
-        return Timestamp.valueOf(LocalDateTime.parse(date+"T" +time));
+        return Timestamp.valueOf(LocalDateTime.parse(date + "T" + time));
     }
 
 
-
-    public int  countHappyClients() {
+    public int countHappyClients() {
         Integer unhappyClient;
         unhappyClient = commentService.countAllByRatingLessThan2();
         int allClient = findAll().size();
-        if(allClient==0) return 0;
+        if (allClient == 0) return 0;
         return allClient - unhappyClient;
     }
 

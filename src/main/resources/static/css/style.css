@@ -100,6 +100,7 @@ body {
     padding: 20px;
     color: #fff;
 }
+
 .content {
     width: 260px;
     margin: 100px auto;
@@ -434,6 +435,7 @@ body {
 .black.jquery-accordion-menu ul ul.submenu li:hover > a {
     border-left-color: #222
 }
+
 .overlay {
     position: relative;
     display: inline-block;
@@ -445,7 +447,6 @@ body {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
 }
-
 
 
 .overlay:after {
@@ -2803,6 +2804,7 @@ body,
     background-color: #ffd000;
     color: #fff;
 }
+
 .rating2 {
     display: inline-block;
     position: relative;
@@ -2842,18 +2844,23 @@ body,
 .rating2 label:nth-child(5) {
     z-index: 6;
 }
+
 .rating2 label:nth-child(6) {
     z-index: 5;
 }
+
 .rating2 label:nth-child(7) {
     z-index: 4;
 }
+
 .rating2 label:nth-child(8) {
     z-index: 3;
 }
+
 .rating2 label:nth-child(9) {
     z-index: 2;
 }
+
 .rating2 label:nth-child(10) {
     z-index: 1;
 }

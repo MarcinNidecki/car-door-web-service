@@ -25,7 +25,7 @@ public class AdminBookingController {
     public ModelAndView booking() {
         ModelAndView modelAndView = new ModelAndView();
         List<BookingDto> bookingList = bookingMapper.mapToBookingDtoList(bookingService.findAll());
-        modelAndView.addObject("bookingList",bookingList);
+        modelAndView.addObject("bookingList", bookingList);
         modelAndView.setViewName("bookings");
         return modelAndView;
     }
