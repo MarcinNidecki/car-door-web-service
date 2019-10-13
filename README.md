@@ -171,4 +171,10 @@ Then start the Tomcat server using the startup.bat command
 
  *http://localhost:8080/filename
 
+If you want to open project just in your IDE 
+remember to comment  this code in CardoorApplication.class  and plugin war from build.gradlle
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return  application.sources(CardoorApplication.class);
+    }  
