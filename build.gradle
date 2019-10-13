@@ -56,7 +56,7 @@ dependencies {
 
 
     compile('org.postgresql:postgresql')
-    //compile('mysql:mysql-connector-java')
+    compile('mysql:mysql-connector-java')
     compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
 
     compile ('commons-net:commons-net:3.6')
