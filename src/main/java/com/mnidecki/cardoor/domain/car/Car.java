@@ -51,8 +51,8 @@ public class Car implements Serializable {
             fetch = FetchType.EAGER)
     private List<Booking> bookingsList;
 
-    @Column(name = "deleted", columnDefinition = "false")
-    private boolean deleted;
+    @Column(name = "deleted")
+    private boolean deleted = false;
 
 
     public Car(Long id, CarBrandModel model, String registration, String vehicleStatus, CarParameters carParameters, BigDecimal price, Locationn location) {

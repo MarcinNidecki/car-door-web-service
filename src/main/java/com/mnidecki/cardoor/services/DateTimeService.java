@@ -37,6 +37,8 @@ public class DateTimeService  {
 
     public boolean isBookingDateValid(String startDate, String startTime, String endDate, String endTime) {
         if (isDateValid(startDate) && isDateValid(endDate) && isTimeValid(startTime) && isTimeValid(endTime)) {
+            if(startTime.length()==4) startTime = "0".concat(startTime);
+            if(endTime.length()==4) endTime = "0".concat(endTime);
             LocalDateTime start = LocalDateTime.parse(startDate+ "T" +startTime+":00");
             LocalDateTime end = LocalDateTime.parse(endDate+ "T" +endTime+":00");
             return start.isAfter(LocalDateTime.now()) && start.isBefore(end);
@@ -52,4 +54,13 @@ public class DateTimeService  {
     private boolean isTimeValid(String time) {
         return  timeValidator.isValid(time, "HH:mm");
     }
+    public String fixTheTime(String time) {
+        if (timeValidator.isValid(time, "HH:mm")){
+            if(time.length()==4) time = "0".concat(time);
+        }
+        return time;
+    }
+
+
+
 }

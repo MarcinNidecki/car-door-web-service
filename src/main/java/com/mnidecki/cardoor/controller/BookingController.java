@@ -76,7 +76,8 @@ public class BookingController {
             }) Specification<Car> carSpecification, @RequestParam(value = "startDate") String startDate,
             @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endDate") String endDate,
             @RequestParam(value = "endTime") String endTime, @RequestParam(value = "cityId") Long cityId, RedirectAttributes redirectAttributes) {
-
+        startTime = dateTimeService.fixTheTime(startTime);
+        endTime = dateTimeService.fixTheTime(endTime);
         if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
             return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
@@ -141,6 +142,7 @@ public class BookingController {
              @ModelAttribute(value = BOOKING_EXTRAS) BookingItemCreationDto bookingExtras,
              RedirectAttributes redirectAttributes, HttpSession session) {
 
+
         if (!dateTimeService.isBookingDateValid(startDate,startTime,endDate,endTime)) {
             return redirectToHome(redirectAttributes, PLEASE_CHECK_YOUR_DATE);
         }
@@ -193,7 +195,7 @@ public class BookingController {
             modelAndView.setViewName(BOOKING_CHECKOUT);
         } else {
             saveBookingAndUser(session, userMapper.mapToUser(userDto));
-            return redirectToHome(redirectAttributes, "Booking has been confirmed");
+            return redirectToHome(redirectAttributes, "Booking has been confirmed, check your email!");
         }
         return modelAndView;
     }

@@ -22,7 +22,7 @@ public class CarBrandModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "model_name", unique = true)
+    @Column(name = "model_name")
     private String model;
 
     @ManyToOne(fetch = FetchType.EAGER)

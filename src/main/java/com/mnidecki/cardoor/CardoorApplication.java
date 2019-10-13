@@ -3,6 +3,7 @@ package com.mnidecki.cardoor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -14,5 +15,8 @@ public class CardoorApplication extends SpringBootServletInitializer {
         SpringApplication.run(CardoorApplication.class, args);
     }
 
-
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return  application.sources(CardoorApplication.class);
+    }
 }
