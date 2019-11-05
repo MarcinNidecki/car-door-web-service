@@ -55,7 +55,7 @@ public class DateTimeService {
         return timeValidator.isValid(time, "HH:mm");
     }
 
-    public String fixTheTime(String time) {
+    public String reformatTime(String time) {
         if (timeValidator.isValid(time, "HH:mm")) {
             if (time.length() == 4) time = "0".concat(time);
         }

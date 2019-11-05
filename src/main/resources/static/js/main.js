@@ -28,6 +28,7 @@
         // Home Page 0ne Date Picker JS
 
         // Home Page 0ne Date Picker JS
+
         Date.prototype.get2HoursAfter = function (h) {
             this.setTime(this.getTime() + (h * 60 * 60 * 1000));
             return this.getHours();
@@ -52,8 +53,18 @@
             iconsLibrary: 'fontawesome'
         });
         var dt = new Date();
-        var dtToday = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
-        var dtTomorrow = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + (dt.getDate() + 1);
+        dt.setMonth(dt.getMonth()+1);
+        var d = dt.getDate();
+        var m = dt.getMonth();
+        var y = dt.getFullYear();
+        var dtToday = y + '-' + (m <= 9 ? '0' + m : m) + '-' +(d <= 9 ? '0' + d : d);
+
+        dt.setDate(dt.getDate() + 1);
+        var d2 = dt.getDate();
+        var m2 = dt.getMonth();
+        var y2 = dt.getFullYear();
+        var dtTomorrow = y2 + '-' + (m2 <= 9 ? '0' + m2 : m2) + '-' +(d2 <= 9 ? '0' + d2 : d2);
+
         var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
         $('#startDate').datepicker({
             format: 'yyyy-mm-dd',

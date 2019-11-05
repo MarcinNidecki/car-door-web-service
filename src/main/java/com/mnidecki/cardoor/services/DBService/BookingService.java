@@ -58,12 +58,12 @@ public class BookingService {
     }
 
 
-    public long countBookingDays(Timestamp rentDate, Timestamp returnDate) {
+    public int countBookingDays(Timestamp rentDate, Timestamp returnDate) {
         LocalDateTime startDateTime = rentDate.toLocalDateTime();
         LocalDateTime endDateTime = returnDate.toLocalDateTime();
         LocalTime timeStart = startDateTime.toLocalTime();
         LocalTime timeEnd = endDateTime.toLocalTime();
-        long daysBetween = ChronoUnit.DAYS.between(startDateTime, endDateTime);
+        int daysBetween = (int) ChronoUnit.DAYS.between(startDateTime, endDateTime);
         if (timeEnd.isAfter(timeStart)) {
             daysBetween += 1;
         }
