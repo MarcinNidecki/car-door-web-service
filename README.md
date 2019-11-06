@@ -30,7 +30,10 @@ JavaScript, Ajax
 ## User feature:
 <ul>
   <li>searching car according to availability on given dates</li>
+ 
   <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/1.jpg"/>
+  
+  
   <li>filtering results by car parameters</li>
     <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/2.jpg"/>
   <li>selection of additional options for booking</li>
