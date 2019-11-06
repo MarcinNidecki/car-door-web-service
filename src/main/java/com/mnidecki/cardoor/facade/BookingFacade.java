@@ -86,15 +86,17 @@ public class BookingFacade {
     
     public BookingDto prepareBooking(Long carId, Long cityId, String startTime,
                                      String endTime, String startDate, String endDate, BookingItemCreationDto bookingExtras) {
-        return new BookingDto.BookingDtoBuilder()
-                .carId(carId)
-                .bookingStatusCodeId(1L)
-                .cityId(cityId)
-                .totalCost(BigDecimal.ZERO)
-                .startDate(bookingService.stringTimeToTimestampConverter(startDate, startTime))
-                .returnDate(bookingService.stringTimeToTimestampConverter(endDate, endTime))
-                .bookingExtrasList(bookingExtras.getItems())
-                .build();
+
+       return bookingMapper.mapToBookingDto(bookingService.setAllBookingCostFields(bookingMapper.mapToBooking(
+               new BookingDto.BookingDtoBuilder()
+                    .carId(carId)
+                    .bookingStatusCodeId(1L)
+                    .cityId(cityId)
+                    .totalCost(BigDecimal.ZERO)
+                    .startDate(bookingService.stringTimeToTimestampConverter(startDate, startTime))
+                    .returnDate(bookingService.stringTimeToTimestampConverter(endDate, endTime))
+                    .bookingExtrasList(bookingExtras.getItems())
+                    .build())));
     }
 
     public void registerUserAndOrder(BookingDto bookingDto, UserDto userDto) {
