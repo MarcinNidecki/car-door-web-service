@@ -328,9 +328,9 @@ public class BookingServiceTest {
         //Given
         Booking booking = getBooking();
         //When
-        Long bookingDays = bookingService.countBookingDays(booking.getStartDate(),booking.getReturnDate());
+        int bookingDays = bookingService.countBookingDays(booking.getStartDate(),booking.getReturnDate());
         //Then
-        assertEquals(Long.valueOf(2),bookingDays);
+        assertEquals(2,bookingDays);
     }
 
     @Test
@@ -339,9 +339,9 @@ public class BookingServiceTest {
         Booking booking = getBooking();
         booking.setReturnDate(Timestamp.valueOf("2020-12-13 16:00:00"));
         //When
-        Long bookingDays = bookingService.countBookingDays(booking.getStartDate(),booking.getReturnDate());
+        int bookingDays = bookingService.countBookingDays(booking.getStartDate(),booking.getReturnDate());
         //Then
-        assertEquals(Long.valueOf(3),bookingDays);
+        assertEquals(3,bookingDays);
     }
 
     @Test
