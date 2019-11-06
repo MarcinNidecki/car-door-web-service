@@ -37,13 +37,11 @@ JavaScript, Ajax
   
    <br /> <br />
   <li>filtering results by car parameters</li> <br />
-  
-    <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/2.jpg"/> 
+     <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/2.jpg"/> 
     
     <br /> <br />
   <li>selection of additional options for booking</li> <br />
-  
-    <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/3.jpg"/> 
+     <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/3.jpg"/> 
     
     <br /> <br />
   <li>creating an account while completing the necessary data for booking, or login while creating bookings</li>
@@ -52,18 +50,15 @@ JavaScript, Ajax
     
     <br /> <br />
   <li>account activation by clicking the link</li> <br />
-  
-    <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/5.jpg"/>
+     <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/5.jpg"/>
     
     <br /> <br />
   <li>email with booking confirmation</li> <br />
-  
-    <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/6.jpg"/>
+      <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/6.jpg"/>
     
     <br /> <br />
  <li>adding comments and rating star to the car (for a given model)</li> <br />
- 
-    <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/7.jpg"/>
+     <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/7.jpg"/>
     
     <br /> <br />
 </ul>
@@ -73,23 +68,19 @@ JavaScript, Ajax
 
 <ul>
   <li>adding the make and model of the car</li> <br />
- 
-      <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/8.jpg"/>
+       <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/8.jpg"/>
       
       <br /> <br />
   <li>adding a car type (economy, premium ...)</li> <br />
-  
-      <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/9.jpg"/> 
+        <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/9.jpg"/> 
       
       <br /> <br />
   <li>adding the picture</li> <br />
-  
-      <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/10.jpg"/>
+        <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/10.jpg"/>
       
       <br /> <br />
   <li>adding a car in the exact specification</li> <br />
-  
-        <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/11.jpg"/>
+          <img src="https://github.com/MarcinNidecki/car-door-web-service/blob/master/doc/11.jpg"/>
         
         <br /> <br />
 </ul>
