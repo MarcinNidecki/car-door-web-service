@@ -12,8 +12,6 @@ public class CarTypeService {
 
     @Autowired
     private CarTypeRepository carTypeRepository;
-    @Autowired
-    private CarParametersService carParametersService;
 
     public CarType getDefaultCarType() {
         CarType unknown = carTypeRepository.findCarTypeByType("Unknown");

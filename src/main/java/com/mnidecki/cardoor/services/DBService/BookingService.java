@@ -71,15 +71,11 @@ public class BookingService {
     }
 
     public Booking setAllBookingCostFields(Booking booking) {
+        booking = countExtrasItemsCost(booking);
+        return countBasicBookingCost(booking);
+    }
 
-        booking.setBookingExtrasList(booking.getBookingExtrasList().stream()
-                .filter(item -> item.getQuantity() > 0)
-                .collect(Collectors.toList()));
-        booking.getBookingExtrasList()
-                .forEach(bookingExtrasItem ->
-                        bookingExtrasItem.setValue(BigDecimal.valueOf(bookingExtrasItem.getQuantity())
-                                .multiply(bookingExtrasItem.getBookingExtras().getPrice())));
-
+    private Booking countBasicBookingCost(Booking booking) {
         BigDecimal totalCost = booking.getBookingExtrasList().stream()
                 .map(BookingExtrasItem::getValue)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -87,7 +83,17 @@ public class BookingService {
                 new BigDecimal(countBookingDays(booking.getStartDate(), booking.getReturnDate()))));
         booking.setTotalCost(totalCost);
         return booking;
+    }
 
+    private Booking countExtrasItemsCost(Booking booking) {
+        booking.setBookingExtrasList(booking.getBookingExtrasList().stream()
+                .filter(item -> item.getQuantity() > 0)
+                .collect(Collectors.toList()));
+        booking.getBookingExtrasList()
+                .forEach(bookingExtrasItem ->
+                        bookingExtrasItem.setValue(BigDecimal.valueOf(bookingExtrasItem.getQuantity())
+                                .multiply(bookingExtrasItem.getBookingExtras().getPrice())));
+        return booking;
     }
 
     public List<BookingExtrasItem> prepareEmptyExtrasItemList() {
@@ -100,7 +106,6 @@ public class BookingService {
         return Timestamp.valueOf(LocalDateTime.parse(date + "T" + time));
     }
 
-
     public int countHappyClients() {
         Integer unhappyClient;
         unhappyClient = commentService.countAllByRatingLessThan2();
@@ -108,7 +113,5 @@ public class BookingService {
         if (allClient == 0) return 0;
         return allClient - unhappyClient;
     }
-
-
 }
 

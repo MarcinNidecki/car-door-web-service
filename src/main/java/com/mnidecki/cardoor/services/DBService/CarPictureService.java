@@ -3,8 +3,6 @@ package com.mnidecki.cardoor.services.DBService;
 import com.mnidecki.cardoor.domain.car.CarPicture;
 import com.mnidecki.cardoor.repository.CarPictureRepository;
 import com.mnidecki.cardoor.services.PictureUploadService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +17,6 @@ import java.util.Optional;
 @Transactional
 public class CarPictureService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarPictureService.class);
     @Autowired
     private CarPictureRepository carPictureRepository;
     @Autowired

@@ -10,7 +10,6 @@ public class DailyForecastService {
     @Autowired
     private DailyForecastRepository repository;
 
-
     public void deleteAllByWeather_Id(Long id) {
         repository.deleteAllWhereWeatherId(id);
     }
